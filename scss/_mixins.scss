@@ -1,0 +1,90 @@
+@use 'custom';
+@use 'extends';
+@use 'global';
+
+/* -------------------------------------------------------
+                 Define a mixin for hover
+---------------------------------------------------------*/
+
+@mixin hover($bgProperty, $bgValue, $colorProperty, $colorValue) {
+  &:hover {
+    #{$bgProperty}: $bgValue;
+    #{$colorProperty}: $colorValue;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+}
+
+/* -------------------------------------------------------
+            Define mixin for display flex
+---------------------------------------------------------*/
+@mixin d-flex($display: flex, $justify: center, $align: center, $direction: column, $text-align: center) {
+  display: $display;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $direction;
+  text-align: $text-align;
+}
+
+// @include d-flex(flex, center, center, column, center);
+
+
+/* -------------------------------------------------------
+               Define mixin for button styles
+---------------------------------------------------------*/
+@mixin button-style($bg-color, $text-color, $hover-bg-color, $hover-text-color) {
+  background-color: $bg-color;
+  text-align: center;
+  border-radius: 5px;
+  padding: 0.4rem 1rem;
+  color: $text-color;
+  z-index: 1000;
+  cursor: pointer;
+  transition: background-color 0.5s ease, color 0.5s ease;
+  border: 1px solid $primary;
+
+  // Include hover mixin for button
+  @include hover("background-color", $hover-bg-color, "color", $hover-text-color);
+}
+
+// Apply mixin for primary button
+.btn-primary {
+  @include button-style(transparent, $white, $primary, $white);
+}
+
+.btn-secondary {
+  @include button-style($primary, $white, $white, $primary);
+}
+
+
+
+/* -------------------------------------------------------
+            Define mixin for border-radius
+---------------------------------------------------------*/
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+// @include border-radius(5px);
+
+/* -------------------------------------------------------
+            Define mixin for transition
+---------------------------------------------------------*/
+@mixin transition($transition) {
+    -moz-transition:    all $transition ease;
+    -o-transition:      all $transition ease;
+    -webkit-transition: all $transition ease;
+    -ms-transition: 		all $transition ease;
+    transition:         all $transition ease;
+}
+
+// @include transition(0.5s);
+
+
+@forward "d-flex";
+@forward "hover";
+@forward "button-style";
+@forward "border-radius";
+@forward "transition";

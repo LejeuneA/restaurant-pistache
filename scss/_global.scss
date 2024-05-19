@@ -1,0 +1,86 @@
+html,
+body {
+  font-family: $font-primary;
+	background: $white;
+	font-size: 1em;
+	line-height: 2;
+	font-weight: 400;
+	color: lighten($black,40%);
+	&.menu-show {
+		overflow: hidden;
+		position: fixed;
+		height: 100%;
+		width: 100%;
+	}
+}
+
+
+a {
+	transition: .3s all ease;
+	color: $primary;
+	&:hover, &:focus {
+		text-decoration: none;
+		color: $primary;
+		outline: none !important;
+	}
+}
+h1, h2, h3, h4, h5,
+.h1, .h2, .h3, .h4, .h5 {
+	line-height: 1.5;
+	color: lighten($black,20%);
+	font-weight: 400;
+}
+
+/* -------------------------------------------------------
+                  .Class styles
+---------------------------------------------------------*/
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1em 1.5em;
+  width: 100%;
+  display: flex;
+
+  @media screen and (max-width: 768px) {
+    padding: 0.5em;
+  }
+}
+
+
+/*--------------------------------------------------------------
+                Back to top button
+--------------------------------------------------------------*/
+.back-to-top {
+	@include d-flex(flex, center, center, center, center);
+  
+	position: fixed;
+	visibility: hidden;
+	opacity: 0;
+	right: 1em;
+	bottom: 1em;
+	z-index: 996;
+	background: $primary;
+	color:$white;
+	width: 3em;
+	height: 3em;
+	border-radius: 5em;
+	transition: all 0.4s;
+  
+	&:hover {
+	  @include hover("background-color", $darken, "color", $white);
+	}
+  
+	&.active {
+	  visibility: visible;
+	  opacity: 1;
+	}
+	
+	.back-to-top i {
+	  font-size: 1em;
+	  color: $white;
+	  line-height: 0;
+	}
+  }
+  
+
+@forward "global";

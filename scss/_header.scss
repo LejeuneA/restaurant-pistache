@@ -1,0 +1,201 @@
+@use "custom";
+@use "mixins";
+@use "extends";
+@use "global";
+
+/* -------------------------------------------------------
+                    Accueil header
+---------------------------------------------------------*/
+header {
+	@include d-flex(flex, start, center, column, center);
+	height: auto;
+	width: 100%;
+	max-width: 100%;
+	background: $black;
+
+	.header-top {
+		@include d-flex(flex, center, center, row, center);
+		background: rgba(255, 255, 255, 0.05);
+		width: 100%;
+		z-index: 3;
+
+		@media (min-width: 320px) and (max-width: 992px) {
+			display: none;
+		}
+
+		.header-top-container {
+			@include d-flex(flex, space-between, center, row, center);
+			width: 100%;
+
+			.header-top-items {
+				@include d-flex(flex, start, center, row, center);
+				width: 100%;
+
+				.header-top-item {
+					@include d-flex(flex, start, center, row, center);
+					width: auto;
+					gap: 0.5em;
+
+					i {
+						color: rgba(255, 255, 255, 0.5);
+						font-size: 1em;
+
+						span {
+							color: rgba(255, 255, 255, 0.5);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.navbar {
+		background-color: transparent;
+		width: 100%;
+		max-width: 100%;
+
+		.navbar-container {
+			@include d-flex(flex, space-between, center, row, center);
+			width: 100%;
+
+			.navbar-brand {
+				font-weight: 900;
+				font-size: 2em;
+				// text-transform: uppercase;
+				// letter-spacing: 2px;
+			}
+
+			.navbar-right {
+				@include d-flex(flex, end, center, row, center);
+				width: 100%;
+				gap: 1rem;
+
+				.btn-primary {
+					@include button-style(transparent, $white, $primary, $white);
+				}
+
+				.navbar-menu {
+					@include d-flex(flex, center, center, row, center);
+					background-color: transparent;
+					height: 3em;
+					z-index: 1000;
+
+					.navbar-nav {
+						@include d-flex(flex, center, center, row, center);
+
+						.nav-item {
+							margin-right: 2em;
+
+							.nav-link {
+								@include button-style(transparent, $white, transparent, $primary);
+								padding: 0.8em;
+								border: 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		@media (min-width: 320px) and (max-width: 992px) {
+			.navbar-container {
+				// justify-content: center;
+				// align-items: center;
+
+				.navbar-right {
+					display: none;
+				}
+			}
+		}
+	}
+	/* -------------------------------------------------------
+                      Offcanvas menu
+  ---------------------------------------------------------*/
+	.navbar-hamburger {
+		display: none;
+		justify-content: flex-end; 
+		align-items: center;
+		background-color: transparent;
+		color: $primary;
+		cursor: pointer;
+		position: absolute;
+		top: 1em;
+		right: 1em; 
+		z-index: 1500; 
+		font-size: 1.3em;
+
+		i {
+			@include hover("background-color", $primary, "color", $white);
+		}
+
+		@media (min-width: 320px) and (max-width: 992px) {
+			display: flex;
+		}
+	}
+
+	.sidenav {
+		height: 100%;
+		width: 0;
+		position: fixed;
+		z-index: 1;
+		top: 0;
+		left: 0;
+		background-color: $black;
+		overflow-x: hidden;
+		transition: 0.5s;
+		padding-top: 5em;
+		z-index: 1000;
+
+		.closebtn {
+			position: absolute;
+			top: 0;
+			right: 1em;
+			font-size: 1.5em;
+			color: $primary;
+			@include hover("background-color", $black, "color", $white);
+		}
+
+		a {
+			padding: 1em;
+			text-decoration: none;
+			font-size: 1em;
+			color: $white;
+			display: block;
+
+			@include hover("background-color", transparent, "color", $primary);
+		}
+
+		.btn-primary {
+			background-color: $primary;
+			margin: 2em 1em;
+			text-align: center;
+			padding: 0.5em 1em;
+			border-radius: 5px;
+			@include hover("background-color", $black, "color", $primary);
+		}
+	}
+}
+
+/* -------------------------------------------------------
+           Offcanvas styles for smaller screens
+  ---------------------------------------------------------*/
+@media (min-width: 320px) and (max-width: 992px) {
+	#hamburger {
+		display: block;
+	}
+
+	.navbar-menu {
+		display: none;
+	}
+}
+
+/* -------------------------------------------------------
+           Offcanvas styles for larger screens
+  ---------------------------------------------------------*/
+@media (min-width: 993px) {
+	#hamburger,
+	.sidenav,
+	.closebtn {
+		display: none;
+	}
+}

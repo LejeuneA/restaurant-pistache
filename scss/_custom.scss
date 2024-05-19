@@ -1,0 +1,46 @@
+/* -------------------------------------------------------
+                 Custom colors
+---------------------------------------------------------*/
+$font-primary: 'Poppins',Arial, sans-serif;
+$font-secondary: 'Great Vibes', cursive;
+
+$primary: #c8a97e;
+$white: #fff;
+$black: #000000;
+$darken: #3a4348;
+
+
+
+
+/* -------------------------------------------------------
+                    Google fonts
+---------------------------------------------------------*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@each $weight in (100, 200, 300, 400, 500, 600, 700, 800, 900) {
+  $font-weight: unquote('#{$weight}');
+
+  .poppins-#{$font-weight} {
+    font-family: "Poppins", sans-serif;
+    font-weight: $font-weight;
+    font-style: normal;
+  }
+
+  .poppins-#{$font-weight}-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: $font-weight;
+    font-style: italic;
+  }
+}
+
+// Additional Fonts
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+.great-vibes-regular {
+  font-family: "Great Vibes", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
