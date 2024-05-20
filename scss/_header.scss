@@ -24,11 +24,11 @@ header {
 		}
 
 		.header-top-container {
-			@include d-flex(flex, space-between, center, row, center);
+			@include d-flex(flex, center, center, row, center);
 			width: 100%;
 
 			.header-top-items {
-				@include d-flex(flex, start, center, row, center);
+				@include d-flex(flex, center, center, row, center);
 				width: 100%;
 
 				.header-top-item {
