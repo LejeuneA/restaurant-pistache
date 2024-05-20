@@ -1,8 +1,3 @@
-AOS.init({
-	duration: 800,
-	easing: 'slide'
-});
-
 /* -------------------------------------------------------
 				 Offcanvas menu
 ---------------------------------------------------------*/
@@ -51,3 +46,19 @@ document.addEventListener("DOMContentLoaded", function () {
 		}
 	});
 });
+
+
+/* -------------------------------------------------------
+				  Initialize Swiper
+---------------------------------------------------------*/
+
+    var swiper = new Swiper(".mySwiper", {
+      spaceBetween: 0,
+      centeredSlides: true,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+	  loop: true,
+	  effect: "fade",
+    });

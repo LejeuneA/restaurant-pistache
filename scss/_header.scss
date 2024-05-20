@@ -4,7 +4,7 @@
 @use "global";
 
 /* -------------------------------------------------------
-                    Accueil header
+                    Home header
 ---------------------------------------------------------*/
 header {
 	@include d-flex(flex, start, center, column, center);
@@ -15,7 +15,7 @@ header {
 
 	.header-top {
 		@include d-flex(flex, center, center, row, center);
-		background: rgba(255, 255, 255, 0.05);
+		background: rgba(255, 255, 255, 0.1);
 		width: 100%;
 		z-index: 3;
 
@@ -50,19 +50,22 @@ header {
 	}
 
 	.navbar {
-		background-color: transparent;
+		background-color: rgba(255, 255, 255, 0.05);
 		width: 100%;
 		max-width: 100%;
 
 		.navbar-container {
 			@include d-flex(flex, space-between, center, row, center);
 			width: 100%;
+			height: auto;
+			padding:0;
 
 			.navbar-brand {
 				font-weight: 900;
-				font-size: 2em;
-				// text-transform: uppercase;
-				// letter-spacing: 2px;
+				font-size: 3em;
+				font-family: "Great Vibes", cursive;
+				letter-spacing: 0.1em;
+				font-weight: 400;
 			}
 
 			.navbar-right {
@@ -99,11 +102,10 @@ header {
 
 		@media (min-width: 320px) and (max-width: 1440px) {
 			.navbar-container {
-
 				.navbar-brand {
 					font-size: 1.5em;
 				}
-			
+
 				.navbar-right {
 					display: none;
 				}
@@ -115,15 +117,15 @@ header {
   	---------------------------------------------------------*/
 	.navbar-hamburger {
 		display: none;
-		justify-content: flex-end; 
+		justify-content: flex-end;
 		align-items: center;
 		background-color: transparent;
 		color: $primary;
 		cursor: pointer;
 		position: absolute;
 		top: 2%;
-		right: 2%; 
-		z-index: 1500; 
+		right: 2%;
+		z-index: 1500;
 		font-size: 1.3em;
 
 		i {
