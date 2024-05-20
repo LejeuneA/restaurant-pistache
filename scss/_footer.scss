@@ -10,16 +10,18 @@
 // Upper footer
 footer {
     .upper-footer-container {
-        @include d-flex(flex, center, center, row, center);
+        @include d-flex(flex, space-between, center, row, center);
         background-color: $black;
+        overflow-y: hidden;
+        overflow-x: hidden;
 
         .upper-footer {
-            @include d-flex(flex, center, flex-start, row, start);
-            gap: 2em;
+            @include d-flex(flex, space-between, flex-start, row, start);
+            gap: 5em;
             color: $white;
             position: relative;
             margin: 0 auto;
-            padding: 2.5em 0;
+            padding: 2.5em 1em;
 
             a {
                 @include hover("background-color", transparent, "color", $primary);
@@ -50,98 +52,192 @@ footer {
                     margin-bottom: 0;
                 }
             }
-        }
+            .footer-left {
+                @include d-flex(flex, space-between, center, row, start);
+                width: 40%;
+                gap: 4em;
 
-        .upper-footer {
-            display: flex;
-            justify-content: space-between;
+                // Logo
+                .footer-brand {
+                    display: flex;
+                    align-self: center;
+                    font-family: "Great Vibes", cursive;
+                    font-size: 3em;
+                    letter-spacing: 0.1em;
+                    font-weight: 400;
+                }
+                // Logo end
 
-            // Logo
-            .footer-brand {
-                display: flex;
-                align-self: center;
-                height: 100%;
-                font-weight: 900;
-                font-size: 2em;
-            }
-            // Logo end
+                // Open hours
+                .footer-open-hours {
+                    @include d-flex(flex, start, start, column, start);
 
-            // Open hours
-            .footer-contact {
-                @include d-flex(flex, center, flex-start, column, center);
-
-                ul li {
-                    span {
-                        margin-left: 3em;
+                    ul li {
+                        span {
+                            margin-left: 3em;
+                        }
                     }
                 }
+                // Open hours end
             }
-            // Open hours end
 
-            //Follow us
-            .footer-follow-us {
-                color: $gray;
-                p {
-                    font-size: 0.9em;
-                    width: 20em;
+            .footer-right {
+                @include d-flex(flex, space-between, start, row, start);
+                width: 60%;
+                gap: 2em;
+                //Instagram
+                .footer-instagram {
+                    @include d-flex(flex, center, start, column, center);
+                    .footer-instagram-container {
+                        @include d-flex(flex, center, center, column, center);
 
-                    @media (min-width: 320px) and (max-width: 768px) {
-                        width: 100%;
+                        .footer-instagram-items {
+                            @include d-flex(flex, center, center, row, center);
+
+                            img {
+                                width: 7em;
+                                height: auto;
+                            }
+                        }
                     }
+                }
+                //Instagram end
 
-                    &:last-child {
-                        font-size: 1em;
+                //Follow us
+                .footer-follow-us {
+                    color: $gray;
+
+                    p {
+                        width: 20em;
+
+                        @media (min-width: 320px) and (max-width: 768px) {
+                            width: 100%;
+                        }
+
+                        &:last-child {
+                            font-size: 1em;
+                        }
                     }
                 }
-            }
 
-            .social-icons {
-                margin: 1em 0;
-                color: $primary;
-                font-size: 1.2em;
+                .social-icons {
+                    margin: 1em 0;
+                    color: $primary;
+                    font-size: 1.2em;
 
-                a {
-                    padding-right: 1em;
+                    a {
+                        padding-right: 1em;
 
-                    @include hover("color", $white, "background-color", transparent);
+                        @include hover("color", $white, "background-color", transparent);
+                    }
                 }
-            }
-            //Follow us end
-        }
-
-        // Media queries for xs, sm, and md screens
-        @media (min-width: 320px) and (max-width: 768px) {
-            @include d-flex(flex, center, center, column, center);
-            .upper-footer {
-                padding: 3em;
+                //Follow us end
             }
 
-            .footer-brand {
-                margin: 0;
-
-                img {
-                    height: 3.5em;
-                }
-            }
-
-            .upper-footer {
+            // Responsive styles
+            @media (min-width: 320px) and (max-width: 768px) {
                 flex-direction: column;
                 align-items: stretch;
+                padding: 0 1em;
+                gap: 2em;
 
-                > div {
+                .footer-left,
+                .footer-right {
+                    flex-direction: column;
+                    justify-content: start;
                     width: 100%;
-                    max-width: 100%;
+                }
+
+                .footer-left {
+                    gap: 1em;
+
+                    .footer-brand {
+                        align-self: flex-start;
+                        font-size: 1.5em;
+                    }
+
+                    .footer-open-hours {
+                        align-self: flex-start;
+                    }
+                }
+
+                .footer-right {
+                    margin-bottom: 3em;
+                }
+            }
+
+            @media (min-width: 769px) and (max-width: 1080px) {
+                @include d-flex(flex, center, start, column, start);
+                gap: 3em;
+
+                .footer-left,
+                .footer-right {
+                    width: 100%;
+                }
+
+                .footer-left {
+                    @include d-flex(flex, space-evenly, center, row, start);
+                    gap: 1.5em;
+
+                    .footer-brand {
+                        font-family: "Great Vibes", cursive;
+                        font-size: 4em;
+                    }
+                }
+
+                .footer-right {
+                    @include d-flex(flex, space-evenly, center, row, start);
+                }
+            }
+
+            @media (min-width: 1081px) and (max-width: 1320px) {
+                flex-direction: row;
+                align-items: flex-start;
+                padding: 0 2em;
+                gap: 0;
+
+                .footer-left {
+                    flex-direction: column;
+                    justify-content: start;
+                    width: 100%;
+                    gap: 1em;
+                    margin-bottom: 3em;
+
+                    .footer-brand {
+                        font-size: 2em;
+                    }
+
+                    .footer-open-hours {
+                        // align-self: flex-start;
+                        // display: none;
+
+                        ul li {
+                            font-size: 0.9em;
+                            line-height: 1.5em;
+
+                            span {
+                                margin-left: 1em;
+                            }
+                        }
+                    }
+                }
+                .footer-right {
+                    @include d-flex(flex, space-between, start, row, start);
+                    width: 100%;
                 }
             }
         }
     }
-
     /* -------------------------------------------------------
                 Footer bottom section
----------------------------------------------------------*/
+    ---------------------------------------------------------*/
     .bottom-footer-container {
         background-color: $black;
-        border-top: 1px solid rgba(255,255,255,.2);
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+
+        @media (min-width: 769px) and (max-width: 1280px) {
+            padding: 0 3em;
+        }
 
         .bottom-footer {
             @include d-flex(flex, space-between, center, row, center);
