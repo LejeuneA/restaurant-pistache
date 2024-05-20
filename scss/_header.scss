@@ -19,7 +19,7 @@ header {
 		width: 100%;
 		z-index: 3;
 
-		@media (min-width: 320px) and (max-width: 992px) {
+		@media (min-width: 320px) and (max-width: 1440px) {
 			display: none;
 		}
 
@@ -97,11 +97,13 @@ header {
 			}
 		}
 
-		@media (min-width: 320px) and (max-width: 992px) {
+		@media (min-width: 320px) and (max-width: 1440px) {
 			.navbar-container {
-				// justify-content: center;
-				// align-items: center;
 
+				.navbar-brand {
+					font-size: 1.5em;
+				}
+			
 				.navbar-right {
 					display: none;
 				}
@@ -110,7 +112,7 @@ header {
 	}
 	/* -------------------------------------------------------
                       Offcanvas menu
-  ---------------------------------------------------------*/
+  	---------------------------------------------------------*/
 	.navbar-hamburger {
 		display: none;
 		justify-content: flex-end; 
@@ -119,8 +121,8 @@ header {
 		color: $primary;
 		cursor: pointer;
 		position: absolute;
-		top: 1em;
-		right: 1em; 
+		top: 2%;
+		right: 2%; 
 		z-index: 1500; 
 		font-size: 1.3em;
 
@@ -128,7 +130,7 @@ header {
 			@include hover("background-color", $primary, "color", $white);
 		}
 
-		@media (min-width: 320px) and (max-width: 992px) {
+		@media (min-width: 320px) and (max-width: 1440px) {
 			display: flex;
 		}
 	}
@@ -178,8 +180,8 @@ header {
 
 /* -------------------------------------------------------
            Offcanvas styles for smaller screens
-  ---------------------------------------------------------*/
-@media (min-width: 320px) and (max-width: 992px) {
+---------------------------------------------------------*/
+@media (min-width: 320px) and (max-width: 1440px) {
 	#hamburger {
 		display: block;
 	}
@@ -191,8 +193,8 @@ header {
 
 /* -------------------------------------------------------
            Offcanvas styles for larger screens
-  ---------------------------------------------------------*/
-@media (min-width: 993px) {
+---------------------------------------------------------*/
+@media (min-width: 1441px) {
 	#hamburger,
 	.sidenav,
 	.closebtn {
