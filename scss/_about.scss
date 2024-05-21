@@ -1,0 +1,32 @@
+@use "custom";
+@use "mixins";
+@use "extends";
+@use "global";
+
+/* -------------------------------------------------------
+                    About section
+---------------------------------------------------------*/
+
+.about-section {
+    @include d-flex(flex, center, center, row, center);
+    .about-container {
+        @include d-flex(flex, center, center, row, center);
+        .about-content {
+            .about-content-left {
+                @include d-flex(flex, center, center, row, center);
+                width: 50%;
+
+                img {
+                    width:5em;
+                    height: 5em;
+
+                }
+            }
+
+            .about-content-right {
+                @include d-flex(flex, center, center, column, center);
+                width: 50%;
+            }
+        }
+    }
+}
