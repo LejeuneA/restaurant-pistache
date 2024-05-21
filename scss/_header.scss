@@ -8,16 +8,19 @@
 ---------------------------------------------------------*/
 header {
 	@include d-flex(flex, start, center, column, center);
-	height: auto;
-	width: 100%;
-	max-width: 100%;
-	background: $black;
+    width: 100%;
+    position:absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000; 
+    background: rgba(0, 0, 0, 0.3);
 
 	.header-top {
 		@include d-flex(flex, center, center, row, center);
-		background: rgba(255, 255, 255, 0.1);
+		background-color: rgba(0, 0, 0, 0.2);
 		width: 100%;
 		z-index: 3;
+		// border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
 		@media (min-width: 320px) and (max-width: 1440px) {
 			display: none;
@@ -37,11 +40,11 @@ header {
 					gap: 0.5em;
 
 					i {
-						color: rgba(255, 255, 255, 0.5);
+						color: $gray;
 						font-size: 1em;
 
 						span {
-							color: rgba(255, 255, 255, 0.5);
+							color: $gray;
 						}
 					}
 				}
@@ -50,7 +53,7 @@ header {
 	}
 
 	.navbar {
-		background-color: rgba(255, 255, 255, 0.05);
+		background-color: rgba(0, 0, 0, 0.5);
 		width: 100%;
 		max-width: 100%;
 
