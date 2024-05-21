@@ -15,10 +15,18 @@
             .about-content-left {
                 @include d-flex(flex, center, center, row, center);
                 width: 50%;
+                overflow: hidden;
+                gap:1em;
 
                 img {
-                    width:5em;
-                    height: 5em;
+                    width:80%;
+                    height: 40em;
+                    object-fit:cover;
+                    object-position: center;
+
+                    &:last-child{
+                        margin-top: 5em;
+                    }
 
                 }
             }
