@@ -112,8 +112,57 @@
                 }
 
                 .about-content-right {
-                    @include d-flex(flex, center, center, column, center);
-                    width: 100%;
+                    @include d-flex(flex, space-between, start, column, start);
+                width: 100%;
+                height: auto;
+
+                .about-title {
+                    position: relative;
+                    width: 12em;
+                    white-space: normal;
+                    display: inline-block;
+
+                    .subheading {
+                        font-family: $font-secondary;
+                        color: $primary;
+                        font-size: 6em;
+                        line-height: 0;
+                        margin-bottom: 0;
+                        top: -50px;
+                        left: 0;
+                        right: 0;
+                        display: block;
+                        z-index: -1;
+                    }
+
+                    h2 {
+                        font-weight: 600;
+                        margin-top: 0;
+                        margin-bottom: 1em;
+                        font-size: 3.8em;
+                        line-height: 1.2;
+                    }
+                }
+
+                p {
+                    font-size: 1.2em;
+                    line-height: 2;
+                    font-weight: 400;
+                    margin-bottom: 1em;
+                }
+
+                .time{
+                    margin-bottom:0;
+                    span{
+                        display: block;
+
+                        a{
+                            font-size: 2.5em;
+                            font-weight: 700;
+                        }
+                    }
+                }
+            }
                 }
             }
         }
