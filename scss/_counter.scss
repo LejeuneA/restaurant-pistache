@@ -44,7 +44,7 @@
             flex-wrap: wrap;
 
             .counter-text {
-                @include d-flex(flex, center, center, column, start);
+                @include d-flex(flex, center, center, column, center);
 
                 .value {
                     font-size: 3em;
