@@ -52,13 +52,52 @@ document.addEventListener("DOMContentLoaded", function () {
 				  Initialize Swiper
 ---------------------------------------------------------*/
 
-    var swiper = new Swiper(".mySwiper", {
-      spaceBetween: 0,
-      centeredSlides: true,
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-      },
-	  loop: true,
-	  effect: "fade",
-    });
+var swiper = new Swiper(".mySwiper", {
+	spaceBetween: 0,
+	centeredSlides: true,
+	autoplay: {
+		delay: 3000,
+		disableOnInteraction: false,
+	},
+	loop: true,
+	effect: "fade",
+});
+
+
+/* -------------------------------------------------------
+					Counter
+---------------------------------------------------------*/
+const counters = document.querySelectorAll('.value');
+const speed = 200; // Total duration in milliseconds
+
+// Find the maximum target value
+let maxValue = 0;
+counters.forEach(counter => {
+	const value = +counter.getAttribute('akhi');
+	if (value > maxValue) {
+		maxValue = value;
+	}
+});
+
+// Calculate the total duration for the animation
+const duration = speed * counters.length;
+
+// Function to animate counters
+counters.forEach(counter => {
+	const value = +counter.getAttribute('akhi');
+	const increment = value / duration;
+
+	const animate = () => {
+		const data = +counter.innerText;
+
+		if (data < value) {
+			counter.innerText = Math.ceil(data + increment);
+			setTimeout(animate, 1);
+		} else {
+			counter.innerText = value;
+		}
+	}
+
+	animate();
+});
+
