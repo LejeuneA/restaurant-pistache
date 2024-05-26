@@ -14,6 +14,9 @@
         @include d-flex(flex, center, center, row, center);
 
         .about-content {
+            @include d-flex(flex, center, center, row, center);
+            gap: 2em;
+
             .about-content-left {
                 @include d-flex(flex, center, center, row, center);
                 width: 50%;
@@ -33,8 +36,32 @@
             }
 
             .about-content-right {
-                @include d-flex(flex, center, center, column, center);
+                @include d-flex(flex, center, start, column, start);
                 width: 50%;
+
+                .about-title {
+                    position: relative;
+
+                    .subheading {
+                        font-family: $font-secondary;
+                        color: $primary;
+                        font-size: 6em;
+                        line-height: 0;
+                        margin-bottom: 0;
+                        top: -50px;
+                        left: 0;
+                        right: 0;
+                        display: block;
+                        z-index: -1;
+                    }
+
+                    h2 {
+                        font-weight: 600;
+                        margin-top: 0;
+                        font-size: 4em;
+                        line-height: 1.1;
+                    }
+                }
             }
         }
     }
