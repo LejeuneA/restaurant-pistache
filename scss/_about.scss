@@ -9,6 +9,7 @@
 
 .about-section {
     @include d-flex(flex, center, center, row, center);
+    margin-bottom: 3em;
 
     .about-container {
         @include d-flex(flex, center, center, row, center);
@@ -125,7 +126,7 @@
                         .subheading {
                             font-family: $font-secondary;
                             color: $primary;
-                            font-size: 6em;
+                            font-size: 4em;
                             line-height: 0;
                             margin-bottom: 0;
                             top: -50px;
@@ -139,26 +140,22 @@
                             font-weight: 600;
                             margin-top: 0;
                             margin-bottom: 1em;
-                            font-size: 3.8em;
-                            line-height: 1.2;
+                            font-size: 3em;
+                            line-height: 1;
                         }
                     }
 
                     p {
-                        font-size: 1.2em;
-                        line-height: 2;
-                        font-weight: 400;
+                        font-size: 1em;
+                        line-height: 1.8;
                         margin-bottom: 1em;
                     }
 
                     .time {
-                        margin-bottom: 3em;
-                        span {
-                            display: block;
 
+                        span {
                             a {
-                                font-size: 2.5em;
-                                font-weight: 700;
+                                font-size: 2em;
                             }
                         }
                     }
