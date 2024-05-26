@@ -7,9 +7,73 @@
                     Counter section
 ---------------------------------------------------------*/
 
-.counter-container{
-    @include d-flex(flex, center, center, row, center);
-    .counter-content{
+.counter-container {
+    @include d-flex(flex, center, center, column, center);
+    height: auto;
+    padding: 2em 0;
+    width: 100%;
+    background-color: $secondary;
 
+    .counter-content {
+        @include d-flex(flex, space-between, center, row, center);
+
+        .counter-text {
+            @include d-flex(flex, center, start, column, start);
+
+            .value {
+                display: block;
+                font-size: 5em;
+                font-weight: 500;
+                color: $primary;
+                line-height: 1;
+            }
+
+            span {
+                font-size: 1.2em;
+                color: $black;
+            }
+        }
+    }
+
+    // Responsive styles for xs, sm, and md screens
+    @media (min-width: 320px) and (max-width: 768px) {
+
+        .counter-content {
+            @include d-flex(flex, space-between, center, row, center);
+            gap: 1em;
+            flex-wrap: wrap;
+
+            .counter-text {
+                @include d-flex(flex, center, center, column, start);
+
+                .value {
+                    font-size: 3em;
+                }
+
+                span {
+                    font-size: 1em;
+                }
+            }
+        }
+    }
+
+    @media (min-width: 769px) and (max-width: 1199px) {
+
+        .counter-content {
+            @include d-flex(flex, space-between, center, row, center);
+            gap: 1em;
+
+            .counter-text {
+                @include d-flex(flex, center, start, column, start);
+
+                .value {
+                    font-size: 3em;
+                }
+
+                span {
+                    font-size: 1em;
+                }
+            }
+        }
     }
 }
