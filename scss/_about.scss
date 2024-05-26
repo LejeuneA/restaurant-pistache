@@ -21,7 +21,7 @@
                 @include d-flex(flex, center, center, row, center);
                 width: 50%;
                 overflow: hidden;
-                gap: 1em;
+                gap: 3em;
 
                 img {
                     width: 80%;
@@ -36,11 +36,15 @@
             }
 
             .about-content-right {
-                @include d-flex(flex, center, start, column, start);
+                @include d-flex(flex, space-between, start, column, start);
                 width: 50%;
+                height: auto;
 
                 .about-title {
                     position: relative;
+                    width: 12em;
+                    white-space: normal;
+                    display: inline-block;
 
                     .subheading {
                         font-family: $font-secondary;
@@ -58,8 +62,28 @@
                     h2 {
                         font-weight: 600;
                         margin-top: 0;
-                        font-size: 4em;
-                        line-height: 1.1;
+                        margin-bottom: 1em;
+                        font-size: 3.8em;
+                        line-height: 1.2;
+                    }
+                }
+
+                p {
+                    font-size: 1.2em;
+                    line-height: 2;
+                    font-weight: 400;
+                    margin-bottom: 1em;
+                }
+
+                .time{
+                    margin-bottom:0;
+                    span{
+                        display: block;
+
+                        a{
+                            font-size: 2.5em;
+                            font-weight: 700;
+                        }
                     }
                 }
             }
