@@ -18,29 +18,7 @@
             @include d-flex(flex, center, center, row, center);
             gap: 2em;
 
-            .chef-content-top {
-                @include d-flex(flex, center, center, row, center);
-                width: 50%;
-                overflow: hidden;
-                gap: 3em;
-
-                img {
-                    width: 80%;
-                    height: 40em;
-                    object-fit: cover;
-                    object-position: center;
-
-                    &:last-child {
-                        margin-top: 5em;
-                    }
-                }
-            }
-
-            .chef-content-bottom {
-                @include d-flex(flex, center, start, column, start);
-                width: 50%;
-                height: auto;
-
+            .chef-content-title{
                 .chef-title {
                     position: relative;
                     width: 12em;
@@ -75,24 +53,37 @@
                     font-weight: 400;
                     margin-bottom: 1em;
                 }
+            }
 
-                .time {
-                    margin-bottom: 0;
-                    span {
-                        display: block;
+            .chef-content-top {
+                @include d-flex(flex, center, center, row, center);
+                width: 100%;
+                overflow: hidden;
+                gap: 3em;
 
-                        a {
-                            font-size: 2.5em;
-                            font-weight: 700;
-                        }
+                img {
+                    width: 80%;
+                    height: 40em;
+                    object-fit: cover;
+                    object-position: center;
+
+                    &:last-child {
+                        margin-top: 5em;
                     }
                 }
+            }
+
+            .chef-content-bottom {
+                @include d-flex(flex, center, start, column, start);
+                width: 100%;
+                height: auto;
+
             }
         }
     }
 
     // Responsive styles for xs, sm, and md screens
-    @media (min-width: 320px) and (max-width: 1199px) {
+    @media (min-width: 320px) and (max-width: 768px) {
         @include d-flex(flex, center, center, column, center);
 
         .chef-container {
@@ -116,48 +107,106 @@
                 }
 
                 .chef-content-bottom {
-                    @include d-flex(flex, center, start, column, start);
-                    width: 100%;
-                    height: auto;
-
-                    .chef-title {
-                        margin-top: 5em;
-
-                        .subheading {
-                            font-family: $font-secondary;
-                            color: $primary;
-                            font-size: 4em;
-                            line-height: 0;
-                            margin-bottom: 0;
-                            top: -50px;
-                            top: 0;
-                            bottom: 0;
-                            display: block;
-                            z-index: -1;
-                        }
-
-                        h2 {
-                            font-weight: 600;
-                            margin-top: 0;
-                            margin-bottom: 1em;
-                            font-size: 3em;
-                            line-height: 1;
-                        }
-                    }
-
-                    p {
-                        font-size: 1em;
-                        line-height: 1.8;
-                        margin-bottom: 1em;
-                    }
-
-                    .time {
-
-                        span {
-                            a {
-                                font-size: 2em;
+                        .chef-content-title{
+                        @include d-flex(flex, center, start, column, start);
+                        width: 100%;
+                        height: auto;
+    
+                        .chef-title {
+                            margin-top: 5em;
+    
+                            .subheading {
+                                font-family: $font-secondary;
+                                color: $primary;
+                                font-size: 4em;
+                                line-height: 0;
+                                margin-bottom: 0;
+                                top: -50px;
+                                top: 0;
+                                bottom: 0;
+                                display: block;
+                                z-index: -1;
+                            }
+    
+                            h2 {
+                                font-weight: 600;
+                                margin-top: 0;
+                                margin-bottom: 1em;
+                                font-size: 3em;
+                                line-height: 1;
                             }
                         }
+    
+                        p {
+                            font-size: 1em;
+                            line-height: 1.8;
+                            margin-bottom: 1em;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media (min-width: 769px) and (max-width: 1199px) {
+
+        .chef-container {
+            @include d-flex(flex, center, center, column, center);
+
+            .chef-content {
+                @include d-flex(flex, center, center, column, center);
+                width: 100%;
+
+                .chef-content-top {
+                    @include d-flex(flex, center, center, column, center);
+                    width: 100%;
+
+                    img {
+                        width: 100%;
+
+                        &:last-child {
+                            margin-top: 0em;
+                        }
+                    }
+                }
+
+                .chef-content-bottom {
+                        .chef-content-title{
+                        @include d-flex(flex, center, start, column, start);
+                        width: 100%;
+                        height: auto;
+    
+                        .chef-title {
+                            margin-top: 5em;
+    
+                            .subheading {
+                                font-family: $font-secondary;
+                                color: $primary;
+                                font-size: 6em;
+                                line-height: 0;
+                                margin-bottom: 0;
+                                top: -50px;
+                                top: 0;
+                                bottom: 0;
+                                display: block;
+                                z-index: -1;
+                            }
+    
+                            h2 {
+                                font-weight: 600;
+                                margin-top: 0;
+                                margin-bottom: 1em;
+                                font-size: 3.8em;
+                                line-height: 1;
+                            }
+                        }
+    
+                        p {
+                            font-size: 1.2em;
+                            line-height: 1.8;
+                            margin-bottom: 1em;
+                        }
+    
                     }
                 }
             }
