@@ -9,28 +9,24 @@
 
 .chef-section {
     @include d-flex(flex, center, center, row, center);
-    margin-bottom: 3em;
+    margin: 2em 0;
 
     .chef-container {
         @include d-flex(flex, center, center, row, center);
 
         .chef-content {
-            @include d-flex(flex, center, center, row, center);
+            @include d-flex(flex, center, center, column, center);
             gap: 2em;
 
-            .chef-content-title{
+            .chef-content-title {
                 .chef-title {
-                    position: relative;
-                    width: 12em;
-                    white-space: normal;
-                    display: inline-block;
-
                     .subheading {
                         font-family: $font-secondary;
                         color: $primary;
                         font-size: 6em;
                         line-height: 0;
                         margin-bottom: 0;
+                        margin-top: 1em;
                         top: -50px;
                         top: 0;
                         bottom: 0;
@@ -39,7 +35,7 @@
                     }
 
                     h2 {
-                        font-weight: 600;
+                        font-weight: 800;
                         margin-top: 0;
                         margin-bottom: 1em;
                         font-size: 3.8em;
@@ -55,29 +51,47 @@
                 }
             }
 
-            .chef-content-top {
-                @include d-flex(flex, center, center, row, center);
+            .chef-content-info {
+                @include d-flex(flex, space-between, start, row, center);
                 width: 100%;
                 overflow: hidden;
-                gap: 3em;
+                gap: 2em;
 
-                img {
-                    width: 80%;
-                    height: 40em;
-                    object-fit: cover;
-                    object-position: center;
+                .chef-info-items {
+                    @include d-flex(flex, center, start, column, start);
 
-                    &:last-child {
-                        margin-top: 5em;
+                    img {
+                        width: 20em;
+                        height: 100%;
+                        margin-bottom: 1.5em;
+                    }
+
+                    p {
+                        font-size: 1.2em;
+                        line-height: 2;
+                        font-weight: 500;
+                        color: $black;
+                        line-height: 1.3em;
+
+                        span {
+                            display: block;
+                            color: $primary;
+                            font-size: 0.9em;
+                            font-weight: 700;
+                        }
+                    }
+
+                    ul{
+                        @include d-flex(flex, start, start, row, start);
+                        gap:1em;
+                        padding: 0;
+                        margin: 0.5em 0 0;
+
+                        li{
+                            font-size: 1.2em;
+                        }
                     }
                 }
-            }
-
-            .chef-content-bottom {
-                @include d-flex(flex, center, start, column, start);
-                width: 100%;
-                height: auto;
-
             }
         }
     }
@@ -93,55 +107,48 @@
                 @include d-flex(flex, center, center, column, center);
                 width: 100%;
 
-                .chef-content-top {
-                    @include d-flex(flex, center, center, column, center);
+                .chef-content-title {
+                    @include d-flex(flex, center, start, column, start);
                     width: 100%;
+                    height: auto;
 
-                    img {
-                        width: 100%;
+                    .chef-title {
+                        margin-top: 3em;
 
-                        &:last-child {
-                            margin-top: 0em;
+                        .subheading {
+                            font-family: $font-secondary;
+                            color: $primary;
+                            font-size: 4em;
+                            line-height: 0;
+                            margin-bottom: 0;
+                            top: -50px;
+                            top: 0;
+                            bottom: 0;
+                            display: block;
+                            z-index: -1;
                         }
+
+                        h2 {
+                            font-weight: 600;
+                            margin-top: 0;
+                            margin-bottom: 1em;
+                            font-size: 3em;
+                            line-height: 1;
+                        }
+                    }
+                    p {
+                        font-size: 1em;
+                        line-height: 1.8;
+                        margin-bottom: 1em;
                     }
                 }
 
-                .chef-content-bottom {
-                        .chef-content-title{
-                        @include d-flex(flex, center, start, column, start);
-                        width: 100%;
-                        height: auto;
-    
-                        .chef-title {
-                            margin-top: 5em;
-    
-                            .subheading {
-                                font-family: $font-secondary;
-                                color: $primary;
-                                font-size: 4em;
-                                line-height: 0;
-                                margin-bottom: 0;
-                                top: -50px;
-                                top: 0;
-                                bottom: 0;
-                                display: block;
-                                z-index: -1;
-                            }
-    
-                            h2 {
-                                font-weight: 600;
-                                margin-top: 0;
-                                margin-bottom: 1em;
-                                font-size: 3em;
-                                line-height: 1;
-                            }
-                        }
-    
-                        p {
-                            font-size: 1em;
-                            line-height: 1.8;
-                            margin-bottom: 1em;
-                        }
+                .chef-content-info {
+                    @include d-flex(flex, center, center, column, center);
+                    width: 100%;
+                    margin-top: 2em;
+
+                    .chef-info-items {
                     }
                 }
             }
@@ -149,7 +156,6 @@
     }
 
     @media (min-width: 769px) and (max-width: 1199px) {
-
         .chef-container {
             @include d-flex(flex, center, center, column, center);
 
@@ -157,56 +163,48 @@
                 @include d-flex(flex, center, center, column, center);
                 width: 100%;
 
-                .chef-content-top {
-                    @include d-flex(flex, center, center, column, center);
+                .chef-content-title {
+                    @include d-flex(flex, center, start, column, start);
                     width: 100%;
+                    height: auto;
 
-                    img {
-                        width: 100%;
+                    .chef-title {
+                        margin-top: 3em;
 
-                        &:last-child {
-                            margin-top: 0em;
+                        .subheading {
+                            font-family: $font-secondary;
+                            color: $primary;
+                            font-size: 6em;
+                            line-height: 0;
+                            margin-bottom: 0;
+                            top: -50px;
+                            top: 0;
+                            bottom: 0;
+                            display: block;
+                            z-index: -1;
                         }
+
+                        h2 {
+                            font-weight: 600;
+                            margin-top: 0;
+                            margin-bottom: 1em;
+                            font-size: 3.8em;
+                            line-height: 1;
+                        }
+                    }
+
+                    p {
+                        font-size: 1.2em;
+                        line-height: 1.8;
+                        margin-bottom: 1em;
                     }
                 }
 
-                .chef-content-bottom {
-                        .chef-content-title{
-                        @include d-flex(flex, center, start, column, start);
-                        width: 100%;
-                        height: auto;
-    
-                        .chef-title {
-                            margin-top: 5em;
-    
-                            .subheading {
-                                font-family: $font-secondary;
-                                color: $primary;
-                                font-size: 6em;
-                                line-height: 0;
-                                margin-bottom: 0;
-                                top: -50px;
-                                top: 0;
-                                bottom: 0;
-                                display: block;
-                                z-index: -1;
-                            }
-    
-                            h2 {
-                                font-weight: 600;
-                                margin-top: 0;
-                                margin-bottom: 1em;
-                                font-size: 3.8em;
-                                line-height: 1;
-                            }
-                        }
-    
-                        p {
-                            font-size: 1.2em;
-                            line-height: 1.8;
-                            margin-bottom: 1em;
-                        }
-    
+                .chef-content-info {
+                    @include d-flex(flex, center, center, column, center);
+                    width: 100%;
+
+                    .chef-info-items {
                     }
                 }
             }
