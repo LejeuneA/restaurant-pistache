@@ -16,7 +16,7 @@
 
         .chef-content {
             @include d-flex(flex, center, center, column, center);
-            gap: 2em;
+            width: 100%;
 
             .chef-content-title {
                 .chef-title {
@@ -47,48 +47,52 @@
                     font-size: 1.2em;
                     line-height: 2;
                     font-weight: 400;
-                    margin-bottom: 1em;
+                    margin-bottom: 2em;
                 }
             }
 
             .chef-content-info {
-                @include d-flex(flex, space-between, start, row, center);
+                @include d-flex(flex, center, start, row, center);
                 width: 100%;
-                overflow: hidden;
-                gap: 2em;
 
                 .chef-info-items {
-                    @include d-flex(flex, center, start, column, start);
+                    @include d-flex(flex, space-between, center, row, center);
+                    gap: 2em;
+                    width: 100%;
 
-                    img {
-                        width: 20em;
-                        height: 100%;
-                        margin-bottom: 1.5em;
-                    }
+                    .chef-info-item {
+                        @include d-flex(flex, center, start, column, start);
 
-                    p {
-                        font-size: 1.2em;
-                        line-height: 2;
-                        font-weight: 500;
-                        color: $black;
-                        line-height: 1.3em;
-
-                        span {
-                            display: block;
-                            color: $primary;
-                            font-size: 0.9em;
-                            font-weight: 700;
+                        img {
+                            width: 18em;
+                            height: 100%;
+                            margin-bottom: 1.5em;
                         }
-                    }
 
-                    ul{
-                        @include d-flex(flex, start, start, row, start);
-                        gap:1em;
-                        padding: 0;
-                        margin: 0.5em 0 0;
-
-                        li{
+                        p {
                             font-size: 1.2em;
+                            line-height: 2;
+                            font-weight: 500;
+                            color: $black;
+                            line-height: 1.3em;
+
+                            span {
+                                display: block;
+                                color: $primary;
+                                font-size: 0.9em;
+                                font-weight: 700;
+                            }
+                        }
+
+                        ul {
+                            @include d-flex(flex, start, start, row, start);
+                            gap: 1em;
+                            padding: 0;
+                            margin: 0.5em 0 0;
+
+                            li {
+                                font-size: 1.2em;
+                            }
                         }
                     }
                 }
@@ -149,6 +153,18 @@
                     margin-top: 2em;
 
                     .chef-info-items {
+                        @include d-flex(flex, center, center, column, center);
+                        width: 100%;
+                        gap:4em;
+
+                        .chef-info-item {
+                            @include d-flex(flex, center, center, column, center);        
+
+                            img {
+                                width: 100%;
+                            }
+    
+                        }
                     }
                 }
             }
@@ -203,8 +219,21 @@
                 .chef-content-info {
                     @include d-flex(flex, center, center, column, center);
                     width: 100%;
+                    margin-top: 2em;
 
                     .chef-info-items {
+                        @include d-flex(flex, center, center, column, center);
+                        width: 100%;
+                        gap:4em;
+
+                        .chef-info-item {
+                            @include d-flex(flex, center, center, column, center);        
+
+                            img {
+                                width: 100%;
+                            }
+    
+                        }
                     }
                 }
             }
