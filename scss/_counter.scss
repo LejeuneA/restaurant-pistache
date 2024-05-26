@@ -1,0 +1,15 @@
+@use "custom";
+@use "mixins";
+@use "extends";
+@use "global";
+
+/* -------------------------------------------------------
+                    Counter section
+---------------------------------------------------------*/
+
+.counter-container{
+    @include d-flex(flex, center, center, row, center);
+    .counter-content{
+
+    }
+}
