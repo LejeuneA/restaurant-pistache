@@ -5,6 +5,7 @@ $font-primary: 'Poppins',Arial, sans-serif;
 $font-secondary: 'Great Vibes', cursive;
 
 $primary: #c8a97e;
+$secondary: mix($primary, rgba(255, 255, 255, 0), 50%);
 $white: #fff;
 $black: #000000;
 $darken: #3a4348;
