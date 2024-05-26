@@ -41,13 +41,13 @@
                 width: 100%;
                 height: auto;
 
-                .about-content-title{
+                .about-content-title {
                     .about-title {
                         position: relative;
                         width: 12em;
                         white-space: normal;
                         display: inline-block;
-    
+
                         .subheading {
                             font-family: $font-secondary;
                             color: $primary;
@@ -60,7 +60,7 @@
                             display: block;
                             z-index: -1;
                         }
-    
+
                         h2 {
                             font-weight: 600;
                             margin-top: 0;
@@ -69,7 +69,7 @@
                             line-height: 1.2;
                         }
                     }
-    
+
                     p {
                         font-size: 1.2em;
                         line-height: 2;
@@ -89,7 +89,6 @@
                         }
                     }
                 }
-
             }
         }
     }
@@ -120,14 +119,14 @@
                 }
 
                 .about-content-right {
-                        .about-content-title{
+                    .about-content-title {
                         @include d-flex(flex, center, start, column, start);
                         width: 100%;
                         height: auto;
-    
+
                         .about-title {
                             margin-top: 3em;
-    
+
                             .subheading {
                                 font-family: $font-secondary;
                                 color: $primary;
@@ -140,7 +139,7 @@
                                 display: block;
                                 z-index: -1;
                             }
-    
+
                             h2 {
                                 font-weight: 600;
                                 margin-top: 0;
@@ -154,22 +153,21 @@
                             line-height: 1.8;
                             margin-bottom: 1em;
                         }
-                        .time {
-                            span {
-                                a {
-                                    font-size: 2em;
-                                }
+                    }
+
+                    .time {
+                        span {
+                            a {
+                                font-size: 2em;
                             }
                         }
                     }
-
                 }
             }
         }
     }
 
     @media (min-width: 769px) and (max-width: 1199px) {
-
         .about-container {
             @include d-flex(flex, center, center, column, center);
 
@@ -191,14 +189,14 @@
                 }
 
                 .about-content-right {
-                        .about-content-title{
+                    .about-content-title {
                         @include d-flex(flex, center, start, column, start);
                         width: 100%;
                         height: auto;
-    
+
                         .about-title {
                             margin-top: 3em;
-    
+
                             .subheading {
                                 font-family: $font-secondary;
                                 color: $primary;
@@ -211,7 +209,7 @@
                                 display: block;
                                 z-index: -1;
                             }
-    
+
                             h2 {
                                 font-weight: 600;
                                 margin-top: 0;
@@ -220,18 +218,18 @@
                                 line-height: 1;
                             }
                         }
-    
+
                         p {
                             font-size: 1.2em;
                             line-height: 1.8;
                             margin-bottom: 1em;
                         }
-    
-                        .time {
-                            span {
-                                a {
-                                    font-size: 2.5em;
-                                }
+                    }
+
+                    .time {
+                        span {
+                            a {
+                                font-size: 2.5em;
                             }
                         }
                     }
