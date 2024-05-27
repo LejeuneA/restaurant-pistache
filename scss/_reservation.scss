@@ -63,7 +63,7 @@
             form {
                 @include d-flex(flex, center, center, column, center);
                 width: 100%;
-                
+
                 .reservation-form-container {
                     @include d-flex(flex, center, center, row, center);
                     gap: 3em;
