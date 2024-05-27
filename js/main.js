@@ -68,36 +68,36 @@ var swiper = new Swiper(".mySwiper", {
 					Counter
 ---------------------------------------------------------*/
 const counters = document.querySelectorAll('.value');
-const speed = 200; // Total duration in milliseconds
-
-// Find the maximum target value
-let maxValue = 0;
-counters.forEach(counter => {
-	const value = +counter.getAttribute('akhi');
-	if (value > maxValue) {
-		maxValue = value;
-	}
-});
-
-// Calculate the total duration for the animation
-const duration = speed * counters.length;
+const speed = 3000;
 
 // Function to animate counters
 counters.forEach(counter => {
-	const value = +counter.getAttribute('akhi');
-	const increment = value / duration;
+    const value = +counter.getAttribute('akhi');
+    const increment = value / speed;
 
-	const animate = () => {
-		const data = +counter.innerText;
+    const animate = () => {
+        const data = +counter.innerText;
 
-		if (data < value) {
-			counter.innerText = Math.ceil(data + increment);
-			setTimeout(animate, 1);
-		} else {
-			counter.innerText = value;
-		}
-	}
+        if (data < value) {
+            counter.innerText = Math.ceil(data + increment);
+            setTimeout(animate, 30); // Increase timeout for slower updates
+        } else {
+            counter.innerText = value;
+        }
+    }
 
-	animate();
+    animate();
 });
 
+
+/* -------------------------------------------------------
+						Aos js
+---------------------------------------------------------*/
+document.addEventListener('DOMContentLoaded', function() {
+	AOS.init({
+		duration: 1200, 
+		easing: 'ease-in-out', 
+		once: true, 
+		offset: 100
+	});
+});
