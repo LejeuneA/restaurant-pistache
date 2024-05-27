@@ -1,54 +1,78 @@
 html,
 body {
-  font-family: $font-primary;
+	font-family: $font-primary;
 	background: $white;
 	font-size: 1em;
 	line-height: 2;
 	font-weight: 400;
-	color: lighten($black,40%);
+	color: lighten($black, 40%);
 	position: relative;
 	width: 100%;
 	height: 100%;
 }
 
 a {
-	transition: .3s all ease;
+	transition: 0.3s all ease;
 	color: $primary;
-	&:hover, &:focus {
+	&:hover,
+	&:focus {
 		text-decoration: none;
 		color: $primary;
 		outline: none !important;
 	}
 }
-h1, h2, h3, h4, h5,
-.h1, .h2, .h3, .h4, .h5 {
+h1,
+h2,
+h3,
+h4,
+h5,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5 {
 	line-height: 1.5;
-	color: lighten($black,20%);
+	color: lighten($black, 20%);
 	font-weight: 400;
+}
+
+label {
+	display: inline-block;
+	margin-bottom: 0.5rem;
+}
+
+input,
+button,
+select,
+optgroup,
+textarea {
+	margin: 0;
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
 }
 
 /* -------------------------------------------------------
                   .Class styles
 ---------------------------------------------------------*/
 .container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 1em 1.5em;
-  width: 100%;
-  display: flex;
+	max-width: 1400px;
+	margin: 0 auto;
+	padding: 1em 1.5em;
+	width: 100%;
+	display: flex;
 
-  @media (min-width: 320px) and (max-width: 768px) {
-    padding: 0.5em 1em;
-  }
+	@media (min-width: 320px) and (max-width: 768px) {
+		padding: 0.5em 1em;
+	}
 }
-
 
 /*--------------------------------------------------------------
                 Back to top button
 --------------------------------------------------------------*/
 .back-to-top {
 	@include d-flex(flex, center, center, center, center);
-  
+
 	position: fixed;
 	visibility: hidden;
 	opacity: 0;
@@ -56,27 +80,26 @@ h1, h2, h3, h4, h5,
 	bottom: 1em;
 	z-index: 996;
 	background: $primary;
-	color:$white;
+	color: $white;
 	width: 3em;
 	height: 3em;
 	border-radius: 5em;
 	transition: all 0.4s;
-  
+
 	&:hover {
-	  @include hover("background-color", $darken, "color", $white);
+		@include hover("background-color", $darken, "color", $white);
 	}
-  
+
 	&.active {
-	  visibility: visible;
-	  opacity: 1;
+		visibility: visible;
+		opacity: 1;
 	}
-	
+
 	.back-to-top i {
-	  font-size: 1em;
-	  color: $white;
-	  line-height: 0;
+		font-size: 1em;
+		color: $white;
+		line-height: 0;
 	}
-  }
-  
+}
 
 @forward "global";
