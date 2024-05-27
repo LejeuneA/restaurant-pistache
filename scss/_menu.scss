@@ -17,6 +17,13 @@
     background-repeat: no-repeat;
     background-attachment: fixed; 
 
+    h2{
+        font-size: 5em;
+        color:$white;
+        font-weight: 900;
+        text-shadow: $text-shadow;
+    }
+
     .hero-container{
         @include d-flex(flex, center, center, column, center);
     }
