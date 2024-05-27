@@ -138,7 +138,7 @@ footer {
             @media (min-width: 320px) and (max-width: 768px) {
                 flex-direction: column;
                 align-items: stretch;
-                padding: 0 1em;
+                padding: 2em;
                 gap: 2em;
 
                 .footer-left,
@@ -193,7 +193,7 @@ footer {
             @media (min-width: 1081px) and (max-width: 1320px) {
                 flex-direction: row;
                 align-items: flex-start;
-                padding: 0 2em;
+                padding: 2em;
                 gap: 0;
 
                 .footer-left {
