@@ -1,0 +1,23 @@
+@use "custom";
+@use "mixins";
+@use "extends";
+@use "global";
+
+/* -------------------------------------------------------
+                        Menu page
+---------------------------------------------------------*/
+
+.hero-section{
+    @include d-flex(flex, center, center, column, center);
+    background-image: url('../assets/images/menu-bg.jpg');
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+
+    .hero-container{
+        @include d-flex(flex, center, center, column, center);
+    }
+}
