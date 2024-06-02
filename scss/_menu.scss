@@ -144,29 +144,16 @@ main {
                 }
 
                 // Responsive styles for xs, sm, and md screens
-                @media (min-width: 320px) and (max-width: 768px) {  
+                @media (min-width: 320px) and (max-width: 568px) {  
                     @include d-flex(flex, center, start, column, start);
-                    gap:2em;
+                    gap:1em;
                     flex-wrap: wrap;
-                    margin-bottom: 2em;
+                    margin-bottom: 1em;
 
 
                     .menu-item {
                         @include d-flex(flex, center, start, column, start);
                         flex-wrap: wrap;
-
-                        &:nth-child(2) {
-                            .menu-item-image {
-                                order: 2;
-                                width: 10em;
-                                height: 10em;
-                            }
-                            .menu-item-info {
-                                order: 1;
-                                width: 10em;
-                                height: 10em;
-                            }
-                        }
                     }
 
                     .reverse {
@@ -185,7 +172,7 @@ main {
                     }
                 }
 
-                @media (min-width: 769px) and (max-width: 1199px) {
+                @media (min-width: 569px) and (max-width: 768px) {
                     flex-wrap: wrap;
 
                     .menu-item {
@@ -218,5 +205,41 @@ main {
                 }
             }
         }
+    }
+
+    @media screen and (max-width: 768px) {  
+        .hero-section {
+            background-image: url("../assets/images/menu-bg-vertical.jpg");
+    
+            h2 {
+                font-size: 2em;
+            }
+        }
+
+        .menu-section{
+            .menu-container{
+                .menu-navbar{
+                    
+                    .menu-navbar-items{
+                        @include d-flex(flex, center, center, column, center);
+
+                        .menu-navbar-item{
+                            width: 15em;
+                            a{
+                                font-size: 1em;
+
+                            }
+                            &.active {
+    
+                                &::after {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
     }
 }
