@@ -161,72 +161,88 @@
                     <div class="menu-content" id="starter-content">
                         <!-- Menu items -->
                         <div class="menu-items" data-aos="fade-up" data-aos-delay="150">
-                            <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
-                            <div class="menu-item-info">
-                                <h3 class="menu-item-title">Scottish smoked label salmon</h3>
-                                <span class="menu-item-price">€20.00</span>
-                                <p>Salmon filet, Kosher salt, Brown sugar, Olive oil</p>
+                            <div class="menu-item">
+                                <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
+                                <div class="menu-item-info">
+                                    <h3 class="menu-item-title">Scottish smoked label salmon</h3>
+                                    <span class="menu-item-price">€20.00</span>
+                                    <p>Salmon filet, Kosher salt, Brown sugar, Olive oil</p>
+                                </div>
                             </div>
 
-                            <img class="menu-item-image" src="../uploads/starter-2.jpg" alt="Scottish red label salmon">
-                            <div class="menu-item-info">
-                                <h3 class="menu-item-title">Ravioli with tomato sauce and dill</h3>
-                                <span class="menu-item-price">€22.00</span>
-                                <p>Ravolli, Tomato sauce, Dill, Olive oil</p>
+                            <div class="menu-item">
+                                <img class="menu-item-image" src="../uploads/starter-2.jpg" alt="Scottish red label salmon">
+                                <div class="menu-item-info">
+                                    <h3 class="menu-item-title">Ravioli with tomato sauce and dill</h3>
+                                    <span class="menu-item-price">€22.00</span>
+                                    <p>Ravolli, Tomato sauce, Dill, Olive oil</p>
+                                </div>
                             </div>
                         </div>
                         <!-- Menu items end -->
 
                         <!-- Menu items -->
-                        <div class="menu-items" data-aos="fade-up" data-aos-delay="300">
-                            <img class="menu-item-image" src="../uploads/starter-3.jpg" alt="Scottish red label salmon">
-                            <div class="menu-item-info">
-                                <h3 class="menu-item-title">Tuna salad with tomatoes</h3>
-                                <span class="menu-item-price">€21.00</span>
-                                <p>Tuna fish, Boiled egg, Tomatoes, Lemon</p>
+                        <div class="menu-items reverse" data-aos="fade-up" data-aos-delay="300">
+                            <div class="menu-item">
+                                <div class="menu-item-info">
+                                    <h3 class="menu-item-title">Tuna salad with tomatoes</h3>
+                                    <span class="menu-item-price">€21.00</span>
+                                    <p>Tuna fish, Boiled egg, Tomatoes, Lemon</p>
+                                </div>
+                                <img class="menu-item-image" src="../uploads/starter-3.jpg" alt="Scottish red label salmon">
                             </div>
 
-                            <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
-                            <div class="menu-item-info">
-                                <h3 class="menu-item-title">Scottish smoked label salmon</h3>
-                                <span class="menu-item-price">€14.99</span>
-                                <p>Salmon filet, Kosher salt, Brown sugar, Olive oil</p>
+                            <div class="menu-item">
+                                <div class="menu-item-info">
+                                    <h3 class="menu-item-title">Shrimps in batter with sauce</h3>
+                                    <span class="menu-item-price">€19.00</span>
+                                    <p>Shrimps, Fresh vegetable salad, Lemon, Sauce</p>
+                                </div>
+                                <img class="menu-item-image" src="../uploads/starter-4.jpg" alt="Scottish red label salmon">
                             </div>
                         </div>
                         <!-- Menu items end -->
 
                         <!-- Menu items -->
                         <div class="menu-items" data-aos="fade-up" data-aos-delay="450">
-                            <img class="menu-item-image" src="../uploads/starter-3.jpg" alt="Scottish red label salmon">
-                            <div class="menu-item-info">
-                                <h3 class="menu-item-title">Tuna salad with tomatoes</h3>
-                                <span class="menu-item-price">€21.00</span>
-                                <p>Tuna fish, Boiled egg, Tomatoes, Lemon</p>
+                            <div class="menu-item">
+                                <img class="menu-item-image" src="../uploads/starter-5.jpg" alt="Scottish red label salmon">
+                                <div class="menu-item-info">
+                                    <h3 class="menu-item-title">Fried squid</h3>
+                                    <span class="menu-item-price">€19.00</span>
+                                    <p>Clamari, Fresh vegetable salad, Lemon, Sauce</p>
+                                </div>
                             </div>
 
-                            <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
-                            <div class="menu-item-info">
-                                <h3 class="menu-item-title">Scottish smoked label salmon</h3>
-                                <span class="menu-item-price">€14.99</span>
-                                <p>Salmon filet, Kosher salt, Brown sugar, Olive oil</p>
+                            <div class="menu-item">
+                                <img class="menu-item-image" src="../uploads/starter-6.jpg" alt="Scottish red label salmon">
+                                <div class="menu-item-info">
+                                    <h3 class="menu-item-title">Steak tartare</h3>
+                                    <span class="menu-item-price">€19.00</span>
+                                    <p>Beef fillet, Shallots, Cornichons, Yolk egg</p>
+                                </div>
                             </div>
                         </div>
                         <!-- Menu items end -->
 
                         <!-- Menu items -->
-                        <div class="menu-items" data-aos="fade-up" data-aos-delay="600">
-                            <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
-                            <div class="menu-item-info">
-                                <h3 class="menu-item-title">Scottish smoked label salmon</h3>
-                                <span class="menu-item-price">€14.99</span>
-                                <p>Salmon filet, Kosher salt, Brown sugar, Olive oil</p>
+                        <div class="menu-items reverse" data-aos="fade-up" data-aos-delay="600">
+                            <div class="menu-item">
+                                <div class="menu-item-info">
+                                    <h3 class="menu-item-title">Chicken liver pâté</h3>
+                                    <span class="menu-item-price">€21.00</span>
+                                    <p>Chicken livers, Onion, Double cream, Toast</p>
+                                </div>
+                                <img class="menu-item-image" src="../uploads/starter-7.jpg" alt="Scottish red label salmon">
                             </div>
 
-                            <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
-                            <div class="menu-item-info">
-                                <h3 class="menu-item-title">Scottish smoked label salmon</h3>
-                                <span class="menu-item-price">€14.99</span>
-                                <p>Salmon filet, Kosher salt, Brown sugar, Olive oil</p>
+                            <div class="menu-item">
+                                <div class="menu-item-info">
+                                    <h3 class="menu-item-title">French onion soup</h3>
+                                    <span class="menu-item-price">€19.00</span>
+                                    <p>Onions, Beef stock, Butter, Parsley</p>
+                                </div>
+                                <img class="menu-item-image" src="../uploads/starter-8.jpg" alt="Scottish red label salmon">
                             </div>
                         </div>
                         <!-- Menu items end -->
@@ -255,19 +271,19 @@
 
                         <!-- Menu items -->
                         <div class="menu-items" data-aos="fade-up" data-aos-delay="300">
-                            <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
                             <div class="menu-item-info">
                                 <h3 class="menu-item-title">Scottish smoked label salmon</h3>
                                 <span class="menu-item-price">€14.99</span>
                                 <p>Salmon filet, Kosher salt, Brown sugar, Olive oil</p>
                             </div>
+                            <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
 
-                            <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
                             <div class="menu-item-info">
                                 <h3 class="menu-item-title">Scottish smoked label salmon</h3>
                                 <span class="menu-item-price">€14.99</span>
                                 <p>Salmon filet, Kosher salt, Brown sugar, Olive oil</p>
                             </div>
+                            <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
                         </div>
                         <!-- Menu items end -->
 
@@ -291,19 +307,19 @@
 
                         <!-- Menu items -->
                         <div class="menu-items" data-aos="fade-up" data-aos-delay="600">
-                            <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
                             <div class="menu-item-info">
                                 <h3 class="menu-item-title">Scottish smoked label salmon</h3>
                                 <span class="menu-item-price">€14.99</span>
                                 <p>Salmon filet, Kosher salt, Brown sugar, Olive oil</p>
                             </div>
+                            <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
 
-                            <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
                             <div class="menu-item-info">
                                 <h3 class="menu-item-title">Scottish smoked label salmon</h3>
                                 <span class="menu-item-price">€14.99</span>
                                 <p>Salmon filet, Kosher salt, Brown sugar, Olive oil</p>
                             </div>
+                            <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
                         </div>
                         <!-- Menu items end -->
                     </div>
@@ -330,19 +346,19 @@
 
                         <!-- Menu items -->
                         <div class="menu-items" data-aos="fade-up" data-aos-delay="300">
-                            <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
                             <div class="menu-item-info">
                                 <h3 class="menu-item-title">Scottish smoked label salmon</h3>
                                 <span class="menu-item-price">€14.99</span>
                                 <p>Salmon filet, Kosher salt, Brown sugar, Olive oil</p>
                             </div>
+                            <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
 
-                            <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
                             <div class="menu-item-info">
                                 <h3 class="menu-item-title">Scottish smoked label salmon</h3>
                                 <span class="menu-item-price">€14.99</span>
                                 <p>Salmon filet, Kosher salt, Brown sugar, Olive oil</p>
                             </div>
+                            <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
                         </div>
                         <!-- Menu items end -->
 
@@ -366,19 +382,19 @@
 
                         <!-- Menu items -->
                         <div class="menu-items" data-aos="fade-up" data-aos-delay="600">
-                            <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
                             <div class="menu-item-info">
                                 <h3 class="menu-item-title">Scottish smoked label salmon</h3>
                                 <span class="menu-item-price">€14.99</span>
                                 <p>Salmon filet, Kosher salt, Brown sugar, Olive oil</p>
                             </div>
+                            <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
 
-                            <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
                             <div class="menu-item-info">
                                 <h3 class="menu-item-title">Scottish smoked label salmon</h3>
                                 <span class="menu-item-price">€14.99</span>
                                 <p>Salmon filet, Kosher salt, Brown sugar, Olive oil</p>
                             </div>
+                            <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
                         </div>
                         <!-- Menu items end -->
                     </div>
