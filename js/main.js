@@ -133,3 +133,11 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+/* -------------------------------------------------------
+set the active class on the menu item when on menu.php
+---------------------------------------------------------*/
+document.addEventListener('DOMContentLoaded', function() {
+	if (window.location.pathname.endsWith('menu.php')) {
+		document.getElementById('menu-starter').classList.add('active');
+	}
+});
