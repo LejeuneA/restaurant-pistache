@@ -294,7 +294,7 @@
         ------------------------------------------------------------------>
         <section class="reservation-section">
             <!--Reservation container-->
-            <div class="reservation-container container"  data-aos="fade-in" data-aos-delay="800">
+            <div class="reservation-container container" data-aos="fade-in" data-aos-delay="800">
                 <!--Reservation content-->
                 <div class="reservation-content">
                     <div class="reservation-content-title">
