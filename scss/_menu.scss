@@ -40,35 +40,46 @@ main {
 
                 .menu-navbar-items {
                     @include d-flex(flex, center, center, row, center);
-
-                    gap: 1em;
+                    padding: 0;
 
                     .menu-navbar-item {
-                        background-color: $primary;
+                        position: relative; 
+                        background-color: inherit;
                         padding: 1em 2em;
 
                         &:hover {
-                            background-color: $primary-hover;
+                            background-color: $primary;
                         }
 
                         &.active {
-                            position: absolute;
-                            bottom: -10px;
-                            left: 0;
-                            right: 0;
-                            width: 0;
-                            content: "";
-                            height: 0;
-                            margin: 0 auto;
-                            border-style: solid;
-                            border-width: 10px 10px 0 10px;
-                            border-color: #c8a97e transparent transparent transparent;
+                            background-color: $primary;
+
+                            a {
+                                color: $white;
+                            }
+
+                            &::after {
+                                position: absolute;
+                                bottom: -0.5em;
+                                left: 50%; 
+                                transform: translateX(-50%);
+                                width: 0;
+                                content: "";
+                                height: 0;
+                                border-style: solid;
+                                border-width: 1em 1em 0 1em;
+                                border-color: $primary transparent transparent transparent;
+                            }
                         }
 
                         a {
-                            color: $white;
-                            text-transform: uppercase;
-                            font-weight: 700;
+                            color: $black;
+                            font-size: 1.2em;
+                            font-weight: 600;
+
+                            &.active {
+                                color: $white;
+                            }
                         }
                     }
                 }
@@ -77,16 +88,13 @@ main {
             .menu-items {
                 @include d-flex(flex, center, center, row, center);
 
-                #starter-content{
-
+                #starter-content {
                 }
 
-                #main-course-content{
-
+                #main-course-content {
                 }
 
-                #dessert-content{
-                    
+                #dessert-content {
                 }
             }
         }
