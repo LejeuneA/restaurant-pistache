@@ -107,24 +107,29 @@ document.addEventListener('DOMContentLoaded', function() {
 					Menu items js
 ---------------------------------------------------------*/
 document.addEventListener('DOMContentLoaded', function () {
-	const menuItems = document.querySelectorAll('.menu-navbar-item');
-	const contents = document.querySelectorAll('.menu-content');
+    const menuItems = document.querySelectorAll('.menu-navbar-item');
+    const contents = document.querySelectorAll('.menu-content');
 
-	menuItems.forEach(item => {
-		item.addEventListener('click', function () {
-			const targetId = this.id.replace('menu-', '') + '-content';
+    menuItems.forEach(item => {
+        item.addEventListener('click', function () {
+            const targetId = this.id.replace('menu-', '') + '-content';
 
-			contents.forEach(content => {
-				if (content.id === targetId) {
-					content.style.display = 'block';
-				} else {
-					content.style.display = 'none';
-				}
-			});
-		});
-	});
+            // Remove active class from all menu items
+            menuItems.forEach(item => item.classList.remove('active'));
+
+            // Add active class to the clicked menu item
+            this.classList.add('active');
+
+            // Show the targeted content and hide others
+            contents.forEach(content => {
+                if (content.id === targetId) {
+                    content.style.display = 'block';
+                } else {
+                    content.style.display = 'none';
+                }
+            });
+        });
+    });
 });
-
-
 
 
