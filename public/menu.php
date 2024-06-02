@@ -157,21 +157,33 @@
                 <!-- Menu navbar end -->
                 <!-- Menu items -->
                 <div class="menu-items">
+                    <!-- Starter -->
                     <div class="menu-content" id="starter-content" data-aos="fade-up">
                         <!-- Starter items -->
                         <div class="menu-items">
-
+                            <img src="." alt="">
                         </div>
+                        <!-- Starter items end -->
                     </div>
+                    <!-- Starter end -->
+
+                    <!-- Main Course -->
                     <div class="menu-content" id="main-course-content" data-aos="fade-up">
                         <!-- Main Course items -->
-                        <p>Main Course Item 1</p>
-                        <p>Main Course Item 2</p>
+                        <div class="menu-items">
+                            
+
+                        </div>
+                        <!-- Main course items end -->
                     </div>
+
+                    <!-- Dessert -->
                     <div class="menu-content" id="dessert-content" data-aos="fade-up">
                         <!-- Dessert items -->
-                        <p>Dessert Item 1</p>
-                        <p>Dessert Item 2</p>
+                        <div class="menu-items">
+
+                        </div>
+                        <!-- Dessert items end -->
                     </div>
                 </div>
                 <!-- Menu items end -->
