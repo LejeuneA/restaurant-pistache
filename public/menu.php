@@ -158,17 +158,18 @@
                 <!-- Menu items -->
                 <div class="menu-items">
                     <div class="menu-content" id="starter-content" data-aos="fade-up">
-                        <!-- Starter items here -->
-                        <p>Starter Item 1</p>
-                        <p>Starter Item 2</p>
+                        <!-- Starter items -->
+                        <div class="menu-items">
+
+                        </div>
                     </div>
                     <div class="menu-content" id="main-course-content" data-aos="fade-up">
-                        <!-- Main Course items here -->
+                        <!-- Main Course items -->
                         <p>Main Course Item 1</p>
                         <p>Main Course Item 2</p>
                     </div>
                     <div class="menu-content" id="dessert-content" data-aos="fade-up">
-                        <!-- Dessert items here -->
+                        <!-- Dessert items -->
                         <p>Dessert Item 1</p>
                         <p>Dessert Item 2</p>
                     </div>
