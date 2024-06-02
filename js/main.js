@@ -101,3 +101,30 @@ document.addEventListener('DOMContentLoaded', function() {
 		offset: 100
 	});
 });
+
+
+/* -------------------------------------------------------
+					Menu items js
+---------------------------------------------------------*/
+document.addEventListener('DOMContentLoaded', function () {
+	const menuItems = document.querySelectorAll('.menu-navbar-item');
+	const contents = document.querySelectorAll('.menu-content');
+
+	menuItems.forEach(item => {
+		item.addEventListener('click', function () {
+			const targetId = this.id.replace('menu-', '') + '-content';
+
+			contents.forEach(content => {
+				if (content.id === targetId) {
+					content.style.display = 'block';
+				} else {
+					content.style.display = 'none';
+				}
+			});
+		});
+	});
+});
+
+
+
+
