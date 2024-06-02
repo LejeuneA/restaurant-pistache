@@ -89,58 +89,134 @@ main {
             .menu-items {
                 @include d-flex(flex, center, center, row, center);
                 width: 100%;
-            
+                height: auto;
+
                 #starter-content,
                 #main-course-content,
                 #dessert-content {
                     @include d-flex(flex, center, center, column, start);
                     margin-bottom: 5em;
                     width: 100%;
-            
-                    .menu-item-image {
-                        width: 15em;
-                        height: 15em;
-                        border: 1px solid $gray;
-                        margin-right: -1px;
-                        margin-bottom: -1px;
-                    }
-            
-                    .menu-item-info {
-                        @include d-flex(flex, center, start, column, start);
-                        padding: 1em;
-                        border: 1px solid $gray;
-                        width: 15em;
-                        height: 15em;
-                        margin-right: -1px;
-                        margin-bottom: -1px;
-            
-                        .menu-item-title {
-                            font-size: 1.2em;
-                            font-weight: 500;
+
+                    .menu-item {
+                        @include d-flex(flex, center, start, row, start);
+
+                        .menu-item-image {
+                            width: 15em;
+                            height: 15em;
+                            border: 1px solid $gray;
+                            margin-right: -1px;
+                            margin-bottom: -1px;
                         }
-            
-                        span {
-                            color: $primary;
-                            font-weight: 700;
-                            font-size: 1.3em;
-                            margin: 0.5em 0;
-                        }
-            
-                        p {
-                            font-size: 1em;
-                            font-weight: 300;
+
+                        .menu-item-info {
+                            @include d-flex(flex, center, start, column, start);
+                            padding: 1em;
+                            border: 1px solid $gray;
+                            width: 15em;
+                            height: 15em;
+                            margin-right: -1px;
+                            margin-bottom: -1px;
+
+                            .menu-item-title {
+                                font-size: 1.2em;
+                                font-weight: 500;
+                            }
+
+                            span {
+                                color: $primary;
+                                font-weight: 700;
+                                font-size: 1.3em;
+                                margin: 0.5em 0;
+                            }
+
+                            p {
+                                font-size: 1em;
+                                font-weight: 300;
+                            }
                         }
                     }
                 }
-            
-                #main-course-content {
-                    display: none;
-                }
-            
+
+                #main-course-content,
                 #dessert-content {
                     display: none;
                 }
-            }            
+
+                // Responsive styles for xs, sm, and md screens
+                @media (min-width: 320px) and (max-width: 768px) {  
+                    @include d-flex(flex, center, start, column, start);
+                    gap:2em;
+                    flex-wrap: wrap;
+                    margin-bottom: 2em;
+
+
+                    .menu-item {
+                        @include d-flex(flex, center, start, column, start);
+                        flex-wrap: wrap;
+
+                        &:nth-child(2) {
+                            .menu-item-image {
+                                order: 2;
+                                width: 10em;
+                                height: 10em;
+                            }
+                            .menu-item-info {
+                                order: 1;
+                                width: 10em;
+                                height: 10em;
+                            }
+                        }
+                    }
+
+                    .reverse {
+                        @include d-flex(flex, center, start, column, start);
+
+                        .menu-item-image {
+                            order: 1;
+                            width: 10em;
+                            height: 10em;
+                        }
+                        .menu-item-info {
+                            order: 2;
+                            width: 10em;
+                            height: 10em;
+                        }
+                    }
+                }
+
+                @media (min-width: 769px) and (max-width: 1199px) {
+                    flex-wrap: wrap;
+
+                    .menu-item {
+                        &:nth-child(2) {
+                            .menu-item-image {
+                                order: 2;
+                                width: 10em;
+                                height: 10em;
+                            }
+                            .menu-item-info {
+                                order: 1;
+                                width: 10em;
+                                height: 10em;
+                            }
+                        }
+                    }
+
+                    .reverse {
+                        .menu-item-image {
+                            order: 1;
+                            width: 10em;
+                            height: 10em;
+                        }
+                        .menu-item-info {
+                            order: 2;
+                            width: 10em;
+                            height: 10em;
+                        }
+                    }
+                }
+            }
         }
     }
 }
