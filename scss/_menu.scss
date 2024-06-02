@@ -37,13 +37,14 @@ main {
 
             .menu-navbar {
                 @include d-flex(flex, center, center, row, center);
+                margin-bottom: 3em;
 
                 .menu-navbar-items {
                     @include d-flex(flex, center, center, row, center);
                     padding: 0;
 
                     .menu-navbar-item {
-                        position: relative; 
+                        position: relative;
                         background-color: inherit;
                         padding: 1em 2em;
 
@@ -61,7 +62,7 @@ main {
                             &::after {
                                 position: absolute;
                                 bottom: -0.5em;
-                                left: 50%; 
+                                left: 50%;
                                 transform: translateX(-50%);
                                 width: 0;
                                 content: "";
@@ -87,18 +88,59 @@ main {
 
             .menu-items {
                 @include d-flex(flex, center, center, row, center);
-
-                #starter-content {
-                }
-
-                #main-course-content {
-                    display:none;
-                }
-
+                width: 100%;
+            
+                #starter-content,
+                #main-course-content,
                 #dessert-content {
-                    display:none;
+                    @include d-flex(flex, center, center, column, start);
+                    margin-bottom: 5em;
+                    width: 100%;
+            
+                    .menu-item-image {
+                        width: 15em;
+                        height: 15em;
+                        border: 1px solid $gray;
+                        margin-right: -1px;
+                        margin-bottom: -1px;
+                    }
+            
+                    .menu-item-info {
+                        @include d-flex(flex, center, start, column, start);
+                        padding: 1em;
+                        border: 1px solid $gray;
+                        width: 15em;
+                        height: 15em;
+                        margin-right: -1px;
+                        margin-bottom: -1px;
+            
+                        .menu-item-title {
+                            font-size: 1.2em;
+                            font-weight: 500;
+                        }
+            
+                        span {
+                            color: $primary;
+                            font-weight: 700;
+                            font-size: 1.3em;
+                            margin: 0.5em 0;
+                        }
+            
+                        p {
+                            font-size: 1em;
+                            font-weight: 300;
+                        }
+                    }
                 }
-            }
+            
+                #main-course-content {
+                    display: none;
+                }
+            
+                #dessert-content {
+                    display: none;
+                }
+            }            
         }
     }
 }
