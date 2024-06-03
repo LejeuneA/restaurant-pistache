@@ -16,297 +16,314 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
 
-    .map-container {
-        @include d-flex(flex, center, start, column, center);
-        width: 30%;
-        height: 48em;
-        margin-bottom: 3em;
-        margin-top: 15em;
-        padding: 0;
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: 0; 
+    .reservation-section-container{
+        @include d-flex(flex, center, center, row, center);
+        height: 100%;
+        gap:1em;
+        .map-container {
+            @include d-flex(flex, center, start, column, center);
+            width: 40%;
+            height: 48em;
+            margin-bottom: 3em;
+            margin-top: 15em;
+            padding: 0;
+    
+            iframe {
+                width: 100%;
+                height: 100%;
+                border: 0; 
+            }
         }
-    }
-
-    .reservation-container {
-        @include d-flex(flex, center, start, column, center);
-        background: $white;
-        width: 60%;
-        height: auto;
-        padding: 3em;
-        margin-top: 15em;
-        margin-bottom: 3em;
-        margin-right: 0;
-
-        .reservation-content {
-            @include d-flex(flex, center, center, column, center);
-            width: 100%;
-
-            .reservation-content-title {
+    
+        .reservation-container {
+            @include d-flex(flex, center, start, column, center);
+            background: $white;
+            width: 60%;
+            height: auto;
+            padding: 3em;
+            margin-top: 15em;
+            margin-bottom: 3em;
+            margin-right: 0;
+    
+            .reservation-content {
                 @include d-flex(flex, center, center, column, center);
                 width: 100%;
-                height: auto;
-
-                .reservation-title {
+    
+                .reservation-content-title {
                     @include d-flex(flex, center, center, column, center);
-                    margin-top: 3em;
-
-                    .subheading {
-                        font-family: $font-secondary;
-                        color: $primary;
-                        font-size: 6em;
-                        line-height: 0;
-                        margin-bottom: 0;
-                        top: -3.2em;
-                        left: 0;
-                        right: 0;
-                        display: block;
-                        z-index: 0;
-                    }
-
-                    h2 {
-                        font-weight: 600;
-                        margin-top: 0;
-                        margin-bottom: 1em;
-                        font-size: 3.8em;
-                        line-height: 1;
-                        z-index: 1;
+                    width: 100%;
+                    height: auto;
+    
+                    .reservation-title {
+                        @include d-flex(flex, center, center, column, center);
+                        margin-top: 3em;
+    
+                        .subheading {
+                            font-family: $font-secondary;
+                            color: $primary;
+                            font-size: 6em;
+                            line-height: 0;
+                            margin-bottom: 0;
+                            top: -3.2em;
+                            left: 0;
+                            right: 0;
+                            display: block;
+                            z-index: 0;
+                        }
+    
+                        h2 {
+                            font-weight: 600;
+                            margin-top: 0;
+                            margin-bottom: 1em;
+                            font-size: 3.8em;
+                            line-height: 1;
+                            z-index: 1;
+                        }
                     }
                 }
-            }
-
-            form {
-                @include d-flex(flex, center, center, column, center);
-                width: 100%;
-
-                .reservation-form-container {
-                    @include d-flex(flex, center, center, row, center);
-                    gap: 3em;
+    
+                form {
+                    @include d-flex(flex, center, center, column, center);
                     width: 100%;
-
-                    .reservation-form-items {
-                        @include d-flex(flex, center, start, column, start);
-                        gap: 2em;
+    
+                    .reservation-form-container {
+                        @include d-flex(flex, center, center, row, center);
+                        gap: 3em;
                         width: 100%;
-
-                        .reservation-form-item {
+    
+                        .reservation-form-items {
                             @include d-flex(flex, center, start, column, start);
+                            gap: 2em;
                             width: 100%;
-
-                            .form-group {
+    
+                            .reservation-form-item {
                                 @include d-flex(flex, center, start, column, start);
                                 width: 100%;
-
-                                label {
-                                    font-weight: 600;
-                                    color: $black;
-                                    font-size: 1.2em;
-                                }
-
-                                .form-control {
-                                    height: 3.5em;
+    
+                                .form-group {
+                                    @include d-flex(flex, center, start, column, start);
                                     width: 100%;
-                                    border-radius: 0px;
-                                    border: 2px solid $gray;
-                                    padding: 0 5em 0 1em;
-                                    font-size: 1.1em;
-                                    color: $darken;
-                                    background-color: #f9f9f9;
-                                    transition: border-color 0.3s ease;
-
-                                    &:focus {
-                                        border-color: $black;
-                                        outline: none;
+    
+                                    label {
+                                        font-weight: 600;
+                                        color: $black;
+                                        font-size: 1.2em;
                                     }
-
-                                    &::placeholder {
-                                        color: $gray;
-                                        font-style: italic;
-                                        font-size: 1em;
+    
+                                    .form-control {
+                                        height: 3.5em;
+                                        width: 100%;
+                                        border-radius: 0px;
+                                        border: 2px solid $gray;
+                                        padding: 0 5em 0 1em;
+                                        font-size: 1.1em;
+                                        color: $darken;
+                                        background-color: #f9f9f9;
+                                        transition: border-color 0.3s ease;
+    
+                                        &:focus {
+                                            border-color: $black;
+                                            outline: none;
+                                        }
+    
+                                        &::placeholder {
+                                            color: $gray;
+                                            font-style: italic;
+                                            font-size: 1em;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
-            }
-
-            .btn-secondary {
-                margin-top: 2em;
-                border-radius: 0;
-                padding: 1em 3em;
-                font-size: 1.2em;
+    
+                .btn-secondary {
+                    margin-top: 2em;
+                    border-radius: 0;
+                    padding: 1em 3em;
+                    font-size: 1.2em;
+                }
             }
         }
     }
+
 
     // Responsive styles for xs, sm, and md screens
     @media (min-width: 320px) and (max-width: 768px) {
         @include d-flex(flex, center, center, column, center);
-        height: 100%;
+        height: auto;
         gap: 1em;
 
-        .map-container {
-            @include d-flex(flex, center, start, column, center);
-            width: 90%;
-            height: 30em;
-            margin-bottom: 4em;
-            margin-top: 0;
-        }
-    
-        .reservation-container {
+        .reservation-section-container{
             @include d-flex(flex, center, center, column, center);
-            width: 90%;
             height: auto;
-            padding: 2em;
-            margin: 10em 2em 0;
-
-            .reservation-content {
+            gap:1em;
+            .map-container {
+                @include d-flex(flex, center, start, column, center);
+                width: 90%;
+                height: 30em;
+                margin-bottom: 4em;
+                margin-top: 0;
+            }
+        
+            .reservation-container {
                 @include d-flex(flex, center, center, column, center);
-                width: 100%;
-
-                .reservation-content-title {
+                width: 90%;
+                height: auto;
+                padding: 1em;
+                margin: 10em 2em 0;
+    
+                .reservation-content {
                     @include d-flex(flex, center, center, column, center);
                     width: 100%;
-                    height: auto;
-
-                    .reservation-title {
+    
+                    .reservation-content-title {
                         @include d-flex(flex, center, center, column, center);
-                        margin-top: 3em;
-
-                        .subheading {
-                            font-size: 3.5em;
-                        }
-
-                        h2 {
-                            margin-top: 0;
-                            margin-bottom: 1em;
-                            font-size: 2.5em;
-                            line-height: 1;
+                        width: 100%;
+                        height: auto;
+    
+                        .reservation-title {
+                            @include d-flex(flex, center, center, column, center);
+                            margin-top: 3em;
+    
+                            .subheading {
+                                font-size: 3.5em;
+                            }
+    
+                            h2 {
+                                margin-top: 0;
+                                margin-bottom: 1em;
+                                font-size: 2.5em;
+                                line-height: 1;
+                            }
                         }
                     }
-                }
-
-                form {
-                    @include d-flex(flex, center, center, column, center);
-                    gap: 1em;
-                    width: 100%;
-
-                    .reservation-form-container {
+    
+                    form {
                         @include d-flex(flex, center, center, column, center);
                         gap: 1em;
                         width: 100%;
-
-                        .reservation-form-items {
+    
+                        .reservation-form-container {
+                            @include d-flex(flex, center, center, column, center);
                             gap: 1em;
-
-                            .reservation-form-item {
-                                .form-group {
-                                    label {
-                                        font-size: 1em;
-                                    }
-
-                                    .form-control {
-                                        height: 2.5em;
-                                        font-size: 1em;
-                                        padding: 0 2em 0 0.5em;
+                            width: 100%;
+    
+                            .reservation-form-items {
+                                gap: 1em;
+    
+                                .reservation-form-item {
+                                    .form-group {
+                                        label {
+                                            font-size: 1em;
+                                        }
+    
+                                        .form-control {
+                                            height: 2.5em;
+                                            font-size: 1em;
+                                            padding: 0 2em 0 0.5em;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
-
-                .btn-secondary {
-                    margin-top: 2em;
-                    padding: 0.5em 3em;
-                    font-size: 1em;
+    
+                    .btn-secondary {
+                        margin-top: 2em;
+                        padding: 0.5em 2em;
+                        font-size: 1em;
+                    }
                 }
             }
         }
+
     }
 
     @media (min-width: 769px) and (max-width: 1199px) {
         @include d-flex(flex, center, center, column, center);
-        height: 100%;
+        height: auto;
         gap:1em;
 
-        .map-container {
-            @include d-flex(flex, center, start, column, center);
-            width: 90%;
-            height: 30em;
-            margin-bottom: 4em;
-            margin-top: 0;
-        }
-
-        .reservation-container {
+        .reservation-section-container{
             @include d-flex(flex, center, center, column, center);
-            width: 90%;
             height: auto;
-            padding: 2em;
-            margin: 15em 2em 0;
-
-            .reservation-content {
+            gap:1em;
+            .map-container {
+                @include d-flex(flex, center, start, column, center);
+                width: 90%;
+                height: 30em;
+                margin-bottom: 4em;
+                margin-top: 0;
+            }
+    
+            .reservation-container {
                 @include d-flex(flex, center, center, column, center);
-                width: 100%;
-
-                .reservation-content-title {
+                width: 90%;
+                height: auto;
+                padding: 2em;
+                margin: 15em 2em 0;
+    
+                .reservation-content {
                     @include d-flex(flex, center, center, column, center);
                     width: 100%;
-                    height: auto;
-
-                    .reservation-title {
+    
+                    .reservation-content-title {
                         @include d-flex(flex, center, center, column, center);
-                        margin-top: 3em;
-
-                        .subheading {
-                            font-size: 4em;
-                        }
-
-                        h2 {
-                            margin-top: 0;
-                            margin-bottom: 1em;
-                            font-size: 3em;
-                            line-height: 1;
+                        width: 100%;
+                        height: auto;
+    
+                        .reservation-title {
+                            @include d-flex(flex, center, center, column, center);
+                            margin-top: 3em;
+    
+                            .subheading {
+                                font-size: 4em;
+                            }
+    
+                            h2 {
+                                margin-top: 0;
+                                margin-bottom: 1em;
+                                font-size: 3em;
+                                line-height: 1;
+                            }
                         }
                     }
-                }
-
-                form {
-                    @include d-flex(flex, center, center, column, center);
-                    gap: 1em;
-                    width: 100%;
-                    .reservation-form-container {
-                        @include d-flex(flex, center, center, row, center);
+    
+                    form {
+                        @include d-flex(flex, center, center, column, center);
                         gap: 1em;
                         width: 100%;
-
-                        .reservation-form-items {
+                        .reservation-form-container {
+                            @include d-flex(flex, center, center, row, center);
                             gap: 1em;
-
-                            .reservation-form-item {
-                                .form-group {
-                                    label {
-                                        font-size: 1em;
-                                    }
-
-                                    .form-control {
-                                        height: 2.5em;
-                                        font-size: 1em;
+                            width: 100%;
+    
+                            .reservation-form-items {
+                                gap: 1em;
+    
+                                .reservation-form-item {
+                                    .form-group {
+                                        label {
+                                            font-size: 1em;
+                                        }
+    
+                                        .form-control {
+                                            height: 2.5em;
+                                            font-size: 1em;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
-
-                .btn-secondary {
-                    margin-top: 2em;
-                    padding: 0.5em 3em;
-                    font-size: 1em;
+    
+                    .btn-secondary {
+                        margin-top: 2em;
+                        padding: 0.5em 3em;
+                        font-size: 1em;
+                    }
                 }
             }
         }
