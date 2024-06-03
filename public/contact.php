@@ -11,6 +11,9 @@
 
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <!-- AOS Library CSS -->
+    <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="../assets/icons/favicon.png">
@@ -18,16 +21,14 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
     <!-- Title -->
-    <title>Restaurant Pistache</title>
+    <title>Contact us</title>
 </head>
 
 <body>
-   <!-----------------------------------------------------------------
+    <!-----------------------------------------------------------------
                                 Header
     ------------------------------------------------------------------>
     <header>
@@ -128,6 +129,110 @@
                                 Main
     ------------------------------------------------------------------>
     <main>
+        <!-----------------------------------------------------------------
+                            Reservation section
+        ------------------------------------------------------------------>
+        <section class="reservation-section">
+
+            <!--Reservation form container-->
+            <div class="reservation-container container" data-aos="fade-in" data-aos-delay="200">
+                <!--Reservation content-->
+                <div class="reservation-content">
+                    <div class="reservation-content-title">
+                        <div class="reservation-title">
+                            <span class="subheading">Book a table</span>
+                            <h2 class="title">Make Reservation</h2>
+                        </div>
+                    </div>
+                    <!--Reservation-content-title-->
+                    <!--Reservation form-->
+                    <form action="#">
+                        <div class="reservation-form-container">
+                            <div class="reservation-form-items">
+                                <div class="reservation-form-item">
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input type="text" class="form-control" placeholder="Your Name">
+                                    </div>
+                                </div>
+                                <div class="reservation-form-item">
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="text" class="form-control" placeholder="Your Email">
+                                    </div>
+                                </div>
+                                <div class="reservation-form-item">
+                                    <div class="form-group">
+                                        <label for="phone">Phone</label>
+                                        <input type="text" class="form-control" placeholder="Phone">
+                                    </div>
+                                </div>
+                                <!--Reservation form item end-->
+                            </div>
+                            <!--Reservation form items end-->
+                            <div class="reservation-form-items">
+                                <div class="reservation-form-item">
+                                    <div class="form-group">
+                                        <label for="book_date">Phone</label>
+                                        <input type="text" class="form-control" id="book_date" placeholder="Date">
+                                    </div>
+                                </div>
+                                <div class="reservation-form-item">
+                                    <div class="form-group">
+                                        <label for="book_time">Time</label>
+                                        <select class="form-control" id="book_time">
+                                            <option value="09:00">09:00 AM</option>
+                                            <option value="10:00">10:00 AM</option>
+                                            <option value="11:00">11:00 AM</option>
+                                            <option value="12:00">12:00 PM</option>
+                                            <option value="13:00">01:00 PM</option>
+                                            <option value="14:00">02:00 PM</option>
+                                            <option value="15:00">03:00 PM</option>
+                                            <option value="16:00">04:00 PM</option>
+                                            <option value="17:00">05:00 PM</option>
+                                            <option value="18:00">06:00 PM</option>
+                                            <option value="19:00">07:00 PM</option>
+                                            <option value="20:00">08:00 PM</option>
+                                            <option value="21:00">09:00 PM</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="reservation-form-item">
+                                    <div class="form-group">
+                                        <label for="person">Person</label>
+                                        <select name="person" id="person" class="form-control">
+                                            <option value="">Person</option>
+                                            <option value="">1</option>
+                                            <option value="">2</option>
+                                            <option value="">3</option>
+                                            <option value="">4+</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!--Reservation form item end-->
+                            </div>
+                            <!--Reservation form items end-->
+                        </div>
+                        <!--Reservation form container end-->
+                        <!--Button-->
+                        <div class="reservation-button">
+                            <div class="form-group">
+                                <input type="submit" value="Make a Reservation" class="btn-secondary">
+                            </div>
+                        </div>
+                        <!--Button end-->
+                    </form>
+                    <!--Reservation form end-->
+                </div>
+                <!--Reservation content end-->
+            </div>
+            <!--Reservation container end-->
+            <!-- Google map -->
+            <div class="map-container container" data-aos="fade-in" data-aos-delay="400">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2518.798010128868!2d5.569091276394098!3d50.63038067949861!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c0f0897b7a8bb7%3A0x401ed56b8e997e0!2sRue%20Saint-Gilles%20343%2C%204000%20Li%C3%A8ge%2C%20Belgium!5e0!3m2!1sen!2s!4v1688150655951!5m2!1sen!2s" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </section>
+        <!--Reservation section end-->
     </main>
     <!-- End Main -->
     <!-----------------------------------------------------------------
@@ -247,12 +352,13 @@
                         JS Libraries
     ------------------------------------------------------------------>
     <!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
-        integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- AOS JS -->
+    <script src="../assets/vendor/aos/aos.js"></script>
 
     <!-- Custom JS -->
     <script src="../js/main.js"></script>
