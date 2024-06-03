@@ -7,21 +7,39 @@
                     Reservation section
 ---------------------------------------------------------*/
 .reservation-section {
-    @include d-flex(flex, center, center, column, center);
+    @include d-flex(flex, center, center, row, center);
     background-image: url("../assets/images/reservation.jpg");
     width: 100%;
-    height: 100vh;
+    height: auto;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
 
+    .map-container {
+        @include d-flex(flex, center, start, column, center);
+        width: 30%;
+        height: 48em;
+        margin-bottom: 3em;
+        margin-top: 15em;
+        padding: 0;
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+    }
+
     .reservation-container {
-        @include d-flex(flex, center, center, column, center);
+        @include d-flex(flex, center, start, column, center);
         background: $white;
-        width: 50%;
+        width: 60%;
         height: auto;
         padding: 3em;
+        margin-top: 15em;
+        margin-bottom: 3em;
+        margin-right: 0;
 
         .reservation-content {
             @include d-flex(flex, center, center, column, center);
@@ -127,14 +145,24 @@
 
     // Responsive styles for xs, sm, and md screens
     @media (min-width: 320px) and (max-width: 768px) {
+        @include d-flex(flex, center, center, column, center);
         height: 100%;
+        gap: 1em;
 
+        .map-container {
+            @include d-flex(flex, center, start, column, center);
+            width: 90%;
+            height: 30em;
+            margin-bottom: 4em;
+            margin-top: 0;
+        }
+    
         .reservation-container {
             @include d-flex(flex, center, center, column, center);
             width: 90%;
             height: auto;
             padding: 2em;
-            margin: 2em;
+            margin: 10em 2em 0;
 
             .reservation-content {
                 @include d-flex(flex, center, center, column, center);
@@ -202,14 +230,24 @@
     }
 
     @media (min-width: 769px) and (max-width: 1199px) {
+        @include d-flex(flex, center, center, column, center);
         height: 100%;
+        gap:1em;
+
+        .map-container {
+            @include d-flex(flex, center, start, column, center);
+            width: 90%;
+            height: 30em;
+            margin-bottom: 4em;
+            margin-top: 0;
+        }
 
         .reservation-container {
             @include d-flex(flex, center, center, column, center);
             width: 90%;
             height: auto;
             padding: 2em;
-            margin: 2em;
+            margin: 15em 2em 0;
 
             .reservation-content {
                 @include d-flex(flex, center, center, column, center);
