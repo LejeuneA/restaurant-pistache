@@ -333,7 +333,7 @@
                             <div class="reservation-form-items">
                                 <div class="reservation-form-item">
                                     <div class="form-group">
-                                        <label for="book_date">Phone</label>
+                                        <label for="book_date">Book date</label>
                                         <input type="text" class="form-control" id="book_date" placeholder="Date">
                                     </div>
                                 </div>
