@@ -37,7 +37,7 @@ main {
 
             .menu-navbar {
                 @include d-flex(flex, center, center, row, center);
-                margin-bottom: 3em;
+                margin: 3em 0;
 
                 .menu-navbar-items {
                     @include d-flex(flex, center, center, row, center);
@@ -172,7 +172,7 @@ main {
                     }
                 }
 
-                @media (min-width: 569px) and (max-width: 768px) {
+                @media (min-width: 569px) and (max-width: 1024px) {
                     flex-wrap: wrap;
 
                     .menu-item {
@@ -207,7 +207,7 @@ main {
         }
     }
 
-    @media screen and (max-width: 768px) {  
+    @media screen and (max-width: 1025px) {  
         .hero-section {
             background-image: url("../assets/images/menu-bg-vertical.jpg");
     
