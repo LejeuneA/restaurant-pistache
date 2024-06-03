@@ -11,6 +11,9 @@
 
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <!-- AOS Library CSS -->
+    <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="../assets/icons/favicon.png">
@@ -21,7 +24,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
     <!-- Title -->
-    <title>Restaurant Pistache</title>
+    <title>Book a table</title>
 </head>
 
 <body>
@@ -132,7 +135,7 @@
         <section class="reservation-section">
 
             <!--Reservation form container-->
-            <div class="reservation-container container" data-aos="fade-in" data-aos-delay="800">
+            <div class="reservation-container container" data-aos="fade-in" data-aos-delay="200">
                 <!--Reservation content-->
                 <div class="reservation-content">
                     <div class="reservation-content-title">
@@ -225,7 +228,7 @@
             </div>
             <!--Reservation container end-->
             <!-- Google map -->
-            <div class="map-container container" data-aos="fade-in">
+            <div class="map-container container" data-aos="fade-in" data-aos-delay="400">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2518.798010128868!2d5.569091276394098!3d50.63038067949861!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c0f0897b7a8bb7%3A0x401ed56b8e997e0!2sRue%20Saint-Gilles%20343%2C%204000%20Li%C3%A8ge%2C%20Belgium!5e0!3m2!1sen!2s!4v1688150655951!5m2!1sen!2s" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </section>
@@ -353,6 +356,9 @@
 
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- AOS JS -->
+    <script src="../assets/vendor/aos/aos.js"></script>
 
     <!-- Custom JS -->
     <script src="../js/main.js"></script>
