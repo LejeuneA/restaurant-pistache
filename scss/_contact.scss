@@ -184,84 +184,108 @@
         height: 100%;
         gap: 1em;
 
-        .map-container {
-            @include d-flex(flex, center, start, column, center);
-            width: 90%;
-            height: 30em;
-            margin-bottom: 4em;
-            margin-top: 0;
-        }
-    
-        .contact-container {
+        .contact-upper-container{
             @include d-flex(flex, center, center, column, center);
-            width: 90%;
-            height: auto;
-            padding: 2em;
-            margin: 10em 2em 0;
-
-            .contact-content {
+            gap:1em;
+            .map-container {
+                @include d-flex(flex, center, start, column, center);
+                width: 90%;
+                height: 30em;
+                margin-bottom: 4em;
+                margin-top: 0;
+            }
+        
+            .contact-container {
                 @include d-flex(flex, center, center, column, center);
-                width: 100%;
-
-                .contact-content-title {
+                width: 90%;
+                height: auto;
+                padding: 2em;
+                margin: 10em 2em 0;
+    
+                .contact-content {
                     @include d-flex(flex, center, center, column, center);
                     width: 100%;
-                    height: auto;
-
-                    .contact-title {
+    
+                    .contact-content-title {
                         @include d-flex(flex, center, center, column, center);
-                        margin-top: 3em;
-
-                        .subheading {
-                            font-size: 3.5em;
-                        }
-
-                        h2 {
-                            margin-top: 0;
-                            margin-bottom: 1em;
-                            font-size: 2.5em;
-                            line-height: 1;
+                        width: 100%;
+                        height: auto;
+    
+                        .contact-title {
+                            @include d-flex(flex, center, center, column, center);
+                            margin-top: 3em;
+    
+                            .subheading {
+                                font-size: 3.5em;
+                            }
+    
+                            h2 {
+                                margin-top: 0;
+                                margin-bottom: 1em;
+                                font-size: 2.5em;
+                                line-height: 1;
+                            }
                         }
                     }
-                }
-
-                form {
-                    @include d-flex(flex, center, center, column, center);
-                    gap: 1em;
-                    width: 100%;
-
-                    .contact-form-container {
+    
+                    form {
                         @include d-flex(flex, center, center, column, center);
                         gap: 1em;
                         width: 100%;
-
-                        .contact-form-items {
+    
+                        .contact-form-container {
+                            @include d-flex(flex, center, center, column, center);
                             gap: 1em;
-
-                            .contact-form-item {
-                                .form-group {
-                                    label {
-                                        font-size: 1em;
-                                    }
-
-                                    .form-control {
-                                        height: 2.5em;
-                                        font-size: 1em;
-                                        padding: 0 2em 0 0.5em;
+                            width: 100%;
+    
+                            .contact-form-items {
+                                gap: 1em;
+    
+                                .contact-form-item {
+                                    .form-group {
+                                        label {
+                                            font-size: 1em;
+                                        }
+    
+                                        .form-control {
+                                            height: 2.5em;
+                                            font-size: 1em;
+                                            padding: 0 2em 0 0.5em;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
-
-                .btn-secondary {
-                    margin-top: 2em;
-                    padding: 0.5em 3em;
-                    font-size: 1em;
+    
+                    .btn-secondary {
+                        margin-top: 2em;
+                        padding: 0.5em 3em;
+                        font-size: 1em;
+                    }
                 }
             }
         }
+
+        .contact-bottom-container{
+            @include d-flex(flex, center, center, column, center);
+
+            .contact-info{
+                @include d-flex(flex, space-between, center, column, center);
+                width: 100%;
+                gap: 1em;
+
+                .contact-info-items{
+                    @include d-flex(flex, space-between, center, column, center);
+                    width: 100%;
+
+                    .contact-info-item{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
     }
 
     @media (min-width: 769px) and (max-width: 1199px) {
@@ -269,79 +293,106 @@
         height: 100%;
         gap:1em;
 
-        .map-container {
-            @include d-flex(flex, center, start, column, center);
-            width: 90%;
-            height: 30em;
-            margin-bottom: 4em;
-            margin-top: 0;
-        }
-
-        .contact-container {
+        .contact-upper-container{
             @include d-flex(flex, center, center, column, center);
-            width: 90%;
-            height: auto;
-            padding: 2em;
-            margin: 15em 2em 0;
-
-            .contact-content {
+            gap:1em;
+            .map-container {
+                @include d-flex(flex, center, start, column, center);
+                width: 90%;
+                height: 30em;
+                margin-bottom: 4em;
+                margin-top: 0;
+            }
+    
+            .contact-container {
                 @include d-flex(flex, center, center, column, center);
-                width: 100%;
-
-                .contact-content-title {
+                width: 90%;
+                height: auto;
+                padding: 2em;
+                margin: 15em 2em 0;
+    
+                .contact-content {
                     @include d-flex(flex, center, center, column, center);
                     width: 100%;
-                    height: auto;
-
-                    .contact-title {
+    
+                    .contact-content-title {
                         @include d-flex(flex, center, center, column, center);
-                        margin-top: 3em;
-
-                        .subheading {
-                            font-size: 4em;
-                        }
-
-                        h2 {
-                            margin-top: 0;
-                            margin-bottom: 1em;
-                            font-size: 3em;
-                            line-height: 1;
+                        width: 100%;
+                        height: auto;
+    
+                        .contact-title {
+                            @include d-flex(flex, center, center, column, center);
+                            margin-top: 3em;
+    
+                            .subheading {
+                                font-size: 4em;
+                            }
+    
+                            h2 {
+                                margin-top: 0;
+                                margin-bottom: 1em;
+                                font-size: 3em;
+                                line-height: 1;
+                            }
                         }
                     }
-                }
-
-                form {
-                    @include d-flex(flex, center, center, column, center);
-                    gap: 1em;
-                    width: 100%;
-                    .contact-form-container {
-                        @include d-flex(flex, center, center, row, center);
+    
+                    form {
+                        @include d-flex(flex, center, center, column, center);
                         gap: 1em;
                         width: 100%;
-
-                        .contact-form-items {
+                        .contact-form-container {
+                            @include d-flex(flex, center, center, row, center);
                             gap: 1em;
+                            width: 100%;
+    
+                            .contact-form-items {
+                                gap: 1em;
+    
+                                .contact-form-item {
+                                    .form-group {
+                                        label {
+                                            font-size: 1em;
+                                        }
+    
+                                        .form-control {
+                                            height: 2.5em;
+                                            font-size: 1em;
+                                        }
 
-                            .contact-form-item {
-                                .form-group {
-                                    label {
-                                        font-size: 1em;
-                                    }
-
-                                    .form-control {
-                                        height: 2.5em;
-                                        font-size: 1em;
+                                        textarea{
+                                            height: 7.7em;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
+    
+                    .btn-secondary {
+                        margin-top: 2em;
+                        padding: 0.5em 3em;
+                        font-size: 1em;
+                    }
                 }
+            }
+        }
 
-                .btn-secondary {
-                    margin-top: 2em;
-                    padding: 0.5em 3em;
-                    font-size: 1em;
+        .contact-bottom-container{
+            @include d-flex(flex, center, center, column, center);
+
+            .contact-info{
+                @include d-flex(flex, space-between, center, column, center);
+                width: 100%;
+                gap: 1em;
+
+                .contact-info-items{
+                    @include d-flex(flex, space-between, center, column, center);
+                    width: 100%;
+
+                    .contact-info-item{
+                        width: 100%;
+                    }
                 }
             }
         }
