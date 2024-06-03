@@ -16,7 +16,7 @@
     <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="./assets/icons/favicon.png">
+    <link rel="icon" type="image/png" href="../assets/icons/favicon.png">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
