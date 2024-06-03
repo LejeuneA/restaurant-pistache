@@ -11,7 +11,7 @@
 
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    
+
     <!-- AOS Library CSS -->
     <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
 
@@ -157,14 +157,14 @@
                                 </div>
                                 <div class="reservation-form-item">
                                     <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="text" class="form-control" placeholder="Your Email">
+                                        <label for="name">Surname</label>
+                                        <input type="text" class="form-control" placeholder="Your Surname">
                                     </div>
                                 </div>
                                 <div class="reservation-form-item">
                                     <div class="form-group">
-                                        <label for="phone">Phone</label>
-                                        <input type="text" class="form-control" placeholder="Phone">
+                                        <label for="email">Email</label>
+                                        <input type="text" class="form-control" placeholder="Your Email">
                                     </div>
                                 </div>
                                 <!--Reservation form item end-->
@@ -173,40 +173,14 @@
                             <div class="reservation-form-items">
                                 <div class="reservation-form-item">
                                     <div class="form-group">
-                                        <label for="book_date">Phone</label>
-                                        <input type="text" class="form-control" id="book_date" placeholder="Date">
+                                        <label for="phone">Phone</label>
+                                        <input type="text" class="form-control" placeholder="Phone">
                                     </div>
                                 </div>
                                 <div class="reservation-form-item">
                                     <div class="form-group">
-                                        <label for="book_time">Time</label>
-                                        <select class="form-control" id="book_time">
-                                            <option value="09:00">09:00 AM</option>
-                                            <option value="10:00">10:00 AM</option>
-                                            <option value="11:00">11:00 AM</option>
-                                            <option value="12:00">12:00 PM</option>
-                                            <option value="13:00">01:00 PM</option>
-                                            <option value="14:00">02:00 PM</option>
-                                            <option value="15:00">03:00 PM</option>
-                                            <option value="16:00">04:00 PM</option>
-                                            <option value="17:00">05:00 PM</option>
-                                            <option value="18:00">06:00 PM</option>
-                                            <option value="19:00">07:00 PM</option>
-                                            <option value="20:00">08:00 PM</option>
-                                            <option value="21:00">09:00 PM</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="reservation-form-item">
-                                    <div class="form-group">
-                                        <label for="person">Person</label>
-                                        <select name="person" id="person" class="form-control">
-                                            <option value="">Person</option>
-                                            <option value="">1</option>
-                                            <option value="">2</option>
-                                            <option value="">3</option>
-                                            <option value="">4+</option>
-                                        </select>
+                                        <label for="message">Message</label>
+                                        <textarea type="text" id="message" name="message" placeholder="Your message"></textarea>
                                     </div>
                                 </div>
                                 <!--Reservation form item end-->
@@ -231,6 +205,27 @@
             <div class="map-container container" data-aos="fade-in" data-aos-delay="400">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2518.798010128868!2d5.569091276394098!3d50.63038067949861!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c0f0897b7a8bb7%3A0x401ed56b8e997e0!2sRue%20Saint-Gilles%20343%2C%204000%20Li%C3%A8ge%2C%20Belgium!5e0!3m2!1sen!2s!4v1688150655951!5m2!1sen!2s" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
+            <!-- Google map end -->
+
+            <!-- Contact info -->
+            <div class="contact-info container" data-aos="fade-in" data-aos-delay="600">
+                <div class="contact-info-items">
+                    <div class="contact-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>343 Rue Saint Gilles, 4000 Liége</span>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>contact@pistache.be</span>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+32 493 38 77 29</span>
+                    </div>
+                </div>
+                <!--Contact info items end-->
+            </div>
+            <!-- Contact info end -->
         </section>
         <!--Reservation section end-->
     </main>
