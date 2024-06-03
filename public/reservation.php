@@ -134,103 +134,107 @@
         ------------------------------------------------------------------>
         <section class="reservation-section">
 
-            <!--Reservation form container-->
-            <div class="reservation-container container" data-aos="fade-in" data-aos-delay="200">
-                <!--Reservation content-->
-                <div class="reservation-content">
-                    <div class="reservation-content-title">
-                        <div class="reservation-title">
-                            <span class="subheading">Book a table</span>
-                            <h2 class="title">Make Reservation</h2>
+            <div class="reservation-section-container container">
+                <!--Reservation form container-->
+                <div class="reservation-container container" data-aos="fade-in" data-aos-delay="200">
+                    <!--Reservation content-->
+                    <div class="reservation-content">
+                        <div class="reservation-content-title">
+                            <div class="reservation-title">
+                                <span class="subheading">Book a table</span>
+                                <h2 class="title">Make Reservation</h2>
+                            </div>
                         </div>
+                        <!--Reservation-content-title-->
+                        <!--Reservation form-->
+                        <form action="#">
+                            <div class="reservation-form-container">
+                                <div class="reservation-form-items">
+                                    <div class="reservation-form-item">
+                                        <div class="form-group">
+                                            <label for="name">Name</label>
+                                            <input type="text" class="form-control" placeholder="Your Name">
+                                        </div>
+                                    </div>
+                                    <div class="reservation-form-item">
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="text" class="form-control" placeholder="Your Email">
+                                        </div>
+                                    </div>
+                                    <div class="reservation-form-item">
+                                        <div class="form-group">
+                                            <label for="phone">Phone</label>
+                                            <input type="text" class="form-control" placeholder="Phone">
+                                        </div>
+                                    </div>
+                                    <!--Reservation form item end-->
+                                </div>
+                                <!--Reservation form items end-->
+                                <div class="reservation-form-items">
+                                    <div class="reservation-form-item">
+                                        <div class="form-group">
+                                            <label for="book_date">Book date</label>
+                                            <input type="text" class="form-control" id="book_date" placeholder="Date">
+                                        </div>
+                                    </div>
+                                    <div class="reservation-form-item">
+                                        <div class="form-group">
+                                            <label for="book_time">Time</label>
+                                            <select class="form-control" id="book_time">
+                                                <option value="09:00">09:00 AM</option>
+                                                <option value="10:00">10:00 AM</option>
+                                                <option value="11:00">11:00 AM</option>
+                                                <option value="12:00">12:00 PM</option>
+                                                <option value="13:00">01:00 PM</option>
+                                                <option value="14:00">02:00 PM</option>
+                                                <option value="15:00">03:00 PM</option>
+                                                <option value="16:00">04:00 PM</option>
+                                                <option value="17:00">05:00 PM</option>
+                                                <option value="18:00">06:00 PM</option>
+                                                <option value="19:00">07:00 PM</option>
+                                                <option value="20:00">08:00 PM</option>
+                                                <option value="21:00">09:00 PM</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="reservation-form-item">
+                                        <div class="form-group">
+                                            <label for="person">Person</label>
+                                            <select name="person" id="person" class="form-control">
+                                                <option value="">Person</option>
+                                                <option value="">1</option>
+                                                <option value="">2</option>
+                                                <option value="">3</option>
+                                                <option value="">4+</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!--Reservation form item end-->
+                                </div>
+                                <!--Reservation form items end-->
+                            </div>
+                            <!--Reservation form container end-->
+                            <!--Button-->
+                            <div class="reservation-button">
+                                <div class="form-group">
+                                    <input type="submit" value="Make a Reservation" class="btn-secondary">
+                                </div>
+                            </div>
+                            <!--Button end-->
+                        </form>
+                        <!--Reservation form end-->
                     </div>
-                    <!--Reservation-content-title-->
-                    <!--Reservation form-->
-                    <form action="#">
-                        <div class="reservation-form-container">
-                            <div class="reservation-form-items">
-                                <div class="reservation-form-item">
-                                    <div class="form-group">
-                                        <label for="name">Name</label>
-                                        <input type="text" class="form-control" placeholder="Your Name">
-                                    </div>
-                                </div>
-                                <div class="reservation-form-item">
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="text" class="form-control" placeholder="Your Email">
-                                    </div>
-                                </div>
-                                <div class="reservation-form-item">
-                                    <div class="form-group">
-                                        <label for="phone">Phone</label>
-                                        <input type="text" class="form-control" placeholder="Phone">
-                                    </div>
-                                </div>
-                                <!--Reservation form item end-->
-                            </div>
-                            <!--Reservation form items end-->
-                            <div class="reservation-form-items">
-                                <div class="reservation-form-item">
-                                    <div class="form-group">
-                                        <label for="book_date">Book date</label>
-                                        <input type="text" class="form-control" id="book_date" placeholder="Date">
-                                    </div>
-                                </div>
-                                <div class="reservation-form-item">
-                                    <div class="form-group">
-                                        <label for="book_time">Time</label>
-                                        <select class="form-control" id="book_time">
-                                            <option value="09:00">09:00 AM</option>
-                                            <option value="10:00">10:00 AM</option>
-                                            <option value="11:00">11:00 AM</option>
-                                            <option value="12:00">12:00 PM</option>
-                                            <option value="13:00">01:00 PM</option>
-                                            <option value="14:00">02:00 PM</option>
-                                            <option value="15:00">03:00 PM</option>
-                                            <option value="16:00">04:00 PM</option>
-                                            <option value="17:00">05:00 PM</option>
-                                            <option value="18:00">06:00 PM</option>
-                                            <option value="19:00">07:00 PM</option>
-                                            <option value="20:00">08:00 PM</option>
-                                            <option value="21:00">09:00 PM</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="reservation-form-item">
-                                    <div class="form-group">
-                                        <label for="person">Person</label>
-                                        <select name="person" id="person" class="form-control">
-                                            <option value="">Person</option>
-                                            <option value="">1</option>
-                                            <option value="">2</option>
-                                            <option value="">3</option>
-                                            <option value="">4+</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <!--Reservation form item end-->
-                            </div>
-                            <!--Reservation form items end-->
-                        </div>
-                        <!--Reservation form container end-->
-                        <!--Button-->
-                        <div class="reservation-button">
-                            <div class="form-group">
-                                <input type="submit" value="Make a Reservation" class="btn-secondary">
-                            </div>
-                        </div>
-                        <!--Button end-->
-                    </form>
-                    <!--Reservation form end-->
+                    <!--Reservation content end-->
                 </div>
-                <!--Reservation content end-->
+                <!--Reservation container end-->
+                <!-- Google map -->
+                <div class="map-container container" data-aos="fade-in" data-aos-delay="400">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2518.798010128868!2d5.569091276394098!3d50.63038067949861!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c0f0897b7a8bb7%3A0x401ed56b8e997e0!2sRue%20Saint-Gilles%20343%2C%204000%20Li%C3%A8ge%2C%20Belgium!5e0!3m2!1sen!2s!4v1688150655951!5m2!1sen!2s" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <!-- Google map end -->
             </div>
-            <!--Reservation container end-->
-            <!-- Google map -->
-            <div class="map-container container" data-aos="fade-in" data-aos-delay="400">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2518.798010128868!2d5.569091276394098!3d50.63038067949861!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c0f0897b7a8bb7%3A0x401ed56b8e997e0!2sRue%20Saint-Gilles%20343%2C%204000%20Li%C3%A8ge%2C%20Belgium!5e0!3m2!1sen!2s!4v1688150655951!5m2!1sen!2s" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
+            <!-- Reservation section container end -->
         </section>
         <!--Reservation section end-->
     </main>
