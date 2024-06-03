@@ -33,20 +33,12 @@ header {
 			.header-top-items {
 				@include d-flex(flex, center, center, row, center);
 				width: 100%;
+				color: $gray;
 
 				.header-top-item {
 					@include d-flex(flex, start, center, row, center);
 					width: auto;
 					gap: 0.5em;
-
-					i {
-						color: $gray;
-						font-size: 1em;
-
-						span {
-							color: $gray;
-						}
-					}
 				}
 			}
 		}
