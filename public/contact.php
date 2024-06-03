@@ -142,8 +142,8 @@
                     <div class="contact-content">
                         <div class="contact-content-title">
                             <div class="contact-title">
-                                <span class="subheading">Book a table</span>
-                                <h2 class="title">Make contact</h2>
+                                <span class="subheading">Contact</span>
+                                <h2 class="title">Contact us</h2>
                             </div>
                         </div>
                         <!-- Contact-content-title -->
@@ -214,7 +214,7 @@
             <!-- Contact bottom container -->
             <div class="contact-bottom-container">
                 <!-- Contact info -->
-                <div class="contact-info container" data-aos="fade-in" data-aos-delay="600">
+                <div class="contact-info container" data-aos="fade-up" data-aos-delay="600">
                     <div class="contact-info-items">
                         <div class="contact-info-item">
                             <i class="fas fa-map-marker-alt"></i>
