@@ -77,51 +77,20 @@ function userIdentificationDB($conn, $datas)
     }
 }
 
-/**-----------------------------------------------------------------
-            Récupérer tous les articles de la table articles
- *------------------------------------------------------------------**/
-/**
- * Récupérer tous les articles de la table articles
- * 
- * @param object $conn 
- * @param string $active (0, 1 ou %)
- * @return array $resultat
- */
-function getAllArticlesDB($conn, $active = '%')
-{
-    try {
-        // Récupérer des données de notre table articles
-        $req = $conn->prepare("SELECT * FROM articles WHERE active LIKE :active ORDER BY id DESC");
-        $req->bindParam(':active', $active);
-        $req->execute();
-
-        // Retourne un tableau associatif pour chaque entrée de la table articles avec le nom des colonnes comme clé
-        $resultat = $req->fetchall(PDO::FETCH_ASSOC);
-
-        // Fermeture connexion
-        $req = null;
-        $conn = null;
-
-        return $resultat;
-    } catch (PDOException $e) {
-        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getAllArticlesDB() function";
-        return $st;
-    }
-}
 
 /**
- * Récupérer tous les livres de la table articles
+ * Retrieve all starters from the starters table
  * 
  * @param object $conn 
  * @param int $limit (Nombre d'éléments à récupérer)
  * @param string $active (0, 1 ou %)
- * @return array|false $resultat ou false en cas d'erreur
+ * @return array|false 
  */
-function getAllLivresDB($conn, $limit = null, $active = '%')
+function getAllStartersDB($conn, $limit = null, $active = '%')
 {
     try {
         // Préparation de la requête SQL
-        $sql = "SELECT * FROM livres WHERE active LIKE :active ORDER BY idLivre DESC";
+        $sql = "SELECT * FROM starters WHERE active LIKE :active ORDER BY idStarter DESC";
 
         // Si un nombre limite est spécifié, ajoute une clause LIMIT à la requête
         if ($limit !== null) {
@@ -150,31 +119,25 @@ function getAllLivresDB($conn, $limit = null, $active = '%')
         // Retourne les résultats
         return $resultat;
     } catch (PDOException $e) {
-        // Gestion des erreurs
-        // if (DEBUG) {
-        //     return 'Error : ' . $e->getMessage();
-        // } else {
-        //     return "Error in : getAllLivresDB() function";
-        // }
 
-        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getAllLivresDB() function";
+        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getAllStartersDB() function";
         return $st;
     }
 }
 
 /**
- * Récupérer tous les papeteries de la table articles
+ * Retrieve all main courses from the mainCourses table
  * 
  * @param object $conn 
  * @param int $limit (Nombre d'éléments à récupérer)
  * @param string $active (0, 1 ou %)
  * @return array|false $resultat ou false en cas d'erreur
  */
-function getAllPapeteriesDB($conn, $limit = null, $active = '%')
+function getAllMainCoursesDB($conn, $limit = null, $active = '%')
 {
     try {
         // Préparation de la requête SQL
-        $sql = "SELECT * FROM papeteries WHERE active LIKE :active ORDER BY idPapeterie DESC";
+        $sql = "SELECT * FROM mainCourses WHERE active LIKE :active ORDER BY idMainCourse DESC";
 
         // Si un nombre limite est spécifié, ajoute une clause LIMIT à la requête
         if ($limit !== null) {
@@ -203,24 +166,24 @@ function getAllPapeteriesDB($conn, $limit = null, $active = '%')
         // Retourne les résultats
         return $resultat;
     } catch (PDOException $e) {
-        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getAllPapeteriesDB() function";
+        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getAllMainCoursesDB() function";
         return $st;
     }
 }
 
 /**
- * Récupérer tous les cadeaux de la table articles
+ * Retrieve all desserts from the desserts table
  * 
  * @param object $conn 
  * @param int $limit (Nombre d'éléments à récupérer)
  * @param string $active (0, 1 ou %)
  * @return array|false $resultat ou false en cas d'erreur
  */
-function getAllCadeauxDB($conn, $limit = null, $active = '%')
+function getAllDessertsDB($conn, $limit = null, $active = '%')
 {
     try {
         // Préparation de la requête SQL
-        $sql = "SELECT * FROM cadeaux WHERE active LIKE :active ORDER BY idCadeau DESC";
+        $sql = "SELECT * FROM desserts WHERE active LIKE :active ORDER BY idDessert DESC";
 
         // Si un nombre limite est spécifié, ajoute une clause LIMIT à la requête
         if ($limit !== null) {
@@ -249,7 +212,7 @@ function getAllCadeauxDB($conn, $limit = null, $active = '%')
         // Retourne les résultats
         return $resultat;
     } catch (PDOException $e) {
-        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getAllCadeauxDB() function";
+        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getAllDessertsDB() function";
         return $st;
     }
 }
