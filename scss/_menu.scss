@@ -98,41 +98,65 @@ main {
                     margin-bottom: 5em;
                     width: 100%;
 
-                    .menu-item {
-                        @include d-flex(flex, center, start, row, start);
+                    .menu-row {
+                        @include d-flex(flex, center, center, row, start);
+                        flex-wrap: wrap;
+                        width: 100%;
 
-                        .menu-item-image {
-                            width: 15em;
-                            height: 15em;
-                            border: 1px solid $gray;
-                            margin-right: -1px;
-                            margin-bottom: -1px;
-                        }
+                        .menu-item {
+                            @include d-flex(flex, center, start, row, start);
 
-                        .menu-item-info {
-                            @include d-flex(flex, center, start, column, start);
-                            padding: 1em;
-                            border: 1px solid $gray;
-                            width: 15em;
-                            height: 15em;
-                            margin-right: -1px;
-                            margin-bottom: -1px;
-
-                            .menu-item-title {
-                                font-size: 1.2em;
-                                font-weight: 500;
+                            &:nth-child(1) {
+                                .menu-item-image {
+                                    order: 2;
+                                }
+                                .menu-item-info {
+                                    order: 1;
+                                }
                             }
 
-                            span {
-                                color: $primary;
-                                font-weight: 700;
-                                font-size: 1.3em;
-                                margin: 0.5em 0;
+                            &:nth-child(2) {
+                                .menu-item-image {
+                                    order: 2;
+                                }
+                                .menu-item-info {
+                                    order: 1;
+                                }
                             }
 
-                            p {
-                                font-size: 1em;
-                                font-weight: 300;
+                            .menu-item-image {
+                                width: 15em;
+                                height: 15em;
+                                border: 1px solid $gray;
+                                margin-right: -1px;
+                                margin-bottom: -1px;
+                            }
+
+                            .menu-item-info {
+                                @include d-flex(flex, center, start, column, start);
+                                padding: 1em;
+                                border: 1px solid $gray;
+                                width: 15em;
+                                height: 15em;
+                                margin-right: -1px;
+                                margin-bottom: -1px;
+
+                                .menu-item-title {
+                                    font-size: 1.2em;
+                                    font-weight: 500;
+                                }
+
+                                span {
+                                    color: $primary;
+                                    font-weight: 700;
+                                    font-size: 1.3em;
+                                    margin: 0.5em 0;
+                                }
+
+                                p {
+                                    font-size: 1em;
+                                    font-weight: 300;
+                                }
                             }
                         }
                     }
@@ -144,93 +168,77 @@ main {
                 }
 
                 // Responsive styles for xs, sm, and md screens
-                @media (min-width: 320px) and (max-width: 568px) {  
+                @media (min-width: 320px) and (max-width: 568px) {
                     @include d-flex(flex, center, start, column, start);
-                    gap:1em;
+                    gap: 1em;
                     flex-wrap: wrap;
                     margin-bottom: 1em;
 
-
-                    .menu-item {
-                        @include d-flex(flex, center, start, column, start);
-                        flex-wrap: wrap;
+                    &:nth-child(2) {
+                        .menu-row {
+                            .menu-item {
+                                .menu-item-image {
+                                    order: 2;
+                                }
+                                .menu-item-info {
+                                    order: 1;
+                                }
+                            }
+                        }
                     }
 
-                    .reverse {
-                        @include d-flex(flex, center, start, column, start);
+                    .menu-row {
+                        width: 100%;
 
-                        .menu-item-image {
-                            order: 1;
-                            width: 10em;
-                            height: 10em;
+                        &:nth-child(1) {
+                            .menu-item {
+                                .menu-item-image {
+                                    order: 2;
+                                }
+                                .menu-item-info {
+                                    order: 1;
+                                }
+                            }
                         }
-                        .menu-item-info {
-                            order: 2;
-                            width: 10em;
-                            height: 10em;
+
+                        .menu-item {
+                            flex-wrap: wrap;
                         }
                     }
                 }
 
                 @media (min-width: 569px) and (max-width: 1024px) {
-                    flex-wrap: wrap;
+                    .menu-row {
+                        @include d-flex(flex, center, center, row, start);
 
-                    .menu-item {
-                        &:nth-child(2) {
-                            .menu-item-image {
-                                order: 2;
-                                width: 10em;
-                                height: 10em;
-                            }
-                            .menu-item-info {
-                                order: 1;
-                                width: 10em;
-                                height: 10em;
-                            }
-                        }
-                    }
-
-                    .reverse {
-                        .menu-item-image {
-                            order: 1;
-                            width: 10em;
-                            height: 10em;
-                        }
-                        .menu-item-info {
-                            order: 2;
-                            width: 10em;
-                            height: 10em;
-                        }
+                        // I want  for each row second and third .menu item elements .menu-item-image and .menu-item-info reverse for sm screen
                     }
                 }
             }
         }
     }
 
-    @media screen and (max-width: 1025px) {  
+    @media screen and (max-width: 1025px) {
         .hero-section {
             background-image: url("../assets/images/menu-bg-vertical.jpg");
-    
+
             h2 {
                 font-size: 2em;
             }
         }
 
-        .menu-section{
-            .menu-container{
-                .menu-navbar{
-                    
-                    .menu-navbar-items{
+        .menu-section {
+            .menu-container {
+                .menu-navbar {
+                    .menu-navbar-items {
                         @include d-flex(flex, center, center, column, center);
 
-                        .menu-navbar-item{
+                        .menu-navbar-item {
                             width: 15em;
-                            a{
+                            a {
                                 font-size: 1em;
-
                             }
                             &.active {
-    
                                 &::after {
                                     display: none;
                                 }
@@ -240,6 +248,5 @@ main {
                 }
             }
         }
-        
     }
 }
