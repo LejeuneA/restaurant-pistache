@@ -1,3 +1,37 @@
+<?php
+require_once('C:\xampp\htdocs\restaurant-pistache\admin\settings.php');
+
+// Check if user is not identified, redirect to login page
+if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
+	header('Location: login.php');
+	exit();
+}
+
+$msg = null;
+$resultStarters = null;
+$resultMainCourses = null;
+$resultDesserts = null;
+$execute = false;
+
+// Check the database connection
+if (!is_object($conn)) {
+	$msg = getMessage($conn, 'error');
+} else {
+	// Fetch all menu from the database
+	$resultStarters = getAllStartersDB($conn);
+	$resultMainCourses = getAllMainCoursesDB($conn);
+	$resultDesserts = getAllDessertsDB($conn);
+
+	// Check if starters exist
+	if (is_array($resultStarters) && !empty($resultStarters)) {
+		$execute = true;
+	} else {
+		$msg = getMessage('Il n\'y a pas de menu à afficher actuellement', 'error');
+	}
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
