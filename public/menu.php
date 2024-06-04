@@ -1,11 +1,6 @@
 <?php
 require_once('C:\xampp\htdocs\restaurant-pistache\admin\settings.php');
 
-// Check if user is not identified, redirect to login page
-if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
-	header('Location: login.php');
-	exit();
-}
 
 $msg = null;
 $resultStarters = null;
@@ -15,19 +10,19 @@ $execute = false;
 
 // Check the database connection
 if (!is_object($conn)) {
-	$msg = getMessage($conn, 'error');
+    $msg = getMessage($conn, 'error');
 } else {
-	// Fetch all menu from the database
-	$resultStarters = getAllStartersDB($conn);
-	$resultMainCourses = getAllMainCoursesDB($conn);
-	$resultDesserts = getAllDessertsDB($conn);
+    // Fetch all menu from the database
+    $resultStarters = getAllStartersDB($conn);
+    $resultMainCourses = getAllMainCoursesDB($conn);
+    $resultDesserts = getAllDessertsDB($conn);
 
-	// Check if starters exist
-	if (is_array($resultStarters) && !empty($resultStarters)) {
-		$execute = true;
-	} else {
-		$msg = getMessage('Il n\'y a pas de menu à afficher actuellement', 'error');
-	}
+    // Check if starters exist
+    if (is_array($resultStarters) && !empty($resultStarters)) {
+        $execute = true;
+    } else {
+        $msg = getMessage('Il n\'y a pas de menu à afficher actuellement', 'error');
+    }
 }
 
 ?>
@@ -36,29 +31,7 @@ if (!is_object($conn)) {
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="restaurant website">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="../css/styles.css">
-
-    <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
-    <!-- AOS Library CSS -->
-    <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="../assets/icons/favicon.png">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
-    <!-- Title -->
-    <title>Restaurant Pistache</title>
+    <?php displayHeadSection('Menu'); ?>
 </head>
 
 <body>
@@ -191,279 +164,67 @@ if (!is_object($conn)) {
                 <!-- Menu navbar end -->
                 <!-- Menu items -->
                 <div class="menu-items">
+
+
                     <!-- Starter content-->
                     <div class="menu-content" id="starter-content">
-                        <!-- Menu items -->
-                        <div class="menu-items" data-aos="fade-up" data-aos-delay="150">
-                            <div class="menu-item">
-                                <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Scottish smoked label salmon</h3>
-                                    <span class="menu-item-price">€15.00</span>
-                                    <p>Salmon filet, Kosher salt, Brown sugar, Olive oil</p>
+                        <?php if ($execute) : ?>
+                            <?php foreach ($resultStarters as $starter) : ?>
+                                <div class="menu-item">
+                                    <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($starter['imageUrl']) ?>" alt="<?= htmlspecialchars($starter['title']) ?>">
+                                    <div class="menu-item-info">
+                                        <h3 class="menu-item-title"><?= htmlspecialchars($starter['title']) ?></h3>
+                                        <span class="menu-item-price">€<?= number_format($starter['price'], 2) ?></span>
+                                        <p><?= htmlspecialchars($starter['description']) ?></p>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="menu-item">
-                                <img class="menu-item-image" src="../uploads/starter-2.jpg" alt="Ravioli with tomato sauce and dill">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Ravioli with tomato sauce and dill</h3>
-                                    <span class="menu-item-price">€13.00</span>
-                                    <p>Ravolli, Tomato sauce, Dill, Olive oil</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Menu items end -->
-
-                        <!-- Menu items -->
-                        <div class="menu-items reverse" data-aos="fade-up" data-aos-delay="300">
-                            <div class="menu-item">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Tuna salad with tomatoes</h3>
-                                    <span class="menu-item-price">€15.00</span>
-                                    <p>Tuna fish, Boiled egg, Tomatoes, Lemon</p>
-                                </div>
-                                <img class="menu-item-image" src="../uploads/starter-3.jpg" alt="Tuna salad with tomatoes">
-                            </div>
-
-                            <div class="menu-item">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Shrimps in batter with sauce</h3>
-                                    <span class="menu-item-price">€17.00</span>
-                                    <p>Shrimps, Fresh vegetable salad, Lemon, Sauce</p>
-                                </div>
-                                <img class="menu-item-image" src="../uploads/starter-4.jpg" alt="Shrimps in batter with sauce">
-                            </div>
-                        </div>
-                        <!-- Menu items end -->
-
-                        <!-- Menu items -->
-                        <div class="menu-items" data-aos="fade-up" data-aos-delay="450">
-                            <div class="menu-item">
-                                <img class="menu-item-image" src="../uploads/starter-5.jpg" alt="Fried squid">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Fried squid</h3>
-                                    <span class="menu-item-price">€17.00</span>
-                                    <p>Calamari, Fresh vegetable salad, Lemon, Sauce</p>
-                                </div>
-                            </div>
-
-                            <div class="menu-item">
-                                <img class="menu-item-image" src="../uploads/starter-6.jpg" alt="Steak tartare">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Steak tartare</h3>
-                                    <span class="menu-item-price">€18.00</span>
-                                    <p>Beef fillet, Shallots, Cornichons, Yolk egg</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Menu items end -->
-
-                        <!-- Menu items -->
-                        <div class="menu-items reverse" data-aos="fade-up" data-aos-delay="600">
-                            <div class="menu-item">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Chicken liver pâté</h3>
-                                    <span class="menu-item-price">€13.00</span>
-                                    <p>Chicken livers, Onion, Double cream, Toast</p>
-                                </div>
-                                <img class="menu-item-image" src="../uploads/starter-7.jpg" alt="Chicken liver pâté">
-                            </div>
-
-                            <div class="menu-item">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">French onion soup</h3>
-                                    <span class="menu-item-price">€14.00</span>
-                                    <p>Onions, Beef stock, Butter, Parsley</p>
-                                </div>
-                                <img class="menu-item-image" src="../uploads/starter-8.jpg" alt="French onion soup">
-                            </div>
-                        </div>
-                        <!-- Menu items end -->
+                            <?php endforeach; ?>
+                        <?php else : ?>
+                            <p>No starters available at the moment.</p>
+                        <?php endif; ?>
                     </div>
                     <!-- Starter content end -->
 
-                    <!-- Main Course -->
+
+                    <!-- Main Course content -->
                     <div class="menu-content" id="main-course-content">
-                        <!-- Menu items -->
-                        <div class="menu-items" data-aos="fade-up" data-aos-delay="150">
-                            <div class="menu-item">
-                                <img class="menu-item-image" src="../uploads/main-1.jpg" alt="Chicken confit with sauce vierge">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Chicken confit with sauce vierge</h3>
-                                    <span class="menu-item-price">€24.00</span>
-                                    <p>Chicken marylandst, Pommes puree, Garlic cloves, Sauce</p>
+                        <?php if (is_array($resultMainCourses) && !empty($resultMainCourses)) : ?>
+                            <?php foreach ($resultMainCourses as $mainCourse) : ?>
+                                <div class="menu-item">
+                                    <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($mainCourse['imageUrl']) ?>" alt="<?= htmlspecialchars($mainCourse['title']) ?>">
+                                    <div class="menu-item-info">
+                                        <h3 class="menu-item-title"><?= htmlspecialchars($mainCourse['title']) ?></h3>
+                                        <span class="menu-item-price">€<?= number_format($mainCourse['price'], 2) ?></span>
+                                        <p><?= htmlspecialchars($mainCourse['description']) ?></p>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="menu-item">
-                                <img class="menu-item-image" src="../uploads/main-2.jpg" alt="Salmon steamed in paper parcels">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Salmon steamed in paper parcels</h3>
-                                    <span class="menu-item-price">€24.00</span>
-                                    <p>Ravolli, Tomato sauce, Dill, Olive oil</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Menu items end -->
-
-                        <!-- Menu items -->
-                        <div class="menu-items reverse" data-aos="fade-up" data-aos-delay="300">
-                            <div class="menu-item">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Slow-cooked boeuf bourguignon</h3>
-                                    <span class="menu-item-price">€25.00</span>
-                                    <p>Chuck steak, Carrot, Garlic cloves, Potato</p>
-                                </div>
-                                <img class="menu-item-image" src="../uploads/main-3.jpg" alt="Slow-cooked boeuf bourguignon">
-                            </div>
-
-                            <div class="menu-item">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Marseille-Style Shrimp Stew</h3>
-                                    <span class="menu-item-price">€21.00</span>
-                                    <p>Jumbo shrimp, Garlic cloves, Cayenne pepper, Basilic leaves</p>
-                                </div>
-                                <img class="menu-item-image" src="../uploads/main-4.jpg" alt="Marseille-Style Shrimp Stew">
-                            </div>
-                        </div>
-                        <!-- Menu items end -->
-
-                        <!-- Menu items -->
-                        <div class="menu-items" data-aos="fade-up" data-aos-delay="450">
-                            <div class="menu-item">
-                                <img class="menu-item-image" src="../uploads/main-5.jpg" alt="Duck à l'Orange">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Duck à l'Orange</h3>
-                                    <span class="menu-item-price">€32.00</span>
-                                    <p>Pekin ducks, Oranges, Potatoes, White wine</p>
-                                </div>
-                            </div>
-
-                            <div class="menu-item">
-                                <img class="menu-item-image" src="../uploads/main-6.jpg" alt="Stuffed Pork Tenderloins with Bacon">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Stuffed Pork Tenderloins with Bacon</h3>
-                                    <span class="menu-item-price">€25.00</span>
-                                    <p>Pork tenderloins, Breakfast sausage, Garlic cloves, Chopped thyme</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Menu items end -->
-
-                        <!-- Menu items -->
-                        <div class="menu-items reverse" data-aos="fade-up" data-aos-delay="600">
-                            <div class="menu-item">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Strip Steak Frites with Béarnaise Butter</h3>
-                                    <span class="menu-item-price">€24.00</span>
-                                    <p>Steaks, Potatoes, Béarnaise butter, White vinegar</p>
-                                </div>
-                                <img class="menu-item-image" src="../uploads/main-7.jpg" alt="Strip Steak Frites with Béarnaise Butter">
-                            </div>
-
-                            <div class="menu-item">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Ratatouille</h3>
-                                    <span class="menu-item-price">€21.00</span>
-                                    <p>Eggplants, Zucchini, Yellow onions, Red bell peppers</p>
-                                </div>
-                                <img class="menu-item-image" src="../uploads/main-8.jpg" alt="Ratatouille">
-                            </div>
-                        </div>
-                        <!-- Menu items end -->
+                            <?php endforeach; ?>
+                        <?php else : ?>
+                            <p>No main courses available at the moment.</p>
+                        <?php endif; ?>
                     </div>
+                    <!-- Main Course content end -->
 
-                    <!-- Dessert -->
+                    <!-- Dessert content -->
                     <div class="menu-content" id="dessert-content">
-                        <!-- Menu items -->
-                        <div class="menu-items" data-aos="fade-up" data-aos-delay="150">
-                            <div class="menu-item">
-                                <img class="menu-item-image" src="../uploads/dessert-1.jpg" alt="Crêpes Suzette">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Crêpes suzette</h3>
-                                    <span class="menu-item-price">€12.00</span>
-                                    <p>Flour, Milk, Granulated sugar, Orange Butter Sauce</p>
+                        <?php if (is_array($resultDesserts) && !empty($resultDesserts)) : ?>
+                            <?php foreach ($resultDesserts as $dessert) : ?>
+                                <div class="menu-item">
+                                    <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($dessert['imageUrl']) ?>" alt="<?= htmlspecialchars($dessert['title']) ?>">
+                                    <div class="menu-item-info">
+                                        <h3 class="menu-item-title"><?= htmlspecialchars($dessert['title']) ?></h3>
+                                        <span class="menu-item-price">€<?= number_format($dessert['price'], 2) ?></span>
+                                        <p><?= htmlspecialchars($dessert['description']) ?></p>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="menu-item">
-                                <img class="menu-item-image" src="../uploads/dessert-2.jpg" alt="Tarte Tatin">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Tarte tatin</h3>
-                                    <span class="menu-item-price">€13.00</span>
-                                    <p>Flour, Apples, Sugar, Whipped cream</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Menu items end -->
-
-                        <!-- Menu items -->
-                        <div class="menu-items reverse" data-aos="fade-up" data-aos-delay="300">
-                            <div class="menu-item">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Floating islands</h3>
-                                    <span class="menu-item-price">€12.00</span>
-                                    <p>Egg whites, Granulated sugar, Heavy cream, Dark chocolate</p>
-                                </div>
-                                <img class="menu-item-image" src="../uploads/dessert-3.jpg" alt="Floating Islands">
-                            </div>
-
-                            <div class="menu-item">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Hazelnut and crème fraîche meringues</h3>
-                                    <span class="menu-item-price">€15.00</span>
-                                    <p>Raw hazelnuts, Egg whites, Crème fraiche, Granulated sugar</p>
-                                </div>
-                                <img class="menu-item-image" src="../uploads/dessert-4.jpg" alt="Hazelnut and Crème Fraîche Meringues">
-                            </div>
-                        </div>
-                        <!-- Menu items end -->
-
-                        <!-- Menu items -->
-                        <div class="menu-items" data-aos="fade-up" data-aos-delay="450">
-                            <div class="menu-item">
-                                <img class="menu-item-image" src="../uploads/dessert-5.jpg" alt="Fresh Raspberry Tart">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Fresh raspberry tart</h3>
-                                    <span class="menu-item-price">€13.00</span>
-                                    <p>Fresh raspberries, Raspberry jam, Fresh lemon juice, Vanilla ice cream</p>
-                                </div>
-                            </div>
-
-                            <div class="menu-item">
-                                <img class="menu-item-image" src="../uploads/dessert-6.jpg" alt="Raspberry Macarons">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Raspberry macarons</h3>
-                                    <span class="menu-item-price">€12.00</span>
-                                    <p>Raspberry jam, Almond flour, Confectioners' sugar, Egg whites</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Menu items end -->
-
-                        <!-- Menu items -->
-                        <div class="menu-items reverse" data-aos="fade-up" data-aos-delay="600">
-                            <div class="menu-item">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Cream puffs with chocolate sauce</h3>
-                                    <span class="menu-item-price">€15.00</span>
-                                    <p>Bittersweet chocolate, Flour, Heavy cream, Vanilla extract</p>
-                                </div>
-                                <img class="menu-item-image" src="../uploads/dessert-7.jpg" alt="Cream Puffs with Chocolate Sauce">
-                            </div>
-
-                            <div class="menu-item">
-                                <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Crème caramel</h3>
-                                    <span class="menu-item-price">€12.00</span>
-                                    <p>Heavy cream, Yolks, Milk, Vanilla bean</p>
-                                </div>
-                                <img class="menu-item-image" src="../uploads/dessert-8.jpg" alt="Crème Caramel">
-                            </div>
-                        </div>
-                        <!-- Menu items end -->
+                            <?php endforeach; ?>
+                        <?php else : ?>
+                            <p>No desserts available at the moment.</p>
+                        <?php endif; ?>
                     </div>
+                    <!-- Dessert content end -->
+
+
                 </div>
                 <!-- Menu items end -->
             </div>
