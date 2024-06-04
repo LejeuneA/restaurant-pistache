@@ -162,22 +162,30 @@ if (!is_object($conn)) {
                     </ul>
                 </div>
                 <!-- Menu navbar end -->
+
                 <!-- Menu items -->
                 <div class="menu-items">
-
 
                     <!-- Starter content-->
                     <div class="menu-content" id="starter-content">
                         <?php if ($execute) : ?>
-                            <?php foreach ($resultStarters as $starter) : ?>
-                                <div class="menu-item">
-                                    <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($starter['imageUrl']) ?>" alt="<?= htmlspecialchars($starter['title']) ?>">
-                                    <div class="menu-item-info">
-                                        <h3 class="menu-item-title"><?= htmlspecialchars($starter['title']) ?></h3>
-                                        <span class="menu-item-price">€<?= number_format($starter['price'], 2) ?></span>
-                                        <p><?= htmlspecialchars($starter['description']) ?></p>
+                            <?php foreach ($resultStarters as $index => $starter) : ?>
+                                <?php if ($index % 4 == 0) : ?>
+                                    <div class="menu-row">
+                                    <?php endif; ?>
+                                    <div class="menu-item">
+                                        <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($starter['imageUrl']) ?>" alt="<?= htmlspecialchars($starter['title']) ?>">
+                                        <div class="menu-item-info">
+                                            <h3 class="menu-item-title"><?= htmlspecialchars($starter['title']) ?></h3>
+                                            <span class="menu-item-price">€<?= number_format($starter['price'], 2) ?></span>
+                                            <p><?= htmlspecialchars($starter['description']) ?></p>
+                                        </div>
                                     </div>
-                                </div>
+                                    <?php if (($index + 1) % 4 == 0) : ?>
+                                    </div>
+                                <?php endif; ?>
+                                <?php if ($index >= 16) break; // Limit to 16 items 
+                                ?>
                             <?php endforeach; ?>
                         <?php else : ?>
                             <p>No starters available at the moment.</p>
@@ -185,19 +193,26 @@ if (!is_object($conn)) {
                     </div>
                     <!-- Starter content end -->
 
-
                     <!-- Main Course content -->
                     <div class="menu-content" id="main-course-content">
                         <?php if (is_array($resultMainCourses) && !empty($resultMainCourses)) : ?>
-                            <?php foreach ($resultMainCourses as $mainCourse) : ?>
-                                <div class="menu-item">
-                                    <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($mainCourse['imageUrl']) ?>" alt="<?= htmlspecialchars($mainCourse['title']) ?>">
-                                    <div class="menu-item-info">
-                                        <h3 class="menu-item-title"><?= htmlspecialchars($mainCourse['title']) ?></h3>
-                                        <span class="menu-item-price">€<?= number_format($mainCourse['price'], 2) ?></span>
-                                        <p><?= htmlspecialchars($mainCourse['description']) ?></p>
+                            <?php foreach ($resultMainCourses as $index => $mainCourse) : ?>
+                                <?php if ($index % 4 == 0) : ?>
+                                    <div class="menu-row">
+                                    <?php endif; ?>
+                                    <div class="menu-item">
+                                        <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($mainCourse['imageUrl']) ?>" alt="<?= htmlspecialchars($mainCourse['title']) ?>">
+                                        <div class="menu-item-info">
+                                            <h3 class="menu-item-title"><?= htmlspecialchars($mainCourse['title']) ?></h3>
+                                            <span class="menu-item-price">€<?= number_format($mainCourse['price'], 2) ?></span>
+                                            <p><?= htmlspecialchars($mainCourse['description']) ?></p>
+                                        </div>
                                     </div>
-                                </div>
+                                    <?php if (($index + 1) % 4 == 0) : ?>
+                                    </div>
+                                <?php endif; ?>
+                                <?php if ($index >= 11) break; // Limit to 12 items 
+                                ?>
                             <?php endforeach; ?>
                         <?php else : ?>
                             <p>No main courses available at the moment.</p>
@@ -208,15 +223,23 @@ if (!is_object($conn)) {
                     <!-- Dessert content -->
                     <div class="menu-content" id="dessert-content">
                         <?php if (is_array($resultDesserts) && !empty($resultDesserts)) : ?>
-                            <?php foreach ($resultDesserts as $dessert) : ?>
-                                <div class="menu-item">
-                                    <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($dessert['imageUrl']) ?>" alt="<?= htmlspecialchars($dessert['title']) ?>">
-                                    <div class="menu-item-info">
-                                        <h3 class="menu-item-title"><?= htmlspecialchars($dessert['title']) ?></h3>
-                                        <span class="menu-item-price">€<?= number_format($dessert['price'], 2) ?></span>
-                                        <p><?= htmlspecialchars($dessert['description']) ?></p>
+                            <?php foreach ($resultDesserts as $index => $dessert) : ?>
+                                <?php if ($index % 4 == 0) : ?>
+                                    <div class="menu-row">
+                                    <?php endif; ?>
+                                    <div class="menu-item">
+                                        <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($dessert['imageUrl']) ?>" alt="<?= htmlspecialchars($dessert['title']) ?>">
+                                        <div class="menu-item-info">
+                                            <h3 class="menu-item-title"><?= htmlspecialchars($dessert['title']) ?></h3>
+                                            <span class="menu-item-price">€<?= number_format($dessert['price'], 2) ?></span>
+                                            <p><?= htmlspecialchars($dessert['description']) ?></p>
+                                        </div>
                                     </div>
-                                </div>
+                                    <?php if (($index + 1) % 4 == 0) : ?>
+                                    </div>
+                                <?php endif; ?>
+                                <?php if ($index >= 11) break; // Limit to 12 items 
+                                ?>
                             <?php endforeach; ?>
                         <?php else : ?>
                             <p>No desserts available at the moment.</p>
@@ -224,9 +247,9 @@ if (!is_object($conn)) {
                     </div>
                     <!-- Dessert content end -->
 
-
                 </div>
                 <!-- Menu items end -->
+
             </div>
             <!-- Menu container end -->
         </section>
