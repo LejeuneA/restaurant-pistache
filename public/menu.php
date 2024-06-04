@@ -287,7 +287,7 @@
                             <div class="menu-item">
                                 <div class="menu-item-info">
                                     <h3 class="menu-item-title">Marseille-Style Shrimp Stew</h3>
-                                    <span class="menu-item-price">€19.00</span>
+                                    <span class="menu-item-price">€21.00</span>
                                     <p>Jumbo shrimp, Garlic cloves, Cayenne pepper, Basilic leaves</p>
                                 </div>
                                 <img class="menu-item-image" src="../uploads/main-4.jpg" alt="Marseille-Style Shrimp Stew">
@@ -347,16 +347,16 @@
                             <div class="menu-item">
                                 <img class="menu-item-image" src="../uploads/dessert-1.jpg" alt="Crêpes Suzette">
                                 <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Crêpes Suzette</h3>
+                                    <h3 class="menu-item-title">Crêpes suzette</h3>
                                     <span class="menu-item-price">€12.00</span>
-                                    <p>Salmon filet, Kosher salt, Brown sugar, Olive oil</p>
+                                    <p>Flour, Milk, Granulated sugar, Orange Butter Sauce</p>
                                 </div>
                             </div>
 
                             <div class="menu-item">
                                 <img class="menu-item-image" src="../uploads/dessert-2.jpg" alt="Tarte Tatin">
                                 <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Tarte Tatin</h3>
+                                    <h3 class="menu-item-title">Tarte tatin</h3>
                                     <span class="menu-item-price">€13.00</span>
                                     <p>Flour, Apples, Sugar, Whipped cream</p>
                                 </div>
@@ -368,7 +368,7 @@
                         <div class="menu-items reverse" data-aos="fade-up" data-aos-delay="300">
                             <div class="menu-item">
                                 <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Floating Islands</h3>
+                                    <h3 class="menu-item-title">Floating islands</h3>
                                     <span class="menu-item-price">€12.00</span>
                                     <p>Egg whites, Granulated sugar, Heavy cream, Dark chocolate</p>
                                 </div>
@@ -377,7 +377,7 @@
 
                             <div class="menu-item">
                                 <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Hazelnut and Crème Fraîche Meringues</h3>
+                                    <h3 class="menu-item-title">Hazelnut and crème fraîche meringues</h3>
                                     <span class="menu-item-price">€15.00</span>
                                     <p>Raw hazelnuts, Egg whites, Crème fraiche, Granulated sugar</p>
                                 </div>
@@ -391,7 +391,7 @@
                             <div class="menu-item">
                                 <img class="menu-item-image" src="../uploads/dessert-5.jpg" alt="Fresh Raspberry Tart">
                                 <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Fresh Raspberry Tart</h3>
+                                    <h3 class="menu-item-title">Fresh raspberry tart</h3>
                                     <span class="menu-item-price">€13.00</span>
                                     <p>Fresh raspberries, Raspberry jam, Fresh lemon juice, Vanilla ice cream</p>
                                 </div>
@@ -400,7 +400,7 @@
                             <div class="menu-item">
                                 <img class="menu-item-image" src="../uploads/dessert-6.jpg" alt="Raspberry Macarons">
                                 <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Raspberry Macarons</h3>
+                                    <h3 class="menu-item-title">Raspberry macarons</h3>
                                     <span class="menu-item-price">€12.00</span>
                                     <p>Raspberry jam, Almond flour, Confectioners' sugar, Egg whites</p>
                                 </div>
@@ -412,7 +412,7 @@
                         <div class="menu-items reverse" data-aos="fade-up" data-aos-delay="600">
                             <div class="menu-item">
                                 <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Cream Puffs with Chocolate Sauce</h3>
+                                    <h3 class="menu-item-title">Cream puffs with chocolate sauce</h3>
                                     <span class="menu-item-price">€15.00</span>
                                     <p>Bittersweet chocolate, Flour, Heavy cream, Vanilla extract</p>
                                 </div>
@@ -421,7 +421,7 @@
 
                             <div class="menu-item">
                                 <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Crème Caramel</h3>
+                                    <h3 class="menu-item-title">Crème caramel</h3>
                                     <span class="menu-item-price">€12.00</span>
                                     <p>Heavy cream, Yolks, Milk, Vanilla bean</p>
                                 </div>
