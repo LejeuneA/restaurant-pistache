@@ -165,7 +165,7 @@
                                 <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
                                 <div class="menu-item-info">
                                     <h3 class="menu-item-title">Scottish smoked label salmon</h3>
-                                    <span class="menu-item-price">€20.00</span>
+                                    <span class="menu-item-price">€15.00</span>
                                     <p>Salmon filet, Kosher salt, Brown sugar, Olive oil</p>
                                 </div>
                             </div>
@@ -174,7 +174,7 @@
                                 <img class="menu-item-image" src="../uploads/starter-2.jpg" alt="Ravioli with tomato sauce and dill">
                                 <div class="menu-item-info">
                                     <h3 class="menu-item-title">Ravioli with tomato sauce and dill</h3>
-                                    <span class="menu-item-price">€22.00</span>
+                                    <span class="menu-item-price">€13.00</span>
                                     <p>Ravolli, Tomato sauce, Dill, Olive oil</p>
                                 </div>
                             </div>
@@ -186,7 +186,7 @@
                             <div class="menu-item">
                                 <div class="menu-item-info">
                                     <h3 class="menu-item-title">Tuna salad with tomatoes</h3>
-                                    <span class="menu-item-price">€21.00</span>
+                                    <span class="menu-item-price">€15.00</span>
                                     <p>Tuna fish, Boiled egg, Tomatoes, Lemon</p>
                                 </div>
                                 <img class="menu-item-image" src="../uploads/starter-3.jpg" alt="Tuna salad with tomatoes">
@@ -195,7 +195,7 @@
                             <div class="menu-item">
                                 <div class="menu-item-info">
                                     <h3 class="menu-item-title">Shrimps in batter with sauce</h3>
-                                    <span class="menu-item-price">€19.00</span>
+                                    <span class="menu-item-price">€17.00</span>
                                     <p>Shrimps, Fresh vegetable salad, Lemon, Sauce</p>
                                 </div>
                                 <img class="menu-item-image" src="../uploads/starter-4.jpg" alt="Shrimps in batter with sauce">
@@ -209,7 +209,7 @@
                                 <img class="menu-item-image" src="../uploads/starter-5.jpg" alt="Fried squid">
                                 <div class="menu-item-info">
                                     <h3 class="menu-item-title">Fried squid</h3>
-                                    <span class="menu-item-price">€19.00</span>
+                                    <span class="menu-item-price">€17.00</span>
                                     <p>Calamari, Fresh vegetable salad, Lemon, Sauce</p>
                                 </div>
                             </div>
@@ -218,7 +218,7 @@
                                 <img class="menu-item-image" src="../uploads/starter-6.jpg" alt="Steak tartare">
                                 <div class="menu-item-info">
                                     <h3 class="menu-item-title">Steak tartare</h3>
-                                    <span class="menu-item-price">€19.00</span>
+                                    <span class="menu-item-price">€18.00</span>
                                     <p>Beef fillet, Shallots, Cornichons, Yolk egg</p>
                                 </div>
                             </div>
@@ -230,7 +230,7 @@
                             <div class="menu-item">
                                 <div class="menu-item-info">
                                     <h3 class="menu-item-title">Chicken liver pâté</h3>
-                                    <span class="menu-item-price">€21.00</span>
+                                    <span class="menu-item-price">€13.00</span>
                                     <p>Chicken livers, Onion, Double cream, Toast</p>
                                 </div>
                                 <img class="menu-item-image" src="../uploads/starter-7.jpg" alt="Chicken liver pâté">
@@ -239,7 +239,7 @@
                             <div class="menu-item">
                                 <div class="menu-item-info">
                                     <h3 class="menu-item-title">French onion soup</h3>
-                                    <span class="menu-item-price">€19.00</span>
+                                    <span class="menu-item-price">€14.00</span>
                                     <p>Onions, Beef stock, Butter, Parsley</p>
                                 </div>
                                 <img class="menu-item-image" src="../uploads/starter-8.jpg" alt="French onion soup">
@@ -345,20 +345,20 @@
                         <!-- Menu items -->
                         <div class="menu-items" data-aos="fade-up" data-aos-delay="150">
                             <div class="menu-item">
-                                <img class="menu-item-image" src="../uploads/starter-1.jpg" alt="Scottish red label salmon">
+                                <img class="menu-item-image" src="../uploads/dessert-1.jpg" alt="Crêpes Suzette">
                                 <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Scottish smoked label salmon</h3>
-                                    <span class="menu-item-price">€20.00</span>
+                                    <h3 class="menu-item-title">Crêpes Suzette</h3>
+                                    <span class="menu-item-price">€12.00</span>
                                     <p>Salmon filet, Kosher salt, Brown sugar, Olive oil</p>
                                 </div>
                             </div>
 
                             <div class="menu-item">
-                                <img class="menu-item-image" src="../uploads/starter-2.jpg" alt="Scottish red label salmon">
+                                <img class="menu-item-image" src="../uploads/dessert-2.jpg" alt="Tarte Tatin">
                                 <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Ravioli with tomato sauce and dill</h3>
-                                    <span class="menu-item-price">€22.00</span>
-                                    <p>Ravolli, Tomato sauce, Dill, Olive oil</p>
+                                    <h3 class="menu-item-title">Tarte Tatin</h3>
+                                    <span class="menu-item-price">€13.00</span>
+                                    <p>Flour, Apples, Sugar, Whipped cream</p>
                                 </div>
                             </div>
                         </div>
@@ -368,20 +368,20 @@
                         <div class="menu-items reverse" data-aos="fade-up" data-aos-delay="300">
                             <div class="menu-item">
                                 <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Tuna salad with tomatoes</h3>
-                                    <span class="menu-item-price">€21.00</span>
-                                    <p>Tuna fish, Boiled egg, Tomatoes, Lemon</p>
+                                    <h3 class="menu-item-title">Floating Islands</h3>
+                                    <span class="menu-item-price">€12.00</span>
+                                    <p>Egg whites, Granulated sugar, Heavy cream, Dark chocolate</p>
                                 </div>
-                                <img class="menu-item-image" src="../uploads/starter-3.jpg" alt="Scottish red label salmon">
+                                <img class="menu-item-image" src="../uploads/dessert-3.jpg" alt="Floating Islands">
                             </div>
 
                             <div class="menu-item">
                                 <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Shrimps in batter with sauce</h3>
-                                    <span class="menu-item-price">€19.00</span>
-                                    <p>Shrimps, Fresh vegetable salad, Lemon, Sauce</p>
+                                    <h3 class="menu-item-title">Hazelnut and Crème Fraîche Meringues</h3>
+                                    <span class="menu-item-price">€15.00</span>
+                                    <p>Raw hazelnuts, Egg whites, Crème fraiche, Granulated sugar</p>
                                 </div>
-                                <img class="menu-item-image" src="../uploads/starter-4.jpg" alt="Scottish red label salmon">
+                                <img class="menu-item-image" src="../uploads/dessert-4.jpg" alt="Hazelnut and Crème Fraîche Meringues">
                             </div>
                         </div>
                         <!-- Menu items end -->
@@ -389,20 +389,20 @@
                         <!-- Menu items -->
                         <div class="menu-items" data-aos="fade-up" data-aos-delay="450">
                             <div class="menu-item">
-                                <img class="menu-item-image" src="../uploads/starter-5.jpg" alt="Scottish red label salmon">
+                                <img class="menu-item-image" src="../uploads/dessert-5.jpg" alt="Fresh Raspberry Tart">
                                 <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Fried squid</h3>
-                                    <span class="menu-item-price">€19.00</span>
-                                    <p>Clamari, Fresh vegetable salad, Lemon, Sauce</p>
+                                    <h3 class="menu-item-title">Fresh Raspberry Tart</h3>
+                                    <span class="menu-item-price">€13.00</span>
+                                    <p>Fresh raspberries, Raspberry jam, Fresh lemon juice, Vanilla ice cream</p>
                                 </div>
                             </div>
 
                             <div class="menu-item">
-                                <img class="menu-item-image" src="../uploads/starter-6.jpg" alt="Scottish red label salmon">
+                                <img class="menu-item-image" src="../uploads/dessert-6.jpg" alt="Raspberry Macarons">
                                 <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Steak tartare</h3>
-                                    <span class="menu-item-price">€19.00</span>
-                                    <p>Beef fillet, Shallots, Cornichons, Yolk egg</p>
+                                    <h3 class="menu-item-title">Raspberry Macarons</h3>
+                                    <span class="menu-item-price">€12.00</span>
+                                    <p>Raspberry jam, Almond flour, Confectioners' sugar, Egg whites</p>
                                 </div>
                             </div>
                         </div>
@@ -412,20 +412,20 @@
                         <div class="menu-items reverse" data-aos="fade-up" data-aos-delay="600">
                             <div class="menu-item">
                                 <div class="menu-item-info">
-                                    <h3 class="menu-item-title">Chicken liver pâté</h3>
-                                    <span class="menu-item-price">€21.00</span>
-                                    <p>Chicken livers, Onion, Double cream, Toast</p>
+                                    <h3 class="menu-item-title">Cream Puffs with Chocolate Sauce</h3>
+                                    <span class="menu-item-price">€15.00</span>
+                                    <p>Bittersweet chocolate, Flour, Heavy cream, Vanilla extract</p>
                                 </div>
-                                <img class="menu-item-image" src="../uploads/starter-7.jpg" alt="Scottish red label salmon">
+                                <img class="menu-item-image" src="../uploads/dessert-7.jpg" alt="Cream Puffs with Chocolate Sauce">
                             </div>
 
                             <div class="menu-item">
                                 <div class="menu-item-info">
-                                    <h3 class="menu-item-title">French onion soup</h3>
-                                    <span class="menu-item-price">€19.00</span>
-                                    <p>Onions, Beef stock, Butter, Parsley</p>
+                                    <h3 class="menu-item-title">Crème Caramel</h3>
+                                    <span class="menu-item-price">€12.00</span>
+                                    <p>Heavy cream, Yolks, Milk, Vanilla bean</p>
                                 </div>
-                                <img class="menu-item-image" src="../uploads/starter-8.jpg" alt="Scottish red label salmon">
+                                <img class="menu-item-image" src="../uploads/dessert-8.jpg" alt="Crème Caramel">
                             </div>
                         </div>
                         <!-- Menu items end -->
