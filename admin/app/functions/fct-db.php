@@ -2,11 +2,15 @@
 /* ********************************************************************** */
 /* *                           DB FUNCTIONS                             * */
 /* *                           ------------                             * */
-/* *    FONCTIONS RELATIVES AUX INTERACTIONS AVEC LA BASE DE DONNEES    * */
+/* *                 FUNCTIONS FOR DATABASE INTERACTION                 * */
 /* ********************************************************************** */
 
+
+/**-----------------------------------------------------------------
+                        Database connection
+*------------------------------------------------------------------**/
 /**
- * Connexion à la base de données
+ * Database connection
  * 
  * @param string $serverName
  * @param string $userName
@@ -18,10 +22,10 @@
 function connectDB($serverName, $userName, $userPwd, $dbName)
 {
     try {
-        // Création d'une connexion à la base de données
+        // Creating a database connection
         $conn = new PDO("mysql:host=$serverName;dbname=$dbName;charset=utf8", $userName, $userPwd);
 
-        // Définition du mode d'erreur de PDO sur Exception
+        // Set PDO error mode to Exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         return $conn;
@@ -33,11 +37,11 @@ function connectDB($serverName, $userName, $userPwd, $dbName)
 
 
 /**-----------------------------------------------------------------
-                Identification d'un utilisateur
+                         User identification
  *------------------------------------------------------------------**/
 
 /**
- * Identification d'un utilisateur
+ * User identification
  * 
  * @param mixed $conn 
  * @param mixed $datas 
@@ -48,25 +52,25 @@ function userIdentificationDB($conn, $datas)
     try {
         $user = null;
 
-        // Préparation des données avant insertion dans la base de données
+        // Preparing data for insertion into the database
         $login = filterInputs($datas['login']);
         $pwd = filterInputs($datas['pwd']);
 
-        // Sélection des données dans la table users
+        // Selecting data in the users table
         $req = $conn->prepare("SELECT * FROM users WHERE email = :login AND passwd = :pwd");
         $req->bindParam(':login', $login);
         $req->bindParam(':pwd', $pwd);
         $req->execute();
 
-        // Génère un résultat si il y a correspondance
+        // Generates a result if a match is found
         $user = $req->fetch(PDO::FETCH_ASSOC);
 
-        // Fermeture connexion
+        // Closing the connection
         $req = null;
         $conn = null;
 
         if ((isset($user['email']) && $user['email'] === $login) && (isset($user['passwd']) && $user['passwd'] === $pwd)) {
-            // On supprime le mot de passe de l'objet $user
+            // Delete password from $user object
             $user['passwd'] = null;
             return $user;
         } else
@@ -78,45 +82,48 @@ function userIdentificationDB($conn, $datas)
 }
 
 
+/**-----------------------------------------------------------------
+            Retrieve all starters from the starters table
+*------------------------------------------------------------------**/
 /**
  * Retrieve all starters from the starters table
  * 
  * @param object $conn 
- * @param int $limit (Nombre d'éléments à récupérer)
- * @param string $active (0, 1 ou %)
+ * @param int $limit (Number of items to retrieve)
+ * @param string $active (0, 1 or %)
  * @return array|false 
  */
 function getAllStartersDB($conn, $limit = null, $active = '%')
 {
     try {
-        // Préparation de la requête SQL
+        // Preparing SQL queries
         $sql = "SELECT * FROM starters WHERE active LIKE :active ORDER BY idStarter DESC";
 
-        // Si un nombre limite est spécifié, ajoute une clause LIMIT à la requête
+        // If a limit number is specified, add a LIMIT clause to the request
         if ($limit !== null) {
             $sql .= " LIMIT :limit";
         }
 
-        // Préparation de la requête
+        // Preparing the request
         $req = $conn->prepare($sql);
         $req->bindParam(':active', $active);
 
-        // Si un nombre limite est spécifié, bind le paramètre à la requête
+        // If a limit is specified, bind the parameter to the request
         if ($limit !== null) {
             $req->bindParam(':limit', $limit, PDO::PARAM_INT);
         }
 
-        // Exécution de la requête
+        // Executing the request
         $req->execute();
 
-        // Récupération des résultats
+        // Retrieving results
         $resultat = $req->fetchAll(PDO::FETCH_ASSOC);
 
-        // Fermeture de la connexion
+        // Closing the connection
         $req = null;
         $conn = null;
 
-        // Retourne les résultats
+        // Returns results
         return $resultat;
     } catch (PDOException $e) {
 
@@ -125,45 +132,49 @@ function getAllStartersDB($conn, $limit = null, $active = '%')
     }
 }
 
+/**-----------------------------------------------------------------
+        Retrieve all main courses from the mainCourses table
+*------------------------------------------------------------------**/
+
 /**
  * Retrieve all main courses from the mainCourses table
  * 
  * @param object $conn 
- * @param int $limit (Nombre d'éléments à récupérer)
- * @param string $active (0, 1 ou %)
- * @return array|false $resultat ou false en cas d'erreur
+ * @param int $limit (Number of items to be recovered)
+ * @param string $active (0, 1 or %)
+ * @return array|false $result or false in the event of an error
  */
 function getAllMainCoursesDB($conn, $limit = null, $active = '%')
 {
     try {
-        // Préparation de la requête SQL
+        // Preparing the SQL query
         $sql = "SELECT * FROM mainCourses WHERE active LIKE :active ORDER BY idMainCourse DESC";
 
-        // Si un nombre limite est spécifié, ajoute une clause LIMIT à la requête
+        // If a limit is specified, add a LIMIT clause to the query
         if ($limit !== null) {
             $sql .= " LIMIT :limit";
         }
 
-        // Préparation de la requête
+        // Preparing the request
         $req = $conn->prepare($sql);
         $req->bindParam(':active', $active);
 
-        // Si un nombre limite est spécifié, bind le paramètre à la requête
+        // If a limit is specified, bind the parameter to the request
         if ($limit !== null) {
             $req->bindParam(':limit', $limit, PDO::PARAM_INT);
         }
 
-        // Exécution de la requête
+        // Executing the request
         $req->execute();
 
-        // Récupération des résultats
+        // Retrieving results
         $resultat = $req->fetchAll(PDO::FETCH_ASSOC);
 
         // Fermeture de la connexion
         $req = null;
         $conn = null;
 
-        // Retourne les résultats
+        // Returns results
         return $resultat;
     } catch (PDOException $e) {
         (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getAllMainCoursesDB() function";
@@ -171,45 +182,50 @@ function getAllMainCoursesDB($conn, $limit = null, $active = '%')
     }
 }
 
+
+/**-----------------------------------------------------------------
+            Retrieve all desserts from the desserts table
+*------------------------------------------------------------------**/
+
 /**
  * Retrieve all desserts from the desserts table
  * 
  * @param object $conn 
- * @param int $limit (Nombre d'éléments à récupérer)
- * @param string $active (0, 1 ou %)
- * @return array|false $resultat ou false en cas d'erreur
+ * @param int $limit (Number of items to be recovered)
+ * @param string $active (0, 1 or %)
+ * @return array|false $result or false in the event of an error
  */
 function getAllDessertsDB($conn, $limit = null, $active = '%')
 {
     try {
-        // Préparation de la requête SQL
+        // Preparing the SQL query
         $sql = "SELECT * FROM desserts WHERE active LIKE :active ORDER BY idDessert DESC";
 
-        // Si un nombre limite est spécifié, ajoute une clause LIMIT à la requête
+        // If a limit is specified, add a LIMIT clause to the query
         if ($limit !== null) {
             $sql .= " LIMIT :limit";
         }
 
-        // Préparation de la requête
+        // Preparing the request
         $req = $conn->prepare($sql);
         $req->bindParam(':active', $active);
 
-        // Si un nombre limite est spécifié, bind le paramètre à la requête
+        // If a limit is specified, bind the parameter to the request
         if ($limit !== null) {
             $req->bindParam(':limit', $limit, PDO::PARAM_INT);
         }
 
-        // Exécution de la requête
+        // Executing the request
         $req->execute();
 
-        // Récupération des résultats
+        // Retrieving results
         $resultat = $req->fetchAll(PDO::FETCH_ASSOC);
 
-        // Fermeture de la connexion
+        // Closing the connection
         $req = null;
         $conn = null;
 
-        // Retourne les résultats
+        // Returns results
         return $resultat;
     } catch (PDOException $e) {
         (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getAllDessertsDB() function";
@@ -219,126 +235,105 @@ function getAllDessertsDB($conn, $limit = null, $active = '%')
 
 
 /**-----------------------------------------------------------------
-            Récupérer un article en fonction de son ID
- *------------------------------------------------------------------**/
+                    Retrieve a starter by ID
+*------------------------------------------------------------------**/
 /**
- * Récupérer un article en fonction de son ID
+ * Retrieve a starter by ID
  * 
  * @param object $conn 
- * @return array $resultat
+ * @return array $result
  */
-function getArticleByIDDB($conn, $id)
+function getStarterByIDDB($conn, $idStarter)
 {
     try {
-        // Récupérer des données de notre table articles
-        $req = $conn->prepare("SELECT * FROM articles WHERE id = :id");
-        $req->bindParam(':id', $id);
+        // Retrieving data from our items table
+        $req = $conn->prepare("SELECT * FROM starters WHERE idStarter = :idStarter");
+        $req->bindParam(':idStarter', $idStarter);
         $req->execute();
 
-        // Retourne un tableau associatif pour chaque entrée de la table articles avec le nom des colonnes comme clé
+        // Returns an associative array for each entry in the items table with the column name as the key
         $resultat = $req->fetch(PDO::FETCH_ASSOC);
 
-        // Fermeture connexion
+        // Closing the connection
         $req = null;
         $conn = null;
 
         return $resultat;
     } catch (PDOException $e) {
-        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getArticleByIDDB() function";
+        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getStarterByIDDB() function";
         return $st;
     }
 }
 
+
+/**-----------------------------------------------------------------
+                    Retrieve a main course by ID
+*------------------------------------------------------------------**/
 /**
- * Récupérer un livre en fonction de son ID
+ * Retrieve a main course by ID
  * 
  * @param object $conn 
- * @return array $resultat
+ * @return array $result
  */
-function getLivreByIDDB($conn, $idLivre)
+function getMainCourseByIDDB($conn, $idMainCourse)
 {
     try {
-        // Récupérer des données de notre table articles
-        $req = $conn->prepare("SELECT * FROM livres WHERE idLivre = :idLivre");
-        $req->bindParam(':idLivre', $idLivre);
+        // Retrieving data from our items table
+        $req = $conn->prepare("SELECT * FROM mainCourses WHERE idMainCourse = :idMainCourse");
+        $req->bindParam(':idMainCourse', $idMainCourse);
         $req->execute();
 
-        // Retourne un tableau associatif pour chaque entrée de la table articles avec le nom des colonnes comme clé
+        // Returns an associative array for each entry in the items table with the column name as the key
         $resultat = $req->fetch(PDO::FETCH_ASSOC);
 
-        // Fermeture connexion
+        // Closing the connection
         $req = null;
         $conn = null;
 
         return $resultat;
     } catch (PDOException $e) {
-        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getLivreByIDDB() function";
-        return $st;
-    }
-}
-
-/**
- * Récupérer un papeterie en fonction de son ID
- * 
- * @param object $conn 
- * @return array $resultat
- */
-function getPapeterieByIDDB($conn, $idPapeterie)
-{
-    try {
-        // Récupérer des données de notre table articles
-        $req = $conn->prepare("SELECT * FROM papeteries WHERE idPapeterie = :idPapeterie");
-        $req->bindParam(':idPapeterie', $idPapeterie);
-        $req->execute();
-
-        // Retourne un tableau associatif pour chaque entrée de la table articles avec le nom des colonnes comme clé
-        $resultat = $req->fetch(PDO::FETCH_ASSOC);
-
-        // Fermeture connexion
-        $req = null;
-        $conn = null;
-
-        return $resultat;
-    } catch (PDOException $e) {
-        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getPapeterieByIDDB() function";
-        return $st;
-    }
-}
-
-/**
- * Récupérer un cadeau en fonction de son ID
- * 
- * @param object $conn 
- * @return array $resultat
- */
-function getCadeauByIDDB($conn, $idCadeau)
-{
-    try {
-        // Récupérer des données de notre table articles
-        $req = $conn->prepare("SELECT * FROM cadeaux WHERE idCadeau = :idCadeau");
-        $req->bindParam(':idCadeau', $idCadeau);
-        $req->execute();
-
-        // Retourne un tableau associatif pour chaque entrée de la table articles avec le nom des colonnes comme clé
-        $resultat = $req->fetch(PDO::FETCH_ASSOC);
-
-        // Fermeture connexion
-        $req = null;
-        $conn = null;
-
-        return $resultat;
-    } catch (PDOException $e) {
-        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getCadeauByIDDB() function";
+        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getMainCourseByIDDB() function";
         return $st;
     }
 }
 
 /**-----------------------------------------------------------------
-                Ajout d'un article dans la base de données
- *------------------------------------------------------------------**/
+                Retrieve a dessert course by ID
+*------------------------------------------------------------------**/
+/**
+ * Retrieve a dessert course by ID
+ * 
+ * @param object $conn 
+ * @return array $result
+ */
+function getDessertByIDDB($conn, $idDessert)
+{
+    try {
+        // Retrieving data from our items table
+        $req = $conn->prepare("SELECT * FROM desserts WHERE idDessert = :idDessert");
+        $req->bindParam(':idDessert', $idDessert);
+        $req->execute();
+
+        // Returns an associative array for each entry in the items table with the column name as the key
+        $resultat = $req->fetch(PDO::FETCH_ASSOC);
+
+        // Closing the connection
+        $req = null;
+        $conn = null;
+
+        return $resultat;
+    } catch (PDOException $e) {
+        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : ggetDessertByIDDB() function";
+        return $st;
+    }
+}
+
+/**-----------------------------------------------------------------
+                 Adding an item to the database
+*------------------------------------------------------------------**/
 
 /**
- * Ajout d'un article dans la base de données
+ * Adding an item to the database
  * 
  * @param mixed $conn 
  * @return true 
@@ -346,24 +341,24 @@ function getCadeauByIDDB($conn, $idCadeau)
 function addArticleDB($conn, $datas)
 {
     try {
-        // Préparation des données avant insertion dans la base de données
+        // Preparing data for insertion into the database
         $title = filterInputs($datas['title']);
         $content = nl2br(filterInputs($datas['content']));
 
-        // Si on reçoit une valeur pour le status de publication de l'article
+        // If we receive a value for the publication status of the article
         if (isset($datas['published_article']) && !empty($datas['published_article']))
             $active = $datas['published_article'];
         else
             $active = 0;
 
-        // Insertion des données dans la table articles
+        // Inserting data in the items table
         $req = $conn->prepare("INSERT INTO articles (title, content, active) VALUES (:title, :content, :active)");
         $req->bindParam(':title', $title);
         $req->bindParam(':content', $content);
         $req->bindParam(':active', $active);
         $req->execute();
 
-        // Fermeture connexion
+        // Connection closure
         $req = null;
         $conn = null;
 
@@ -378,28 +373,31 @@ function addArticleDB($conn, $datas)
     }
 }
 
+
+/**-----------------------------------------------------------------
+                Adding a starter to the database
+*------------------------------------------------------------------**/
 /**
- * Ajout d'un livre dans la base de données
+ * Adding a starter to the database
  * 
  * @param mixed $conn 
  * @return true 
  */
-function addLivreDB($conn, $datas)
+function addStarterDB($conn, $datas)
 {
     try {
-        // Préparation des données avant insertion dans la base de données
-        $image_url = filterInputs($datas['image_url']);
+        // Preparing data for insertion into the database
+        $imageUrl = filterInputs($datas['imageUrl']);
         $title = filterInputs($datas['title']);
-        $writer = filterInputs($datas['writer']);
-        $feature = filterInputs($datas['feature']);
         $price = filterInputs($datas['price']);
+        $description = filterInputs($datas['description']);
         $idCategory = filterInputs($datas['idCategory']);
 
         $content = nl2br($datas['content']);
         $content = preg_replace("/(<[a-zA-Z0-9=\"\/\ ]+>)<br \/>/", "$1", $content);
         $content = htmlentities($content);
 
-        // Si on reçoit une valeur pour le status de publication de l'article
+        // If we receive a value for the publication status of the article
         if (isset($datas['published_article']) && !empty($datas['published_article'])) {
             $active = $datas['published_article'];
         } else {
@@ -407,18 +405,17 @@ function addLivreDB($conn, $datas)
         }
 
         // Insertion des données dans la table articles
-        $req = $conn->prepare("INSERT INTO livres (image_url, title, writer, feature, content, price, active, idCategory) VALUES (:image_url, :title, :writer, :feature, :content, :price, :active, :idCategory)");
-        $req->bindParam(':image_url', $image_url);
+        $req = $conn->prepare("INSERT INTO starters (imageUrl, title, price, description, content, active, idCategory) VALUES (:imageUrl, :title, :price, :description, :content, :active, :idCategory)");
+        $req->bindParam(':imageUrl', $imageUrl);
         $req->bindParam(':title', $title);
-        $req->bindParam(':writer', $writer);
-        $req->bindParam(':feature', $feature);
         $req->bindParam(':price', $price);
+        $req->bindParam(':description', $description);
         $req->bindParam(':content', $content);
         $req->bindParam(':active', $active);
         $req->bindParam(':idCategory', $idCategory);
         $req->execute();
 
-        // Fermeture connexion
+        // Connection closure
         $req = null;
         $conn = null;
 
@@ -427,142 +424,55 @@ function addLivreDB($conn, $datas)
         if (defined('DEBUG') && DEBUG) {
             error_log('Error: ' . $e->getMessage());
         } else {
-            error_log("Error in: addLivreDB() function");
+            error_log("Error in: addStarterDB() function");
         }
-        return false;
-    }
-}
-
-/**
- * Ajout d'une papeterie dans la base de données
- * 
- * @param mixed $conn 
- * @return boolean 
- */
-function addPapeterieDB($conn, $datas)
-{
-    try {
-        // Préparation des données avant insertion dans la base de données
-        $image_url = filterInputs($datas['image_url']);
-        $title = filterInputs($datas['title']);
-        $feature = filterInputs($datas['feature']);
-        $price = filterInputs($datas['price']);
-        $idCategory = filterInputs($datas['idCategory']);
-
-        $content = nl2br($datas['content']);
-        $content = preg_replace("/(<[a-zA-Z0-9=\"\/\ ]+>)<br \/>/", "$1", $content);
-        $content = htmlentities($content);
-
-        // Si on reçoit une valeur pour le status de publication de l'article
-        if (isset($datas['published_article']) && !empty($datas['published_article'])) {
-            $active = $datas['published_article'];
-        } else {
-            $active = 0;
-        }
-
-        // Insertion des données dans la table papeteries
-        $req = $conn->prepare("INSERT INTO papeteries (image_url, title, feature, content, price, active, idCategory) VALUES (:image_url, :title, :feature, :content, :price, :active, :idCategory)");
-        $req->bindParam(':image_url', $image_url);
-        $req->bindParam(':title', $title);
-        $req->bindParam(':feature', $feature);
-        $req->bindParam(':price', $price);
-        $req->bindParam(':content', $content);
-        $req->bindParam(':active', $active);
-        $req->bindParam(':idCategory', $idCategory);
-        $req->execute();
-
-        // Return true on success
-        return true;
-    } catch (PDOException $e) {
-        // Log error or return false
-        return false;
-    }
-}
-
-/**
- * Ajout d'un cadeau dans la base de données
- * 
- * @param mixed $conn 
- * @return boolean 
- */
-function addCadeauDB($conn, $datas)
-{
-    try {
-        // Préparation des données avant insertion dans la base de données
-        $image_url = filterInputs($datas['image_url']);
-        $title = filterInputs($datas['title']);
-        $feature = filterInputs($datas['feature']);
-        $price = filterInputs($datas['price']);
-        $idCategory = filterInputs($datas['idCategory']);
-
-        $content = nl2br($datas['content']);
-        $content = preg_replace("/(<[a-zA-Z0-9=\"\/\ ]+>)<br \/>/", "$1", $content);
-        $content = htmlentities($content);
-
-        // Si on reçoit une valeur pour le status de publication de l'article
-        if (isset($datas['published_article']) && !empty($datas['published_article'])) {
-            $active = $datas['published_article'];
-        } else {
-            $active = 0;
-        }
-
-        // Insertion des données dans la table papeteries
-        $req = $conn->prepare("INSERT INTO cadeaux (image_url, title, feature, content, price, active, idCategory) VALUES (:image_url, :title, :feature, :content, :price, :active, :idCategory)");
-        $req->bindParam(':image_url', $image_url);
-        $req->bindParam(':title', $title);
-        $req->bindParam(':feature', $feature);
-        $req->bindParam(':price', $price);
-        $req->bindParam(':content', $content);
-        $req->bindParam(':active', $active);
-        $req->bindParam(':idCategory', $idCategory);
-        $req->execute();
-
-        // Return true on success
-        return true;
-    } catch (PDOException $e) {
-        // Log error or return false
         return false;
     }
 }
 
 /**-----------------------------------------------------------------
-           Modification d'un article dans la base de données
- *------------------------------------------------------------------**/
+                Adding a main course to the database
+*------------------------------------------------------------------**/
+
 /**
- * Modification d'un article dans la base de données
+ * Adding a main course to the database
  * 
  * @param mixed $conn 
- * @param array $datas 
- * @return true 
+ * @return boolean 
  */
-function updateArticleDB($conn, $datas)
+function addMainCourseDB($conn, $datas)
 {
     try {
-        //DEBUG// disp_ar($datas, 'DATAS', 'VD');
-        // Préparation des données avant insertion dans la base de données
+        // Preparing data for insertion into the database
+        $imageUrl = filterInputs($datas['imageUrl']);
         $title = filterInputs($datas['title']);
+        $price = filterInputs($datas['price']);
+        $description = filterInputs($datas['description']);
+        $idCategory = filterInputs($datas['idCategory']);
 
         $content = nl2br($datas['content']);
         $content = preg_replace("/(<[a-zA-Z0-9=\"\/\ ]+>)<br \/>/", "$1", $content);
         $content = htmlentities($content);
 
-        $id = filterInputs($datas['id']);
-
-        // Si on reçoit une valeur pour le status de publication de l'article
-        if (isset($datas['published_article']) && !empty($datas['published_article']))
+        // If we receive a value for the publication status of the article
+        if (isset($datas['published_article']) && !empty($datas['published_article'])) {
             $active = $datas['published_article'];
-        else
+        } else {
             $active = 0;
+        }
 
-        // Insertion des données dans la table articles
-        $req = $conn->prepare("UPDATE articles SET title = :title, content = :content, active = :active WHERE id = :id");
+        // Inserting data in the main courses table
+        $req = $conn->prepare("INSERT INTO mainCourses (imageUrl, title, description, price, content, active, idCategory) VALUES (:imageUrl, :title, :description, :price, :content, :active, :idCategory)");
+        $req->bindParam(':imageUrl', $imageUrl);
         $req->bindParam(':title', $title);
+        $req->bindParam(':price', $price);
+        $req->bindParam(':description', $description);
         $req->bindParam(':content', $content);
         $req->bindParam(':active', $active);
-        $req->bindParam(':id', $id);
+        $req->bindParam(':idCategory', $idCategory);
         $req->execute();
 
-        // Fermeture connexion
+        // Connection closure
         $req = null;
         $conn = null;
 
@@ -571,29 +481,83 @@ function updateArticleDB($conn, $datas)
         if (defined('DEBUG') && DEBUG) {
             error_log('Error: ' . $e->getMessage());
         } else {
-            error_log("Error in: updateArticleDB() function");
+            error_log("Error in: addMainCourseDB() function");
         }
         return false;
     }
 }
 
+/**-----------------------------------------------------------------
+                Adding a dessert to the database
+*------------------------------------------------------------------**/
+
 /**
- * Modification d'un livre dans la base de données
+ *  Adding a dessert to the database
+ * 
+ * @param mixed $conn 
+ * @return boolean 
+ */
+function addDessertDB($conn, $datas)
+{
+    try {
+        // Preparing data for insertion into the database
+        $imageUrl = filterInputs($datas['imageUrl']);
+        $title = filterInputs($datas['title']);
+        $price = filterInputs($datas['price']);
+        $description = filterInputs($datas['description']);
+        $idCategory = filterInputs($datas['idCategory']);
+
+        $content = nl2br($datas['content']);
+        $content = preg_replace("/(<[a-zA-Z0-9=\"\/\ ]+>)<br \/>/", "$1", $content);
+        $content = htmlentities($content);
+
+        // If we receive a value for the publication status of the article
+        if (isset($datas['published_article']) && !empty($datas['published_article'])) {
+            $active = $datas['published_article'];
+        } else {
+            $active = 0;
+        }
+
+        // Inserting data in the desserts table
+        $req = $conn->prepare("INSERT INTO desserts (imageUrl, title, description, price, content, active, idCategory) VALUES (:imageUrl, :title, :description, :price, :content, :active, :idCategory)");
+        $req->bindParam(':imageUrl', $imageUrl);
+        $req->bindParam(':title', $title);
+        $req->bindParam(':description', $description);
+        $req->bindParam(':price', $price);
+        $req->bindParam(':content', $content);
+        $req->bindParam(':active', $active);
+        $req->bindParam(':idCategory', $idCategory);
+        $req->execute();
+
+        return true;
+    } catch (PDOException $e) {
+        if (defined('DEBUG') && DEBUG) {
+            error_log('Error: ' . $e->getMessage());
+        } else {
+            error_log("Error in: addDessertDB() function");
+        }
+        return false;
+    }
+}
+
+
+/**-----------------------------------------------------------------
+                Modifying a starter in the database
+ *------------------------------------------------------------------**/
+/**
+ * Modifying a starter in the database
  * 
  * @param mixed $conn 
  * @param array $datas 
  * @return true 
  */
-function updateLivreDB($conn, $datas)
+function updateStarterDB($conn, $datas)
 {
     try {
-        //DEBUG// disp_ar($datas, 'DATAS', 'VD');
-        // Préparation des données avant insertion dans la base de données
-        $image_url = filterInputs($datas['image_url']);
+        $imageUrl = filterInputs($datas['imageUrl']);
         $title = filterInputs($datas['title']);
-        $writer = filterInputs($datas['writer']);
-        $feature = filterInputs($datas['feature']);
         $price = filterInputs($datas['price']);
+        $description = filterInputs($datas['description']);
         $idCategory = filterInputs($datas['idCategory']);
 
         $content = nl2br($datas['content']);
@@ -601,28 +565,27 @@ function updateLivreDB($conn, $datas)
         $content = htmlentities($content);
 
 
-        $idLivre = filterInputs($datas['idLivre']);
+        $idStarter = filterInputs($datas['idStarter']);
 
-        // Si on reçoit une valeur pour le status de publication de l'article
+        // If we receive a value for the publication status of the article
         if (isset($datas['published_article']) && !empty($datas['published_article']))
             $active = $datas['published_article'];
         else
             $active = 0;
 
-        // Insertion des données dans la table articles
-        $req = $conn->prepare("UPDATE livres SET image_url = :image_url, title = :title, writer = :writer, feature = :feature, content = :content, price = :price, active = :active, idCategory = :idCategory WHERE idLivre = :idLivre");
-        $req->bindParam(':image_url', $image_url);
+        // Inserting data in the items table
+        $req = $conn->prepare("UPDATE starters SET imageUrl = :imageUrl, title = :title, price = :price, description = :description, content = :content, active = :active, idCategory = :idCategory WHERE idStarter = :idStarter");
+        $req->bindParam(':imageUrl', $imageUrl);
         $req->bindParam(':title', $title);
-        $req->bindParam(':writer', $writer);
-        $req->bindParam(':feature', $feature);
         $req->bindParam(':price', $price);
+        $req->bindParam(':description', $description);
         $req->bindParam(':content', $content);
         $req->bindParam(':active', $active);
         $req->bindParam(':idCategory', $idCategory);
-        $req->bindParam(':idLivre', $idLivre);
+        $req->bindParam(':idStarter', $idStarter);
         $req->execute();
 
-        // Fermeture connexion
+        // Closing the connection
         $req = null;
         $conn = null;
 
@@ -631,29 +594,33 @@ function updateLivreDB($conn, $datas)
         if (defined('DEBUG') && DEBUG) {
             error_log('Error: ' . $e->getMessage());
         } else {
-            error_log("Error in: updateLivreDB() function");
+            error_log("Error in: updateStarterDB() function");
         }
         return false;
     }
 }
 
+
+/**-----------------------------------------------------------------
+                Modifying a main course in the database
+*------------------------------------------------------------------**/
 /**
- * Modification d'un papeterie dans la base de données
+ * Modifying a main course in the database
  * 
  * @param PDO $conn The database connection
  * @param array $datas The data to update
  * @return bool|string Returns true on success, or an error message on failure
  */
-function updatePapeterieDB($conn, $datas)
+function updateMainCourseDB($conn, $datas)
 {
     try {
         // Sanitize input data
-        $image_url = filterInputs($datas['image_url']);
+        $imageUrl = filterInputs($datas['imageUrl']);
         $title = filterInputs($datas['title']);
-        $feature = filterInputs($datas['feature']);
         $price = filterInputs($datas['price']);
+        $description = filterInputs($datas['description']);
         $idCategory = filterInputs($datas['idCategory']);
-        $idPapeterie = filterInputs($datas['idPapeterie']);
+        $idMainCourse = filterInputs($datas['idMainCourse']);
 
         // Sanitize and format content
         $content = nl2br($datas['content']);
@@ -664,15 +631,15 @@ function updatePapeterieDB($conn, $datas)
         $active = isset($datas['published_article']) ? $datas['published_article'] : 0;
 
         // Prepare and execute the update query
-        $stmt = $conn->prepare("UPDATE papeteries SET image_url = :image_url, title = :title, feature = :feature, content = :content, price = :price, active = :active, idCategory = :idCategory WHERE idPapeterie = :idPapeterie");
-        $stmt->bindParam(':image_url', $image_url);
+        $stmt = $conn->prepare("UPDATE mainCourses SET imageUrl = :imageUrl, title = :title, description = :description, price = :price, content = :content, active = :active, idCategory = :idCategory WHERE idMainCourse = :idMainCourse");
+        $stmt->bindParam(':imageUrl', $imageUrl);
         $stmt->bindParam(':title', $title);
-        $stmt->bindParam(':feature', $feature);
         $stmt->bindParam(':price', $price);
+        $stmt->bindParam(':description', $description);
         $stmt->bindParam(':content', $content);
         $stmt->bindParam(':active', $active);
         $stmt->bindParam(':idCategory', $idCategory);
-        $stmt->bindParam(':idPapeterie', $idPapeterie);
+        $stmt->bindParam(':idMainCourse', $idMainCourse);
         $stmt->execute();
 
         // Close the statement
@@ -685,22 +652,26 @@ function updatePapeterieDB($conn, $datas)
     }
 }
 
+
+/**-----------------------------------------------------------------
+                Modifying a dessert in the database
+*------------------------------------------------------------------**/
 /**
- * Modification d'un cadeau dans la base de données
+ *  Modifying a dessert in the database
  * 
  * @param mixed $conn 
  * @param array $datas 
  * @return true 
  */
-function updateCadeauDB($conn, $datas)
+function updateDessertDB($conn, $datas)
 {
     try {
-        //DEBUG// disp_ar($datas, 'DATAS', 'VD');
-        // Préparation des données avant insertion dans la base de données
-        $image_url = filterInputs($datas['image_url']);
+        
+        // Preparing data for insertion into the database
+        $imageUrl = filterInputs($datas['imageUrl']);
         $title = filterInputs($datas['title']);
-        $feature = filterInputs($datas['feature']);
         $price = filterInputs($datas['price']);
+        $description = filterInputs($datas['description']);
         $idCategory = filterInputs($datas['idCategory']);
 
         $content = nl2br($datas['content']);
@@ -708,24 +679,24 @@ function updateCadeauDB($conn, $datas)
         $content = htmlentities($content);
 
 
-        $idCadeau = filterInputs($datas['idCadeau']);
+        $idDessert = filterInputs($datas['idDessert']);
 
-        // Si on reçoit une valeur pour le status de publication de l'article
+        // If we receive a value for the publication status of the article
         if (isset($datas['published_article']) && !empty($datas['published_article']))
             $active = $datas['published_article'];
         else
             $active = 0;
 
         // Insertion des données dans la table articles
-        $req = $conn->prepare("UPDATE cadeaux SET image_url = :image_url, title = :title, feature = :feature, content = :content, price = :price, active = :active, idCategory = :idCategory WHERE idCadeau = :idCadeau");
-        $req->bindParam(':image_url', $image_url);
+        $req = $conn->prepare("UPDATE dessert SET imageUrl = :imageUrl, title = :title, description = :description, price = :price, content = :content, active = :active, idCategory = :idCategory WHERE idDessert = :idDessert");
+        $req->bindParam(':imageUrl', $imageUrl);
         $req->bindParam(':title', $title);
-        $req->bindParam(':feature', $feature);
         $req->bindParam(':price', $price);
+        $req->bindParam(':description', $description);
         $req->bindParam(':content', $content);
         $req->bindParam(':active', $active);
         $req->bindParam(':idCategory', $idCategory);
-        $req->bindParam(':idCadeau', $idCadeau);
+        $req->bindParam(':idDessert', $idDessert);
         $req->execute();
 
         // Fermeture connexion
@@ -737,98 +708,68 @@ function updateCadeauDB($conn, $datas)
         if (defined('DEBUG') && DEBUG) {
             error_log('Error: ' . $e->getMessage());
         } else {
-            error_log("Error in: updateCadeauDB() function");
+            error_log("Error in: updateDessertDB() function");
+        }
+        return false;
+    }
+}
+
+
+
+/**-----------------------------------------------------------------
+                    Deleting a starter from the database
+*------------------------------------------------------------------**/
+/**
+ * Deleting a starter from the database
+ * 
+ * @param mixed $conn 
+ * @return true 
+ */
+function deleteStarterDB($conn, $idStarter)
+{
+    try {
+
+        $idStarter = filterInputs($idStarter);
+
+        $req = $conn->prepare("DELETE FROM starters WHERE idStarter = :idStarter");
+        $req->bindParam(':idStarter', $idStarter);
+        $req->execute();
+
+        $req = null;
+        $conn = null;
+
+        return true;
+    } catch (PDOException $e) {
+        if (defined('DEBUG') && DEBUG) {
+            error_log('Error: ' . $e->getMessage());
+        } else {
+            error_log("Error in: deleteStarterDB() function");
         }
         return false;
     }
 }
 
 /**-----------------------------------------------------------------
-           Suppression d'un article dans la base de données
- *------------------------------------------------------------------**/
+                Deleting a main course from the database
+*------------------------------------------------------------------**/
 /**
- * Suppression d'un article dans la base de données
+ * Deleting a main course from the database
  * 
  * @param mixed $conn 
- * @return true 
- */
-function deleteArticleDB($conn, $id)
-{
-    try {
-        // Préparation des données avant insertion dans la base de données
-        $id = filterInputs($id);
-
-        // Insertion des données dans la table articles
-        $req = $conn->prepare("DELETE FROM articles WHERE id = :id");
-        $req->bindParam(':id', $id);
-        $req->execute();
-
-        // Fermeture connexion
-        $req = null;
-        $conn = null;
-
-        return true;
-    } catch (PDOException $e) {
-        if (defined('DEBUG') && DEBUG) {
-            error_log('Error: ' . $e->getMessage());
-        } else {
-            error_log("Error in: deleteArticleDB() function");
-        }
-        return false;
-    }
-}
-
-/**
- * Suppression d'un livre dans la base de données
- * 
- * @param mixed $conn 
- * @return true 
- */
-function deleteLivreDB($conn, $idLivre)
-{
-    try {
-        // Préparation des données avant insertion dans la base de données
-        $idLivre = filterInputs($idLivre);
-
-        // Insertion des données dans la table articles
-        $req = $conn->prepare("DELETE FROM livres WHERE idLivre = :idLivre");
-        $req->bindParam(':idLivre', $idLivre);
-        $req->execute();
-
-        // Fermeture connexion
-        $req = null;
-        $conn = null;
-
-        return true;
-    } catch (PDOException $e) {
-        if (defined('DEBUG') && DEBUG) {
-            error_log('Error: ' . $e->getMessage());
-        } else {
-            error_log("Error in: deleteLivreDB() function");
-        }
-        return false;
-    }
-}
-
-/**
- * Suppression d'un papeterie dans la base de données
- * 
- * @param mixed $conn 
- * @param int $idPapeterie
+ * @param int $idMainCourse
  * @return bool 
  */
-function deletePapeterieDB($conn, $idPapeterie)
+function deleteMainCourseDB($conn, $idMainCourse)
 {
     try {
-        // Préparation des données avant insertion dans la base de données
-        $idPapeterie = filterInputs($idPapeterie);
+        
+        $idMainCourse = filterInputs($idMainCourse);
 
-        // Insertion des données dans la table articles
-        $req = $conn->prepare("DELETE FROM papeteries WHERE idPapeterie = :idPapeterie");
-        $req->bindParam(':idPapeterie', $idPapeterie, PDO::PARAM_INT);
+       
+        $req = $conn->prepare("DELETE FROM mainCourses WHERE idMainCourse = :idMainCourse");
+        $req->bindParam(':idMainCourse', $idMainCourse, PDO::PARAM_INT);
         $req->execute();
 
-        // Fermeture connexion
         $req = null;
         $conn = null;
 
@@ -837,31 +778,33 @@ function deletePapeterieDB($conn, $idPapeterie)
         if (defined('DEBUG') && DEBUG) {
             error_log('Error: ' . $e->getMessage());
         } else {
-            error_log("Error in: deletePapeterieDB() function");
+            error_log("Error in: deleteMainCourseDB() function");
         }
         return false;
     }
 }
 
 
+/**-----------------------------------------------------------------
+                Deleting a dessert from the database
+*------------------------------------------------------------------**/
+
 /**
- * Suppression d'un cadeau dans la base de données
+ * Deleting a dessert from the database
  * 
  * @param mixed $conn 
  * @return true 
  */
-function deleteCadeauDB($conn, $idCadeau)
+function deleteDessertDB($conn, $idDessert)
 {
     try {
-        // Préparation des données avant insertion dans la base de données
-        $idCadeau = filterInputs($idCadeau);
+        
+        $idDessert = filterInputs($idDessert);
 
-        // Insertion des données dans la table articles
-        $req = $conn->prepare("DELETE FROM cadeaux WHERE idCadeau = :idCadeau");
-        $req->bindParam(':idCadeau', $idCadeau);
+        $req = $conn->prepare("DELETE FROM desserts WHERE idDessert = :idDessert");
+        $req->bindParam(':idDessert', $idDessert);
         $req->execute();
 
-        // Fermeture connexion
         $req = null;
         $conn = null;
 
@@ -870,7 +813,7 @@ function deleteCadeauDB($conn, $idCadeau)
         if (defined('DEBUG') && DEBUG) {
             error_log('Error: ' . $e->getMessage());
         } else {
-            error_log("Error in: deleteCadeauDB() function");
+            error_log("Error in: deleteDessertDB() function");
         }
         return false;
     }
@@ -878,58 +821,9 @@ function deleteCadeauDB($conn, $idCadeau)
 
 
 /**-----------------------------------------------------------------
-        Identification d'un utilisateur avec mot de passe hashé
+    Function to fetch all categories from the database using PDO
  *------------------------------------------------------------------**/
-/**
- * Identification d'un utilisateur avec mot de passe hashé
- * 
- * @param mixed $conn 
- * @param mixed $datas 
- * @return mixed 
- */
-function userIdentificationWithHashPwdDB($conn, $datas)
-{
-    try {
-        $user = null;
-        $isConnected = false;
 
-        // Préparation des données avant insertion dans la base de données
-        $login = filterInputs($datas['login']);
-        $pwd = filterInputs($datas['pwd']);
-
-        // Sélection des données dans la table users
-        $req = $conn->prepare("SELECT * FROM users WHERE email = :login");
-        $req->bindParam(':login', $login);
-        $req->execute();
-
-        // Génère un résultat avec les données de l'utilisateur
-        $user = $req->fetch(PDO::FETCH_ASSOC);
-        //DEBUG// disp_ar($user, 'USER', 'VD');     
-        if (!empty($user['email']))
-            $isConnected = password_verify($pwd, $user['passwd']);
-
-        //DEBUG// echo 'PWD : '.$pwd.'<br>';disp_ar($isConnected, 'IS CONNECTED', 'VD'); 
-
-        // Fermeture connexion
-        $req = null;
-        $conn = null;
-
-        if ($isConnected) {
-            // On supprime le mot de passe de l'objet $user
-            $user['passwd'] = null;
-            return $user;
-        } else
-            return false;
-    } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : userIdentificationDB() function";
-        return $st;
-    }
-}
-
-/**-----------------------------------------------------------------
-        Function to fetch all categories from the database using PDO
- *------------------------------------------------------------------**/
-// Function to retrieve all categories from the database using PDO
 function getAllCategoriesDB($pdo)
 {
     // Initialize an array to store the categories
@@ -937,7 +831,7 @@ function getAllCategoriesDB($pdo)
 
     try {
         // Prepare the SQL query to select all categories
-        $query = "SELECT * FROM product_category";
+        $query = "SELECT * FROM category";
 
         // Prepare the statement
         $statement = $pdo->prepare($query);
@@ -961,14 +855,14 @@ function getAllCategoriesDB($pdo)
         Function to retrieve category names from the database
  *------------------------------------------------------------------**/
 
-// Function to retrieve category names from the database
+
 function getCategoryNamesFromDB($conn)
 {
     $categories = array();
 
     try {
         // Assuming your SQL query to fetch category names
-        $query = "SELECT idCategory, nameOfCategory FROM product_category";
+        $query = "SELECT idCategory, nameOfCategory FROM category";
         $stmt = $conn->query($query);
 
         // Check if the query executed successfully
@@ -984,8 +878,6 @@ function getCategoryNamesFromDB($conn)
     } catch (Exception $e) {
         // Handle exception
         error_log($e->getMessage());
-        // Optionally, you can rethrow the exception if you want to handle it outside this function
-        // throw $e;
     }
 
     return $categories;
