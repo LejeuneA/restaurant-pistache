@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 /* -------------------------------------------------------
-					Menu items js
+					Menu items display js
 ---------------------------------------------------------*/
 document.addEventListener('DOMContentLoaded', function () {
     const menuItems = document.querySelectorAll('.menu-navbar-item');
