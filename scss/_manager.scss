@@ -13,7 +13,7 @@
         .navbar-nav {
             .nav-item {
                 .nav-link {
-                    @include button-style($secondary-blue, $primary-blue, $primary-blue, $light-blue);
+                    @include button-style($primary, $white, $white, $primary);
                     padding: 0.8em;
                     border-radius: 0;
                 }
@@ -29,18 +29,18 @@
     overflow: hidden;
     position: relative;
     padding: 1em;
-    background-color: $primary-blue;
+    background-color: $black;
 
     .welcome {
         text-align: center;
         background-color: inherit;
 
         .welcome-text {
-            color: $light-blue;
+            color: $black;
             font-weight: light;
 
             span {
-                color: $secondary-blue;
+                color: $primary;
                 font-weight: light;
             }
         }
@@ -59,7 +59,7 @@
             .category-card {
                 @include d-flex(flex, space-evenly, center, column, center);
 
-                background-color: $secondary-blue;
+                background-color: $primary;
                 margin-top: 5em;
                 padding: 1em;
                 border-radius: 1em;
@@ -70,8 +70,8 @@
 
                 .btn-primary {
                     @include d-flex(block, center, center, column, center);
-                    color: $light-blue;
-                    background-color: $primary-blue;
+                    color: $white;
+                    background-color: $primary;
                     width: 15em;
                     height: 15em;
                     font-weight: 200;
@@ -90,7 +90,7 @@
                         z-index: -1;
                         top: -1em;
                         right: -1em;
-                        background: $primary-red;
+                        background: $secondary;
                         height: 2.5em;
                         width: 2.5em;
                         border-radius: 1.5em;
@@ -107,7 +107,7 @@
         }
 
         .background-vector {
-            background-color: $primary-blue;
+            background-color: $primary;
 
             img {
                 height: auto;
