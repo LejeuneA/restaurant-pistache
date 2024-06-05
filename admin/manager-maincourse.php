@@ -107,17 +107,17 @@ if (!is_object($conn)) {
 
     <script>
         // JavaScript functions for handling papeterie actions
-        function modifierPapeterie(papeterieId) {
+        function modifyMainCourse(papeterieId) {
             // Redirect to the edit page with the specified papeterie ID
             window.location.href = 'edit-papeterie.php?idPapeterie=' + papeterieId;
         }
 
-        function afficherPapeterie(papeterieId) {
+        function displayMainCourse(papeterieId) {
             // Redirect to the papeterie page with the specified papeterie ID
             window.location.href = 'article-papeterie.php?idPapeterie=' + papeterieId;
         }
 
-        function supprimerPapeterie(papeterieId) {
+        function deleteMainCourse(papeterieId) {
             // Confirm papeterie deletion
             if (confirm('Êtes-vous certain de vouloir supprimer la papeterie ci-dessous ?')) {
                 // Redirect to manager-papeterie.php with the papeterie ID for deletion
