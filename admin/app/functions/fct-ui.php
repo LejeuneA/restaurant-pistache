@@ -132,189 +132,82 @@ function displayNavigation()
 
     if ($_SESSION['IDENTIFY']) {
         $navigation .= '
-        <nav class="navbar">
-        <div class="navbar-container container">
-            <!-- Logo -->
-            <a href="../index.php">
-                <img src="../assets/logo/librairie-lejeune.png" class="navbar-brand-img" alt="Librairie Lejeune Logo">
-            </a>
-            <!-- Logo end -->
+        <nav class="navbar-admin">
+            <div class="navbar-container container">
+                <!-- Logo -->
+                <a class="navbar-brand" href="../index.php">
+                    Pistache
+                </a>
+                <!-- Logo end -->
 
-            <!-- Right-side content -->
-            <div class="d-flex">
-                <!-- Social icons -->
-                <ul class="social-nav">
-                    <!-- Icons -->
-                    <li class="social-item">
-                        <a class="social-link" href="https://www.facebook.com/">
-                            <i class="fa-brands fa-square-facebook fa-lg"></i>
-                        </a>
-                    </li>
-                    <li class="social-item">
-                        <a class="social-link" href="https://twitter.com/">
-                            <i class="fa-brands fa-x-twitter fa-lg"></i>
-                        </a>
-                    </li>
-                    <li class="social-item">
-                        <a class="social-link" href="https://www.instagram.com">
-                            <i class="fa-brands fa-instagram fa-lg"></i>
-                        </a>
-                    </li>
-                </ul>
-                <!-- Social icons end -->
+                <!-- Right-side content -->
+                <div class="navbar-right">
+                    <!-- Navbar menu -->
+                    <div class="navbar-menu">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="../index.php">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../index.php#about">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./menu.php">Menu</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./contact.php">Contact</a>
+                            </li>
+                        </ul>
 
-                <!-- Search -->
-					<form class="search" role="search" action="search.php" method="GET">
-						<div class="search-group">
-							<input class="form-control" type="search" name="query" placeholder="Que cherchez-vous?" aria-label="Search">
-							<button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-						</div>
-					</form>
-				<!-- Search end -->
-
-                <!-- Login button -->
-                <a href="logoff.php" class="btn-primary">Déconnexion</a>
-                <!-- Login button end -->
-            </div>
-            <!-- Right-side content end -->
-        </div>
-    </nav>
-    <!---------------------------------------------------------------
-                                     Menu
-    ----------------------------------------------------------------->
-    <div class="navbar-menu">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="../index.php">Accueil</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../admin/manager.php">Catégories</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../admin/manager-livre.php">Livres</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="../admin/manager-papeterie.php">Papeteries</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../admin/manager-cadeau.php">Cadeaux</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../admin/manager.php">Ajouter</a>
-            </li>
-        </ul>
-    </div>
-    <!---------------------------------------------------------------
-                                 Menu end
-    ---------------------------------------------------------------->
-
-    <!---------------------------------------------------------------
-                             Offcanvas menu
-    ----------------------------------------------------------------->
-    <div id="mySidenav" class="sidenav">
-
-        <!-- Search -->
-            <form class="search" role="search" action="search.php" method="GET">
-                <div class="search-group">
-                 <input class="form-control" type="search" name="query" placeholder="Que cherchez-vous?" aria-label="Search">
-                 <button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <!-- Login button -->
+                        <a href="./reservation.php" class="btn-primary">Book a table</a>
+                        <!-- Login button end -->
+                    </div>
+                    <!-- Navbar menu end -->
                 </div>
-            </form>
-        <!-- Search end -->
-
-        <!-- Menu -->
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a class="nav-link" href="../index.php">Accueil</a>
-        <a class="nav-link" href="../admin/manager.php">Catégories</a>
-        <a class="nav-link" href="../admin/manager-livre.php">Livres</a>
-        <a class="nav-link" href="../admin/manager-papeterie.php">Papeteries</a>
-        <a class="nav-link" href="../admin/manager-cadeau.php">Cadeaux</a>
-        <a class="nav-link" href="../admin/manager.php">Ajouter</a>
-        <!-- Menu end -->
- 
-        <!-- Login button -->
-        <a href="logoff.php" class="btn-login">Déconnexion</a>
-        <!-- Login button end -->
-
-        <!-- Social icons -->
-        <ul class="social-nav">
-            <!-- Icons -->
-            <li class="social-item">
-                <a class="social-link" href="https://www.facebook.com/">
-                    <i class="fa-brands fa-square-facebook fa-lg"></i>
-                </a>
-            </li>
-            <li class="social-item">
-                <a class="social-link" href="https://twitter.com/">
-                    <i class="fa-brands fa-x-twitter fa-lg"></i>
-                </a>
-            </li>
-            <li class="social-item">
-                <a class="social-link" href="https://www.instagram.com">
-                    <i class="fa-brands fa-instagram fa-lg"></i>
-                </a>
-            </li>
-        </ul>
-        <!-- Social icons end -->
-    </div>
-
-    <!-- Hamburger icon for smaller screens -->
-    <div class="navbar-hamburger">
-        <div id="hamburger" onclick="openNav()"><i class="fa-solid fa-bars"></i></div>
-    </div>
-    <!------------------------------------------------------------- 
-                          Offcanvas menu end
-    --------------------------------------------------------------->
+                <!-- Right-side content end -->
+            </div>
+        </nav>
         ';
     } else {
         $navigation .= '
-        <nav class="navbar">
-        <div class="navbar-container container">
-            <!-- Logo -->
-            <a href="login.php">
-                <img src="../assets/logo/librairie-lejeune.png" class="navbar-brand-img" alt="Librairie Lejeune Logo">
-            </a>
-            <!-- Logo end -->
+        <nav class="navbar-admin">
+            <div class="navbar-container container">
+                <!-- Logo -->
+                <a class="navbar-brand" href="login.php">
+                    Pistache
+                </a>
+                <!-- Logo end -->
 
-            <!-- Right-side content -->
-            <div class="d-flex">
-                <!-- Social icons -->
-                <ul class="social-nav">
-                    <!-- Icons -->
-                    <li class="social-item">
-                        <a class="social-link" href="https://www.facebook.com/">
-                            <i class="fa-brands fa-square-facebook fa-lg"></i>
-                        </a>
-                    </li>
-                    <li class="social-item">
-                        <a class="social-link" href="https://twitter.com/">
-                            <i class="fa-brands fa-x-twitter fa-lg"></i>
-                        </a>
-                    </li>
-                    <li class="social-item">
-                        <a class="social-link" href="https://www.instagram.com">
-                            <i class="fa-brands fa-instagram fa-lg"></i>
-                        </a>
-                    </li>
-                </ul>
-                <!-- Social icons end -->
+                <!-- Right-side content -->
+                <div class="navbar-right">
+                    <!-- Navbar menu -->
+                    <div class="navbar-menu">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="../index.php">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../index.php#about">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./menu.php">Menu</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./contact.php">Contact</a>
+                            </li>
+                        </ul>
 
-                <!-- Search -->
-                <form class="search" role="search">
-                    <div class="search-group">
-                        <input class="form-control" type="search" placeholder="Que cherhez-vous?" aria-label="Search">
-                        <button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <!-- Login button -->
+                        <a href="./reservation.php" class="btn-primary">Book a table</a>
+                        <!-- Login button end -->
                     </div>
-                </form>
-                <!-- Search end -->
-
-                <!-- Login button -->
-                <a href="login.php" class="btn-primary">Se connecter</a>
-                <!-- Login button end -->
+                    <!-- Navbar menu end -->
+                </div>
+                <!-- Right-side content end -->
             </div>
-            <!-- Right-side content end -->
-        </div>
-    </nav>';
+        </nav>
+        ';
     }
 
     echo $navigation;
