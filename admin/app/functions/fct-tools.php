@@ -2,11 +2,11 @@
 /* ********************************************************************** */
 /* *                          TOOLS FUNCTIONS                           * */
 /* *                          ---------------                           * */
-/* *                      GENERAL FUNCTIONS: TOOL TYPE                  * */
+/* *                    GENERAL FUNCTIONS: TOOL TYPE                    * */
 /* ********************************************************************** */
 
 /**
- * Préparation des données avant insertion dans la base de données
+ * Preparing data for insertion into the database
  * 
  * 
  * @param mixed $datas 
@@ -14,13 +14,13 @@
  */
 function filterInputs($datas) {
 
-    // Supprime les espaces (ou d'autres caractères) en début et fin de chaîne
+    // Removes spaces (or other characters) at the start and end of a string
     $datas = trim($datas);
-    // Supprime les antislashs d'une chaîne
+    // Removes backslashes from a string
     $datas = stripslashes($datas);
-    // Convertit les caractères spéciaux en entités HTML
+    // Converts special characters into HTML entities
     $datas = htmlspecialchars_decode($datas);  
-    // Supprime les balises HTML et PHP d'une chaîne
+    // Strips HTML and PHP tags from a string
     $datas = strip_tags($datas);
 
     return $datas;
