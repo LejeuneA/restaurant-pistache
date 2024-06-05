@@ -251,7 +251,7 @@ function getMessage($message, $type = 'success')
 }
 
 /**-----------------------------------------------------------------
-        Generate HTML markup for displaying articles information
+        Generate HTML markup for displaying starters information
 *------------------------------------------------------------------**/
 /**
  * Generate HTML markup for displaying starters information
@@ -286,22 +286,57 @@ function generateStarterHTML($starter)
 }
 
 /**-----------------------------------------------------------------
-        Generate HTML markup for displaying articles information
+    Generate HTML markup for displaying main courses information
 *------------------------------------------------------------------**/
 /**
- * Generate HTML markup for displaying starters information
+ * Generate HTML markup for displaying main course information
  * 
- * @param array $starter 
+ * @param array $mainCourse
  * @return string 
  */
-function generateMenuHTML($starter)
+function generateMainCourseHTML($mainCourse)
 {
     $html = ""; 
 
-    $imageUrl = htmlspecialchars($starter['imageUrl'], ENT_QUOTES);
-    $title = htmlspecialchars($starter['title'], ENT_QUOTES);
-    $price = htmlspecialchars($starter['price'], ENT_QUOTES);
-    $description = htmlspecialchars($starter['description'], ENT_QUOTES);
+    $imageUrl = htmlspecialchars($mainCourse['imageUrl'], ENT_QUOTES);
+    $title = htmlspecialchars($mainCourse['title'], ENT_QUOTES);
+    $price = htmlspecialchars($mainCourse['price'], ENT_QUOTES);
+    $description = htmlspecialchars($mainCourse['description'], ENT_QUOTES);
+
+    // Construct the HTML markup
+    $html .= "
+        <div class=\"menu-items\" data-aos=\"fade-up\" data-aos-delay=\"150\">
+            <div class=\"menu-item\">
+                <img class=\"menu-item-image\" src=\"$imageUrl\" alt=\"$title\">
+                <div class=\"menu-item-info\">
+                    <h3 class=\"menu-item-title\">$title</h3>
+                    <span class=\"menu-item-price\">€$price</span>
+                    <p>$description</p>
+                </div>
+            </div>
+        </div>
+    ";
+
+    return $html;
+}
+
+/**-----------------------------------------------------------------
+    Generate HTML markup for displaying desserts information
+*------------------------------------------------------------------**/
+/**
+ * Generate HTML markup for displaying desserts information
+ * 
+ * @param array $dessert
+ * @return string 
+ */
+function generateDessertHTML($dessert)
+{
+    $html = ""; 
+
+    $imageUrl = htmlspecialchars($dessert['imageUrl'], ENT_QUOTES);
+    $title = htmlspecialchars($dessert['title'], ENT_QUOTES);
+    $price = htmlspecialchars($dessert['price'], ENT_QUOTES);
+    $description = htmlspecialchars($dessert['description'], ENT_QUOTES);
 
     // Construct the HTML markup
     $html .= "
@@ -321,32 +356,30 @@ function generateMenuHTML($starter)
 }
 
 
-
-
 /**-----------------------------------------------------------------
-             Displays the book received as a parameter
+             Displays the starter received as a parameter
 *------------------------------------------------------------------**/
 
 /**
- * Displays the book received as a parameter
+ * Displays the starter received as a parameter
  * 
- * @param mixed $livre 
+ * @param mixed $starter
  * @return void 
  */
-function displayLivreByID($livre)
+function displayStarterByID($starter)
 {
     echo '<section class="product-container container">';
     echo '<div class="product-info-container">';
     echo '<div class="product-img">';
-    echo '<img src="'.DOMAIN. '/'. $livre['image_url'] . '" alt="' . $livre['title'] . '">';
+    echo '<img src="'.DOMAIN. '/'. $starter['imageUrl'] . '" alt="' . $starter['title'] . '">';
     echo '</div>';
     echo '<div class="product-info">';
     echo '<div>';
-    echo '<h2>' . $livre['title'] . '</h2>';
-    echo '<p>' . $livre['writer'] . ' <span>' . $livre['feature'] . '</span></p>';
+    echo '<h2>' . $starter['title'] . '</h2>';
+    echo '<p>' . $starter['writer'] . ' <span>' . $starter['feature'] . '</span></p>';
     echo '</div>';
     echo '<div class="product-price">';
-    echo '<p>' . $livre['price'] . ' € <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
+    echo '<p>' . $starter['price'] . ' € <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
     echo '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
     echo '</div>';
     echo '<div class="product-advantages">';
@@ -361,34 +394,34 @@ function displayLivreByID($livre)
     echo '</div>';
     echo '<div class="product-description">';
     echo '<h2>Description</h2>';
-    echo '<p>' . htmlspecialchars_decode($livre['content']) . '</p>';
+    echo '<p>' . htmlspecialchars_decode($starter['content']) . '</p>';
     echo '</div>';
 }
 
 /**-----------------------------------------------------------------
-           Displays the stationery received as a parameter
+           Displays the main course received as a parameter
 *------------------------------------------------------------------**/
 
 /**
  * Displays the stationery received as a parameter
  * 
- * @param mixed $papeterie
+ * @param mixed $mainCourse
  * @return void 
  */
-function displayPapeterieByID($papeterie)
+function displayMainCourseByID($mainCourse)
 {
     echo '<main>';
     echo '<section class="product-container container">';
     echo '<div class="product-info-container">';
     echo '<div class="product-img">';
-    echo '<img src="'.DOMAIN. '/'. $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '">';
+    echo '<img src="'.DOMAIN. '/'. $mainCourse['imageUrl'] . '" alt="' . $mainCourse['title'] . '">';
     echo '</div>';
     echo '<div class="product-info">';
     echo '<div>';
-    echo '<h2>' . $papeterie['title'] . '</h2>';
+    echo '<h2>' . $mainCourse['title'] . '</h2>';
     echo '</div>';
     echo '<div class="product-price">';
-    echo '<p>' . $papeterie['price'] . ' € <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
+    echo '<p>' . $mainCourse['price'] . ' € <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
     echo '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
     echo '</div>';
     echo '<div class="product-advantages">';
@@ -403,33 +436,33 @@ function displayPapeterieByID($papeterie)
     echo '</div>';
     echo '<div class="product-description">';
     echo '<h2>Description</h2>';
-    echo '<p>' . htmlspecialchars_decode($papeterie['content']) . '</p>';
+    echo '<p>' . htmlspecialchars_decode($mainCourse['content']) . '</p>';
     echo '</div>';
 }
 
 
 /**-----------------------------------------------------------------
-           Displays the gift received as a parameter
+           Displays the dessert received as a parameter
 *------------------------------------------------------------------**/
 /**
- * Displays the gift received as a parameter
+ * Displays the dessert received as a parameter
  * 
- * @param mixed $papeterie
+ * @param mixed $dessert
  * @return void 
  */
-function displayCadeauByID($cadeau)
+function displayDessertByID($dessert)
 {
     echo '<section class="product-container container">';
     echo '<div class="product-info-container">';
     echo '<div class="product-img">';
-    echo '<img src="'.DOMAIN. '/'. $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '">';
+    echo '<img src="'.DOMAIN. '/'. $dessert['imageUrl'] . '" alt="' . $dessert['title'] . '">';
     echo '</div>';
     echo '<div class="product-info">';
     echo '<div>';
-    echo '<h2>' . $cadeau['title'] . '</h2>';
+    echo '<h2>' . $dessert['title'] . '</h2>';
     echo '</div>';
     echo '<div class="product-price">';
-    echo '<p>' . $cadeau['price'] . ' € <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
+    echo '<p>' . $dessert['price'] . ' € <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
     echo '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
     echo '</div>';
     echo '<div class="product-advantages">';
@@ -444,74 +477,39 @@ function displayCadeauByID($cadeau)
     echo '</div>';
     echo '<div class="product-description">';
     echo '<h2>Description</h2>';
-    echo '<p>' . htmlspecialchars_decode($cadeau['content']) . '</p>';
+    echo '<p>' . htmlspecialchars_decode($dessert['content']) . '</p>';
     echo '</div>';
 }
 
 
 /**-----------------------------------------------------------------
-            Displays articles for the manager's page
-*------------------------------------------------------------------**/
-
-/**
- * Displays articles for the manager's page
- * 
- * @param array $articles 
- * @return void
- */
-
-function displayArticlesWithButtons($articles)
-{
-    foreach ($articles as $article) {
-        // Display Article Content
-        echo '<div class="article">';
-
-        // Display circle based on article status
-        $circleClass = ($article['active']) ? 'circle-published' : 'circle-not-published';
-        echo '<div class="circle ' . $circleClass . '"></div>';
-
-        echo '<h3>' . htmlspecialchars_decode($article['title']) . '</h3>';
-        echo '</div>';
-
-        // Display buttons
-        echo '<div class="buttons">';
-        echo '<button class="btn-manager" onclick="modifierArticle(' . $article['id'] . ')">Modifier</button>';
-        echo '<button class="btn-manager" onclick="afficherArticle(' . $article['id'] . ')">Afficher</button>';
-        echo '<button class="btn-manager-delete" onclick="supprimerArticle(' . $article['id'] . ')">Supprimer</button>';
-        echo '</div>';
-
-        echo '<hr>';
-    }
-}
-
-/**-----------------------------------------------------------------
-                  Display starters for the manager page
+            Display starters for the manager page
 *------------------------------------------------------------------**/
 /**
  * Display starters for the manager page
  * 
- * @param array $livres
+ * @param array $starters
  * @return void
  */
 
-function displayLivresWithButtons($livres)
+function displayStartersWithButtons($starters)
 {
-    foreach ($livres as $livre) {
+    foreach ($starters as $starter) {
         // Display Article Content
         echo '<div class="article">';
 
         // Display circle based on article status
-        $circleClass = ($livre['active']) ? 'circle-published' : 'circle-not-published';
+        $circleClass = ($starter['active']) ? 'circle-published' : 'circle-not-published';
         echo '<div class="circle ' . $circleClass . '"></div>';
 
-        echo '<h3>' . htmlspecialchars_decode($livre['title']) . '</h3>';
+        echo '<h3>' . htmlspecialchars_decode($starter['title']) . '</h3>';
         echo '</div>';
 
         // Display buttons
         echo '<div class="buttons">';
-        echo '<button class="btn-primary" onclick="modifierLivre(' . $livre['idLivre'] . ')">Modifier</button>';
-        echo '<button class="btn-primary" onclick="afficherLivre(' . $livre['idLivre'] . ')">Afficher</button>';
-        echo '<button class="btn-secondary" onclick="supprimerLivre(' . $livre['idLivre'] . ')">Supprimer</button>';
+        echo '<button class="btn-primary" onclick="modifyStarter(' . $starter['idStarter'] . ')">Modify</button>';
+        echo '<button class="btn-primary" onclick="displayStarter(' . $starter['idStarter'] . ')">Display</button>';
+        echo '<button class="btn-secondary" onclick="deleteStarter(' . $starter['idStarter'] . ')">Delete</button>';
         echo '</div>';
 
         echo '<hr>';
@@ -525,28 +523,28 @@ function displayLivresWithButtons($livres)
 /**
  * Display main courses for the manager page
  * 
- * @param array $papeteries
+ * @param array $mainCourses
  * @return void
  */
 
-function displayPapeteriesWithButtons($papeteries)
+function displayMainCoursesWithButtons($mainCourses)
 {
-    foreach ($papeteries as $papeterie) {
+    foreach ($mainCourses as $mainCourse) {
         // Display Article Content
         echo '<div class="article">';
 
         // Display circle based on article status
-        $circleClass = ($papeterie['active']) ? 'circle-published' : 'circle-not-published';
+        $circleClass = ($mainCourse['active']) ? 'circle-published' : 'circle-not-published';
         echo '<div class="circle ' . $circleClass . '"></div>';
 
-        echo '<h3>' . htmlspecialchars_decode($papeterie['title']) . '</h3>';
+        echo '<h3>' . htmlspecialchars_decode($mainCourse['title']) . '</h3>';
         echo '</div>';
 
         // Display buttons
         echo '<div class="buttons">';
-        echo '<button class="btn-primary" onclick="modifierPapeterie(' . $papeterie['idPapeterie'] . ')">Modifier</button>';
-        echo '<button class="btn-primary" onclick="afficherPapeterie(' . $papeterie['idPapeterie'] . ')">Afficher</button>';
-        echo '<button class="btn-secondary" onclick="supprimerPapeterie(' . $papeterie['idPapeterie'] . ')">Supprimer</button>';
+        echo '<button class="btn-primary" onclick="modifyMainCourse(' . $mainCourse['idMainCourse'] . ')">Modify</button>';
+        echo '<button class="btn-primary" onclick="displayMainCourse(' . $mainCourse['idMainCourse'] . ')">Display</button>';
+        echo '<button class="btn-secondary" onclick="deleteMainCourse(' . $mainCourse['idMainCourse'] . ')">Delete</button>';
         echo '</div>';
 
         echo '<hr>';
@@ -560,28 +558,28 @@ function displayPapeteriesWithButtons($papeteries)
 /**
  * Display desserts for the manager page
  * 
- * @param array $cadeaux
+ * @param array $desserts
  * @return void
  */
 
-function displayCadeauxWithButtons($cadeaux)
+function displayDessertsWithButtons($desserts)
 {
-    foreach ($cadeaux as $cadeau) {
+    foreach ($desserts as $dessert) {
         // Display Article Content
         echo '<div class="article">';
 
         // Display circle based on article status
-        $circleClass = ($cadeau['active']) ? 'circle-published' : 'circle-not-published';
+        $circleClass = ($dessert['active']) ? 'circle-published' : 'circle-not-published';
         echo '<div class="circle ' . $circleClass . '"></div>';
 
-        echo '<h3>' . htmlspecialchars_decode($cadeau['title']) . '</h3>';
+        echo '<h3>' . htmlspecialchars_decode($dessert['title']) . '</h3>';
         echo '</div>';
 
         // Display buttons
         echo '<div class="buttons">';
-        echo '<button class="btn-primary" onclick="modifierCadeau(' . $cadeau['idCadeau'] . ')">Modifier</button>';
-        echo '<button class="btn-primary" onclick="afficherCadeau(' . $cadeau['idCadeau'] . ')">Afficher</button>';
-        echo '<button class="btn-secondary" onclick="supprimerCadeau(' . $cadeau['idCadeau'] . ')">Supprimer</button>';
+        echo '<button class="btn-primary" onclick="modifyDessert(' . $dessert['isDessert'] . ')">Modify</button>';
+        echo '<button class="btn-primary" onclick="displayDessert(' . $dessert['isDessert'] . ')">Display</button>';
+        echo '<button class="btn-secondary" onclick="deleteDessert(' . $dessert['isDessert'] . ')">Delete</button>';
         echo '</div>';
 
         echo '<hr>';
@@ -594,10 +592,10 @@ function displayCadeauxWithButtons($cadeaux)
 /**
  * Displays the starters for the manager's page in table form
  * 
- * @param array $livres
+ * @param array $starters
  * @return void
  */
-function displayLivresAsTable($livres)
+function displayStartersAsTable($starters)
 {
     // Start the table
     echo '<table>';
@@ -605,27 +603,25 @@ function displayLivresAsTable($livres)
     // Table headers
     echo '<tr>';
     echo '<th>ID</th>';
-    echo '<th>Titre</th>';
-    echo '<th>Auteur</th>';
-    echo '<th>Fonctionnalité</th>';
-    echo '<th>Prix</th>';
+    echo '<th>Title</th>';
+    echo '<th>Price</th>';
+    echo '<th>Description</th>';
     echo '<th>Statut</th>';
     echo '<th>Actions</th>';
     echo '</tr>';
 
     // Table data
-    foreach ($livres as $livre) {
+    foreach ($starters as $starter) {
         echo '<tr>';
-        echo '<td data-cell="id">' . $livre['idLivre'] . '</td>';
-        echo '<td data-cell="titre">' . html_entity_decode($livre['title']) . '</td>';
-        echo '<td data-cell="auteur">' . html_entity_decode($livre['writer']) . '</td>';
-        echo '<td data-cell="fonctionnalité">' . html_entity_decode($livre['feature']) . '</td>';
-        echo '<td data-cell="prix">' . html_entity_decode($livre['price']) . '</td>';
-        echo '<td data-cell="statut">' . ($livre['active'] ? 'Actif' : 'Inactif') . '</td>';
+        echo '<td data-cell="id">' . $starter['idStarter'] . '</td>';
+        echo '<td data-cell="title">' . html_entity_decode($starter['title']) . '</td>';
+        echo '<td data-cell="price">' . html_entity_decode($starter['price']) . '</td>';
+        echo '<td data-cell="description">' . html_entity_decode($starter['description']) . '</td>';
+        echo '<td data-cell="statut">' . ($starter['active'] ? 'Actif' : 'Inactif') . '</td>';
         echo '<td>';
-        echo '<button class="btn-secondary" onclick="modifierLivre(' . $livre['idLivre'] . ')">Modifier</button>';
-        echo '<button class="btn-secondary" onclick="afficherLivre(' . $livre['idLivre'] . ')">Afficher</button>';
-        echo '<button class="btn-primary" onclick="supprimerLivre(' . $livre['idLivre'] . ')">Supprimer</button>';
+        echo '<button class="btn-secondary" onclick="modifyStarter(' . $starter['idStarter'] . ')">Modify</button>';
+        echo '<button class="btn-secondary" onclick="displayStarter(' . $starter['idStarter'] . ')">Display</button>';
+        echo '<button class="btn-primary" onclick="deleteStarter(' . $starter['idStarter'] . ')">Delete</button>';
         echo '</td>';
         echo '</tr>';
     }
@@ -642,10 +638,10 @@ function displayLivresAsTable($livres)
 /**
  *  Displays the main courses for the manager's page in table form
  * 
- * @param array $papeteries
+ * @param array $mainCourses
  * @return void
  */
-function displayPapeteriesAsTable($papeteries)
+function displayMainCourseAsTable($mainCourses)
 {
     // Start the table
     echo '<table>';
@@ -653,25 +649,25 @@ function displayPapeteriesAsTable($papeteries)
     // Table headers
     echo '<tr>';
     echo '<th>ID</th>';
-    echo '<th>Titre</th>';
-    echo '<th>Fonctionnalité</th>';
-    echo '<th>Prix</th>';
+    echo '<th>Title</th>';
+    echo '<th>Price</th>';
+    echo '<th>Description</th>';
     echo '<th>Statut</th>';
     echo '<th>Actions</th>';
     echo '</tr>';
 
     // Table data
-    foreach ($papeteries as $papeterie) {
+    foreach ($mainCourses as $mainCourse) {
         echo '<tr>';
-        echo '<td data-cell="id">' . $papeterie['idPapeterie'] . '</td>';
-        echo '<td data-cell="titre">' . html_entity_decode($papeterie['title']) . '</td>';
-        echo '<td data-cell="fonctionnalité">' . html_entity_decode($papeterie['feature']) . '</td>';
-        echo '<td data-cell="prix">' . html_entity_decode($papeterie['price']) . '</td>';
-        echo '<td data-cell="statut">' . ($papeterie['active'] ? 'Actif' : 'Inactif') . '</td>';
+        echo '<td data-cell="id">' . $mainCourse['idMainCourse'] . '</td>';
+        echo '<td data-cell="title">' . html_entity_decode($mainCourse['title']) . '</td>';
+        echo '<td data-cell="price">' . html_entity_decode($mainCourse['price']) . '</td>';
+        echo '<td data-cell="description">' . html_entity_decode($mainCourse['description']) . '</td>';
+        echo '<td data-cell="statut">' . ($mainCourse['active'] ? 'Actif' : 'Inactif') . '</td>';
         echo '<td>';
-        echo '<button class="btn-secondary" onclick="modifierPapeterie(' . $papeterie['idPapeterie'] . ')">Modifier</button>';
-        echo '<button class="btn-secondary" onclick="afficherPapeterie(' . $papeterie['idPapeterie'] . ')">Afficher</button>';
-        echo '<button class="btn-primary" onclick="supprimerPapeterie(' . $papeterie['idPapeterie'] . ')">Supprimer</button>';
+        echo '<button class="btn-secondary" onclick="modifyMainCourse(' . $mainCourse['idMainCourse'] . ')">Modify</button>';
+        echo '<button class="btn-secondary" onclick="displayMainCourse(' . $mainCourse['idMainCourse'] . ')">Display</button>';
+        echo '<button class="btn-primary" onclick="deleteMainCourse(' . $mainCourse['idMainCourse'] . ')">Delete</button>';
         echo '</td>';
         echo '</tr>';
     }
@@ -688,10 +684,10 @@ function displayPapeteriesAsTable($papeteries)
 /**
  * Displays the desserts for the manager's page in table form
  * 
- * @param array $cadeaux
+ * @param array $desserts
  * @return void
  */
-function displayCadeauxAsTable($cadeaux)
+function displayDessertsAsTable($desserts)
 {
     // Start the table
     echo '<table>';
@@ -699,25 +695,25 @@ function displayCadeauxAsTable($cadeaux)
     // Table headers
     echo '<tr>';
     echo '<th>ID</th>';
-    echo '<th>Titre</th>';
-    echo '<th>Fonctionnalité</th>';
-    echo '<th>Prix</th>';
+    echo '<th>Title</th>';
+    echo '<th>Price</th>';
+    echo '<th>Description</th>';
     echo '<th>Statut</th>';
     echo '<th>Actions</th>';
     echo '</tr>';
 
     // Table data
-    foreach ($cadeaux as $cadeau) {
+    foreach ($desserts as $dessert) {
         echo '<tr>';
-        echo '<td data-cell="id">' . $cadeau['idCadeau'] . '</td>';
-        echo '<td data-cell="titre">' . html_entity_decode($cadeau['title']) . '</td>';
-        echo '<td data-cell="fonctionnalité">' . html_entity_decode($cadeau['feature']) . '</td>';
-        echo '<td data-cell="prix">' . html_entity_decode($cadeau['price']) . '</td>';
-        echo '<td data-cell="statut">' . ($cadeau['active'] ? 'Actif' : 'Inactif') . '</td>';
+        echo '<td data-cell="id">' . $dessert['isDessert'] . '</td>';
+        echo '<td data-cell="title">' . html_entity_decode($dessert['title']) . '</td>';
+        echo '<td data-cell="price">' . html_entity_decode($dessert['price']) . '</td>';
+        echo '<td data-cell="description">' . html_entity_decode($dessert['description']) . '</td>';
+        echo '<td data-cell="statut">' . ($dessert['active'] ? 'Actif' : 'Inactif') . '</td>';
         echo '<td>';
-        echo '<button class="btn-secondary" onclick="modifierCadeau(' . $cadeau['idCadeau'] . ')">Modifier</button>';
-        echo '<button class="btn-secondary" onclick="afficherCadeau(' . $cadeau['idCadeau'] . ')">Afficher</button>';
-        echo '<button class="btn-primary" onclick="supprimerCadeau(' . $cadeau['idCadeau'] . ')">Supprimer</button>';
+        echo '<button class="btn-secondary" onclick="modifyDessert(' . $dessert['isDessert'] . ')">Modify</button>';
+        echo '<button class="btn-secondary" onclick="displayDessert(' . $dessert['isDessert'] . ')">Display</button>';
+        echo '<button class="btn-primary" onclick="deleteDessert(' . $dessert['isDessert'] . ')">Delete</button>';
         echo '</td>';
         echo '</tr>';
     }
