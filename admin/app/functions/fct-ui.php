@@ -146,21 +146,28 @@ function displayNavigation()
                     <div class="navbar-menu">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="../index.php">Home</a>
+                                <a class="nav-link" href="../index.php"><i class="fas fa-home"></i><span> Home</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../index.php#about">About</a>
+                                <a class="nav-link" href="../admin/manager.php">Catégories</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="./menu.php">Menu</a>
+                                <a class="nav-link" href="../admin/manager-starter.php">Starters</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="./contact.php">Contact</a>
+                            <a class="nav-link" href="../admin/manager-maincourse.php">Main courses</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../admin/manager-dessert.php">Desserts</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../admin/manager.php"><i class="fa-solid fa-square-plus"></i>
+                                <span> Add</span></a>
                             </li>
                         </ul>
 
                         <!-- Login button -->
-                        <a href="./reservation.php" class="btn-primary">Book a table</a>
+                        <a href="logoff.php" class="btn-primary">Déconnexion</a>
                         <!-- Login button end -->
                     </div>
                     <!-- Navbar menu end -->
@@ -184,22 +191,29 @@ function displayNavigation()
                     <!-- Navbar menu -->
                     <div class="navbar-menu">
                         <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="../index.php">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="../index.php#about">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./menu.php">Menu</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./contact.php">Contact</a>
-                            </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="../index.php"><i class="fas fa-home"></i><span> Home</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../admin/manager.php">Catégories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../admin/manager-starter.php">Starters</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="../admin/manager-maincourse.php">Main courses</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../admin/manager-dessert.php">Desserts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../admin/manager.php"><i class="fa-solid fa-square-plus"></i>
+                            <span> Add</span></a>
+                        </li>
                         </ul>
 
                         <!-- Login button -->
-                        <a href="./reservation.php" class="btn-primary">Book a table</a>
+                        <a href="logoff.php" class="btn-primary">Déconnexion</a>
                         <!-- Login button end -->
                     </div>
                     <!-- Navbar menu end -->
