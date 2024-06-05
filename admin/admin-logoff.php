@@ -2,8 +2,9 @@
 require_once('settings.php');
 
 // Redirection vers la page de gestion si l'utilisateur est connecté
-if ($_SESSION['IDENTIFY']) {
+if (isset($_SESSION['IDENTIFY']) && $_SESSION['IDENTIFY']) {
     header('Location: manager.php');
+    exit();
 }
 
 $user = null;
@@ -15,11 +16,11 @@ if (!is_object($conn)) {
     $msg = getMessage($conn, 'error');
 } else {
 
-    // Vérifie si on reçoit le formumaire d'identification
+    // Vérifie si on reçoit le formulaire d'identification
     if (isset($_POST['form']) && $_POST['form'] == 'login') {
 
         // Vérifie si les champs sont vides
-        if ($_POST['login'] == '' || $_POST['pwd'] == '') {
+        if (empty($_POST['login']) || empty($_POST['pwd'])) {
             $msg = getMessage('Veuillez remplir tous les champs', 'error');
         } else {
 
@@ -28,22 +29,27 @@ if (!is_object($conn)) {
 
             // Appel de la fonction d'identification
             // Utiliser cette fonction si les mots de passe sont en clair dans la DB
-            $user = userIdentificationDB($conn, $datas);
-
-            // Utiliser cette fonction si les mots de passe sont hashés dans la DB
-            // $user = userIdentificationWithHashPwdDB($conn, $datas);            
+            $user = userIdentificationDB($conn, $datas);          
 
             // On vérifie si on a une adresse email dans le tableau $user, si c'est le cas on est connecté
-            (!empty($user['email'])) ? $connexionSuccessfull = true : $connexionSuccessfull = false;
+            $connexionSuccessfull = !empty($user['email']);
         }
     }
 
-    // Si on est connecté, on initialise les variables de session et on redirige vers la page de gestion
+    // Si on est connecté, on initialise les variables de session et on redirige vers la page appropriée
     if ($connexionSuccessfull === true) {
         $_SESSION['IDENTIFY'] = true;
         $_SESSION['user_email'] = $user['email'];
-        header('Location: manager.php');
-        // Dans le cas contraire on affiche un message d'erreur, il y a eu une erreur d'identification
+        $_SESSION['user_permission'] = $user['permission'];
+
+        if ($user['permission'] == 1) {
+            header('Location: manager.php');
+        } elseif ($user['permission'] == 2) {
+            header('Location: customer.php');
+        } else {
+            $msg = getMessage('Permission inconnue', 'error');
+        }
+        exit();
     } elseif ($connexionSuccessfull === false) {
         $msg = getMessage('Votre email et/ou votre mot de passe sont erronés', 'error');
     }
@@ -76,8 +82,8 @@ if (!is_object($conn)) {
 	------------------------------------------------------------------>
     <div class="login-container">
         <div class="login-title">
-            <h1>Se connecter</h1>
-            <p>Connectez-vous et gérer votre page</p>
+            <h1>Login</h1>
+            <p>Login and manage your page</p>
             <div class="message">
                 <?php if (isset($msg)) echo $msg; ?>
             </div>
@@ -89,15 +95,15 @@ if (!is_object($conn)) {
                     <input type="email" class="form-ctrl" id="login" name="login" value="<?php echo (!empty($_POST['login'])) ? $_POST['login'] : null; ?>" required>
                 </div>
                 <div class="form-ctrl">
-                    <label for="pwd" class="form-ctrl">Mot de passe</label>
+                    <label for="pwd" class="form-ctrl">Password</label>
                     <input type="password" class="form-ctrl" id="pwd" name="pwd" value="" required>
                 </div>
-                <p>Oublié le mot de passe ?</p>
+                <p>Forgot your password?</p>
                 <input type="hidden" id="form" name="form" value="login">
-                <button type="submit" class="btn-primary">Se connecter</button>
+                <button type="submit" class="btn-primary">Login</button>
             </form>
             <div class="background-vector">
-                <img src="../assets/components/background-vector.png" alt="background-vector">
+                <img src="../assets/images/background-vector.png" alt="background-vector">
             </div>
         </div>
     </div>
