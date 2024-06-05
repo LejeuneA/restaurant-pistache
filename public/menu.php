@@ -169,9 +169,12 @@ if (!is_object($conn)) {
                     <!-- Starter content-->
                     <div class="menu-content" id="starter-content">
                         <?php if ($execute) : ?>
-                            <?php foreach ($resultStarters as $index => $starter) : ?>
-                                <?php if ($index % 4 == 0) : ?>
-                                    <div class="menu-row">
+                            <?php
+                            $delay = 0;
+                            foreach ($resultStarters as $index => $starter) : ?>
+                                <?php if ($index % 2 == 0) : ?>
+                                    <div class="menu-row" data-aos="fade-up" data-aos-delay="<?= $delay ?>">
+                                        <?php $delay += 200; ?>
                                     <?php endif; ?>
                                     <div class="menu-item">
                                         <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($starter['imageUrl']) ?>" alt="<?= htmlspecialchars($starter['title']) ?>">
@@ -181,11 +184,10 @@ if (!is_object($conn)) {
                                             <p><?= htmlspecialchars($starter['description']) ?></p>
                                         </div>
                                     </div>
-                                    <?php if (($index + 1) % 4 == 0) : ?>
+                                    <?php if (($index + 1) % 2 == 0) : ?>
                                     </div>
                                 <?php endif; ?>
-                                <?php if ($index >= 160) break;
-                                ?>
+                                <?php if ($index >= 160) break; ?>
                             <?php endforeach; ?>
                         <?php else : ?>
                             <p>No starters available at the moment.</p>
@@ -193,12 +195,16 @@ if (!is_object($conn)) {
                     </div>
                     <!-- Starter content end -->
 
+
                     <!-- Main Course content -->
                     <div class="menu-content" id="main-course-content">
                         <?php if (is_array($resultMainCourses) && !empty($resultMainCourses)) : ?>
-                            <?php foreach ($resultMainCourses as $index => $mainCourse) : ?>
+                            <?php
+                            $delay = 0;
+                            foreach ($resultMainCourses as $index => $mainCourse) : ?>
                                 <?php if ($index % 4 == 0) : ?>
-                                    <div class="menu-row">
+                                    <div class="menu-row" data-aos="fade-up" data-aos-delay="<?= $delay ?>">
+                                        <?php $delay += 100; ?>
                                     <?php endif; ?>
                                     <div class="menu-item">
                                         <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($mainCourse['imageUrl']) ?>" alt="<?= htmlspecialchars($mainCourse['title']) ?>">
@@ -211,8 +217,7 @@ if (!is_object($conn)) {
                                     <?php if (($index + 1) % 4 == 0) : ?>
                                     </div>
                                 <?php endif; ?>
-                                <?php if ($index >= 160) break; 
-                                ?>
+                                <?php if ($index >= 160) break; ?>
                             <?php endforeach; ?>
                         <?php else : ?>
                             <p>No main courses available at the moment.</p>
@@ -223,9 +228,12 @@ if (!is_object($conn)) {
                     <!-- Dessert content -->
                     <div class="menu-content" id="dessert-content">
                         <?php if (is_array($resultDesserts) && !empty($resultDesserts)) : ?>
-                            <?php foreach ($resultDesserts as $index => $dessert) : ?>
+                            <?php
+                            $delay = 0;
+                            foreach ($resultDesserts as $index => $dessert) : ?>
                                 <?php if ($index % 4 == 0) : ?>
-                                    <div class="menu-row">
+                                    <div class="menu-row" data-aos="fade-up" data-aos-delay="<?= $delay ?>">
+                                        <?php $delay += 100; ?>
                                     <?php endif; ?>
                                     <div class="menu-item">
                                         <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($dessert['imageUrl']) ?>" alt="<?= htmlspecialchars($dessert['title']) ?>">
@@ -238,8 +246,7 @@ if (!is_object($conn)) {
                                     <?php if (($index + 1) % 4 == 0) : ?>
                                     </div>
                                 <?php endif; ?>
-                                <?php if ($index >= 160) break; 
-                                ?>
+                                <?php if ($index >= 160) break; ?>
                             <?php endforeach; ?>
                         <?php else : ?>
                             <p>No desserts available at the moment.</p>
