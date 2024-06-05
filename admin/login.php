@@ -29,10 +29,7 @@ if (!is_object($conn)) {
 
             // Appel de la fonction d'identification
             // Utiliser cette fonction si les mots de passe sont en clair dans la DB
-            $user = userIdentificationDB($conn, $datas);
-
-            // Utiliser cette fonction si les mots de passe sont hashés dans la DB
-            // $user = userIdentificationWithHashPwdDB($conn, $datas);            
+            $user = userIdentificationDB($conn, $datas);          
 
             // On vérifie si on a une adresse email dans le tableau $user, si c'est le cas on est connecté
             $connexionSuccessfull = !empty($user['email']);
