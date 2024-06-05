@@ -1,0 +1,217 @@
+@use "custom";
+@use "mixins";
+@use "extends";
+@use "global";
+
+/* -----------------------------------------------------------------
+                            Edit page
+ ----------------------------------------------------------------- */
+
+.edit-content {
+    @include d-flex(flex, center, center, column, center);
+    height: auto;
+    width: 100%;
+
+    .edit-title {
+        h1 {
+            margin: 1em 0;
+        }
+    }
+
+    .message {
+        color: $primary-red;
+        margin-bottom: 1em;
+    }
+
+    .edit-form {
+        @include d-flex(flex, center, center, column, start);
+        width: 100%;
+
+        .form-top {
+            @include d-flex(flex, space-between, start, row, start);
+            width: 100%;
+            gap: 3em;
+
+            .form-left {
+                width: 100%;
+
+                .form-ctrl {
+                    @extend %form-ctrl;
+                }
+
+                .checkbox-ctrl {
+                    margin-bottom: 1em;
+
+                    label {
+                        color: $secondary-blue;
+                        font-weight: 400;
+                        font-size: 1.5em;
+
+                        span {
+                            text-align: start;
+                            color: $primary-blue;
+                            font-size: 0.7em;
+                        }
+                    }
+
+                    .form-check {
+                        .form-check-label {
+                            color: $primary-red;
+                            font-size: 1em;
+                        }
+
+                        .form-check-input {
+                            width: 1.5em;
+                            height: 1.5em;
+                        }
+                    }
+                }
+            }
+            .form-right {
+                width: 100%;
+
+                
+                .form-ctrl {
+                    @extend %form-ctrl;
+                    
+                    div {
+                        img {
+                            margin-top: 0.5em;
+                        }
+
+                        .image_url {
+                            color:$dark-blue;
+                            font-size: 1em; 
+                            font-weight: 400;
+                            border: 0;
+                            padding: 1em 0; 
+                            margin-bottom: 0;
+
+                            &:focus {
+                                outline: none;
+                                border: none;
+                                box-shadow: none;
+                            }
+                        }
+                    }
+                }
+                
+                .image_preview {
+                    width: 17em;
+                    height: 100%;
+                }
+            }
+        }
+
+        .form-bottom {
+            width: 100%;
+            margin-top: 7em;
+
+            .form-ctrl {
+                @extend %form-ctrl;
+
+                .published_article {
+                    span {
+                        font-size: 0.7em;
+                    }
+                }
+            }
+        }
+
+        .btn-primary {
+            margin: 1.3em 0 5em;
+            background-color: $primary-blue;
+
+            @include hover("background-color", $secondary-blue, "color", $light-blue);
+        }
+    }
+
+    .login-vector {
+        background-color: $primary-blue;
+
+        img {
+            height: auto;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: -1;
+        }
+    }
+
+    // Responsive styles for edit page
+    @media (min-width: 320px) and (max-width: 1332px) {
+        .edit-form {
+            @include d-flex(flex, center, center, column, center);
+
+            .form-top {
+                @include d-flex(flex, center, start, column, center);
+
+                .form-left {
+                    .form-ctrl {
+                        @include d-flex(flex, center, center, column, center);
+                    }
+                }
+            }
+
+            .form-bottom {
+                margin-top: 1em;
+            }
+        }
+    }
+}
+
+/* -----------------------------------------------------------------
+                         Statut box
+ ----------------------------------------------------------------- */
+.checkbox-wrapper-22 {
+    .switch {
+        display: inline-block;
+        height: 34px;
+        position: relative;
+        width: 60px;
+        margin-right: 0.5em;
+
+        input {
+            display: none;
+        }
+
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: 0.4s;
+
+            &::before {
+                background-color: #fff;
+                bottom: 4px;
+                content: "";
+                height: 26px;
+                left: 4px;
+                position: absolute;
+                transition: 0.4s;
+                width: 26px;
+            }
+        }
+
+        input:checked + .slider {
+            background-color: #66bb6a;
+
+            &::before {
+                transform: translateX(26px);
+            }
+        }
+
+        .round {
+            border-radius: 34px;
+
+            &::before {
+                border-radius: 50%;
+            }
+        }
+    }
+}
