@@ -8,7 +8,7 @@
  ----------------------------------------------------------------- */
 .login-container {
   @include d-flex(flex, center, center, column, center);
-  background-color: $primary-blue;
+  background-color: $black;
   height: 100vh;
   width: 100%;
   overflow: hidden;
@@ -17,11 +17,11 @@
 
   .login-title {
     h1 {
-      color: $light-blue;
+      color: $white;
     }
 
     p {
-      color: $light-blue;
+      color: $white;
       margin: 0.8em 0;
       font-weight: 200;
       font-size: 1.5em;
@@ -29,13 +29,13 @@
   }
 
   .message {
-    color: $primary-red;
+    color: $primary;
     margin-bottom: 1em;
   }
 
   .login-content {
     @include d-flex(flex, center, center, column, center);
-    background-color: $secondary-blue;
+    background-color: $secondary;
     padding: 2em;
     border-radius: 1em;
     max-width: 30em;
@@ -54,7 +54,7 @@
         input {
           width: 100%;
           padding: 0.6em;
-          border: 1px solid $secondary-blue;
+          border: 1px solid $secondary;
           border-radius: 4px;
           box-sizing: border-box;
           margin-top: 6px;
@@ -68,25 +68,25 @@
           font-family: "Poppins", sans-serif;
           font-size: small;
           font-style: italic;
-          color: $light-blue;
+          color: $white;
         }
 
         input:focus,
         select:focus,
         textarea:focus {
-          border: 1px solid $primary-blue;
+          border: 1px solid $primary;
           box-shadow: 0 0 10px rgba(48, 71, 94, 0.9);
         }
 
         input:focus-visible,
         select:focus-visible,
         textarea:focus-visible {
-          outline: 1px solid $secondary-blue;
+          outline: 1px solid $secondary;
         }
       }
 
       p {
-        color: $primary-blue;
+        color: $primary;
         text-align: end;
         font-size: 0.9em;
         font-weight: 400;
@@ -95,12 +95,12 @@
       .btn-primary {
         margin-top: 2em;
 
-        @include hover("background-color", $primary-blue, "color", $light-blue);
+        @include hover("background-color", $primary, "color", $white);
       }
     }
 
     .background-vector {
-      background-color: $primary-blue;
+      background-color: $primary;
 
       img {
         height: auto;
