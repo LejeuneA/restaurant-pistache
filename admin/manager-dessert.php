@@ -106,17 +106,17 @@ if (!is_object($conn)) {
 
     <script>
         // JavaScript functions for handling cadeau actions
-        function modifierCadeau(cadeauId) {
+        function modifyDessert(cadeauId) {
             // Redirect to the edit page with the specified cadeau ID
             window.location.href = 'edit-cadeau.php?idCadeau=' + cadeauId;
         }
 
-        function afficherCadeau(cadeauId) {
+        function displayDessert(cadeauId) {
             // Redirect to the cadeau page with the specified cadeau ID
             window.location.href = 'article-cadeau.php?idCadeau=' + cadeauId;
         }
 
-        function supprimerCadeau(cadeauId) {
+        function deleteDessert(cadeauId) {
             // Confirm cadeau deletion
             if (confirm('Êtes-vous certain de vouloir supprimer le cadeau ci-dessous ?')) {
                 // Redirect to manager-cadeau.php with the cadeau ID for deletion
