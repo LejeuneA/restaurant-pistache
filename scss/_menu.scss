@@ -103,26 +103,25 @@ main {
                         flex-wrap: wrap;
                         width: 100%;
 
+                        &:nth-child(2),
+                        &:nth-child(4) {
+                            .menu-item {
+                                &:nth-child(1),
+                                &:nth-child(2),
+                                &:nth-child(3),
+                                &:nth-child(4) {
+                                    .menu-item-image {
+                                        order: 2;
+                                    }
+                                    .menu-item-info {
+                                        order: 1;
+                                    }
+                                }
+                            }
+                        }
+
                         .menu-item {
                             @include d-flex(flex, center, start, row, start);
-
-                            &:nth-child(1) {
-                                .menu-item-image {
-                                    order: 2;
-                                }
-                                .menu-item-info {
-                                    order: 1;
-                                }
-                            }
-
-                            &:nth-child(2) {
-                                .menu-item-image {
-                                    order: 2;
-                                }
-                                .menu-item-info {
-                                    order: 1;
-                                }
-                            }
 
                             .menu-item-image {
                                 width: 15em;
@@ -208,21 +207,9 @@ main {
                 }
 
                 @media (min-width: 569px) and (max-width: 1024px) {
-                    &:nth-child(2) {
+                    &:nth-child(2),
+                    &:nth-child(4) {
                         .menu-row {
-                            .menu-item {
-                                .menu-item-image {
-                                    order: 2;
-                                }
-                                .menu-item-info {
-                                    order: 1;
-                                }
-                            }
-                        }
-                    }
-
-                    .menu-row {
-                        &:nth-child(1) {
                             .menu-item {
                                 .menu-item-image {
                                     order: 2;
