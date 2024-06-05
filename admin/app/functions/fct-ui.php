@@ -2,7 +2,7 @@
 /* ********************************************************************** */
 /* *                          TOOLS FUNCTIONS                           * */
 /* *                          ---------------                           * */
-/* *        FONCTIONS D'AFFICHAGE DE L'INTERFACE UTILISATEUR            * */
+/* *                 USER INTERFACE DISPLAY FUNCTIONS                   * */
 /* ********************************************************************** */
 
 /**
@@ -167,7 +167,7 @@ function displayNavigation()
                         </ul>
 
                         <!-- Login button -->
-                        <a href="logoff.php" class="btn-primary">Déconnexion</a>
+                        <a href="logoff.php" class="btn-primary">Log off</a>
                         <!-- Login button end -->
                     </div>
                     <!-- Navbar menu end -->
@@ -213,7 +213,7 @@ function displayNavigation()
                         </ul>
 
                         <!-- Login button -->
-                        <a href="logoff.php" class="btn-primary">Déconnexion</a>
+                        <a href="logoff.php" class="btn-primary">Log off</a>
                         <!-- Login button end -->
                     </div>
                     <!-- Navbar menu end -->
