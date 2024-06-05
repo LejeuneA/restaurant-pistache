@@ -103,7 +103,7 @@ if (!is_object($conn)) {
                 <button type="submit" class="btn-primary">Se connecter</button>
             </form>
             <div class="background-vector">
-                <img src="../assets/components/background-vector.png" alt="background-vector">
+                <img src="../assets/images/background-vector.png" alt="background-vector">
             </div>
         </div>
     </div>
