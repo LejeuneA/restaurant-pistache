@@ -208,10 +208,31 @@ main {
                 }
 
                 @media (min-width: 569px) and (max-width: 1024px) {
-                    .menu-row {
-                        @include d-flex(flex, center, center, row, start);
 
-                        // I want  for each row second and third .menu item elements .menu-item-image and .menu-item-info reverse for sm screen
+                    &:nth-child(2) {
+                        .menu-row {
+                            .menu-item {
+                                .menu-item-image {
+                                    order: 2;
+                                }
+                                .menu-item-info {
+                                    order: 1;
+                                }
+                            }
+                        }
+                    }
+
+                    .menu-row {
+                        &:nth-child(1) {
+                            .menu-item {
+                                .menu-item-image {
+                                    order: 2;
+                                }
+                                .menu-item-info {
+                                    order: 1;
+                                }
+                            }
+                        }
                     }
                 }
             }
