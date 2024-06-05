@@ -5,9 +5,14 @@
 /* *                 USER INTERFACE DISPLAY FUNCTIONS                   * */
 /* ********************************************************************** */
 
+
+/**-----------------------------------------------------------------
+    Returns the html code of the radio buttons indicating the 
+                publication status of the article
+*------------------------------------------------------------------**/
 /**
- * Retourne le code html des boutons radios indiquant 
- * le status de publication de l'article
+ * Returns the html code of the radio buttons 
+ * indicating the publication status of the article
  * 
  * @param boolean     $published
  * @param string      $typeForm  (ADD ou EDIT)
@@ -53,10 +58,10 @@ function displayFormRadioBtnArticlePublished($published, $typeForm = 'ADD')
 
 
 /**-----------------------------------------------------------------
-                    Affichage de la section JS
+                    Displaying the JS section
  *------------------------------------------------------------------**/
 /**
- * Affichage de la section JS
+ * Displaying the JS section
  * 
  * @param bool $tinyMCE 
  * @return void 
@@ -65,22 +70,22 @@ function displayJSSection($tinyMCE = false)
 {
     $js = '';
 
-    // Chargement de TinyMCE si nécessaire (paramètre $tinyMCE = true)
+    // TinyMCE loaded if necessary (parameter $tinyMCE = true)
     $js .= ($tinyMCE) ? '
     <script src="vendors/tinymce/tinymce.min.js" referrerpolicy="origin"></script>  
     <script src="assets/js/conf-tinymce.js"> </script>
     ' : null;
 
-    // Affichage de la chaîne des scripts JS
+    // Displaying the JS script chain
     echo $js;
 }
 
 
 /**-----------------------------------------------------------------
-                Affichage de la section head d'une page
- *------------------------------------------------------------------**/
+                Displaying the head section of a page
+*------------------------------------------------------------------**/
 /**
- * Affichage de la section head d'une page
+ * Displaying the head section of a page
  * 
  * @param string $title 
  * @return void 
@@ -117,11 +122,11 @@ function displayHeadSection($title = APP_NAME)
 
 
 /**-----------------------------------------------------------------
-                    Navigation admin
+                  Displaying the admin navigation
 *------------------------------------------------------------------**/
 
 /**
- * Affichage de la navigation
+ * Displaying the admin navigation
  * 
  * @return void 
  */
@@ -229,11 +234,11 @@ function displayNavigation()
 
 
 /**-----------------------------------------------------------------
-                  Retour d'un message au format HTML
- *------------------------------------------------------------------**/
+                  Returning a message in HTML format
+*------------------------------------------------------------------**/
 
 /**
- * Retour d'un message au format HTML
+ * Returning a message in HTML format
  * 
  * @param string $message 
  * @param string $type 
@@ -244,9 +249,10 @@ function getMessage($message, $type = 'success')
     $html = '<div class="msg-' . $type . '">' . $message . '</div>';
     return $html;
 }
+
 /**-----------------------------------------------------------------
         Generate HTML markup for displaying articles information
- *------------------------------------------------------------------**/
+*------------------------------------------------------------------**/
 /**
  * Generate HTML markup for displaying starters information
  * 
@@ -255,9 +261,8 @@ function getMessage($message, $type = 'success')
  */
 function generateStarterHTML($starter)
 {
-    $html = ""; // Initialize empty HTML string
+    $html = ""; 
 
-    // Sanitize data to prevent XSS vulnerabilities (optional but recommended)
     $imageUrl = htmlspecialchars($starter['imageUrl'], ENT_QUOTES);
     $title = htmlspecialchars($starter['title'], ENT_QUOTES);
     $price = htmlspecialchars($starter['price'], ENT_QUOTES);
@@ -280,122 +285,50 @@ function generateStarterHTML($starter)
     return $html;
 }
 
+/**-----------------------------------------------------------------
+        Generate HTML markup for displaying articles information
+*------------------------------------------------------------------**/
 /**
- * Generate HTML markup for displaying papeterie information
+ * Generate HTML markup for displaying starters information
  * 
- * @param array $papeterie
+ * @param array $starter 
  * @return string 
  */
-function generatePapeterieHTML($papeterie)
+function generateMenuHTML($starter)
 {
-    // Start building the HTML markup
-    $html = '<article class="article-container">';
-    $html .= '<div class="product-img">';
-    $html .= '<a href="'.DOMAIN.'/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
-    $html .= '<img src="'.DOMAIN. '/'. $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '">';
-    $html .= '</a>';
-    $html .= '</div>';
+    $html = ""; 
 
-    $html .= '<div class="product-info">';
-    // Check if 'title', 'writer', and 'feature' keys are set before accessing them
-    $title = isset($papeterie['title']) ? $papeterie['title'] : 'Titre non disponible';
-    $feature = isset($papeterie['feature']) ? $papeterie['feature'] : 'Feature non disponible';
+    $imageUrl = htmlspecialchars($starter['imageUrl'], ENT_QUOTES);
+    $title = htmlspecialchars($starter['title'], ENT_QUOTES);
+    $price = htmlspecialchars($starter['price'], ENT_QUOTES);
+    $description = htmlspecialchars($starter['description'], ENT_QUOTES);
 
-    $html .= '<a href="'.DOMAIN.'/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
-    $html .= '<h2>' . $title . '</h2>';
-    $html .= '</a>';
-    $html .= '<p><span>' . $feature . '</span></p>';
-
-    // Check if 'content' key is set before accessing it
-    if (isset($papeterie['content'])) {
-
-        $truncatedContent = strlen($papeterie['content']) > 350 ? substr($papeterie['content'], 0, 350) . '...' : $papeterie['content'];
-        $html .= '<div class="product-description">';
-        $html .= '<p>' . htmlspecialchars_decode($truncatedContent) . '</p>';
-        $html .= '</div>';
-    }
-
-    $html .= '<div class="more-info">';
-    // Check if 'idPapeterie' key is set before creating the link
-    $link = isset($papeterie['idPapeterie']) ? ''.DOMAIN.'/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] : '#';
-    $html .= '<a href="' . $link . '">Savoir plus</a>';
-    $html .= '</div>';
-    $html .= '</div>';
-
-    $html .= '<div class="product-price">';
-    // Check if 'price' key is set before accessing it
-    $price = isset($papeterie['price']) ? $papeterie['price'] . ' €' : 'Prix non disponible';
-    $html .= '<p>' . $price . ' <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
-    $html .= '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
-    $html .= '</div>';
-
-    $html .= '</article>';
+    // Construct the HTML markup
+    $html .= "
+        <div class=\"menu-items\" data-aos=\"fade-up\" data-aos-delay=\"150\">
+            <div class=\"menu-item\">
+                <img class=\"menu-item-image\" src=\"$imageUrl\" alt=\"$title\">
+                <div class=\"menu-item-info\">
+                    <h3 class=\"menu-item-title\">$title</h3>
+                    <span class=\"menu-item-price\">€$price</span>
+                    <p>$description</p>
+                </div>
+            </div>
+        </div>
+    ";
 
     return $html;
 }
 
-/**
- * Generate HTML markup for displaying cadeau information
- * 
- * @param array $cadeau
- * @return string 
- */
-function generateCadeauHTML($cadeau)
-{
-    // Start building the HTML markup
-    $html = '<article class="article-container">';
-    $html .= '<div class="product-img">';
-    $html .= '<a href="'.DOMAIN.'/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
-    $html .= '<img src="'.DOMAIN. '/'. $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '">';
-    $html .= '</a>';
-    $html .= '</div>';
-
-    $html .= '<div class="product-info">';
-    // Check if 'title', 'writer', and 'feature' keys are set before accessing them
-    $title = isset($cadeau['title']) ? $cadeau['title'] : 'Titre non disponible';
-    $feature = isset($cadeau['feature']) ? $cadeau['feature'] : 'Feature non disponible';
-
-    $html .= '<a href="'.DOMAIN.'/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
-    $html .= '<h2>' . $title . '</h2>';
-    $html .= '</a>';
-    $html .= '<p><span>' . $feature . '</span></p>';
-
-    // Check if 'content' key is set before accessing it
-    if (isset($cadeau['content'])) {
-
-        $truncatedContent = strlen($cadeau['content']) > 350 ? substr($cadeau['content'], 0, 350) . '...' : $cadeau['content'];
-        $html .= '<div class="product-description">';
-        $html .= '<p>' . htmlspecialchars_decode($truncatedContent) . '</p>';
-        $html .= '</div>';
-    }
-
-    $html .= '<div class="more-info">';
-    // Check if 'idCadeau' key is set before creating the link
-    $link = isset($cadeau['idCadeau']) ? ''.DOMAIN.'/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] : '#';
-    $html .= '<a href="' . $link . '">Savoir plus</a>';
-    $html .= '</div>';
-    $html .= '</div>';
-
-    $html .= '<div class="product-price">';
-    // Check if 'price' key is set before accessing it
-    $price = isset($cadeau['price']) ? $cadeau['price'] . ' €' : 'Prix non disponible';
-    $html .= '<p>' . $price . ' <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
-    $html .= '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
-    $html .= '</div>';
-
-    $html .= '</article>';
-
-    return $html;
-}
 
 
 
 /**-----------------------------------------------------------------
-             Affiche le livre reçu en paramètre
- *------------------------------------------------------------------**/
+             Displays the book received as a parameter
+*------------------------------------------------------------------**/
 
 /**
- * Affiche le livre reçu en paramètre
+ * Displays the book received as a parameter
  * 
  * @param mixed $livre 
  * @return void 
@@ -430,42 +363,14 @@ function displayLivreByID($livre)
     echo '<h2>Description</h2>';
     echo '<p>' . htmlspecialchars_decode($livre['content']) . '</p>';
     echo '</div>';
-    // echo '<div class="product-specification">';
-    // echo '<h2>Spécifications</h2>';
-    // echo '<div class="product-specification-container">';
-    // echo '<div class="product-specification-left">';
-    // echo '<h3>Parties prenantes</h3>';
-    // echo '<ul>';
-    // echo '<li>Auteur(s): <span>' . $livre['writer'] . '</span></li>';
-    // echo '<li>Editeur: <span>' . $livre['feature'] . '</span></li>';
-    // echo '</ul>';
-    // echo '<h3>Contenu</h3>';
-    // echo '<ul>';
-
-    // echo '<li>Nombre de pages: <span>' . $livre['pages'] . '</span></li>';
-    // echo '<li>Langue: <span>Français</span></li>';
-    // echo '</ul>';
-    // echo '</div>';
-    // echo '<div class="product-specification-right">';
-    // echo '<h3>Caractéristiques</h3>';
-    // echo '<ul>';
-
-    // echo '<li>EAN: <span>' . $livre['ean'] . '</span></li>';
-    // echo '<li>Date de parution: <span>' . $livre['publication_date'] . '</span></li>';
-    // echo '<li>Format: <span>' . $livre['feature'] . '</span></li>'; 
-    // echo '<li>Dimensions: <span>' . $livre['dimensions'] . '</span></li>';
-    // echo '<li>Poids: <span>' . $livre['weight'] . '</span></li>';
-    // echo '</ul>';
-    // echo '</div>';
-    // echo '</div>';
-    // echo '</div>';
-    // echo '</section>';
-    // echo '</main>';
 }
 
+/**-----------------------------------------------------------------
+           Displays the stationery received as a parameter
+*------------------------------------------------------------------**/
 
 /**
- * Affiche la papeterie reçu en paramètre
+ * Displays the stationery received as a parameter
  * 
  * @param mixed $papeterie
  * @return void 
@@ -502,8 +407,12 @@ function displayPapeterieByID($papeterie)
     echo '</div>';
 }
 
+
+/**-----------------------------------------------------------------
+           Displays the gift received as a parameter
+*------------------------------------------------------------------**/
 /**
- * Affiche le cadeau reçu en paramètre
+ * Displays the gift received as a parameter
  * 
  * @param mixed $papeterie
  * @return void 
@@ -541,11 +450,11 @@ function displayCadeauByID($cadeau)
 
 
 /**-----------------------------------------------------------------
-            Affiche les articles pour la page du manager
- *------------------------------------------------------------------**/
+            Displays articles for the manager's page
+*------------------------------------------------------------------**/
 
 /**
- * Affiche les articles pour la page du manager
+ * Displays articles for the manager's page
  * 
  * @param array $articles 
  * @return void
@@ -575,9 +484,11 @@ function displayArticlesWithButtons($articles)
     }
 }
 
-
+/**-----------------------------------------------------------------
+                  Display starters for the manager page
+*------------------------------------------------------------------**/
 /**
- * Affiche les livres pour la page du manager
+ * Display starters for the manager page
  * 
  * @param array $livres
  * @return void
@@ -607,8 +518,12 @@ function displayLivresWithButtons($livres)
     }
 }
 
+/**-----------------------------------------------------------------
+                Display main courses for the manager page
+*------------------------------------------------------------------**/
+
 /**
- * Affiche les papeteries pour la page du manager
+ * Display main courses for the manager page
  * 
  * @param array $papeteries
  * @return void
@@ -638,8 +553,12 @@ function displayPapeteriesWithButtons($papeteries)
     }
 }
 
+
+/**-----------------------------------------------------------------
+                Display desserts for the manager page
+*------------------------------------------------------------------**/
 /**
- * Affiche les cadeaux pour la page du manager
+ * Display desserts for the manager page
  * 
  * @param array $cadeaux
  * @return void
@@ -670,10 +589,10 @@ function displayCadeauxWithButtons($cadeaux)
 }
 
 /**-----------------------------------------------------------------
-    Affiche les articles pour la page du manager sous forme de table
- *------------------------------------------------------------------**/
+    Displays the starters for the manager's page in table form
+*------------------------------------------------------------------**/
 /**
- * Affiche les livres pour la page du manager sous forme de table
+ * Displays the starters for the manager's page in table form
  * 
  * @param array $livres
  * @return void
@@ -716,9 +635,12 @@ function displayLivresAsTable($livres)
 }
 
 
+/**-----------------------------------------------------------------
+    Displays the main courses for the manager's page in table form
+*------------------------------------------------------------------**/
 
 /**
- * Affiche les papeteries pour la page du manager sous forme de table
+ *  Displays the main courses for the manager's page in table form
  * 
  * @param array $papeteries
  * @return void
@@ -759,9 +681,12 @@ function displayPapeteriesAsTable($papeteries)
 }
 
 
+/**-----------------------------------------------------------------
+     Displays the desserts for the manager's page in table form
+*------------------------------------------------------------------**/
 
 /**
- * Affiche les cadeaux pour la page du manager sous forme de table
+ * Displays the desserts for the manager's page in table form
  * 
  * @param array $cadeaux
  * @return void
