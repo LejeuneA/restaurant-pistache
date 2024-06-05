@@ -7,40 +7,6 @@ if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
     header('Location: login.php');
     exit();
 }
-
-$msg = null;
-$result = null;
-$execute = false;
-
-// Check the database connection
-if (!is_object($conn)) {
-    $msg = getMessage($conn, 'error');
-} else {
-    // Fetch all articles from the database
-    $result = getAllArticlesDB($conn);
-
-    // Check if articles exist
-    if (is_array($result) && !empty($result)) {
-        $execute = true;
-
-        // Check if article ID is provided in the URL for deletion
-        if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-            $articleIdToDelete = $_GET['id'];
-
-            // Delete the article from the database
-            $deleteResult = deleteArticleDB($conn, $articleIdToDelete);
-
-            // Check deletion result and display appropriate message
-            if ($deleteResult === true) {
-                $msg = getMessage('Article supprimé avec succès.', 'success');
-            } else {
-                $msg = getMessage('Erreur lors de la suppression de l\'article. ' . $deleteResult, 'error');
-            }
-        }
-    } else {
-        $msg = getMessage('Il n\'y a pas d\'article à afficher actuellement', 'error');
-    }
-}
 ?>
 
 <!DOCTYPE html>
