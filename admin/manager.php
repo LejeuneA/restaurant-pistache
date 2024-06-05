@@ -15,7 +15,7 @@ if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
 <head>
     <?php
     // Include the head section
-    displayHeadSection('Gestion des produits');
+    displayHeadSection('Products management');
     displayJSSection();
     ?>
 </head>
@@ -38,26 +38,26 @@ if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
 							   Header end
 	------------------------------------------------------------------>
     <div class="manager-container">
-        <?php echo '<div class="welcome"><div class="welcome-text"> Bienvenue <span>' . $_SESSION['user_email'] . '</span></div></div>'; ?>
+        <?php echo '<div class="welcome"><div class="welcome-text"> Welcome <span>' . $_SESSION['user_email'] . '</span></div></div>'; ?>
         <div class="manager-content container">
-            <h1 class="title">Gérer les produits</h1>
+            <h1 class="title">Manage your products</h1>
             <div class="category-container">
-                <!-- Livres -->
+                <!-- Starters -->
                 <div class="category-card">
-                    <a class="btn-primary" href="./manager-livre.php">Gérer les livres</a>
-                    <a class="btn-primary" href="./add-livre.php">Ajouter un livre</a>
+                    <a class="btn-primary" href="./manager-starter.php">Manage starters</a>
+                    <a class="btn-primary" href="./add-starter.php">Add a starter</a>
                 </div>
 
-                <!-- Papeteries -->
+                <!-- MAin courses -->
                 <div class="category-card">
-                    <a class="btn-primary" href="./manager-papeterie.php">Gérer les papeteries</a>
-                    <a class="btn-primary" href="./add-papeterie.php">Ajouter une papeterie</a>
+                    <a class="btn-primary" href="./manager-maincourse.php">Manage main courses</a>
+                    <a class="btn-primary" href="./add-maincourse.php">Add a main course</a>
                 </div>
 
-                <!-- Cadeaux -->
+                <!-- Desserts -->
                 <div class="category-card"> 
-                    <a class="btn-primary" href="./manager-cadeau.php">Gérer les cadeaux</a>
-                    <a class="btn-primary" href="./add-cadeau.php">Ajouter un cadeau</a>
+                    <a class="btn-primary" href="./manager-dessert.php">Manage desserts</a>
+                    <a class="btn-primary" href="./add-dessert.php">Add a dessert</a>
                 </div>
 
                 <!-- Vector -->
