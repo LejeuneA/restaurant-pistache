@@ -106,17 +106,17 @@ if (!is_object($conn)) {
 
     <script>
         // JavaScript functions for handling livre actions
-        function modifierLivre(livreId) {
+        function modifyStarter(livreId) {
             // Redirect to the edit page with the specified livre ID
             window.location.href = 'edit-livre.php?idLivre=' + livreId;
         }
 
-        function afficherLivre(livreId) {
+        function displayStarter(livreId) {
             // Redirect to the livre page with the specified livre ID
             window.location.href = 'article-livre.php?idLivre=' + livreId;
         }
 
-        function supprimerLivre(livreId) {
+        function deleteStarter(livreId) {
             // Confirm livre deletion
             if (confirm('Êtes-vous certain de vouloir supprimer le livre ci-dessous ?')) {
                 // Redirect to manager-livre.php with the livre ID for deletion
