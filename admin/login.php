@@ -82,8 +82,8 @@ if (!is_object($conn)) {
 	------------------------------------------------------------------>
     <div class="login-container">
         <div class="login-title">
-            <h1>Se connecter</h1>
-            <p>Connectez-vous et gérer votre page</p>
+            <h1>Login</h1>
+            <p>Login and manage your page</p>
             <div class="message">
                 <?php if (isset($msg)) echo $msg; ?>
             </div>
@@ -95,12 +95,12 @@ if (!is_object($conn)) {
                     <input type="email" class="form-ctrl" id="login" name="login" value="<?php echo (!empty($_POST['login'])) ? $_POST['login'] : null; ?>" required>
                 </div>
                 <div class="form-ctrl">
-                    <label for="pwd" class="form-ctrl">Mot de passe</label>
+                    <label for="pwd" class="form-ctrl">Password</label>
                     <input type="password" class="form-ctrl" id="pwd" name="pwd" value="" required>
                 </div>
-                <p>Oublié le mot de passe ?</p>
+                <p>Forgot your password?</p>
                 <input type="hidden" id="form" name="form" value="login">
-                <button type="submit" class="btn-primary">Se connecter</button>
+                <button type="submit" class="btn-primary">Login</button>
             </form>
             <div class="background-vector">
                 <img src="../assets/images/background-vector.png" alt="background-vector">
