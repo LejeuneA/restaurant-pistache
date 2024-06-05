@@ -19,7 +19,7 @@
     }
 
     .message {
-        color: $primary-red;
+        color: $primary;
         margin-bottom: 1em;
     }
 
@@ -43,20 +43,20 @@
                     margin-bottom: 1em;
 
                     label {
-                        color: $secondary-blue;
+                        color: $secondary;
                         font-weight: 400;
                         font-size: 1.5em;
 
                         span {
                             text-align: start;
-                            color: $primary-blue;
+                            color: $primary;
                             font-size: 0.7em;
                         }
                     }
 
                     .form-check {
                         .form-check-label {
-                            color: $primary-red;
+                            color: $primary;
                             font-size: 1em;
                         }
 
@@ -80,7 +80,7 @@
                         }
 
                         .image_url {
-                            color:$dark-blue;
+                            color:$darken;
                             font-size: 1em; 
                             font-weight: 400;
                             border: 0;
@@ -120,14 +120,14 @@
 
         .btn-primary {
             margin: 1.3em 0 5em;
-            background-color: $primary-blue;
+            background-color: $primary;
 
-            @include hover("background-color", $secondary-blue, "color", $light-blue);
+            @include hover("background-color", $primary, "color", $white);
         }
     }
 
     .login-vector {
-        background-color: $primary-blue;
+        background-color: $primary;
 
         img {
             height: auto;
