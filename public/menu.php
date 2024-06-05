@@ -184,7 +184,7 @@ if (!is_object($conn)) {
                                     <?php if (($index + 1) % 4 == 0) : ?>
                                     </div>
                                 <?php endif; ?>
-                                <?php if ($index >= 16) break; // Limit to 16 items 
+                                <?php if ($index >= 160) break;
                                 ?>
                             <?php endforeach; ?>
                         <?php else : ?>
@@ -211,7 +211,7 @@ if (!is_object($conn)) {
                                     <?php if (($index + 1) % 4 == 0) : ?>
                                     </div>
                                 <?php endif; ?>
-                                <?php if ($index >= 11) break; // Limit to 12 items 
+                                <?php if ($index >= 160) break; 
                                 ?>
                             <?php endforeach; ?>
                         <?php else : ?>
@@ -238,7 +238,7 @@ if (!is_object($conn)) {
                                     <?php if (($index + 1) % 4 == 0) : ?>
                                     </div>
                                 <?php endif; ?>
-                                <?php if ($index >= 11) break; // Limit to 12 items 
+                                <?php if ($index >= 160) break; 
                                 ?>
                             <?php endforeach; ?>
                         <?php else : ?>
