@@ -52,8 +52,6 @@ textarea {
 	line-height: inherit;
 }
 
-
-
 /* -------------------------------------------------------
                   .Class styles
 ---------------------------------------------------------*/
@@ -102,6 +100,20 @@ textarea {
 		color: $white;
 		line-height: 0;
 	}
+}
+
+.msg-success {
+	color: #66bb6a;
+}
+
+.msg-error {
+	color: $primary-red;
+}
+
+#message {
+	margin-bottom: 2em;
+	font-size: 1.2em;
+	font-weight: 400;
 }
 
 @forward "global";
