@@ -110,7 +110,9 @@ textarea {
 	color: $primary-red;
 }
 
-#message {
+#message,
+.msg-success,
+.msg-error {
 	margin-bottom: 2em;
 	font-size: 1.2em;
 	font-weight: 400;
