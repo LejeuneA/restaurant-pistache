@@ -705,15 +705,15 @@ function displayDessertsAsTable($desserts)
     // Table data
     foreach ($desserts as $dessert) {
         echo '<tr>';
-        echo '<td data-cell="id">' . $dessert['isDessert'] . '</td>';
+        echo '<td data-cell="id">' . $dessert['idDessert'] . '</td>';
         echo '<td data-cell="title">' . html_entity_decode($dessert['title']) . '</td>';
         echo '<td data-cell="price">' . html_entity_decode($dessert['price']) . '</td>';
         echo '<td data-cell="description">' . html_entity_decode($dessert['description']) . '</td>';
         echo '<td data-cell="statut">' . ($dessert['active'] ? 'Actif' : 'Inactif') . '</td>';
         echo '<td>';
-        echo '<button class="btn-secondary" onclick="modifyDessert(' . $dessert['isDessert'] . ')">Modify</button>';
-        echo '<button class="btn-secondary" onclick="displayDessert(' . $dessert['isDessert'] . ')">Display</button>';
-        echo '<button class="btn-primary" onclick="deleteDessert(' . $dessert['isDessert'] . ')">Delete</button>';
+        echo '<button class="btn-secondary" onclick="modifyDessert(' . $dessert['idDessert'] . ')">Modify</button>';
+        echo '<button class="btn-secondary" onclick="displayDessert(' . $dessert['idDessert'] . ')">Display</button>';
+        echo '<button class="btn-primary" onclick="deleteDessert(' . $dessert['idDessert'] . ')">Delete</button>';
         echo '</td>';
         echo '</tr>';
     }
