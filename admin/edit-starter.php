@@ -1,7 +1,12 @@
 <?php
 require_once('settings.php');
 
-// Vérifier si l'utilisateur n'est pas identifié, rediriger vers la page de connexion
+// Start the session at the beginning of your script if it's not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Check if user is not identified, redirect to login page
 if (!$_SESSION['IDENTIFY']) {
     header('Location: login.php');
     exit;
@@ -9,85 +14,102 @@ if (!$_SESSION['IDENTIFY']) {
 
 $msg = null;
 $tinyMCE = true;
-$starter = null;
+$livre = null;
 
 // Check the database connection
 if (!is_object($conn)) {
-    $msg = getMessage($conn, 'error');
+    $_SESSION['message'] = getMessage($conn, 'error');
+    header('Location: manager-livre.php');
+    exit;
 } else {
-    // Check if starter ID is provided in the URL
-    if (isset($_GET['idStarter'])) {
-        // Get the starter ID from the URL
-        $idStarter = $_GET['idStarter'];
+    // Check if livre ID is provided in the URL
+    if (isset($_GET['idLivre'])) {
+        // Get the livre ID from the URL
+        $idLivre = $_GET['idLivre'];
 
-        // Retrieve starter details from the database
-        $starter = getStarterByIDDB($conn, $idStarter);
+        // Retrieve livre details from the database
+        $livre = getLivreByIDDB($conn, $idLivre);
 
         // Fetch category names from the database
         $categories = getCategoryNamesFromDB($conn);
 
         // Check if the form is submitted and the form type
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Check if the form was submitted for update
-            if (isset($_POST['update_form'])) {
-                // Update the article in the database
-                $updateData = [
-                    'idStarter' => $idStarter,
-                    'imageUrl' => $_POST['imageUrl'],
-                    'title' => isset($_POST['title']) ? $_POST['title'] : '',
-                    'price' => isset($_POST['price']) ? $_POST['price'] : '',
-                    'description' => isset($_POST['description']) ? $_POST['description'] : '',
-                    'content' => $_POST['content'],
-                    'published_article' => isset($_POST['published_article']) ? 1 : 0,
-                    'idCategory' => $_POST['idCategory']
-                ];
+            // Check if the user has permission to edit the book
+            if ($_SESSION['user_permission'] == 2) {
+                $msg = getMessage('Vous n\'avez pas le droit de modifier un livre.', 'error');
+            } else {
+                // Check if the form was submitted for update
+                if (isset($_POST['update_form'])) {
+                    // Update the livre in the database
+                    $updateData = [
+                        'idLivre' => $idLivre,
+                        'image_url' => $_POST['image_url'],
+                        'title' => $_POST['title'] ?? '',
+                        'writer' => $_POST['writer'] ?? '',
+                        'feature' => $_POST['feature'] ?? '',
+                        'price' => $_POST['price'] ?? '',
+                        'content' => $_POST['content'],
+                        'published_article' => isset($_POST['published_article']) ? 1 : 0,
+                        'idCategory' => $_POST['idCategory']
+                    ];
 
-                // Perform the update operation in the database
-                $updateResult = updateStarterDB($conn, $updateData);
+                    // Perform the update operation in the database
+                    $updateResult = updateLivreDB($conn, $updateData);
 
-                // Check the result of the update operation
-                if ($updateResult === true) {
-                    $msg = getMessage('Changes have been saved on the page.', 'success');
-                    $_SESSION['form_submitted'] = true;
-                } else {
-                    $msg = getMessage('Error while modifying the product. Please try again.', 'error');
+                    // Check the result of the update operation
+                    if ($updateResult === true) {
+                        $_SESSION['message'] = getMessage('Les modifications ont été enregistrées sur la page.', 'success');
+                        $_SESSION['form_submitted'] = true;
+                    } else {
+                        $_SESSION['message'] = getMessage('Erreur lors de la modification du produit. Veuillez réessayer.', 'error');
+                    }
+
+                    // Redirect to the same page to prevent form resubmission
+                    header('Location: edit-livre.php?idLivre=' . $idLivre);
+                    exit();
                 }
-            }
 
-            // Check if file is uploaded
-            if (isset($_FILES['image_upload']) && $_FILES['image_upload']['error'] === UPLOAD_ERR_OK) {
-                $target_dir = "uploads/";
-                $target_file = $target_dir . basename($_FILES["image_upload"]["name"]);
+                // Check if file is uploaded
+                if (isset($_FILES['image_upload']) && $_FILES['image_upload']['error'] === UPLOAD_ERR_OK) {
+                    $target_dir = "uploads/";
+                    $target_file = $target_dir . basename($_FILES["image_upload"]["name"]);
 
-                // Check if the directory exists, if not, create it
-                if (!file_exists($target_dir)) {
-                    mkdir($target_dir, 0777, true);
-                }
+                    // Check if the directory exists, if not, create it
+                    if (!file_exists($target_dir)) {
+                        mkdir($target_dir, 0777, true);
+                    }
 
-                // Move the uploaded file to the target directory
-                if (move_uploaded_file($_FILES["image_upload"]["tmp_name"], $target_file)) {
-                    // File upload successful, update the image URL in the database
-                    $updateData['imageUrl'] = $target_file;
-                    updateStarterDB($conn, $updateData);
-                } else {
-                    $msg = getMessage('Error recording image. Please try again.', 'error');
+                    // Move the uploaded file to the target directory
+                    if (move_uploaded_file($_FILES["image_upload"]["tmp_name"], $target_file)) {
+                        // File upload successful, update the image URL in the database
+                        $updateData['image_url'] = $target_file;
+                        updateLivreDB($conn, $updateData);
+                    } else {
+                        $_SESSION['message'] = getMessage('Erreur lors de l\'enregistrement de l\'image. Veuillez réessayer.', 'error');
+                    }
+
+                    // Redirect to the same page to prevent form resubmission
+                    header('Location: edit-livre.php?idLivre=' . $idLivre);
+                    exit();
                 }
             }
         }
     } else {
-        // If article ID is not provided, redirect to manager.php
+        // If livre ID is not provided, redirect to manager.php
         header('Location: manager.php');
         exit;
     }
 }
 
-// Check if form was submitted and unset the session variable
-if (isset($_SESSION['form_submitted'])) {
-    unset($_SESSION['form_submitted']);
-    // Refresh the page after form submission
-    header("Refresh: 1; URL=edit-starter.php?idStarter=$idStarter");
+// Retrieve the message from the session and unset it
+if (isset($_SESSION['message'])) {
+    $msg = $_SESSION['message'];
+    unset($_SESSION['message']);
 }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -95,7 +117,7 @@ if (isset($_SESSION['form_submitted'])) {
 <head>
     <?php
     // Include the head section
-    displayHeadSection('Editer un starter');
+    displayHeadSection('Editer un livre');
     displayJSSection($tinyMCE);
     ?>
 </head>
@@ -107,15 +129,15 @@ if (isset($_SESSION['form_submitted'])) {
 
     <div class="edit-content">
         <div class="edit-title">
-            <h1>Editer un starter</h1>
+            <h1>Editer un livre</h1>
             <div class="message">
                 <?php if (isset($msg)) echo $msg; ?>
             </div>
         </div>
 
         <div class="edit-form container">
-            <form action="edit-starter.php?idStarter=<?php echo $starter['idStarter']; ?>" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="idStarter" value="<?php echo $starter['idStarter']; ?>">
+            <form action="edit-livre.php?idLivre=<?php echo $livre['idLivre']; ?>" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="idLivre" value="<?php echo $livre['idLivre']; ?>">
 
                 <!-- Form top -->
                 <div class="form-top">
@@ -126,7 +148,7 @@ if (isset($_SESSION['form_submitted'])) {
                         <!-- Statue of the article -->
                         <div class=" checkbox-ctrl">
                             <label for="published_article" class="published_article">Status du produit <span>(publication)</span></label>
-                            <?php displayFormRadioBtnArticlePublished(isset($starter['active']) ? $starter['active'] : 0, 'EDIT'); ?>
+                            <?php displayFormRadioBtnArticlePublished(isset($livre['active']) ? $livre['active'] : 0, 'EDIT'); ?>
                         </div>
 
                         <!-- Category -->
@@ -135,7 +157,7 @@ if (isset($_SESSION['form_submitted'])) {
                             <select id="idCategory" name="idCategory" class="form-ctrl" required>
                                 <option value="">Sélectionner une catégorie</option>
                                 <?php foreach ($categories as $category) : ?>
-                                    <option value="<?php echo $category['idCategory']; ?>" <?php echo ($category['idCategory'] == $starter['idCategory']) ? 'selected' : ''; ?>><?php echo $category['nameOfCategory']; ?></option>
+                                    <option value="<?php echo $category['idCategory']; ?>" <?php echo ($category['idCategory'] == $livre['idCategory']) ? 'selected' : ''; ?>><?php echo $category['nameOfCategory']; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -143,25 +165,25 @@ if (isset($_SESSION['form_submitted'])) {
                         <!-- Title -->
                         <div class="form-ctrl">
                             <label for="title" class="form-ctrl">Titre</label>
-                            <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($starter['title']) ? $starter['title'] : ''; ?>" required>
+                            <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($livre['title']) ? $livre['title'] : ''; ?>" required>
                         </div>
 
                         <!-- Writer -->
                         <div class="form-ctrl">
                             <label for="writer" class="form-ctrl">Auteur</label>
-                            <input type="text" class="form-ctrl" id="writer" name="writer" value="<?php echo isset($starter['writer']) ? $starter['writer'] : ''; ?>">
+                            <input type="text" class="form-ctrl" id="writer" name="writer" value="<?php echo isset($livre['writer']) ? $livre['writer'] : ''; ?>">
                         </div>
 
-                        <!-- description -->
+                        <!-- Feature -->
                         <div class="form-ctrl">
-                            <label for="description" class="form-ctrl">Caractèriques</label>
-                            <input type="text" class="form-ctrl" id="description" name="description" value="<?php echo isset($starter['description']) ? $starter['description'] : ''; ?>">
+                            <label for="feature" class="form-ctrl">Caractèriques</label>
+                            <input type="text" class="form-ctrl" id="feature" name="feature" value="<?php echo isset($livre['feature']) ? $livre['feature'] : ''; ?>">
                         </div>
 
                         <!-- Price -->
                         <div class="form-ctrl">
                             <label for="price" class="form-ctrl">Prix</label>
-                            <input type="text" class="form-ctrl" id="price" name="price" value="<?php echo isset($starter['price']) ? $starter['price'] : ''; ?>">
+                            <input type="text" class="form-ctrl" id="price" name="price" value="<?php echo isset($livre['price']) ? $livre['price'] : ''; ?>">
                         </div>
 
                     </div>
@@ -169,18 +191,23 @@ if (isset($_SESSION['form_submitted'])) {
                     <!-- Form right -->
                     <div class="form-right">
 
+                        <!-- URL of the image -->
+                        <!-- <div class="form-ctrl">
+                            <label for="image_url" class="form-ctrl">URL de l'image</label>
+                            <input type="text" class="form-ctrl" id="image_url" name="image_url" value="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" readonly>
+                        </div> -->
+
                         <!-- File upload field -->
                         <div class="form-ctrl">
                             <label for="image_upload" class="form-ctrl">Uploader l'image</label>
                             <input type="file" class="form-ctrl" id="image_upload" name="image_upload" onchange="previewImage(this)">
                         </div>
-                        
                         <!-- Preview of the image -->
                         <div class="form-ctrl">
                             <label for="image_preview" class="form-ctrl">Aperçu de l'image</label>
                             <div>
-                                <input type="text" class="form-ctrl imageUrl" id="imageUrl" name="imageUrl" value="<?php echo isset($starter['imageUrl']) ? $starter['imageUrl'] : ''; ?>" readonly>
-                                <img id="image_preview" class="image_preview" src="<?php echo isset($starter['imageUrl']) ? $starter['imageUrl'] : ''; ?>" alt="Aperçu de l'image">
+                                <input type="text" class="form-ctrl image_url" id="image_url" name="image_url" value="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" readonly>
+                                <img id="image_preview" class="image_preview" src="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" alt="Aperçu de l'image">
                             </div>
                         </div>
                     </div>
@@ -190,20 +217,17 @@ if (isset($_SESSION['form_submitted'])) {
                 <div class=" form-bottom">
                     <div class="form-ctrl">
                         <label for="content" class="form-ctrl">Contenu</label>
-                        <textarea class="content" id="content" name="content" rows="5"><?php echo isset($starter['content']) ? $starter['content'] : ''; ?></textarea>
+                        <textarea class="content" id="content" name="content" rows="5"><?php echo isset($livre['content']) ? $livre['content'] : ''; ?></textarea>
                     </div>
                 </div>
 
                 <input type="hidden" name="update_form" value="1">
                 <button type="submit" class="btn-primary">Sauvegarder</button>
-                <button type="submit" class="btn-primary" formaction="article-starter.php?idStarter=<?php echo $starter['idStarter']; ?>">Afficher</button>
+                <button type="submit" class="btn-primary" formaction="article-livre.php?idLivre=<?php echo $livre['idLivre']; ?>">Afficher</button>
             </form>
         </div>
     </div>
 
-    <?php
-    displayJSSection($tinyMCE);
-    ?>
     <!-- Footer -->
     <footer>
         <div data-include="footer"></div>
@@ -212,6 +236,9 @@ if (isset($_SESSION['form_submitted'])) {
     <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <?php
+    displayJSSection($tinyMCE);
+    ?>
     <!-- Functions -->
     <script src="../js/functions.js"></script>
 
