@@ -1,20 +1,20 @@
 <?php
-    // Constantes de l'application
+    // Application constants
     const APP_NAME = "Restaurant Pistache";
     const APP_VERSION = 'v1.0.0';
     const APP_UPDATED = '15-05-2024 08:30';
     const APP_AUTHOR = 'Açelya Lejeune';
        
-    // Constante d'activation/désactivation du mode DEBUG
+    // DEBUG mode activation/deactivation constant
     const DEBUG = false;
 
-    // Constante de l'URL du site
+    // Site URL constant
     const DOMAIN = 'http://localhost/restaurant-pistache';
 
-    // Charge les credentials de connexion à la DB
+    // Loads DB connection credentials
     require_once('conf/conf-db.php');
 
-    // Configuration de la session / du cookie de session
+    // Session / session cookie configuration
     $name = session_name(str_replace(' ', '', APP_NAME).'_session');
     $domain = $_SERVER['HTTP_HOST'];
     $time = time() + 3600; 
@@ -28,20 +28,20 @@
         'samesite' => 'strict',
     ]);
 
-    // Lancement de la session
+    // Session launch
     session_start();
     
-    // Initialisation de la variable $_SESSION['IDENTIFY'] à false (pas d'utilisateur connecté)
+    // Set variable $_SESSION['IDENTIFY'] to false (no user logged in)
     if (!isset($_SESSION['IDENTIFY'])) {
         $_SESSION['IDENTIFY'] = false;
     }
    
-    // Chargement des fichiers de fonctions
+    // Loading function files
     require_once('app/functions/fct-db.php');
     require_once('app/functions/fct-ui.php');
     require_once('app/functions/fct-tools.php');
 
-    // Instancier un objet de connexion
+    // Instantiate a connection object
     $conn = connectDB(SERVER_NAME, USER_NAME, USER_PWD, DB_NAME);
 
 
