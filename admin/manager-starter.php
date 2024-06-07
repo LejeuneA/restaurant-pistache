@@ -39,24 +39,24 @@ if (!is_object($conn)) {
 
                 // Check deletion result and display appropriate message
                 if ($deleteResult === true) {
-                    $_SESSION['message'] = getMessage('starter supprimé avec succès.', 'success');
+                    $_SESSION['message'] = getMessage('Starter successfully deleted.', 'success');
 
                     // Refresh the page to reflect the changes after deletion
                     header('Location: manager-starter.php');
                     exit();
                 } else {
-                    $_SESSION['message'] = getMessage('Erreur lors de la suppression du starter. ' . $deleteResult, 'error');
+                    $_SESSION['message'] = getMessage('Error when deleting starter.' . $deleteResult, 'error');
                 }
             } else {
-                $_SESSION['message'] = getMessage('Vous n\'avez pas le droit de supprimer le starter.', 'error');
+                $_SESSION['message'] = getMessage('You are not allowed to delete the starter.', 'error');
             }
         }
     } else {
-        $_SESSION['message'] = getMessage('Il n\'y a pas de starter à afficher actuellement', 'error');
+        $_SESSION['message'] = getMessage('There is no starter to display at the moment.', 'error');
     }
 }
 
-// On the redirected page (manager-starter.php), add this code to display the message
+// Refresh the redirected page (manager-starter.php), add this code to display the message
 if (isset($_SESSION['message'])) {
     $msg = $_SESSION['message'];
     unset($_SESSION['message']); // Clear the message after displaying it
@@ -132,7 +132,7 @@ if (isset($_SESSION['message'])) {
 
         function supprimerstarter(starterId) {
             // Confirm starter deletion
-            if (confirm('Êtes-vous certain de vouloir supprimer le starter ci-dessous ?')) {
+            if (confirm('Are you sure you want to delete the starter below?')) {
                 // Redirect to manager-starter.php with the starter ID for deletion
                 window.location.href = 'manager-starter.php?idStarter=' + starterId;
             }
