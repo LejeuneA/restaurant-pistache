@@ -641,7 +641,7 @@ function displayStartersAsTable($starters)
  * @param array $mainCourses
  * @return void
  */
-function displayMainCourseAsTable($mainCourses)
+function displayMainCoursesAsTable($mainCourses)
 {
     // Start the table
     echo '<table>';
