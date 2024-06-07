@@ -11,32 +11,31 @@ $user = null;
 $connexionSuccessfull = null;
 $msg = null;
 
-// On vérifie l'objet de connexion $conn
+// Check the $conn connection object
 if (!is_object($conn)) {
     $msg = getMessage($conn, 'error');
 } else {
 
-    // Vérifie si on reçoit le formulaire d'identification
+    // Checks if the identification form has been received
     if (isset($_POST['form']) && $_POST['form'] == 'login') {
 
-        // Vérifie si les champs sont vides
+        // Checks if fields are empty
         if (empty($_POST['login']) || empty($_POST['pwd'])) {
-            $msg = getMessage('Veuillez remplir tous les champs', 'error');
+            $msg = getMessage('Please fill in all fields', 'error');
         } else {
 
-            // On récupère les données du formulaire
+            // Recover the form data
             $datas = $_POST;
 
-            // Appel de la fonction d'identification
-            // Utiliser cette fonction si les mots de passe sont en clair dans la DB
+            // Use this function if the passwords are in clear text in the DB
             $user = userIdentificationDB($conn, $datas);          
 
-            // On vérifie si on a une adresse email dans le tableau $user, si c'est le cas on est connecté
+            // We check if we have an email address in the $user array, if so we're connected
             $connexionSuccessfull = !empty($user['email']);
         }
     }
 
-    // Si on est connecté, on initialise les variables de session et on redirige vers la page appropriée
+    // If you are logged in, we initialize the session variables and redirect you to the appropriate page.
     if ($connexionSuccessfull === true) {
         $_SESSION['IDENTIFY'] = true;
         $_SESSION['user_email'] = $user['email'];
@@ -47,11 +46,11 @@ if (!is_object($conn)) {
         } elseif ($user['permission'] == 2) {
             header('Location: customer.php');
         } else {
-            $msg = getMessage('Permission inconnue', 'error');
+            $msg = getMessage('Unknown permission', 'error');
         }
         exit();
     } elseif ($connexionSuccessfull === false) {
-        $msg = getMessage('Votre email et/ou votre mot de passe sont erronés', 'error');
+        $msg = getMessage('Your email and/or password are incorrect', 'error');
     }
 }
 
