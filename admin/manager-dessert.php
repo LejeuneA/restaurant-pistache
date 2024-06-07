@@ -20,46 +20,46 @@ $execute = false;
 if (!is_object($conn)) {
     $msg = getMessage($conn, 'error');
 } else {
-    // Fetch all cadeaux from the database
-    $result = getAllCadeauxDB($conn);
+    // Fetch all dessert from the database
+    $result = getAllDessertsDB($conn);
 
-    // Check if cadeaux exist
+    // Check if dessertx exist
     if (is_array($result) && !empty($result)) {
         $execute = true;
 
-        // Check if cadeau ID is provided in the URL for deletion
-        if (isset($_GET['idCadeau']) && is_numeric($_GET['idCadeau'])) {
+        // Check if dessert ID is provided in the URL for deletion
+        if (isset($_GET['idDessert']) && is_numeric($_GET['idDessert'])) {
 
-            $cadeauIdToDelete = $_GET['idCadeau'];
+            $dessertIdToDelete = $_GET['idDessert'];
 
             if ($_SESSION['user_permission'] == 1) {
 
-                // Delete the cadeau from the database
-                $deleteResult = deleteCadeauDB($conn, $cadeauIdToDelete);
+                // Delete the dessert from the database
+                $deleteResult = deleteDessertDB($conn, $dessertIdToDelete);
 
                 // Check deletion result and display appropriate message
                 if ($deleteResult === true) {
-                    $_SESSION['message'] = getMessage('Cadeau supprimé avec succès.', 'success');
+                    $_SESSION['message'] = getMessage('Dessert successfully deleted', 'success');
 
                     // Refresh the page to reflect the changes after deletion
-                    header('Location: manager-cadeau.php');
+                    header('Location: manager-dessert.php');
                     exit();
                 } else {
-                    $_SESSION['message'] = getMessage('Erreur lors de la suppression du cadeau. ' . $deleteResult, 'error');
+                    $_SESSION['message'] = getMessage('Error when deleting starter.' . $deleteResult, 'error');
                 }
             } else {
-                $_SESSION['message'] = getMessage('Vous n\'avez pas le droit de supprimer le cadeau.', 'error');
+                $_SESSION['message'] = getMessage('You are not allowed to delete the main course.', 'error');
             }
         }
     } else {
-        $_SESSION['message'] = getMessage('Il n\'y a pas de cadeau à afficher actuellement', 'error');
+        $_SESSION['message'] = getMessage('There is no dessert to display at the moment.', 'error');
     }
 }
 
-// On the redirected page (manager-cadeau.php), add this code to display the message
+// On the redirected page (manager-dessert.php), add this code to display the message
 if (isset($_SESSION['message'])) {
     $msg = $_SESSION['message'];
-    unset($_SESSION['message']); // Clear the message after displaying it
+    unset($_SESSION['message']); 
 }
 ?>
 
@@ -69,7 +69,7 @@ if (isset($_SESSION['message'])) {
 <head>
     <?php
     // Include the head section
-    displayHeadSection('Gestion des cadeaux');
+    displayHeadSection('Gestion des dessertx');
     displayJSSection();
     ?>
 </head>
@@ -91,17 +91,17 @@ if (isset($_SESSION['message'])) {
     <!-----------------------------------------------------------------
 							   Header end
 	------------------------------------------------------------------>
-    <div class="table-cadeaux container">
-        <h1 class="title">Gérer les cadeaux</h2>
+    <div class="table-dessertx container">
+        <h1 class="title">Managing desserts</h2>
         <div id="message">
             <?= isset($msg) ? $msg : ''; ?>
         </div>
 
         <div id="content">
             <?php
-            // If cadeaux exist, display them in a table
+            // If dessertx exist, display them in a table
             if ($execute) {
-                displayCadeauxAsTable($result);
+                displayDessertsasTable($result);
             }
             ?>
         </div>
@@ -116,22 +116,22 @@ if (isset($_SESSION['message'])) {
 	------------------------------------------------------------------>
 
     <script>
-        // JavaScript functions for handling cadeau actions
-        function modifierCadeau(cadeauId) {
-            // Redirect to the edit page with the specified cadeau ID
-            window.location.href = 'edit-cadeau.php?idCadeau=' + cadeauId;
+        // JavaScript functions for handling dessert actions
+        function modifierdessert(dessertId) {
+            // Redirect to the edit page with the specified dessert ID
+            window.location.href = 'edit-dessert.php?idDessert=' + dessertId;
         }
 
-        function afficherCadeau(cadeauId) {
-            // Redirect to the cadeau page with the specified cadeau ID
-            window.location.href = 'article-cadeau.php?idCadeau=' + cadeauId;
+        function afficherdessert(dessertId) {
+            // Redirect to the dessert page with the specified dessert ID
+            window.location.href = 'article-dessert.php?idDessert=' + dessertId;
         }
 
-        function supprimerCadeau(cadeauId) {
-            // Confirm cadeau deletion
-            if (confirm('Êtes-vous certain de vouloir supprimer le cadeau ci-dessous ?')) {
-                // Redirect to manager-cadeau.php with the cadeau ID for deletion
-                window.location.href = 'manager-cadeau.php?idCadeau=' + cadeauId;
+        function supprimerdessert(dessertId) {
+            // Confirm dessert deletion
+            if (confirm('Are you sure you want to delete the dessert below?')) {
+                // Redirect to manager-dessert.php with the dessert ID for deletion
+                window.location.href = 'manager-dessert.php?idDessert=' + dessertId;
             }
         }
     </script>
