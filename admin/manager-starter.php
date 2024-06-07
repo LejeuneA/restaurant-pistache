@@ -20,43 +20,43 @@ $execute = false;
 if (!is_object($conn)) {
     $msg = getMessage($conn, 'error');
 } else {
-    // Fetch all livres from the database
-    $result = getAllLivresDB($conn);
+    // Fetch all starters from the database
+    $result = getAllStartersDB($conn);
 
-    // Check if livres exist
+    // Check if starters exist
     if (is_array($result) && !empty($result)) {
         $execute = true;
 
-        // Check if livre ID is provided in the URL for deletion
-        if (isset($_GET['idLivre']) && is_numeric($_GET['idLivre'])) {
+        // Check if starter ID is provided in the URL for deletion
+        if (isset($_GET['idStarter']) && is_numeric($_GET['idStarter'])) {
 
-            $livreIdToDelete = $_GET['idLivre'];
+            $starterIdToDelete = $_GET['idStarter'];
 
             if ($_SESSION['user_permission'] == 1) {
 
-                // Delete the livre from the database
-                $deleteResult = deleteLivreDB($conn, $livreIdToDelete);
+                // Delete the starter from the database
+                $deleteResult = deleteStarterDB($conn, $starterIdToDelete);
 
                 // Check deletion result and display appropriate message
                 if ($deleteResult === true) {
-                    $_SESSION['message'] = getMessage('Livre supprimé avec succès.', 'success');
+                    $_SESSION['message'] = getMessage('starter supprimé avec succès.', 'success');
 
                     // Refresh the page to reflect the changes after deletion
-                    header('Location: manager-livre.php');
+                    header('Location: manager-starter.php');
                     exit();
                 } else {
-                    $_SESSION['message'] = getMessage('Erreur lors de la suppression du livre. ' . $deleteResult, 'error');
+                    $_SESSION['message'] = getMessage('Erreur lors de la suppression du starter. ' . $deleteResult, 'error');
                 }
             } else {
-                $_SESSION['message'] = getMessage('Vous n\'avez pas le droit de supprimer le livre.', 'error');
+                $_SESSION['message'] = getMessage('Vous n\'avez pas le droit de supprimer le starter.', 'error');
             }
         }
     } else {
-        $_SESSION['message'] = getMessage('Il n\'y a pas de livre à afficher actuellement', 'error');
+        $_SESSION['message'] = getMessage('Il n\'y a pas de starter à afficher actuellement', 'error');
     }
 }
 
-// On the redirected page (manager-livre.php), add this code to display the message
+// On the redirected page (manager-starter.php), add this code to display the message
 if (isset($_SESSION['message'])) {
     $msg = $_SESSION['message'];
     unset($_SESSION['message']); // Clear the message after displaying it
@@ -71,7 +71,7 @@ if (isset($_SESSION['message'])) {
 <head>
     <?php
     // Include the head section
-    displayHeadSection('Gestion des livres');
+    displayHeadSection('Gestion des starters');
     displayJSSection();
     ?>
 </head>
@@ -93,17 +93,17 @@ if (isset($_SESSION['message'])) {
     <!-----------------------------------------------------------------
 							   Header end
 	------------------------------------------------------------------>
-    <div class="table-livres container">
-        <h1 class="title">Gérer les livres</h1>
+    <div class="table-starters container">
+        <h1 class="title">Managing starters</h1>
         <div id="message">
             <?= isset($msg) ? $msg : ''; ?>
         </div>
 
         <div id="content" class="container">
             <?php
-            // If livres exist, display them in a table
+            // If starters exist, display them in a table
             if ($execute) {
-                displayLivresAsTable($result);
+                displayStartersAsTable($result);
             }
             ?>
         </div>
@@ -119,22 +119,22 @@ if (isset($_SESSION['message'])) {
 	------------------------------------------------------------------>
 
     <script>
-        // JavaScript functions for handling livre actions
-        function modifierLivre(livreId) {
-            // Redirect to the edit page with the specified livre ID
-            window.location.href = 'edit-livre.php?idLivre=' + livreId;
+        // JavaScript functions for handling starter actions
+        function modifierstarter(starterId) {
+            // Redirect to the edit page with the specified starter ID
+            window.location.href = 'edit-starter.php?idStarter=' + starterId;
         }
 
-        function afficherLivre(livreId) {
-            // Redirect to the livre page with the specified livre ID
-            window.location.href = 'article-livre.php?idLivre=' + livreId;
+        function afficherstarter(starterId) {
+            // Redirect to the starter page with the specified starter ID
+            window.location.href = 'article-starter.php?idStarter=' + starterId;
         }
 
-        function supprimerLivre(livreId) {
-            // Confirm livre deletion
-            if (confirm('Êtes-vous certain de vouloir supprimer le livre ci-dessous ?')) {
-                // Redirect to manager-livre.php with the livre ID for deletion
-                window.location.href = 'manager-livre.php?idLivre=' + livreId;
+        function supprimerstarter(starterId) {
+            // Confirm starter deletion
+            if (confirm('Êtes-vous certain de vouloir supprimer le starter ci-dessous ?')) {
+                // Redirect to manager-starter.php with the starter ID for deletion
+                window.location.href = 'manager-starter.php?idStarter=' + starterId;
             }
         }
     </script>
