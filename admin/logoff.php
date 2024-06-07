@@ -1,15 +1,15 @@
 <?php
     require_once('settings.php');
     
-    // Script de déconnexion
+    // Logout script
     unset($_SESSION);
     setcookie(session_name(), '', time()-3600);
     session_destroy();
 
-    // Configuration de la session / du cookie de session
+    // Session / session cookie configuration
     $name = session_name(str_replace(' ', '', APP_NAME).'_session');
     $domain = $_SERVER['HTTP_HOST'];
-    $time = time() + 3600; // 3600 sec = 1 heure
+    $time = time() + 3600; 
 
     setcookie($name, APP_NAME, [
         'expires' => $time,
@@ -20,11 +20,11 @@
         'samesite' => 'strict',
     ]);
 
-    // Lancement de la session
+    // Launching the session
     session_start();
 
-    // Initialisation de la variable $_SESSION['IDENTIFY'] à false (pas d'utilisateur connecté)
+    // Set variable $_SESSION['IDENTIFY'] to false (no user logged in)
     $_SESSION['IDENTIFY'] = false;
 
-    // Redirection vers la page d'accueil
+    // Redirect to home page
     header('Location: admin-logoff.php');
