@@ -20,46 +20,46 @@ $execute = false;
 if (!is_object($conn)) {
     $msg = getMessage($conn, 'error');
 } else {
-    // Fetch all papeteries from the database
-    $result = getAllPapeteriesDB($conn);
+    // Fetch all main courses from the database
+    $result = getAllMainCoursesDB($conn);
 
-    // Check if papeteries exist
+    // Check if main courses exist
     if (is_array($result) && !empty($result)) {
         $execute = true;
 
-        // Check if papeterie ID is provided in the URL for deletion
-        if (isset($_GET['idPapeterie']) && is_numeric($_GET['idPapeterie'])) {
+        // Check if main course ID is provided in the URL for deletion
+        if (isset($_GET['idMainCourse']) && is_numeric($_GET['idMainCourse'])) {
 
-            $papeterieIdToDelete = $_GET['idPapeterie'];
+            $mainCourseIdToDelete = $_GET['idMainCourse'];
 
             if ($_SESSION['user_permission'] == 1) {
 
-                // Delete the papeterie from the database
-                $deleteResult = deletePapeterieDB($conn, $papeterieIdToDelete);
+                // Delete the main course from the database
+                $deleteResult = deleteMainCourseDB($conn, $mainCourseIdToDelete);
 
                 // Check deletion result and display appropriate message
                 if ($deleteResult === true) {
-                    $_SESSION['message'] = getMessage('Papeterie supprimé avec succès.', 'success');
+                    $_SESSION['message'] = getMessage('Main course successfully deleted.', 'success');
 
                     // Refresh the page to reflect the changes after deletion
-                    header('Location: manager-papeterie.php');
+                    header('Location: manager-maincourse.php');
                     exit();
                 } else {
-                    $_SESSION['message'] = getMessage('Erreur lors de la suppression de la papeterie. ' . $deleteResult, 'error');
+                    $_SESSION['message'] = getMessage('Error when deleting starter.' . $deleteResult, 'error');
                 }
             } else {
-                $_SESSION['message'] = getMessage('Vous n\'avez pas le droit de supprimer la papeterie.', 'error');
+                $_SESSION['message'] = getMessage('You are not allowed to delete the main course.', 'error');
             }
         }
     } else {
-        $_SESSION['message'] = getMessage('Il n\'y a pas de papeterie à afficher actuellement', 'error');
+        $_SESSION['message'] = getMessage('There is no main course to display at the moment.', 'error');
     }
 }
 
-// On the redirected page (manager-papeterie.php), add this code to display the message
+// Refresh the redirected page (manager-maincourse.php), add this code to display the message
 if (isset($_SESSION['message'])) {
     $msg = $_SESSION['message'];
-    unset($_SESSION['message']); // Clear the message after displaying it
+    unset($_SESSION['message']); 
 }
 ?>
 
@@ -69,7 +69,7 @@ if (isset($_SESSION['message'])) {
 <head>
     <?php
     // Include the head section
-    displayHeadSection('Gestion des papeteries');
+    displayHeadSection('Gestion des mainCourses');
     displayJSSection();
     ?>
 </head>
@@ -91,17 +91,17 @@ if (isset($_SESSION['message'])) {
     <!-----------------------------------------------------------------
 							   Header end
 	------------------------------------------------------------------>
-    <div class="table-papeteries container">
-        <h1 class="title">Gérer les papeteries</h1>
+    <div class="table-mainCourses container">
+        <h1 class="title">Managing main courses</h1>
         <div id="message">
             <?= isset($msg) ? $msg : ''; ?>
         </div>
 
         <div id="content">
             <?php
-            // If papeteries exist, display them in a table
+            // If mainCourses exist, display them in a table
             if ($execute) {
-                displayPapeteriesAsTable($result);
+                displayMainCoursesAsTable($result);
             }
             ?>
         </div>
@@ -117,22 +117,22 @@ if (isset($_SESSION['message'])) {
 	------------------------------------------------------------------>
 
     <script>
-        // JavaScript functions for handling papeterie actions
-        function modifierPapeterie(papeterieId) {
-            // Redirect to the edit page with the specified papeterie ID
-            window.location.href = 'edit-papeterie.php?idPapeterie=' + papeterieId;
+        // JavaScript functions for handling mainCourse actions
+        function modifiermainCourse(mainCourseId) {
+            // Redirect to the edit page with the specified mainCourse ID
+            window.location.href = 'edit-mainCourse.php?idMainCourse=' + mainCourseId;
         }
 
-        function afficherPapeterie(papeterieId) {
-            // Redirect to the papeterie page with the specified papeterie ID
-            window.location.href = 'article-papeterie.php?idPapeterie=' + papeterieId;
+        function affichermainCourse(mainCourseId) {
+            // Redirect to the mainCourse page with the specified mainCourse ID
+            window.location.href = 'article-mainCourse.php?idMainCourse=' + mainCourseId;
         }
 
-        function supprimerPapeterie(papeterieId) {
-            // Confirm papeterie deletion
-            if (confirm('Êtes-vous certain de vouloir supprimer la papeterie ci-dessous ?')) {
-                // Redirect to manager-papeterie.php with the papeterie ID for deletion
-                window.location.href = 'manager-papeterie.php?idPapeterie=' + papeterieId;
+        function supprimermainCourse(mainCourseId) {
+            // Confirm mainCourse deletion
+            if (confirm('Are you sure you want to delete the main course below?')) {
+                // Redirect to manager-mainCourse.php with the mainCourse ID for deletion
+                window.location.href = 'manager-mainCourse.php?idMainCourse=' + mainCourseId;
             }
         }
     </script>
