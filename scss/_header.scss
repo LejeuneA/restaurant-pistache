@@ -44,76 +44,18 @@ header {
 		}
 	}
 
-	.navbar-admin{
-		border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-	}
-
-	.navbar,
-	.navbar-admin {
+	.navbar{
+		@extend %navbar;
 		background-color: rgba(0, 0, 0, 0.5);
-		width: 100%;
-		max-width: 100%;
-
-		.navbar-container {
-			@include d-flex(flex, space-between, center, row, center);
-			width: 100%;
-			height: auto;
-			padding:0;
-
-			.navbar-brand {
-				font-weight: 900;
-				font-size: 3em;
-				font-family: $font-secondary;
-				letter-spacing: 0.1em;
-				font-weight: 400;
-			}
-
-			.navbar-right {
-				@include d-flex(flex, end, center, row, center);
-				width: 100%;
-				gap: 1rem;
-
-				.btn-primary {
-					@include button-style(transparent, $white, $primary, $white);
-				}
-
-				.navbar-menu {
-					@include d-flex(flex, center, center, row, center);
-					background-color: transparent;
-					height: 3em;
-					z-index: 1000;
-
-					.navbar-nav {
-						@include d-flex(flex, center, center, row, center);
-
-						.nav-item {
-							margin-right: 2em;
-
-							.nav-link {
-								@include button-style(transparent, $white, transparent, $primary);
-								padding: 0.8em;
-								border: 0;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		@media (min-width: 320px) and (max-width: 1440px) {
-			.navbar-container {
-				padding: 1em;
-				
-				.navbar-brand {
-					font-size: 1.5em;
-				}
-
-				.navbar-right {
-					display: none;
-				}
-			}
-		}
+		
 	}
+	
+	.navbar-admin{
+		@extend %navbar;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+		background-color: $black;
+	}
+	
 	/* -------------------------------------------------------
                       Offcanvas menu
   	---------------------------------------------------------*/
