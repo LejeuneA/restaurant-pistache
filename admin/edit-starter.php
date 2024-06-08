@@ -196,10 +196,9 @@ if (isset($_SESSION['message'])) {
                             <div>
                                 <input type="file" class="form-ctrl" id="image_input" name="image_input" onchange="previewImage(this)">
                                 <input type="text" class="form-ctrl imageUrl" id="imageUrl" name="imageUrl" value="<?php echo isset($starter['imageUrl']) ? $starter['imageUrl'] : ''; ?>" readonly>
-                                <img id="image_preview" class="image_preview" src="<?php echo isset($starter['imageUrl']) ? $starter['imageUrl'] : ''; ?>" alt="Aperçu de l'image">
+                                <img id="image_preview" class="image_preview" src="<?php echo isset($starter['imageUrl']) ? $starter['imageUrl'] : ''; ?>" alt="Image preview">
                             </div>
                         </div>
-
                     </div>
                 </div>
 
