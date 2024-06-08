@@ -32,10 +32,7 @@
     background-color: $black;
 
     h1{
-        color: $primary;
-        font-size: 3em;
-        font-weight: lighter;
-        text-align: center;
+        @extend %h1-admin;
     }
 
     .welcome {
@@ -163,94 +160,8 @@
 /* -----------------------------------------------------------------
                     Manager product pages
  ----------------------------------------------------------------- */
-.table-livres {
+.table-starters,
+.table-mainCourses,
+.table-desserts {
     @extend %table-style;
-}
-
-.table-papeteries{
-    @extend %table-style;
-
-    table {
-        tr {
-            td {
-                &:nth-child(3) {
-                    font-size: 0.8em;
-                }
-
-                &:nth-child(4) {
-                    font-size: 1em;
-                }
-            }
-
-            th {
-                &:nth-child(1) {
-                    width: 10%;
-                }
-
-                &:nth-child(2) {
-                    width: 22%;
-                }
-
-                &:nth-child(3) {
-                    width: 8%;
-                }
-
-                &:nth-child(4) {
-                    width: 10%;
-                }
-
-                &:nth-child(5) {
-                    width: 10%;
-                }
-
-                &:nth-child(6) {
-                    width: 40%;
-                }
-            }
-        }
-    }
-}
-
-.table-cadeaux{
-    @extend %table-style;
-
-    table {
-        tr {
-            td {
-                &:nth-child(3) {
-                    font-size: 0.8em;
-                }
-
-                &:nth-child(4) {
-                    font-size: 1em;
-                }
-            }
-
-            th {
-                &:nth-child(1) {
-                    width: 10%;
-                }
-
-                &:nth-child(2) {
-                    width: 22%;
-                }
-
-                &:nth-child(3) {
-                    width: 8%;
-                }
-
-                &:nth-child(4) {
-                    width: 10%;
-                }
-
-                &:nth-child(5) {
-                    width: 10%;
-                }
-
-                &:nth-child(6) {
-                    width: 40%;
-                }
-            }
-        }
-    }
 }
