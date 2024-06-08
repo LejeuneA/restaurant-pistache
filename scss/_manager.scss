@@ -31,6 +31,13 @@
     padding: 1em;
     background-color: $black;
 
+    h1{
+        color: $primary;
+        font-size: 3em;
+        font-weight: lighter;
+        text-align: center;
+    }
+
     .welcome {
         text-align: center;
         background-color: inherit;
@@ -59,7 +66,7 @@
             .category-card {
                 @include d-flex(flex, space-evenly, center, column, center);
 
-                background-color: $primary;
+                background-color: $primary-darken;
                 margin-top: 5em;
                 padding: 1em;
                 border-radius: 1em;
