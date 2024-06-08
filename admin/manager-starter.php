@@ -120,17 +120,17 @@ if (isset($_SESSION['message'])) {
 
     <script>
         // JavaScript functions for handling starter actions
-        function modifierstarter(starterId) {
+        function modifyStarter(starterId) {
             // Redirect to the edit page with the specified starter ID
             window.location.href = 'edit-starter.php?idStarter=' + starterId;
         }
 
-        function afficherstarter(starterId) {
+        function displayStarter(starterId) {
             // Redirect to the starter page with the specified starter ID
             window.location.href = 'article-starter.php?idStarter=' + starterId;
         }
 
-        function supprimerstarter(starterId) {
+        function deleteStarter(starterId) {
             // Confirm starter deletion
             if (confirm('Are you sure you want to delete the starter below?')) {
                 // Redirect to manager-starter.php with the starter ID for deletion
@@ -142,8 +142,8 @@ if (isset($_SESSION['message'])) {
     <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <!-- Include functions.js -->
-    <script src="../js/functions.js"></script>
+    <!-- Main Js -->
+    <script src="../js/main.js"></script>
 </body>
 
 </html>
