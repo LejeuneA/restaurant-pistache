@@ -263,6 +263,126 @@ function displayNavigation()
     echo $navigation;
 }
 
+/**
+ * Displaying the footer
+ * 
+ * @return void 
+ */
+function displayFooter()
+{
+    $footer = '';
+
+    if ($_SESSION['IDENTIFY']) {
+        $footer .= '
+        <!-- Footer upper section -->
+        <div class="upper-footer-container">
+            <!-- Upper footer -->
+            <div class="upper-footer container">
+                <div class="footer-left">
+                    <!-- Logo column -->
+                    <a class="footer-brand" href="../index.php">
+                        Pistache
+                    </a>
+                    <!-- Logo column end-->
+
+                    <!-- Open hours column -->
+                    <div class="footer-open-hours">
+                        <h3>Open Hours</h3>
+                        <ul>
+                            <li>Monday<span>9:00 - 24:00</span></li>
+                            <li>Tuesday<span>9:00 - 24:00</span></li>
+                            <li>Wednesday<span>9:00 - 24:00</span></li>
+                            <li>Thursday<span>9:00 - 24:00</span></li>
+                            <li>Friday<span>9:00 - 02:00</span></li>
+                            <li>Saturday<span>9:00 - 02:00</span></li>
+                            <li>Sunday<span>9:00 - 02:00</span></li>
+                        </ul>
+                    </div>
+                    <!-- Open hours column end -->
+                </div>
+
+                <div class="footer-right">
+                    <!-- Instagram column -->
+                    <div class="footer-instagram">
+                        <h3>Instagram</h3>
+                        <div class="footer-instagram-container">
+                            <div class="footer-instagram-items">
+                                <img src="../assets/images/insta-1.jpg" alt="pistache instagram">
+                                <img src="../assets/images/insta-2.jpg" alt="pistache instagram">
+                                <img src="../assets/images/insta-3.jpg" alt="pistache instagram">
+                            </div>
+                            <div class="footer-instagram-items">
+                                <img src="../assets/images/insta-4.jpg" alt="pistache instagram">
+                                <img src="../assets/images/insta-5.jpg" alt="pistache instagram">
+                                <img src="../assets/images/insta-6.jpg" alt="pistache instagram">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Instagram column end -->
+
+                    <!-- Follow us column -->
+                    <div class="footer-follow-us">
+                        <h3>Follow Us</h3>
+                        <div class="footer-social-icons">
+                            <p>
+                                Stay connected and follow us on social media for the latest updates, special offers, and
+                                a glimpse behind the scenes at Restaurant Pistache.
+                            </p>
+                            <div class="social-icons">
+                                <!-- Facebook -->
+                                <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+                                    <i class="fa-brands fa-facebook"></i>
+                                </a>
+                                <!-- Twitter -->
+                                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                                    <i class="fa-brands fa-x-twitter"></i>
+                                </a>
+                                <!-- Instagram -->
+                                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                                    <i class="fa-brands fa-instagram"></i>
+                                </a>
+                            </div>
+
+                            <p>343 Rue Saint-Gilles, 4000 Liége - Belgique</p>
+                        </div>
+                    </div>
+                    <!-- Follow us column end -->
+                </div>
+            </div>
+        </div>
+        <!-- Footer upper section end -->
+        <!-----------------------------------------------------------------
+                            Footer bottom section
+        ------------------------------------------------------------------>
+        <div class="bottom-footer-container">
+            <!-- Section: Copyright -->
+            <div class="bottom-footer container">
+                <!-- Copyright column -->
+                <div>
+                    © 2024 Copyright tous droits réservés
+                </div>
+                <!-- Copyright column end -->
+
+                <!-- Conception and development column -->
+                <div>
+                    Conception et développement par
+                    <a href="https://github.com/lejeunea" class="github text-decoration-none">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                    <a href="https://github.com/lejeunea" class="text-decoration-none">Açelya Lejeune</a>.
+                </div>
+                <!-- Conception and development column end -->
+            </div>
+            <!-- Section: Copyright -->
+        </div>
+        <!-- Footer bottom section end -->
+        ';
+    }
+
+    echo $footer;
+}
+
+
 
 /**-----------------------------------------------------------------
                   Returning a message in HTML format
