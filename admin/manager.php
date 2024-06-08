@@ -62,7 +62,7 @@ if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
 
                 <!-- Vector -->
                 <div class="background-vector">
-                    <img src="../assets/components/background-vector.png" alt="background-vector">
+                    <img src="../assets/images/background-vector.png" alt="background-vector">
                 </div>
             </div>
 
