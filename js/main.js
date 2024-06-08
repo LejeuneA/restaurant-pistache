@@ -134,10 +134,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 /* -------------------------------------------------------
-set the active class on the menu item when on menu.php
+Set the active class on the menu item when on menu.php
 ---------------------------------------------------------*/
 document.addEventListener('DOMContentLoaded', function() {
 	if (window.location.pathname.endsWith('menu.php')) {
 		document.getElementById('menu-starter').classList.add('active');
 	}
 });
+
+
+
+/* -------------------------------------------------------
+                Image preview
+---------------------------------------------------------*/
+function previewImage(input) {
+    var preview = document.getElementById('image_preview');
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
