@@ -103,11 +103,11 @@ textarea {
 }
 
 .msg-success {
-	color: #66bb6a;
+	color: $success;
 }
 
 .msg-error {
-	color: $primary-red;
+	color: $error;
 }
 
 #message,
