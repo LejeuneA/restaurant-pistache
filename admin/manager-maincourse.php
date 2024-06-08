@@ -119,17 +119,17 @@ if (isset($_SESSION['message'])) {
 
     <script>
         // JavaScript functions for handling mainCourse actions
-        function modifiermainCourse(mainCourseId) {
+        function modifyMainCourse(mainCourseId) {
             // Redirect to the edit page with the specified mainCourse ID
             window.location.href = 'edit-mainCourse.php?idMainCourse=' + mainCourseId;
         }
 
-        function affichermainCourse(mainCourseId) {
+        function displayMainCourse(mainCourseId) {
             // Redirect to the mainCourse page with the specified mainCourse ID
             window.location.href = 'article-mainCourse.php?idMainCourse=' + mainCourseId;
         }
 
-        function supprimermainCourse(mainCourseId) {
+        function deleteMainCourse(mainCourseId) {
             // Confirm mainCourse deletion
             if (confirm('Are you sure you want to delete the main course below?')) {
                 // Redirect to manager-mainCourse.php with the mainCourse ID for deletion
