@@ -5,15 +5,15 @@ $msg = null;
 $result = null;
 $execute = false;
 
-// Check if the ID of the livre is passed in the URL
-if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
-    $idLivre = $_GET['idLivre'];
+// Check if the ID of the starter is passed in the URL
+if (isset($_GET['idStarter']) && !empty($_GET['idStarter'])) {
+    $idStarter = $_GET['idStarter'];
     // Ensure that the database connection object is valid
     if (!is_object($conn)) {
         $msg = getMessage($conn, 'error');
     } else {
-        // Fetch the livre from the database based on the ID
-        $result = getLivreByIDDB($conn, $idLivre);
+        // Fetch the starter from the database based on the ID
+        $result = getStarterByIDDB($conn, $idStarter);
         // Check if the result is a valid array and not empty
         if (isset($result) && is_array($result) && !empty($result)) {
             $execute = true;
@@ -31,7 +31,7 @@ if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
 <html lang="fr">
 
 <head>
-    <?php displayHeadSection('Livre'); ?>
+    <?php displayHeadSection('Starters'); ?>
 </head>
 
 <body>
@@ -48,7 +48,7 @@ if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
                 <?php
                 // Peut-on exécuter l'affichage de l'article
                 if ($execute) {
-                    displayLivreByID($result);
+                    displayStarterByID($result);
                 }
                 ?>
             </div>
