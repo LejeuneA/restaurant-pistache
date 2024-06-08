@@ -189,6 +189,7 @@ if (isset($_SESSION['message'])) {
                             <label for="image_upload" class="form-ctrl">Upload image</label>
                             <input type="file" class="form-ctrl" id="image_upload" name="image_upload" onchange="previewImage(this)">
                         </div>
+
                         <!-- Preview of the image -->
                         <div class="form-ctrl">
                             <label for="image_preview" class="form-ctrl">Image preview</label>
