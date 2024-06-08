@@ -72,32 +72,32 @@ const speed = 3000;
 
 // Function to animate counters
 counters.forEach(counter => {
-    const value = +counter.getAttribute('akhi');
-    const increment = value / speed;
+	const value = +counter.getAttribute('akhi');
+	const increment = value / speed;
 
-    const animate = () => {
-        const data = +counter.innerText;
+	const animate = () => {
+		const data = +counter.innerText;
 
-        if (data < value) {
-            counter.innerText = Math.ceil(data + increment);
-            setTimeout(animate, 30); // Increase timeout for slower updates
-        } else {
-            counter.innerText = value;
-        }
-    }
+		if (data < value) {
+			counter.innerText = Math.ceil(data + increment);
+			setTimeout(animate, 30); // Increase timeout for slower updates
+		} else {
+			counter.innerText = value;
+		}
+	}
 
-    animate();
+	animate();
 });
 
 
 /* -------------------------------------------------------
 						Aos js
 ---------------------------------------------------------*/
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 	AOS.init({
-		duration: 1200, 
-		easing: 'ease-in-out', 
-		once: true, 
+		duration: 1200,
+		easing: 'ease-in-out',
+		once: true,
 		offset: 100
 	});
 });
@@ -107,36 +107,36 @@ document.addEventListener('DOMContentLoaded', function() {
 					Menu items display js
 ---------------------------------------------------------*/
 document.addEventListener('DOMContentLoaded', function () {
-    const menuItems = document.querySelectorAll('.menu-navbar-item');
-    const contents = document.querySelectorAll('.menu-content');
+	const menuItems = document.querySelectorAll('.menu-navbar-item');
+	const contents = document.querySelectorAll('.menu-content');
 
-    menuItems.forEach(item => {
-        item.addEventListener('click', function () {
-            const targetId = this.id.replace('menu-', '') + '-content';
+	menuItems.forEach(item => {
+		item.addEventListener('click', function () {
+			const targetId = this.id.replace('menu-', '') + '-content';
 
-            // Remove active class from all menu items
-            menuItems.forEach(item => item.classList.remove('active'));
+			// Remove active class from all menu items
+			menuItems.forEach(item => item.classList.remove('active'));
 
-            // Add active class to the clicked menu item
-            this.classList.add('active');
+			// Add active class to the clicked menu item
+			this.classList.add('active');
 
-            // Show the targeted content and hide others
-            contents.forEach(content => {
-                if (content.id === targetId) {
-                    content.style.display = 'block';
-                } else {
-                    content.style.display = 'none';
-                }
-            });
-        });
-    });
+			// Show the targeted content and hide others
+			contents.forEach(content => {
+				if (content.id === targetId) {
+					content.style.display = 'block';
+				} else {
+					content.style.display = 'none';
+				}
+			});
+		});
+	});
 });
 
 
 /* -------------------------------------------------------
 Set the active class on the menu item when on menu.php
 ---------------------------------------------------------*/
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 	if (window.location.pathname.endsWith('menu.php')) {
 		document.getElementById('menu-starter').classList.add('active');
 	}
@@ -144,16 +144,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+
 /* -------------------------------------------------------
-                Image preview
----------------------------------------------------------*/
+					Image preview
+		---------------------------------------------------------*/
 function previewImage(input) {
-    var preview = document.getElementById('image_preview');
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-        }
-        reader.readAsDataURL(input.files[0]);
-    }
+	var preview = document.getElementById('image_preview');
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function (e) {
+			preview.src = e.target.result;
+		}
+		reader.readAsDataURL(input.files[0]);
+	}
 }
