@@ -91,7 +91,7 @@ if (isset($_SESSION['message'])) {
     <!-----------------------------------------------------------------
 							   Header end
 	------------------------------------------------------------------>
-    <div class="table-dessertx container">
+    <div class="table-desserts container">
         <h1 class="title">Managing desserts</h2>
         <div id="message">
             <?= isset($msg) ? $msg : ''; ?>
@@ -119,17 +119,17 @@ if (isset($_SESSION['message'])) {
 
     <script>
         // JavaScript functions for handling dessert actions
-        function modifierdessert(dessertId) {
+        function modifyDessert(dessertId) {
             // Redirect to the edit page with the specified dessert ID
             window.location.href = 'edit-dessert.php?idDessert=' + dessertId;
         }
 
-        function afficherdessert(dessertId) {
+        function displayDessert(dessertId) {
             // Redirect to the dessert page with the specified dessert ID
             window.location.href = 'article-dessert.php?idDessert=' + dessertId;
         }
 
-        function supprimerdessert(dessertId) {
+        function deleteDessert(dessertId) {
             // Confirm dessert deletion
             if (confirm('Are you sure you want to delete the dessert below?')) {
                 // Redirect to manager-dessert.php with the dessert ID for deletion
