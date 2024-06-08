@@ -2,73 +2,83 @@
 @use "mixins";
 @use "global";
 
-
-/* -------------------------------------------------------
-
+/*-------------------------------------------------------
+              Define extend for h1 admin pages
 ---------------------------------------------------------*/
-%navbar{
+%h1-admin {
+    font-family: $font-primary;
+    color: $primary;
+    font-weight: lighter;
+    font-size: 3em;
+    text-align: center;
+}
+
+/*-------------------------------------------------------
+                Define extend for navbar
+---------------------------------------------------------*/
+%navbar {
     width: 100%;
-		max-width: 100%;
+    max-width: 100%;
 
-		.navbar-container {
-			@include d-flex(flex, space-between, center, row, center);
-			width: 100%;
-			height: auto;
-			padding:0;
+    .navbar-container {
+        @include d-flex(flex, space-between, center, row, center);
+        width: 100%;
+        height: auto;
+        padding: 0;
 
-			.navbar-brand {
-				font-weight: 900;
-				font-size: 3em;
-				font-family: $font-secondary;
-				letter-spacing: 0.1em;
-				font-weight: 400;
-			}
+        .navbar-brand {
+            font-weight: 900;
+            font-size: 3em;
+            font-family: $font-secondary;
+            letter-spacing: 0.1em;
+            font-weight: 400;
+        }
 
-			.navbar-right {
-				@include d-flex(flex, end, center, row, center);
-				width: 100%;
-				gap: 1rem;
+        .navbar-right {
+            @include d-flex(flex, end, center, row, center);
+            width: 100%;
+            gap: 1rem;
 
-				.btn-primary {
-					@include button-style(transparent, $white, $primary, $white);
-				}
+            .btn-primary {
+                @include button-style(transparent, $white, $primary, $white);
+            }
 
-				.navbar-menu {
-					@include d-flex(flex, center, center, row, center);
-					background-color: transparent;
-					height: 3em;
-					z-index: 1000;
+            .navbar-menu {
+                @include d-flex(flex, center, center, row, center);
+                background-color: transparent;
+                height: 3em;
+                z-index: 1000;
 
-					.navbar-nav {
-						@include d-flex(flex, center, center, row, center);
+                .navbar-nav {
+                    @include d-flex(flex, center, center, row, center);
 
-						.nav-item {
-							margin-right: 2em;
+                    .nav-item {
+                        margin-right: 2em;
 
-							.nav-link {
-								@include button-style(transparent, $white, transparent, $primary);
-								padding: 0.8em;
-								border: 0;
-							}
-						}
-					}
-				}
-			}
-		}
+                        .nav-link {
+                            @include button-style(transparent, $white, transparent, $primary);
+                            padding: 0.8em;
+                            border: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-		@media (min-width: 320px) and (max-width: 1440px) {
-			.navbar-container {
-				padding: 1em;
-				
-				.navbar-brand {
-					font-size: 1.5em;
-				}
+    @media (min-width: 320px) and (max-width: 1440px) {
+        .navbar-container {
+            padding: 1em;
 
-				.navbar-right {
-					display: none;
-				}
-			}
-		}
+            .navbar-brand {
+                font-size: 1.5em;
+            }
+
+            .navbar-right {
+                display: none;
+            }
+        }
+    }
 }
 
 /* -------------------------------------------------------
@@ -125,10 +135,11 @@
         background-color: $white;
         font-size: 1em;
         border: 1px solid $primary;
+        padding: 0.8em;
 
         option {
             color: $white;
-            background-color: $primary;
+            background-color: $black;
         }
     }
 }
@@ -141,20 +152,21 @@
     width: 100%;
 
     h1 {
-        margin: 1.5em 0;
+        @extend %h1-admin;
+        margin-top: 3em;
     }
 
     table {
         border-collapse: collapse;
         width: 100%;
-        color: $white;
+        color: $black;
         margin-bottom: 5em;
 
         tr {
             border: 1px solid $primary;
 
             &:nth-child(even) {
-                background-color: $primary;
+                background-color: $secondary;
             }
 
             &:first-child {
@@ -179,7 +191,7 @@
                 font-weight: 300;
                 padding: 0.5em 1em;
                 color: $white;
-                background-color: $primary;
+                background-color: $black;
                 width: 100%;
 
                 &:first-child {
@@ -191,7 +203,7 @@
                 }
 
                 &:nth-child(1) {
-                    width: 9%;
+                    width: 10%;
                 }
 
                 &:nth-child(2) {
@@ -199,43 +211,42 @@
                 }
 
                 &:nth-child(3) {
-                    width: 12%;
+                    width: 10%;
                 }
 
                 &:nth-child(4) {
-                    width: 7%;
+                    width: 15%;
                 }
 
                 &:nth-child(5) {
-                    width: 7%;
+                    width: 10%;
                 }
 
                 &:nth-child(6) {
-                    width: 7%;
-                }
-
-                &:nth-child(7) {
-                    width: 37%;
+                    width: 35%;
                 }
             }
 
             td {
+                padding: 0.5em 1em;
+                
                 &:nth-child(1) {
                     font-weight: 600;
                 }
 
                 &:nth-child(4) {
-                    font-size: 0.8em;
+                    line-height: 1.4em;
+                    font-size: 0.9em;
                 }
 
                 .btn-primary {
-                    @include button-style($primary, $white, $white, $secondary);
+                    @include button-style($black, $white, $white, $black);
                     margin: 0.3em;
                     width: 7em;
                 }
 
                 .btn-secondary {
-                    @include button-style($primary, $white, $white, $secondary);
+                    @include button-style($primary, $black, $white, $black);
                     margin: 0.3em;
                     width: 7em;
                 }
@@ -273,7 +284,7 @@
                     display: block;
                     font-size: 1em;
                     text-align: right;
-                    background-color: $primary;
+                    background-color: $secondary;
                     padding: 1em;
 
                     &:before {
@@ -288,7 +299,7 @@
                     }
 
                     &:nth-child(1) {
-                        background-color: $primary-hover;
+                        background-color: $black;
                         color: $white;
                     }
 
@@ -302,10 +313,17 @@
                     }
 
                     &:last-child {
-                        background-color: $primary;
+                        background-color: $black;
                         text-align: center;
                         border-bottom-left-radius: 1em;
                         border-bottom-right-radius: 1em;
+                    }
+
+                    .btn-primary,
+                    .btn-secondary {
+                        background-color: $white;
+                        color: $primary;
+                        border: 0.5px solid $primary;
                     }
 
                     .btn-primary {
@@ -318,5 +336,6 @@
 }
 
 @forward "%navbar";
+@forward "%h1-admin";
 @forward "%form-ctrl";
 @forward "%table-style";
