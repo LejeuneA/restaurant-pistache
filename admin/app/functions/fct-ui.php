@@ -180,6 +180,37 @@ function displayNavigation()
                 <!-- Right-side content end -->
             </div>
         </nav>
+
+
+        <!---------------------------------------------------------------
+                             Offcanvas menu
+        ----------------------------------------------------------------->
+        <div id="mySidenav" class="sidenav">
+
+            <!-- Menu -->
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a class="nav-link" href="index.php">Home</a>
+            <a class="nav-link" href="index.php#about">About</a>
+            <a class="nav-link" href="./public/menu.php">Menu</a>
+            <a class="nav-link" href="./public/contact.php">Contact</a>
+            <!-- Menu end -->
+
+            <!-- Login button -->
+            <a href="./public/reservation.php" class="btn-primary">Book a table</a>
+            <!-- Login button end -->
+        </div>
+
+        <!-- Hamburger icon for smaller screens -->
+        <div class="navbar-hamburger">
+            <div id="hamburger" onclick="openNav()"><i class="fas fa-bars"></i></div>
+        </div>
+
+        
+        <!------------------------------------------------------------- 
+                            Offcanvas menu end
+        --------------------------------------------------------------->
+
+
         ';
     } else {
         $navigation .= '
