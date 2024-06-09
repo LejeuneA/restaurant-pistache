@@ -7,96 +7,91 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Check if user is not identified, redirect to login page
-if (!$_SESSION['IDENTIFY']) {
+if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
     header('Location: login.php');
     exit;
 }
 
 $msg = null;
 $tinyMCE = true;
-$cadeau = null;
+$dessert = null;
 
 // Check the database connection
 if (!is_object($conn)) {
     $_SESSION['message'] = getMessage($conn, 'error');
-    header('Location: manager-cadeau.php');
+    header('Location: manager-dessert.php');
     exit;
 } else {
-    // Check if cadeau ID is provided in the URL
-    if (isset($_GET['idCadeau'])) {
-        // Get the cadeau ID from the URL
-        $idCadeau = $_GET['idCadeau'];
+    // Check if dessert ID is provided in the URL
+    if (isset($_GET['idDessert'])) {
+        // Get the dessert ID from the URL
+        $idDessert = $_GET['idDessert'];
 
-        // Retrieve cadeau details from the database
-        $cadeau = getCadeauByIDDB($conn, $idCadeau);
+        // Retrieve dessert details from the database
+        $dessert = getDessertByIDDB($conn, $idDessert);
 
         // Fetch category names from the database
         $categories = getCategoryNamesFromDB($conn);
 
         // Check if the form is submitted and the form type
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Check if the user has permission to edit the book
+            // Check if the user has permission to edit the dessert
             if ($_SESSION['user_permission'] == 2) {
-                $msg = getMessage('Vous n\'avez pas le droit de modifier un cadeau.', 'error');
+                $msg = getMessage('You do not have the right to modify a dessert.', 'error');
             } else {
                 // Check if the form was submitted for update
                 if (isset($_POST['update_form'])) {
-                    // Update the cadeau in the database
+                    // Check if file is uploaded
+                    if (isset($_FILES['image_upload']) && $_FILES['image_upload']['error'] === UPLOAD_ERR_OK) {
+                        $target_dir = "uploads/";
+                        $target_file = $target_dir . basename($_FILES["image_upload"]["name"]);
+
+                        // Check if the directory exists, if not, create it
+                        if (!file_exists($target_dir)) {
+                            mkdir($target_dir, 0777, true);
+                        }
+
+                        // Move the uploaded file to the target directory
+                        if (move_uploaded_file($_FILES["image_upload"]["tmp_name"], $target_file)) {
+                            // File upload successful, set the image URL
+                            $_POST['image_url'] = $target_file;
+                        } else {
+                            $_SESSION['message'] = getMessage('Error recording the image. Please try again.', 'error');
+                            header('Location: edit-dessert.php?idDessert=' . $idDessert);
+                            exit();
+                        }
+                    }
+
+                    // Update the dessert in the database
                     $updateData = [
-                        'idCadeau' => $idCadeau,
-                        'image_url' => $_POST['image_url'],
+                        'idDessert' => $idDessert,
+                        'image_url' => $_POST['image_url'] ?? '',
                         'title' => $_POST['title'] ?? '',
-                        'writer' => $_POST['writer'] ?? '',
-                        'feature' => $_POST['feature'] ?? '',
                         'price' => $_POST['price'] ?? '',
+                        'description' => $_POST['description'] ?? '',
                         'content' => $_POST['content'],
                         'published_article' => isset($_POST['published_article']) ? 1 : 0,
                         'idCategory' => $_POST['idCategory']
                     ];
 
                     // Perform the update operation in the database
-                    $updateResult = updateCadeauDB($conn, $updateData);
+                    $updateResult = updateDessertDB($conn, $updateData);
 
                     // Check the result of the update operation
                     if ($updateResult === true) {
-                        $_SESSION['message'] = getMessage('Les modifications ont été enregistrées sur la page.', 'success');
-                        $_SESSION['form_submitted'] = true;
+                        $_SESSION['message'] = getMessage('The changes have been saved on the page.', 'success');
                     } else {
-                        $_SESSION['message'] = getMessage('Erreur lors de la modification du produit. Veuillez réessayer.', 'error');
+                        $_SESSION['message'] = getMessage('Error modifying the product. Please try again.', 'error');
                     }
 
                     // Redirect to the same page to prevent form resubmission
-                    header('Location: edit-cadeau.php?idCadeau=' . $idCadeau);
-                    exit();
-                }
-
-                // Check if file is uploaded
-                if (isset($_FILES['image_upload']) && $_FILES['image_upload']['error'] === UPLOAD_ERR_OK) {
-                    $target_dir = "uploads/";
-                    $target_file = $target_dir . basename($_FILES["image_upload"]["name"]);
-
-                    // Check if the directory exists, if not, create it
-                    if (!file_exists($target_dir)) {
-                        mkdir($target_dir, 0777, true);
-                    }
-
-                    // Move the uploaded file to the target directory
-                    if (move_uploaded_file($_FILES["image_upload"]["tmp_name"], $target_file)) {
-                        // File upload successful, update the image URL in the database
-                        $updateData['image_url'] = $target_file;
-                        updateCadeauDB($conn, $updateData);
-                    } else {
-                        $_SESSION['message'] = getMessage('Erreur lors de l\'enregistrement de l\'image. Veuillez réessayer.', 'error');
-                    }
-
-                    // Redirect to the same page to prevent form resubmission
-                    header('Location: edit-cadeau.php?idCadeau=' . $idCadeau);
+                    header('Location: edit-dessert.php?idDessert=' . $idDessert);
                     exit();
                 }
             }
         }
     } else {
-        // If cadeau ID is not provided, redirect to manager.php
+        // If dessert ID is not provided, redirect to manager.php
         header('Location: manager.php');
         exit;
     }
@@ -115,7 +110,7 @@ if (isset($_SESSION['message'])) {
 <head>
     <?php
     // Include the head section
-    displayHeadSection('Editer un cadeau');
+    displayHeadSection('Editing a dessert');
     displayJSSection($tinyMCE);
     ?>
 </head>
@@ -127,15 +122,16 @@ if (isset($_SESSION['message'])) {
 
     <div class="edit-content">
         <div class="edit-title">
-            <h1>Editer un cadeau</h1>
+            <h1>Editing a dessert</h1>
             <div class="message">
                 <?php if (isset($msg)) echo $msg; ?>
             </div>
         </div>
 
         <div class="edit-form container">
-            <form action="edit-cadeau.php?idCadeau=<?php echo $cadeau['idCadeau']; ?>" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="idCadeau" value="<?php echo $cadeau['idCadeau']; ?>">
+            <form action="edit-dessert.php?idDessert=<?php echo $dessert['idDessert']; ?>" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="idDessert" value="<?php echo $dessert['idDessert']; ?>">
+                <input type="hidden" name="update_form" value="1">
 
                 <!-- Form top -->
                 <div class="form-top">
@@ -144,38 +140,38 @@ if (isset($_SESSION['message'])) {
                     <div class="form-left">
 
                         <!-- Statue of the article -->
-                        <div class=" form-ctrl">
-                            <label for="published_article" class="published_article">Status du produit <span>(publication)</span></label>
-                            <?php displayFormRadioBtnArticlePublished(isset($cadeau['active']) ? $cadeau['active'] : 0, 'EDIT'); ?>
+                        <div class="checkbox-ctrl">
+                            <label for="published_article" class="published_article">Status of the product <span>(publication)</span></label>
+                            <?php displayFormRadioBtnArticlePublished(isset($dessert['active']) ? $dessert['active'] : 0, 'EDIT'); ?>
                         </div>
 
                         <!-- Category -->
                         <div class="form-ctrl">
-                            <label for="idCategory" class="form-ctrl">Catégorie</label>
+                            <label for="idCategory" class="form-ctrl">Category</label>
                             <select id="idCategory" name="idCategory" class="form-ctrl" required>
-                                <option value="">Sélectionner une catégorie</option>
+                                <option value="">Select a category</option>
                                 <?php foreach ($categories as $category) : ?>
-                                    <option value="<?php echo $category['idCategory']; ?>" <?php echo ($category['idCategory'] == $cadeau['idCategory']) ? 'selected' : ''; ?>><?php echo $category['nameOfCategory']; ?></option>
+                                    <option value="<?php echo $category['idCategory']; ?>" <?php echo ($category['idCategory'] == $dessert['idCategory']) ? 'selected' : ''; ?>><?php echo $category['nameOfCategory']; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
 
                         <!-- Title -->
                         <div class="form-ctrl">
-                            <label for="title" class="form-ctrl">Titre</label>
-                            <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($cadeau['title']) ? $cadeau['title'] : ''; ?>" required>
-                        </div>
-
-                        <!-- Feature -->
-                        <div class="form-ctrl">
-                            <label for="feature" class="form-ctrl">Caractèriques</label>
-                            <input type="text" class="form-ctrl" id="feature" name="feature" value="<?php echo isset($cadeau['feature']) ? $cadeau['feature'] : ''; ?>">
+                            <label for="title" class="form-ctrl">Title</label>
+                            <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($dessert['title']) ? $dessert['title'] : ''; ?>" required>
                         </div>
 
                         <!-- Price -->
                         <div class="form-ctrl">
-                            <label for="price" class="form-ctrl">Prix</label>
-                            <input type="text" class="form-ctrl" id="price" name="price" value="<?php echo isset($cadeau['price']) ? $cadeau['price'] : ''; ?>">
+                            <label for="price" class="form-ctrl">Price</label>
+                            <input type="text" class="form-ctrl" id="price" name="price" value="<?php echo isset($dessert['price']) ? $dessert['price'] : ''; ?>">
+                        </div>
+
+                        <!-- Description -->
+                        <div class="form-ctrl">
+                            <label for="description" class="form-ctrl">Description</label>
+                            <input type="text" class="form-ctrl" id="description" name="description" value="<?php echo isset($dessert['description']) ? $dessert['description'] : ''; ?>">
                         </div>
 
                     </div>
@@ -183,39 +179,33 @@ if (isset($_SESSION['message'])) {
                     <!-- Form right -->
                     <div class="form-right">
 
-                        <!-- URL of the image -->
-                        <!-- <div class="form-ctrl">
-                            <label for="image_url" class="form-ctrl">URL de l'image</label>
-                            <input type="text" class="form-ctrl" id="image_url" name="image_url" value="<?php echo isset($cadeau['image_url']) ? $cadeau['image_url'] : ''; ?>" readonly>
-                        </div> -->
-
                         <!-- File upload field -->
                         <div class="form-ctrl">
-                            <label for="image_upload" class="form-ctrl">Uploader l'image</label>
+                            <label for="image_upload" class="form-ctrl">Upload image</label>
                             <input type="file" class="form-ctrl" id="image_upload" name="image_upload" onchange="previewImage(this)">
                         </div>
+
                         <!-- Preview of the image -->
                         <div class="form-ctrl">
-                            <label for="image_preview" class="form-ctrl">Aperçu de l'image</label>
+                            <label for="image_preview" class="form-ctrl">Image preview</label>
                             <div>
-                                <input type="text" class="form-ctrl image_url" id="image_url" name="image_url" value="<?php echo isset($cadeau['image_url']) ? $cadeau['image_url'] : ''; ?>" readonly>
-                                <img id="image_preview" class="image_preview" src="<?php echo isset($cadeau['image_url']) ? $cadeau['image_url'] : ''; ?>" alt="Aperçu de l'image">
+                                <input type="text" class="form-ctrl image_url" id="image_url" name="image_url" value="<?php echo isset($dessert['image_url']) ? $dessert['image_url'] : ''; ?>" readonly>
+                                <img id="image_preview" class="image_preview" src="<?php echo isset($dessert['image_url']) ? $dessert['image_url'] : ''; ?>" alt="Image preview">
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Form bottom -->
-                <div class=" form-bottom">
+                <div class="form-bottom">
                     <div class="form-ctrl">
-                        <label for="content" class="form-ctrl">Contenu</label>
-                        <textarea class="content" id="content" name="content" rows="5"><?php echo isset($cadeau['content']) ? $cadeau['content'] : ''; ?></textarea>
+                        <label for="content" class="form-ctrl">Content</label>
+                        <textarea class="content" id="content" name="content" rows="5"><?php echo isset($dessert['content']) ? $dessert['content'] : ''; ?></textarea>
                     </div>
                 </div>
 
-                <input type="hidden" name="update_form" value="1">
-                <button type="submit" class="btn-primary">Sauvegarder</button>
-                <button type="submit" class="btn-primary" formaction="article-cadeau.php?idCadeau=<?php echo $cadeau['idCadeau']; ?>">Afficher</button>
+                <button type="submit" class="btn-primary">Save</button>
+                <button type="submit" class="btn-primary" formaction="article-dessert.php?idDessert=<?php echo $dessert['idDessert']; ?>">Display</button>
             </form>
         </div>
     </div>
@@ -223,23 +213,17 @@ if (isset($_SESSION['message'])) {
     <?php
     displayJSSection($tinyMCE);
     ?>
-    
-     <!-----------------------------------------------------------------
-                               Footer
-    ------------------------------------------------------------------>
+
+    <!-- Footer -->
     <footer>
         <?php displayFooter(); ?>
     </footer>
-    <!-----------------------------------------------------------------
-                            Footer end
-    ------------------------------------------------------------------>
 
     <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    
-   <!-- Main Js -->
-   <script src="../js/main.js"></script>
+    <!-- Main JS -->
+    <script src="../js/main.js"></script>
 
 </body>
 
