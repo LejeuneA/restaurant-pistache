@@ -7,7 +7,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Check if user is not identified, redirect to login page
-if (!$_SESSION['IDENTIFY']) {
+if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
     header('Location: login.php');
     exit;
 }
@@ -37,14 +37,35 @@ if (!is_object($conn)) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Check if the user has permission to edit the book
             if ($_SESSION['user_permission'] == 2) {
-                $msg = getMessage('You are not allowed to modify a starter.', 'error');
+                $msg = getMessage('You do not have the right to modify a book.', 'error');
             } else {
                 // Check if the form was submitted for update
                 if (isset($_POST['update_form'])) {
+                    // Check if file is uploaded
+                    if (isset($_FILES['image_upload']) && $_FILES['image_upload']['error'] === UPLOAD_ERR_OK) {
+                        $target_dir = "";
+                        $target_file = $target_dir . basename($_FILES["image_upload"]["name"]);
+
+                        // Check if the directory exists, if not, create it
+                        if (!file_exists($target_dir)) {
+                            mkdir($target_dir, 0777, true);
+                        }
+
+                        // Move the uploaded file to the target directory
+                        if (move_uploaded_file($_FILES["image_upload"]["tmp_name"], $target_file)) {
+                            // File upload successful, set the image URL
+                            $_POST['image_url'] = $target_file;
+                        } else {
+                            $_SESSION['message'] = getMessage('Error recording the image. Please try again.', 'error');
+                            header('Location: edit-starter.php?idStarter=' . $idStarter);
+                            exit();
+                        }
+                    }
+
                     // Update the starter in the database
                     $updateData = [
                         'idStarter' => $idStarter,
-                        'imageUrl' => $_POST['imageUrl'],
+                        'image_url' => $_POST['image_url'] ?? '',
                         'title' => $_POST['title'] ?? '',
                         'price' => $_POST['price'] ?? '',
                         'description' => $_POST['description'] ?? '',
@@ -59,33 +80,8 @@ if (!is_object($conn)) {
                     // Check the result of the update operation
                     if ($updateResult === true) {
                         $_SESSION['message'] = getMessage('The changes have been saved on the page.', 'success');
-                        $_SESSION['form_submitted'] = true;
                     } else {
                         $_SESSION['message'] = getMessage('Error modifying the product. Please try again.', 'error');
-                    }
-
-                    // Redirect to the same page to prevent form resubmission
-                    header('Location: edit-starter.php?idStarter=' . $idStarter);
-                    exit();
-                }
-
-                // Check if file is uploaded
-                if (isset($_FILES['image_upload']) && $_FILES['image_upload']['error'] === UPLOAD_ERR_OK) {
-                    $target_dir = "uploads/";
-                    $target_file = $target_dir . basename($_FILES["image_upload"]["name"]);
-
-                    // Check if the directory exists, if not, create it
-                    if (!file_exists($target_dir)) {
-                        mkdir($target_dir, 0777, true);
-                    }
-
-                    // Move the uploaded file to the target directory
-                    if (move_uploaded_file($_FILES["image_upload"]["tmp_name"], $target_file)) {
-                        // File upload successful, update the image URL in the database
-                        $updateData['imageUrl'] = $target_file;
-                        updateStarterDB($conn, $updateData);
-                    } else {
-                        $_SESSION['message'] = getMessage('Error saving the image. Please try again.', 'error');
                     }
 
                     // Redirect to the same page to prevent form resubmission
@@ -108,15 +104,13 @@ if (isset($_SESSION['message'])) {
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <?php
     // Include the head section
-    displayHeadSection('Edit a starter');
+    displayHeadSection('Editing a book');
     displayJSSection($tinyMCE);
     ?>
 </head>
@@ -128,7 +122,7 @@ if (isset($_SESSION['message'])) {
 
     <div class="edit-content">
         <div class="edit-title">
-            <h1>Edit a starter</h1>
+            <h1>Editing a book</h1>
             <div class="message">
                 <?php if (isset($msg)) echo $msg; ?>
             </div>
@@ -137,6 +131,7 @@ if (isset($_SESSION['message'])) {
         <div class="edit-form container">
             <form action="edit-starter.php?idStarter=<?php echo $starter['idStarter']; ?>" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="idStarter" value="<?php echo $starter['idStarter']; ?>">
+                <input type="hidden" name="update_form" value="1">
 
                 <!-- Form top -->
                 <div class="form-top">
@@ -145,8 +140,8 @@ if (isset($_SESSION['message'])) {
                     <div class="form-left">
 
                         <!-- Statue of the article -->
-                        <div class=" checkbox-ctrl">
-                            <label for="published_article" class="published_article">Product status <span>(publication)</span></label>
+                        <div class="checkbox-ctrl">
+                            <label for="published_article" class="published_article">Status of the product <span>(publication)</span></label>
                             <?php displayFormRadioBtnArticlePublished(isset($starter['active']) ? $starter['active'] : 0, 'EDIT'); ?>
                         </div>
 
@@ -167,16 +162,16 @@ if (isset($_SESSION['message'])) {
                             <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($starter['title']) ? $starter['title'] : ''; ?>" required>
                         </div>
 
-                        <!-- Description -->
-                        <div class="form-ctrl">
-                            <label for="description" class="form-ctrl">Description</label>
-                            <input type="text" class="form-ctrl" id="description" name="description" value="<?php echo isset($starter['description']) ? $starter['description'] : ''; ?>">
-                        </div>
-
                         <!-- Price -->
                         <div class="form-ctrl">
                             <label for="price" class="form-ctrl">Price</label>
                             <input type="text" class="form-ctrl" id="price" name="price" value="<?php echo isset($starter['price']) ? $starter['price'] : ''; ?>">
+                        </div>
+
+                        <!-- Description -->
+                        <div class="form-ctrl">
+                            <label for="description" class="form-ctrl">Description</label>
+                            <input type="text" class="form-ctrl" id="description" name="description" value="<?php echo isset($starter['description']) ? $starter['description'] : ''; ?>">
                         </div>
 
                     </div>
@@ -192,25 +187,23 @@ if (isset($_SESSION['message'])) {
 
                         <!-- Preview of the image -->
                         <div class="form-ctrl">
-                            <label for="image_input" class="form-ctrl">Image preview</label>
+                            <label for="image_preview" class="form-ctrl">Image preview</label>
                             <div>
-                                <input type="file" class="form-ctrl" id="image_input" name="image_input" onchange="previewImage(this)">
-                                <input type="text" class="form-ctrl imageUrl" id="imageUrl" name="imageUrl" value="<?php echo isset($starter['imageUrl']) ? $starter['imageUrl'] : ''; ?>" readonly>
-                                <img id="image_preview" class="image_preview" src="<?php echo isset($starter['imageUrl']) ? $starter['imageUrl'] : ''; ?>" alt="Image preview">
+                                <input type="text" class="form-ctrl image_url" id="image_url" name="image_url" value="<?php echo isset($starter['image_url']) ? $starter['image_url'] : ''; ?>" readonly>
+                                <img id="image_preview" class="image_preview" src="<?php echo isset($starter['image_url']) ? $starter['image_url'] : ''; ?>" alt="Image preview">
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Form bottom -->
-                <div class=" form-bottom">
+                <div class="form-bottom">
                     <div class="form-ctrl">
                         <label for="content" class="form-ctrl">Content</label>
-                        <textarea class="content" id="content" name="content"><?php echo isset($starter['content']) ? $starter['content'] : ''; ?></textarea>
+                        <textarea class="content" id="content" name="content" rows="5"><?php echo isset($starter['content']) ? $starter['content'] : ''; ?></textarea>
                     </div>
                 </div>
 
-                <input type="hidden" name="update_form" value="1">
                 <button type="submit" class="btn-primary">Save</button>
                 <button type="submit" class="btn-primary" formaction="article-starter.php?idStarter=<?php echo $starter['idStarter']; ?>">Display</button>
             </form>
@@ -221,20 +214,15 @@ if (isset($_SESSION['message'])) {
     displayJSSection($tinyMCE);
     ?>
 
-    <!-----------------------------------------------------------------
-                               Footer
-    ------------------------------------------------------------------>
+    <!-- Footer -->
     <footer>
-        <?php displayFooter(); ?>
+        <div data-include="footer"></div>
     </footer>
-    <!-----------------------------------------------------------------
-                                   Footer end
-    ------------------------------------------------------------------>
 
     <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <!-- Main Js -->
+    
+    <!-- Main JS -->
     <script src="../js/main.js"></script>
 
 </body>
