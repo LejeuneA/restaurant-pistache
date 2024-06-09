@@ -137,7 +137,7 @@
             <!-- Contact upper section -->
             <div class="contact-upper-container container">
                 <!-- Contact form container -->
-                <div class="contact-container" data-aos="fade-in" data-aos-delay="200">
+                <div class="contact-container" data-aos="fade-right" data-aos-delay="200">
                     <!-- Contact content -->
                     <div class="contact-content">
                         <div class="contact-content-title">
@@ -182,7 +182,7 @@
                                     <div class="contact-form-item">
                                         <div class="form-group">
                                             <label for="message">Message</label>
-                                            <textarea type="text" id="message" name="message" placeholder="Your message"></textarea>
+                                            <textarea type="text" id="form-message" name="message" placeholder="Your message"></textarea>
                                         </div>
                                     </div>
                                     <!-- Contact form item end -->
@@ -204,7 +204,7 @@
                 </div>
                 <!-- Contact container end -->
                 <!-- Google map -->
-                <div class="map-container" data-aos="fade-in" data-aos-delay="400">
+                <div class="map-container" data-aos="fade-left" data-aos-delay="400">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2518.798010128868!2d5.569091276394098!3d50.63038067949861!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c0f0897b7a8bb7%3A0x401ed56b8e997e0!2sRue%20Saint-Gilles%20343%2C%204000%20Li%C3%A8ge%2C%20Belgium!5e0!3m2!1sen!2s!4v1688150655951!5m2!1sen!2s" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
                 <!-- Google map end -->
@@ -214,7 +214,7 @@
             <!-- Contact bottom container -->
             <div class="contact-bottom-container">
                 <!-- Contact info -->
-                <div class="contact-info container" data-aos="fade-up" data-aos-delay="600">
+                <div class="contact-info container" data-aos="fade-up" data-aos-delay="400">
                     <div class="contact-info-items">
                         <div class="contact-info-item">
                             <i class="fas fa-map-marker-alt"></i>
