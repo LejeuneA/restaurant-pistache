@@ -117,7 +117,7 @@ $addData = [
     ------------------------------------------------------------------>
     <div class="edit-content">
         <div class="edit-title">
-            <h1>Ajouter un starter</h1>
+            <h1>Add a starter</h1>
             <div class="message">
                 <?php if (isset($msg)) echo $msg; ?>
             </div>
