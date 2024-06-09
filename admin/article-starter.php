@@ -7,22 +7,23 @@ $execute = false;
 
 // Check if the ID of the starter is passed in the URL
 if (isset($_GET['idStarter']) && !empty($_GET['idStarter'])) {
-    $idStarter = $_GET['idStarter'];
-    // Ensure that the database connection object is valid
-    if (!is_object($conn)) {
-        $msg = getMessage($conn, 'error');
-    } else {
-        // Fetch the starter from the database based on the ID
-        $result = getStarterByIDDB($conn, $idStarter);
-        // Check if the result is a valid array and not empty
-        if (isset($result) && is_array($result) && !empty($result)) {
-            $execute = true;
-        } else {
-            $msg = getMessage('There is no product to display.', 'error');
-        }
-    }
+$idStarter = $_GET['idStarter'];
+
+// Ensure that the database connection object is valid
+if (!is_object($conn)) {
+$msg = getMessage($conn, 'error');
 } else {
-    $msg = getMessage('There is no product to display', 'error');
+// Fetch the starter from the database based on the ID
+$result = getStarterByIDDB($conn, $idStarter);
+// Check if the result is a valid array and not empty
+if (isset($result) && is_array($result) && !empty($result)) {
+$execute = true;
+} else {
+$msg = getMessage('There is no product to display.', 'error');
+}
+}
+} else {
+$msg = getMessage('There is no product to display', 'error');
 }
 ?>
 
@@ -31,45 +32,47 @@ if (isset($_GET['idStarter']) && !empty($_GET['idStarter'])) {
 <html lang="en">
 
 <head>
-    <?php displayHeadSection('Starters'); ?>
+<?php displayHeadSection('Starters'); ?>
 </head>
 
 <body>
-    <header>
-        <?php displayNavigation(); ?>
-    </header>
-    <!-- Main -->
-    <main>
-        <div class="container">
-            <div id="message">
-                <?php if (isset($msg)) echo $msg; ?>
-            </div>
-            <div id="content">
-                <?php
-                // Peut-on exécuter l'affichage de l'article
-                if ($execute) {
-                    displayStarterByID($result);
-                }
-                ?>
-            </div>
-        </div>
-    </main>
-    
-    
-    <!-----------------------------------------------------------------
-                               Footer
-    ------------------------------------------------------------------>
-    <footer>
-        <?php displayFooter(); ?>
-    </footer>
-    <!-----------------------------------------------------------------
-                            Footer end
-    ------------------------------------------------------------------>
+<header>
+<?php displayNavigation(); ?>
+</header>
+<!-- Main -->
+<main>
+<div class="container">
+<div id="message">
+<?php if (isset($msg)) echo $msg; ?>
+</div>
+<div id="content">
+<?php
+if ($execute) {
+displayStarterByID($result);
+}
+?>
+</div>
+</div>
+</main>
 
-    <!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- Include functions.js -->
-    <script src="../js/functions.js"></script>
+
+<!-----------------------------------------------------------------
+   Footer
+------------------------------------------------------------------>
+<footer>
+<?php displayFooter(); ?>
+</footer>
+<!-----------------------------------------------------------------
+Footer end
+------------------------------------------------------------------>
+
+<!-- Font Awesome -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- Main JS -->
+<script src="../js/functions.js"></script>
 </body>
 
 </html>
+
+
