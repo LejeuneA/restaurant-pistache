@@ -120,9 +120,14 @@
 
         .btn-primary {
             margin: 1.3em 0 5em;
-            background-color: $primary;
+            background-color: $black;
+            border: 1px solid $black;
 
-            @include hover("background-color", $primary, "color", $white);
+            @include hover("background-color", $white, "color", $primary);
+
+            &:hover {
+                border: 1px solid $primary;
+            }
         }
     }
 
