@@ -33,6 +33,7 @@
 
     h1{
         @extend %h1-admin;
+        margin:0;
     }
 
     .welcome {
