@@ -28,7 +28,7 @@ if (isset($_GET['idStarter']) && !empty($_GET['idStarter'])) {
 
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <?php displayHeadSection('Starters'); ?>
