@@ -35,9 +35,9 @@ if (!is_object($conn)) {
 
         // Check if the form is submitted and the form type
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Check if the user has permission to edit the book
+            // Check if the user has permission to edit the starter
             if ($_SESSION['user_permission'] == 2) {
-                $msg = getMessage('You do not have the right to modify a book.', 'error');
+                $msg = getMessage('You do not have the right to modify a starter.', 'error');
             } else {
                 // Check if the form was submitted for update
                 if (isset($_POST['update_form'])) {
@@ -110,7 +110,7 @@ if (isset($_SESSION['message'])) {
 <head>
     <?php
     // Include the head section
-    displayHeadSection('Editing a book');
+    displayHeadSection('Editing a starter');
     displayJSSection($tinyMCE);
     ?>
 </head>
@@ -122,7 +122,7 @@ if (isset($_SESSION['message'])) {
 
     <div class="edit-content">
         <div class="edit-title">
-            <h1>Editing a book</h1>
+            <h1>Editing a starter</h1>
             <div class="message">
                 <?php if (isset($msg)) echo $msg; ?>
             </div>
@@ -216,12 +216,12 @@ if (isset($_SESSION['message'])) {
 
     <!-- Footer -->
     <footer>
-        <div data-include="footer"></div>
+        <?php displayFooter(); ?>
     </footer>
 
     <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
+
     <!-- Main JS -->
     <script src="../js/main.js"></script>
 
