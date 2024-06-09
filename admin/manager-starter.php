@@ -66,12 +66,12 @@ if (isset($_SESSION['message'])) {
 
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <?php
     // Include the head section
-    displayHeadSection('Gestion des starters');
+    displayHeadSection('Managing starters');
     displayJSSection();
     ?>
 </head>
