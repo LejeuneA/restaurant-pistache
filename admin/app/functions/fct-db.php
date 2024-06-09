@@ -387,7 +387,7 @@ function addStarterDB($conn, $datas)
 {
     try {
         // Preparing data for insertion into the database
-        $imageUrl = filterInputs($datas['imageUrl']);
+        $image_url = filterInputs($datas['image_url']);
         $title = filterInputs($datas['title']);
         $price = filterInputs($datas['price']);
         $description = filterInputs($datas['description']);
@@ -405,8 +405,8 @@ function addStarterDB($conn, $datas)
         }
 
         // Insertion des données dans la table articles
-        $req = $conn->prepare("INSERT INTO starters (imageUrl, title, price, description, content, active, idCategory) VALUES (:imageUrl, :title, :price, :description, :content, :active, :idCategory)");
-        $req->bindParam(':imageUrl', $imageUrl);
+        $req = $conn->prepare("INSERT INTO starters (image_url, title, price, description, content, active, idCategory) VALUES (:image_url, :title, :price, :description, :content, :active, :idCategory)");
+        $req->bindParam(':image_url', $image_url);
         $req->bindParam(':title', $title);
         $req->bindParam(':price', $price);
         $req->bindParam(':description', $description);
@@ -444,7 +444,7 @@ function addMainCourseDB($conn, $datas)
 {
     try {
         // Preparing data for insertion into the database
-        $imageUrl = filterInputs($datas['imageUrl']);
+        $image_url = filterInputs($datas['image_url']);
         $title = filterInputs($datas['title']);
         $price = filterInputs($datas['price']);
         $description = filterInputs($datas['description']);
@@ -462,8 +462,8 @@ function addMainCourseDB($conn, $datas)
         }
 
         // Inserting data in the main courses table
-        $req = $conn->prepare("INSERT INTO mainCourses (imageUrl, title, description, price, content, active, idCategory) VALUES (:imageUrl, :title, :description, :price, :content, :active, :idCategory)");
-        $req->bindParam(':imageUrl', $imageUrl);
+        $req = $conn->prepare("INSERT INTO mainCourses (image_url, title, description, price, content, active, idCategory) VALUES (:image_url, :title, :description, :price, :content, :active, :idCategory)");
+        $req->bindParam(':image_url', $image_url);
         $req->bindParam(':title', $title);
         $req->bindParam(':price', $price);
         $req->bindParam(':description', $description);
@@ -501,7 +501,7 @@ function addDessertDB($conn, $datas)
 {
     try {
         // Preparing data for insertion into the database
-        $imageUrl = filterInputs($datas['imageUrl']);
+        $image_url = filterInputs($datas['image_url']);
         $title = filterInputs($datas['title']);
         $price = filterInputs($datas['price']);
         $description = filterInputs($datas['description']);
@@ -519,8 +519,8 @@ function addDessertDB($conn, $datas)
         }
 
         // Inserting data in the desserts table
-        $req = $conn->prepare("INSERT INTO desserts (imageUrl, title, description, price, content, active, idCategory) VALUES (:imageUrl, :title, :description, :price, :content, :active, :idCategory)");
-        $req->bindParam(':imageUrl', $imageUrl);
+        $req = $conn->prepare("INSERT INTO desserts (image_url, title, description, price, content, active, idCategory) VALUES (:image_url, :title, :description, :price, :content, :active, :idCategory)");
+        $req->bindParam(':image_url', $image_url);
         $req->bindParam(':title', $title);
         $req->bindParam(':description', $description);
         $req->bindParam(':price', $price);
@@ -554,7 +554,7 @@ function addDessertDB($conn, $datas)
 function updateStarterDB($conn, $datas)
 {
     try {
-        $imageUrl = filterInputs($datas['imageUrl']);
+        $image_url = filterInputs($datas['image_url']);
         $title = filterInputs($datas['title']);
         $price = filterInputs($datas['price']);
         $description = filterInputs($datas['description']);
@@ -574,8 +574,8 @@ function updateStarterDB($conn, $datas)
             $active = 0;
 
         // Inserting data in the items table
-        $req = $conn->prepare("UPDATE starters SET imageUrl = :imageUrl, title = :title, price = :price, description = :description, content = :content, active = :active, idCategory = :idCategory WHERE idStarter = :idStarter");
-        $req->bindParam(':imageUrl', $imageUrl);
+        $req = $conn->prepare("UPDATE starters SET image_url = :image_url, title = :title, price = :price, description = :description, content = :content, active = :active, idCategory = :idCategory WHERE idStarter = :idStarter");
+        $req->bindParam(':image_url', $image_url);
         $req->bindParam(':title', $title);
         $req->bindParam(':price', $price);
         $req->bindParam(':description', $description);
@@ -615,7 +615,7 @@ function updateMainCourseDB($conn, $datas)
 {
     try {
         // Sanitize input data
-        $imageUrl = filterInputs($datas['imageUrl']);
+        $image_url = filterInputs($datas['image_url']);
         $title = filterInputs($datas['title']);
         $price = filterInputs($datas['price']);
         $description = filterInputs($datas['description']);
@@ -631,8 +631,8 @@ function updateMainCourseDB($conn, $datas)
         $active = isset($datas['published_article']) ? $datas['published_article'] : 0;
 
         // Prepare and execute the update query
-        $stmt = $conn->prepare("UPDATE mainCourses SET imageUrl = :imageUrl, title = :title, description = :description, price = :price, content = :content, active = :active, idCategory = :idCategory WHERE idMainCourse = :idMainCourse");
-        $stmt->bindParam(':imageUrl', $imageUrl);
+        $stmt = $conn->prepare("UPDATE mainCourses SET image_url = :image_url, title = :title, description = :description, price = :price, content = :content, active = :active, idCategory = :idCategory WHERE idMainCourse = :idMainCourse");
+        $stmt->bindParam(':image_url', $image_url);
         $stmt->bindParam(':title', $title);
         $stmt->bindParam(':price', $price);
         $stmt->bindParam(':description', $description);
@@ -668,7 +668,7 @@ function updateDessertDB($conn, $datas)
     try {
         
         // Preparing data for insertion into the database
-        $imageUrl = filterInputs($datas['imageUrl']);
+        $image_url = filterInputs($datas['image_url']);
         $title = filterInputs($datas['title']);
         $price = filterInputs($datas['price']);
         $description = filterInputs($datas['description']);
@@ -688,8 +688,8 @@ function updateDessertDB($conn, $datas)
             $active = 0;
 
         // Insertion des données dans la table articles
-        $req = $conn->prepare("UPDATE dessert SET imageUrl = :imageUrl, title = :title, description = :description, price = :price, content = :content, active = :active, idCategory = :idCategory WHERE idDessert = :idDessert");
-        $req->bindParam(':imageUrl', $imageUrl);
+        $req = $conn->prepare("UPDATE dessert SET image_url = :image_url, title = :title, description = :description, price = :price, content = :content, active = :active, idCategory = :idCategory WHERE idDessert = :idDessert");
+        $req->bindParam(':image_url', $image_url);
         $req->bindParam(':title', $title);
         $req->bindParam(':price', $price);
         $req->bindParam(':description', $description);
