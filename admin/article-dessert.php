@@ -5,51 +5,56 @@ $msg = null;
 $result = null;
 $execute = false;
 
-// Check if the ID of the cadeau is passed in the URL
-if (isset($_GET['idCadeau']) && !empty($_GET['idCadeau'])) {
-    $idCadeau = $_GET['idCadeau']; 
+// Check if the ID of the starter is passed in the URL
+if (isset($_GET['idStarter']) && !empty($_GET['idStarter'])) {
+    $idStarter = $_GET['idStarter'];
     // Ensure that the database connection object is valid
     if (!is_object($conn)) {
-        $msg = getMessage($conn, 'error'); // Display an error message if the connection is not valid
+        $msg = getMessage($conn, 'error');
     } else {
-        // Fetch the cadeau from the database based on the ID
-        $result = getCadeauByIDDB($conn, $idCadeau);
+        // Fetch the starter from the database based on the ID
+        $result = getStarterByIDDB($conn, $idStarter);
         // Check if the result is a valid array and not empty
         if (isset($result) && is_array($result) && !empty($result)) {
-            $execute = true; // Set execute flag to true if a valid cadeau is found
+            $execute = true;
         } else {
-            $msg = getMessage('Il n\'y a pas du produit à afficher', 'error'); // Display an error message if no cadeau is found
+            $msg = getMessage('Il n\'y a pas du produit à afficher', 'error');
         }
     }
 } else {
-    $msg = getMessage('Il n\'y a pas du produit à afficher', 'error'); // Display an error message if no cadeau ID is provided
+    $msg = getMessage('Il n\'y a pas du produit à afficher', 'error');
 }
 ?>
+
+
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
-    <?php displayHeadSection((isset($result['title']) ? $result['title'] : APP_NAME)); ?>
+    <?php displayHeadSection('Desserts'); ?>
 </head>
 
 <body>
     <header>
         <?php displayNavigation(); ?>
     </header>
-    <div class="container">
-        <div id="message">
-            <?php if (isset($msg)) echo $msg; ?>
+    <!-- Main -->
+    <main>
+        <div class="container">
+            <div id="message">
+                <?php if (isset($msg)) echo $msg; ?>
+            </div>
+            <div id="content">
+                <?php
+                // Peut-on exécuter l'affichage de l'article
+                if ($execute) {
+                    displayDessertByID($result);
+                }
+                ?>
+            </div>
         </div>
-        <div id="content">
-            <?php
-            // Peut-on exécuter l'affichage de l'article
-            if ($execute) {
-                displayCadeauByID($result);
-            }
-            ?>
-        </div>
-    </div>
-   
+    </main>
+    
     
     <!-----------------------------------------------------------------
                                Footer
@@ -63,10 +68,8 @@ if (isset($_GET['idCadeau']) && !empty($_GET['idCadeau'])) {
 
     <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
-  <!-- Main Js -->
-  <script src="../js/main.js"></script>
-  
+    <!-- Include functions.js -->
+    <script src="../js/functions.js"></script>
 </body>
 
 </html>
