@@ -91,12 +91,12 @@ $addData = [
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <?php
     // Include the head section
-    displayHeadSection('Ajouter une papeterie');
+    displayHeadSection('Add a main course');
     ?>
 </head>
 
