@@ -534,8 +534,8 @@ function displayStarterByID($starter)
     echo '</div>';
     echo '<div class="product-description">';
     echo '<h2>Description</h2>';
-    echo '</div>';
     echo '<p>' . htmlspecialchars_decode($starter['content']) . '</p>';
+    echo '</div>';
     echo '</div>';
     echo '</div>';
     echo '</section>';
@@ -554,34 +554,26 @@ function displayStarterByID($starter)
  */
 function displayMainCourseByID($mainCourse)
 {
-    echo '<main>';
     echo '<section class="product-container container">';
     echo '<div class="product-info-container">';
     echo '<div class="product-img">';
-    echo '<img src="'.DOMAIN. '/'. $mainCourse['image_url'] . '" alt="' . $mainCourse['title'] . '">';
+    echo '<img src="' . DOMAIN . '/admin/' . $mainCourse['image_url'] . '" alt="' . $mainCourse['title'] . '">';
     echo '</div>';
     echo '<div class="product-info">';
     echo '<div>';
     echo '<h2>' . $mainCourse['title'] . '</h2>';
+    echo '<p>' . $mainCourse['description'] . '</p>';
     echo '</div>';
     echo '<div class="product-price">';
-    echo '<p>' . $mainCourse['price'] . ' € <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
-    echo '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
-    echo '</div>';
-    echo '<div class="product-advantages">';
-    echo '<ul>';
-    echo '<li><i class="fa fa-shopping-cart"></i> Passer une commande en un clic</li>';
-    echo '<li><i class="fa fa-lock"></i> Payer en toute sécurité</li>';
-    echo '<li><i class="fa fa-home"></i> Livraison en Belgique: 3,99 €</li>';
-    echo '<li><i class="fa fa-gift"></i> Livraison en magasin gratuite</li>';
-    echo '</ul>';
-    echo '</div>';
-    echo '</div>';
+    echo '<p>' . $mainCourse['price'] . ' €</p>';
     echo '</div>';
     echo '<div class="product-description">';
     echo '<h2>Description</h2>';
     echo '<p>' . htmlspecialchars_decode($mainCourse['content']) . '</p>';
     echo '</div>';
+    echo '</div>';
+    echo '</div>';
+    echo '</section>';
 }
 
 
@@ -599,30 +591,23 @@ function displayDessertByID($dessert)
     echo '<section class="product-container container">';
     echo '<div class="product-info-container">';
     echo '<div class="product-img">';
-    echo '<img src="'.DOMAIN. '/'. $dessert['image_url'] . '" alt="' . $dessert['title'] . '">';
+    echo '<img src="' . DOMAIN . '/admin/' . $dessert['image_url'] . '" alt="' . $dessert['title'] . '">';
     echo '</div>';
     echo '<div class="product-info">';
     echo '<div>';
     echo '<h2>' . $dessert['title'] . '</h2>';
+    echo '<p>' . $dessert['description'] . '</p>';
     echo '</div>';
     echo '<div class="product-price">';
-    echo '<p>' . $dessert['price'] . ' € <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
-    echo '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
-    echo '</div>';
-    echo '<div class="product-advantages">';
-    echo '<ul>';
-    echo '<li><i class="fa fa-shopping-cart"></i> Passer une commande en un clic</li>';
-    echo '<li><i class="fa fa-lock"></i> Payer en toute sécurité</li>';
-    echo '<li><i class="fa fa-home"></i> Livraison en Belgique: 3,99 €</li>';
-    echo '<li><i class="fa fa-gift"></i> Livraison en magasin gratuite</li>';
-    echo '</ul>';
-    echo '</div>';
-    echo '</div>';
+    echo '<p>' . $dessert['price'] . ' €</p>';
     echo '</div>';
     echo '<div class="product-description">';
     echo '<h2>Description</h2>';
     echo '<p>' . htmlspecialchars_decode($dessert['content']) . '</p>';
     echo '</div>';
+    echo '</div>';
+    echo '</div>';
+    echo '</section>';
 }
 
 
