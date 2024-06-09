@@ -43,22 +43,30 @@ if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
             <h1 class="title">Manage your products</h1>
             <div class="category-container">
                 <!-- Starters -->
-                <div class="category-card">
-                    
-                    <a class="btn-primary" href="./manager-starter.php">Manage starters</a>
-                    <a class="btn-primary" href="./add-starter.php">Add a starter</a>
+                <div class="category-card-container">
+                    <img src="../assets/images/starter-vector.png" alt="Starters">
+                    <div class="category-card">
+                        <a class="btn-primary" href="./manager-starter.php">Manage starters</a>
+                        <a class="btn-primary" href="./add-starter.php">Add a starter</a>
+                    </div>
                 </div>
 
                 <!-- MAin courses -->
-                <div class="category-card">
-                    <a class="btn-primary" href="./manager-maincourse.php">Manage main courses</a>
-                    <a class="btn-primary" href="./add-maincourse.php">Add a main course</a>
+                <div class="category-card-container">
+                <img src="../assets/images/maincourse-vector.png" alt="Main courses">
+                    <div class="category-card">
+                        <a class="btn-primary" href="./manager-maincourse.php">Manage main courses</a>
+                        <a class="btn-primary" href="./add-maincourse.php">Add a main course</a>
+                    </div>
                 </div>
 
                 <!-- Desserts -->
-                <div class="category-card"> 
-                    <a class="btn-primary" href="./manager-dessert.php">Manage desserts</a>
-                    <a class="btn-primary" href="./add-dessert.php">Add a dessert</a>
+                <div class="category-card-container">
+                <img src="../assets/images/dessert-vector.png" alt="Desserts">
+                    <div class="category-card"> 
+                        <a class="btn-primary" href="./manager-dessert.php">Manage desserts</a>
+                        <a class="btn-primary" href="./add-dessert.php">Add a dessert</a>
+                    </div>
                 </div>
 
                 <!-- Vector -->
