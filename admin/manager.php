@@ -44,6 +44,7 @@ if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
             <div class="category-container">
                 <!-- Starters -->
                 <div class="category-card">
+                    
                     <a class="btn-primary" href="./manager-starter.php">Manage starters</a>
                     <a class="btn-primary" href="./add-starter.php">Add a starter</a>
                 </div>
@@ -77,7 +78,7 @@ if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
         <?php displayFooter(); ?>
     </footer>
     <!-----------------------------------------------------------------
-                                   Footer end
+                            Footer end
     ------------------------------------------------------------------>
 
     <script>
