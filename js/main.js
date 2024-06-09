@@ -146,15 +146,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 /* -------------------------------------------------------
-					Image preview
+                Image preview
 ---------------------------------------------------------*/
 function previewImage(input) {
-	var preview = document.getElementById('image_preview');
-	if (input.files && input.files[0]) {
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			preview.src = e.target.result;
-		}
-		reader.readAsDataURL(input.files[0]);
+	const preview = document.getElementById('image_preview');
+	const file = input.files[0];
+	const reader = new FileReader();
+
+	reader.onload = function(e) {
+		preview.src = e.target.result;
+	}
+
+	if (file) {
+		reader.readAsDataURL(file);
 	}
 }
