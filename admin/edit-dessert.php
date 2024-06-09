@@ -37,7 +37,7 @@ if (!is_object($conn)) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Check if the user has permission to edit the dessert
             if ($_SESSION['user_permission'] == 2) {
-                $msg = getMessage('You do not have the right to modify a dessert.', 'error');
+                $msg = getMessage('You are not allowed to modify a dessert.', 'error');
             } else {
                 // Check if the form was submitted for update
                 if (isset($_POST['update_form'])) {
