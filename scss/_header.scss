@@ -6,7 +6,8 @@
 /* -------------------------------------------------------
                     Home header
 ---------------------------------------------------------*/
-header {
+header,
+.header-article {
 	@include d-flex(flex, start, center, column, center);
     width: 100%;
     position:absolute;
@@ -144,4 +145,8 @@ header {
 	.closebtn {
 		display: none;
 	}
+}
+
+.header-article{
+	background-color: $black;
 }
