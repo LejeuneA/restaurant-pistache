@@ -414,7 +414,7 @@ function generateStarterHTML($starter)
 {
     $html = ""; 
 
-    $imageUrl = htmlspecialchars($starter['imageUrl'], ENT_QUOTES);
+    $image_url = htmlspecialchars($starter['image_url'], ENT_QUOTES);
     $title = htmlspecialchars($starter['title'], ENT_QUOTES);
     $price = htmlspecialchars($starter['price'], ENT_QUOTES);
     $description = htmlspecialchars($starter['description'], ENT_QUOTES);
@@ -423,7 +423,7 @@ function generateStarterHTML($starter)
     $html .= "
         <div class=\"menu-items\" data-aos=\"fade-up\" data-aos-delay=\"150\">
             <div class=\"menu-item\">
-                <img class=\"menu-item-image\" src=\"$imageUrl\" alt=\"$title\">
+                <img class=\"menu-item-image\" src=\"$image_url\" alt=\"$title\">
                 <div class=\"menu-item-info\">
                     <h3 class=\"menu-item-title\">$title</h3>
                     <span class=\"menu-item-price\">€$price</span>
@@ -449,7 +449,7 @@ function generateMainCourseHTML($mainCourse)
 {
     $html = ""; 
 
-    $imageUrl = htmlspecialchars($mainCourse['imageUrl'], ENT_QUOTES);
+    $image_url = htmlspecialchars($mainCourse['image_url'], ENT_QUOTES);
     $title = htmlspecialchars($mainCourse['title'], ENT_QUOTES);
     $price = htmlspecialchars($mainCourse['price'], ENT_QUOTES);
     $description = htmlspecialchars($mainCourse['description'], ENT_QUOTES);
@@ -458,7 +458,7 @@ function generateMainCourseHTML($mainCourse)
     $html .= "
         <div class=\"menu-items\" data-aos=\"fade-up\" data-aos-delay=\"150\">
             <div class=\"menu-item\">
-                <img class=\"menu-item-image\" src=\"$imageUrl\" alt=\"$title\">
+                <img class=\"menu-item-image\" src=\"$image_url\" alt=\"$title\">
                 <div class=\"menu-item-info\">
                     <h3 class=\"menu-item-title\">$title</h3>
                     <span class=\"menu-item-price\">€$price</span>
@@ -484,7 +484,7 @@ function generateDessertHTML($dessert)
 {
     $html = ""; 
 
-    $imageUrl = htmlspecialchars($dessert['imageUrl'], ENT_QUOTES);
+    $image_url = htmlspecialchars($dessert['image_url'], ENT_QUOTES);
     $title = htmlspecialchars($dessert['title'], ENT_QUOTES);
     $price = htmlspecialchars($dessert['price'], ENT_QUOTES);
     $description = htmlspecialchars($dessert['description'], ENT_QUOTES);
@@ -493,7 +493,7 @@ function generateDessertHTML($dessert)
     $html .= "
         <div class=\"menu-items\" data-aos=\"fade-up\" data-aos-delay=\"150\">
             <div class=\"menu-item\">
-                <img class=\"menu-item-image\" src=\"$imageUrl\" alt=\"$title\">
+                <img class=\"menu-item-image\" src=\"$image_url\" alt=\"$title\">
                 <div class=\"menu-item-info\">
                     <h3 class=\"menu-item-title\">$title</h3>
                     <span class=\"menu-item-price\">€$price</span>
@@ -522,7 +522,7 @@ function displayStarterByID($starter)
     echo '<section class="product-container container">';
     echo '<div class="product-info-container">';
     echo '<div class="product-img">';
-    echo '<img src="'.DOMAIN. '/'. $starter['imageUrl'] . '" alt="' . $starter['title'] . '">';
+    echo '<img src="'.DOMAIN. '/'. $starter['image_url'] . '" alt="' . $starter['title'] . '">';
     echo '</div>';
     echo '<div class="product-info">';
     echo '<div>';
@@ -565,7 +565,7 @@ function displayMainCourseByID($mainCourse)
     echo '<section class="product-container container">';
     echo '<div class="product-info-container">';
     echo '<div class="product-img">';
-    echo '<img src="'.DOMAIN. '/'. $mainCourse['imageUrl'] . '" alt="' . $mainCourse['title'] . '">';
+    echo '<img src="'.DOMAIN. '/'. $mainCourse['image_url'] . '" alt="' . $mainCourse['title'] . '">';
     echo '</div>';
     echo '<div class="product-info">';
     echo '<div>';
@@ -606,7 +606,7 @@ function displayDessertByID($dessert)
     echo '<section class="product-container container">';
     echo '<div class="product-info-container">';
     echo '<div class="product-img">';
-    echo '<img src="'.DOMAIN. '/'. $dessert['imageUrl'] . '" alt="' . $dessert['title'] . '">';
+    echo '<img src="'.DOMAIN. '/'. $dessert['image_url'] . '" alt="' . $dessert['title'] . '">';
     echo '</div>';
     echo '<div class="product-info">';
     echo '<div>';
