@@ -31,9 +31,9 @@
     padding: 1em;
     background-color: $black;
 
-    h1{
+    h1 {
         @extend %h1-admin;
-        margin:0;
+        margin: 0;
     }
 
     .welcome {
@@ -61,51 +61,43 @@
             gap: 3em;
             z-index: 3;
 
-            .category-card {
-                @include d-flex(flex, space-evenly, center, column, center);
+            .category-card-container {
+                @include d-flex(flex, center, center, column, center);
 
-                background-color: $primary-darken;
-                margin-top: 5em;
-                padding: 1em;
-                border-radius: 1em;
-                width: 25em;
-                height: 25em;
-                gap: 2em;
-                transition: all 0.5s ease;
-
-                .btn-primary {
-                    @include d-flex(block, center, center, column, center);
-                    color: $white;
-                    background-color: $primary;
-                    width: 15em;
+                img {
                     height: 15em;
-                    font-weight: 200;
-                    font-size: 1.5em;
+                    width: auto;
+                }
+                .category-card {
+                    @include d-flex(flex, center, center, column, center);
+
+                    background-color: $primary-darken;
+                    padding: 1em;
                     border-radius: 1em;
-                    transition: all 1.5s 0.2s ease;
-                    position: relative;
-                    max-width: 25em;
-                    text-decoration: none;
-                    z-index: 0;
-                    overflow: hidden;
+                    width: 25em;
+                    height: 10em;
+                    gap: 1em;
+                    transition: all 0.5s ease;
 
-                    &:before {
-                        content: "";
-                        position: absolute;
-                        z-index: -1;
-                        top: -1em;
-                        right: -1em;
-                        background: $secondary;
-                        height: 2.5em;
-                        width: 2.5em;
-                        border-radius: 1.5em;
-                        transform: scale(1);
-                        transform-origin: 50% 50%;
-                        transition: transform 0.5s ease-out;
-                    }
+                    .btn-primary {
+                        @include d-flex(flex, center, center, column, center);
+                        color: $black;
+                        background-color: $primary;
+                        width: 15em;
+                        height: auto;
+                        font-weight: 300;
+                        font-size: 1.5em;
+                        border-radius: 1em;
+                        transition: all 1.5s 0.2s ease;
+                        position: relative;
+                        max-width: 25em;
+                        text-decoration: none;
+                        z-index: 0;
+                        overflow: hidden;
 
-                    &:hover:before {
-                        transform: scale(21);
+                        &:hover {
+                            @include hover("background-color", $black, "color", $white);
+                        }
                     }
                 }
             }
@@ -137,9 +129,13 @@
                 width: 100%;
                 gap: 1em;
 
-                .category-card {
-                    margin-top: 2em;
-                    gap: 1em;
+                .category-card-container {
+                    width: 100%;
+
+                    .category-card {
+                        margin-top: 2em;
+                        gap: 1em;
+                    }
                 }
             }
         }
@@ -148,7 +144,7 @@
     @media (min-width: 769px) and (max-width: 1332px) {
         @include d-flex(flex, center, center, column, center);
         height: auto;
-        width: 100%; 
+        width: 100%;
 
         .manager-content {
             .category-container {
