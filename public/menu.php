@@ -21,7 +21,7 @@ if (!is_object($conn)) {
     if (is_array($resultStarters) && !empty($resultStarters)) {
         $execute = true;
     } else {
-        $msg = getMessage('Il n\'y a pas de menu à afficher actuellement', 'error');
+        $msg = getMessage('There is currently no menu to display.', 'error');
     }
 }
 
@@ -177,7 +177,7 @@ if (!is_object($conn)) {
                                         <?php $delay += 200; ?>
                                     <?php endif; ?>
                                     <div class="menu-item">
-                                        <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($starter['imageUrl']) ?>" alt="<?= htmlspecialchars($starter['title']) ?>">
+                                        <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($starter['image_url']) ?>" alt="<?= htmlspecialchars($starter['title']) ?>">
                                         <div class="menu-item-info">
                                             <h3 class="menu-item-title"><?= htmlspecialchars($starter['title']) ?></h3>
                                             <span class="menu-item-price">€<?= number_format($starter['price'], 2) ?></span>
@@ -207,7 +207,7 @@ if (!is_object($conn)) {
                                         <?php $delay += 100; ?>
                                     <?php endif; ?>
                                     <div class="menu-item">
-                                        <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($mainCourse['imageUrl']) ?>" alt="<?= htmlspecialchars($mainCourse['title']) ?>">
+                                        <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($mainCourse['image_url']) ?>" alt="<?= htmlspecialchars($mainCourse['title']) ?>">
                                         <div class="menu-item-info">
                                             <h3 class="menu-item-title"><?= htmlspecialchars($mainCourse['title']) ?></h3>
                                             <span class="menu-item-price">€<?= number_format($mainCourse['price'], 2) ?></span>
@@ -236,7 +236,7 @@ if (!is_object($conn)) {
                                         <?php $delay += 100; ?>
                                     <?php endif; ?>
                                     <div class="menu-item">
-                                        <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($dessert['imageUrl']) ?>" alt="<?= htmlspecialchars($dessert['title']) ?>">
+                                        <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($dessert['image_url']) ?>" alt="<?= htmlspecialchars($dessert['title']) ?>">
                                         <div class="menu-item-info">
                                             <h3 class="menu-item-title"><?= htmlspecialchars($dessert['title']) ?></h3>
                                             <span class="menu-item-price">€<?= number_format($dessert['price'], 2) ?></span>
