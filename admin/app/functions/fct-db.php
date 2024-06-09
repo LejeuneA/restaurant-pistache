@@ -323,7 +323,7 @@ function getDessertByIDDB($conn, $idDessert)
 
         return $resultat;
     } catch (PDOException $e) {
-        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : ggetDessertByIDDB() function";
+        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getDessertByIDDB() function";
         return $st;
     }
 }
@@ -688,7 +688,7 @@ function updateDessertDB($conn, $datas)
             $active = 0;
 
         // Insertion des données dans la table articles
-        $req = $conn->prepare("UPDATE dessert SET image_url = :image_url, title = :title, description = :description, price = :price, content = :content, active = :active, idCategory = :idCategory WHERE idDessert = :idDessert");
+        $req = $conn->prepare("UPDATE desserts SET image_url = :image_url, title = :title, description = :description, price = :price, content = :content, active = :active, idCategory = :idCategory WHERE idDessert = :idDessert");
         $req->bindParam(':image_url', $image_url);
         $req->bindParam(':title', $title);
         $req->bindParam(':price', $price);
