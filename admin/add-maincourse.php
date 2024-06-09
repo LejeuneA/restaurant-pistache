@@ -13,7 +13,6 @@ $tinyMCE = true;
 $execute = false;
 
 // Check the database connection
-// Check the database connection
 if (!is_object($conn)) {
     $msg = getMessage($conn, 'error');
 } else {
@@ -23,17 +22,17 @@ if (!is_object($conn)) {
         $addData = [];
 
         // Gather data from the form
-        $addData['image_url'] = ''; // Placeholder for now, will be updated after processing image upload
+        $addData['image_url'] = '';
         $addData['title'] = isset($_POST['title']) ? $_POST['title'] : '';
-        $addData['feature'] = isset($_POST['feature']) ? $_POST['feature'] : '';
         $addData['price'] = isset($_POST['price']) ? $_POST['price'] : '';
+        $addData['description'] = isset($_POST['description']) ? $_POST['description'] : '';
         $addData['content'] = isset($_POST['content']) ? $_POST['content'] : '';
         $addData['published_article'] = isset($_POST['published_article']) ? 1 : 0;
         $addData['idCategory'] = isset($_POST['idCategory']) ? $_POST['idCategory'] : 0;
 
         // Handle image upload
         if (isset($_FILES['image_upload']) && $_FILES['image_upload']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = 'uploads/'; // Directory where uploaded images will be stored
+            $uploadDir = 'uploads/';
             $uploadFile = $uploadDir . basename($_FILES['image_upload']['name']);
 
             // Move uploaded file to designated directory
@@ -43,24 +42,24 @@ if (!is_object($conn)) {
         }
 
         if ($_SESSION['user_permission'] == 1) {
-            // Add the papeterie to the database
-            $addResult = addPapeterieDB($conn, $addData);
+            // Add the maincourse to the database
+            $addResult = addMainCourseDB($conn, $addData);
 
             // Check the result and display appropriate message
             if ($addResult === true) {
 
-                $msg = getMessage('Papeterie ajouté avec succès.', 'success');
+                $msg = getMessage('Main course successfully added.', 'success');
 
                 // Set session variable to indicate success
-                $_SESSION['papeterie_added'] = true;
+                $_SESSION['maincourse_added'] = true;
                 // Redirect to the same page to refresh and clear the form
-                header('Location: add-papeterie.php');
+                header('Location: add-maincourse.php');
                 exit();
             } else {
-                $msg = getMessage('Erreur lors de l\'ajout de la papeterie. Veuillez réessayer.', 'error');
+                $msg = getMessage('Error adding main course. Please try again.', 'error');
             }
         } else {
-            $msg = getMessage('Vous n\'avez pas le droit d\'ajouter une papeterie.', 'error');
+            $msg = getMessage('You are not allowed to add a main course.', 'error');
         }
     }
 
@@ -69,20 +68,20 @@ if (!is_object($conn)) {
 }
 
 // At the beginning of the file, before any output
-// Check if a papeterie has been successfully added
-if (isset($_SESSION['papeterie_added']) && $_SESSION['papeterie_added'] === true) {
+// Check if a maincourse has been successfully added
+if (isset($_SESSION['maincourse_added']) && $_SESSION['maincourse_added'] === true) {
     // Display success message
-    $msg = getMessage('La papeterie a été ajouté avec succès.', 'success');
+    $msg = getMessage('The main course has been added successfully.', 'success');
     // Clear the session variable
-    unset($_SESSION['papeterie_added']);
+    unset($_SESSION['maincourse_added']);
 }
 
 // Initialize the $addData array with empty values
 $addData = [
     'image_url' => '',
     'title' => '',
-    'feature' => '',
     'price' => '',
+    'description' => '',
     'content' => '',
     'published_article' => 0,
     'idCategory' => 0
@@ -118,72 +117,65 @@ $addData = [
     ------------------------------------------------------------------>
     <div class="edit-content">
         <div class="edit-title">
-            <h1>Ajouter une papeterie</h1>
+            <h1>Add a main course</h1>
             <div class="message">
                 <?php if (isset($msg)) echo $msg; ?>
             </div>
         </div>
 
         <div class="edit-form container">
-            <form action="add-papeterie.php" method="post" enctype="multipart/form-data">
+            <form id="add-maincourse-form" action="add-maincourse.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="form" value="add">
 
                 <!-- Form top -->
                 <div class="form-top">
-
                     <!-- Form left -->
                     <div class="form-left">
-
                         <!-- Statue of the article -->
-                        <div class=" form-ctrl">
-                            <label for="published_article" class="published_article">Status du produit <span>(publication)</span></label>
-                            <?php displayFormRadioBtnArticlePublished(isset($papeterie['active']) ? $papeterie['active'] : 0, 'ADD'); ?>
+                        <div class=" checkbox-ctrl">
+                            <label for="published_article" class="published_article">Product status <span>(publication)</span></label>
+                            <?php displayFormRadioBtnArticlePublished(isset($maincourse['active']) ? $maincourse['active'] : 0, 'ADD'); ?>
                         </div>
-
                         <!-- Category -->
                         <div class="form-ctrl">
-                            <label for="idCategory" class="form-ctrl">Catégorie</label>
+                            <label for="idCategory" class="form-ctrl">Category</label>
                             <select id="idCategory" name="idCategory" class="form-ctrl" required>
-                                <option value="">Sélectionner une catégorie</option>
+                                <option value="">Select a category</option>
                                 <?php foreach ($categories as $category) : ?>
                                     <option value="<?php echo $category['idCategory']; ?>"><?php echo $category['nameOfCategory']; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
-
                         <!-- Title -->
                         <div class="form-ctrl">
-                            <label for="title" class="form-ctrl">Titre</label>
+                            <label for="title" class="form-ctrl">Title</label>
                             <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($addData['title']) ? $addData['title'] : ''; ?>" required>
                         </div>
-
-                        <!-- Feature -->
+                        
+                        <!-- Description -->
                         <div class="form-ctrl">
-                            <label for="feature" class="form-ctrl">Caractèriques</label>
-                            <input type="text" class="form-ctrl" id="feature" name="feature" value="<?php echo isset($addData['feature']) ? $addData['feature'] : ''; ?>">
+                            <label for="description" class="form-ctrl">Description</label>
+                            <input type="text" class="form-ctrl" id="description" name="description" value="<?php echo isset($addData['description']) ? $addData['description'] : ''; ?>">
                         </div>
 
                         <!-- Price -->
                         <div class="form-ctrl">
-                            <label for="price" class="form-ctrl">Prix</label>
+                            <label for="price" class="form-ctrl">Price</label>
                             <input type="text" class="form-ctrl" id="price" name="price" value="<?php echo isset($addData['price']) ? $addData['price'] : ''; ?>">
                         </div>
-
                     </div>
 
                     <!-- Form right -->
                     <div class="form-right">
-
                         <!-- File upload field -->
                         <div class="form-ctrl">
-                            <label for="image_upload" class="form-ctrl">Uploader l'image</label>
+                            <label for="image_upload" class="form-ctrl">Upload image</label>
                             <input type="file" class="form-ctrl" id="image_upload" name="image_upload" onchange="previewImage(this)">
                         </div>
                         <!-- Preview of the image -->
                         <div class="form-ctrl">
-                            <label for="image_preview" class="form-ctrl">Aperçu de l'image</label>
+                            <label for="image_preview" class="form-ctrl">Image preview</label>
                             <div>
-                                <!-- <input type="text" class="form-ctrl image_url" id="image_url" name="image_url" value="<?php echo isset($papeterie['image_url']) ? $papeterie['image_url'] : ''; ?>" readonly> -->
                                 <img id="image_preview" class="image_preview" src="<?php echo isset($addData['image_url']) ? $addData['image_url'] : ''; ?>">
                             </div>
                         </div>
@@ -193,11 +185,11 @@ $addData = [
                 <!-- Form bottom -->
                 <div class="form-bottom">
                     <div class="form-ctrl">
-                        <label for="content" class="form-ctrl">Contenu</label>
+                        <label for="content" class="form-ctrl">Content</label>
                         <textarea class="content" id="content" name="content" rows="5"><?php echo isset($addData['content']) ? $addData['content'] : ''; ?></textarea>
                     </div>
                 </div>
-                <button type="submit" class="btn-primary">Ajouter</button>
+                <button type="submit" class="btn-primary"><i class="fa-solid fa-square-plus"></i> Add</button>
             </form>
         </div>
     </div>
@@ -219,8 +211,9 @@ $addData = [
     <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <!-- Main Js -->
-    <script src="../js/main.js"></script>
+   <!-- Main Js -->
+   <script src="../js/main.js"></script>
+
 </body>
 
 </html>
