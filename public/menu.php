@@ -213,7 +213,7 @@ if (!is_object($conn)) {
                                     <?php endif; ?>
                                     <div class="menu-item">
                                         <a class="menu-item-image" href="<?= DOMAIN . '/admin/article-maincourse.php?idMainCourse=' . htmlspecialchars($mainCourse['idMainCourse']) ?>">
-                                            <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($mainCourse['image_url']) ?>" alt="<?= htmlspecialchars($mainCourse['title']) ?>">
+                                            <img class="menu-item-image" src="<?= DOMAIN . '/admin/' . htmlspecialchars($mainCourse['image_url']) ?>" alt="<?= htmlspecialchars($mainCourse['title']) ?>">
                                         </a>
 
                                         <div class="menu-item-info">
@@ -248,7 +248,7 @@ if (!is_object($conn)) {
                                     <?php endif; ?>
                                     <div class="menu-item">
                                         <a class="menu-item-image" href="<?= DOMAIN . '/admin/article-dessert.php?idDessert=' . htmlspecialchars($dessert['idDessert']) ?>">
-                                            <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($dessert['image_url']) ?>" alt="<?= htmlspecialchars($dessert['title']) ?>">
+                                            <img class="menu-item-image" src="<?= DOMAIN . '/admin/' . htmlspecialchars($dessert['image_url']) ?>" alt="<?= htmlspecialchars($dessert['title']) ?>">
                                         </a>
 
                                         <div class="menu-item-info">
