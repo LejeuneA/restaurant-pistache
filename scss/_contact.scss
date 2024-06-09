@@ -23,7 +23,7 @@
         .map-container {
             @include d-flex(flex, center, start, column, center);
             width: 30%;
-            height: 48.5em;
+            height: 48.2em;
             margin-bottom: 3em;
             margin-top: 15em;
             padding: 0;
@@ -87,7 +87,7 @@
                     width: 100%;
     
                     .contact-form-container {
-                        @include d-flex(flex, center, center, row, center);
+                        @include d-flex(flex, center, start, row, center);
                         gap: 3em;
                         width: 100%;
     
@@ -136,7 +136,9 @@
 
                                     textarea{
                                         resize: none;
-                                        height: 12em;
+                                        height: 11.5em;
+                                        margin: 0;
+                                        padding: 0;
                                     }
                                 }
                             }
@@ -173,6 +175,8 @@
 
                 .contact-info-item{
                     width: 100%;
+                    font-size: 1.3em;
+
                 }
             }
         }
@@ -281,6 +285,8 @@
 
                     .contact-info-item{
                         width: 100%;
+                        font-size: 1.1em;
+                    
                     }
                 }
             }
@@ -296,6 +302,7 @@
         .contact-upper-container{
             @include d-flex(flex, center, center, column, center);
             gap:1em;
+            
             .map-container {
                 @include d-flex(flex, center, start, column, center);
                 width: 90%;
