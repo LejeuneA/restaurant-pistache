@@ -92,12 +92,12 @@ $addData = [
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <?php
     // Include the head section
-    displayHeadSection('Ajouter un cadeau');
+    displayHeadSection('Add a dessert');
     ?>
 </head>
 
