@@ -95,7 +95,7 @@ $addData = [
 <head>
     <?php
     // Include the head section
-    displayHeadSection('Ajouter un starter');
+    displayHeadSection('Add a starter');
     ?>
 </head>
 
