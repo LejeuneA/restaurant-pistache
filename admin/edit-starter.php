@@ -37,7 +37,7 @@ if (!is_object($conn)) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Check if the user has permission to edit the starter
             if ($_SESSION['user_permission'] == 2) {
-                $msg = getMessage('You do not have the right to modify a starter.', 'error');
+                $msg = getMessage('You are not allowed to modify a starter.', 'error');
             } else {
                 // Check if the form was submitted for update
                 if (isset($_POST['update_form'])) {
