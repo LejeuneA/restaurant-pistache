@@ -177,9 +177,14 @@ if (!is_object($conn)) {
                                         <?php $delay += 200; ?>
                                     <?php endif; ?>
                                     <div class="menu-item">
-                                        <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($starter['image_url']) ?>" alt="<?= htmlspecialchars($starter['title']) ?>">
+                                        <a class="menu-item-image" href="<?= DOMAIN . '/admin/article-starter.php?idStarter=' . htmlspecialchars($starter['idStarter']) ?>">
+                                            <img class="menu-item-image" src="<?= DOMAIN . '/admin/' . htmlspecialchars($starter['image_url']) ?>" alt="<?= htmlspecialchars($starter['title']) ?>">
+                                        </a>
+
                                         <div class="menu-item-info">
-                                            <h3 class="menu-item-title"><?= htmlspecialchars($starter['title']) ?></h3>
+                                            <a href="article-starter.php?idStarter=<?= htmlspecialchars($starter['idStarter']) ?>" class="menu-item-title-link">
+                                                <h3 class="menu-item-title"><?= htmlspecialchars($starter['title']) ?></h3>
+                                            </a>
                                             <span class="menu-item-price">€<?= number_format($starter['price'], 2) ?></span>
                                             <p><?= htmlspecialchars($starter['description']) ?></p>
                                         </div>
@@ -202,19 +207,25 @@ if (!is_object($conn)) {
                             <?php
                             $delay = 0;
                             foreach ($resultMainCourses as $index => $mainCourse) : ?>
-                                <?php if ($index % 4 == 0) : ?>
+                                <?php if ($index % 2 == 0) : ?>
                                     <div class="menu-row" data-aos="fade-up" data-aos-delay="<?= $delay ?>">
                                         <?php $delay += 100; ?>
                                     <?php endif; ?>
                                     <div class="menu-item">
-                                        <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($mainCourse['image_url']) ?>" alt="<?= htmlspecialchars($mainCourse['title']) ?>">
+                                        <a class="menu-item-image" href="<?= DOMAIN . '/admin/article-maincourse.php?idMainCourse=' . htmlspecialchars($mainCourse['idMainCourse']) ?>">
+                                            <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($mainCourse['image_url']) ?>" alt="<?= htmlspecialchars($mainCourse['title']) ?>">
+                                        </a>
+
                                         <div class="menu-item-info">
-                                            <h3 class="menu-item-title"><?= htmlspecialchars($mainCourse['title']) ?></h3>
+                                            <a href="article-maincourse.php?idMainCourse=<?= htmlspecialchars($mainCourse['idMainCourse']) ?>" class="menu-item-title-link">
+                                                <h3 class="menu-item-title"><?= htmlspecialchars($mainCourse['title']) ?></h3>
+                                            </a>
+
                                             <span class="menu-item-price">€<?= number_format($mainCourse['price'], 2) ?></span>
                                             <p><?= htmlspecialchars($mainCourse['description']) ?></p>
                                         </div>
                                     </div>
-                                    <?php if (($index + 1) % 4 == 0) : ?>
+                                    <?php if (($index + 1) % 2 == 0) : ?>
                                     </div>
                                 <?php endif; ?>
                                 <?php if ($index >= 160) break; ?>
@@ -231,19 +242,25 @@ if (!is_object($conn)) {
                             <?php
                             $delay = 0;
                             foreach ($resultDesserts as $index => $dessert) : ?>
-                                <?php if ($index % 4 == 0) : ?>
+                                <?php if ($index % 2 == 0) : ?>
                                     <div class="menu-row" data-aos="fade-up" data-aos-delay="<?= $delay ?>">
                                         <?php $delay += 100; ?>
                                     <?php endif; ?>
                                     <div class="menu-item">
-                                        <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($dessert['image_url']) ?>" alt="<?= htmlspecialchars($dessert['title']) ?>">
+                                        <a class="menu-item-image" href="<?= DOMAIN . '/admin/article-dessert.php?idDessert=' . htmlspecialchars($dessert['idDessert']) ?>">
+                                            <img class="menu-item-image" src="<?= DOMAIN . '/uploads/' . htmlspecialchars($dessert['image_url']) ?>" alt="<?= htmlspecialchars($dessert['title']) ?>">
+                                        </a>
+
                                         <div class="menu-item-info">
-                                            <h3 class="menu-item-title"><?= htmlspecialchars($dessert['title']) ?></h3>
+                                            <a href="article-dessert.php?idDessert=<?= htmlspecialchars($dessert['idDessert']) ?>" class="menu-item-title-link">
+                                                <h3 class="menu-item-title"><?= htmlspecialchars($dessert['title']) ?></h3>
+                                            </a>
+
                                             <span class="menu-item-price">€<?= number_format($dessert['price'], 2) ?></span>
                                             <p><?= htmlspecialchars($dessert['description']) ?></p>
                                         </div>
                                     </div>
-                                    <?php if (($index + 1) % 4 == 0) : ?>
+                                    <?php if (($index + 1) % 2 == 0) : ?>
                                     </div>
                                 <?php endif; ?>
                                 <?php if ($index >= 160) break; ?>
