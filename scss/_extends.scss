@@ -11,6 +11,7 @@
     font-weight: lighter;
     font-size: 3em;
     text-align: center;
+    margin-top: 3em;
 }
 
 /*-------------------------------------------------------
@@ -165,7 +166,7 @@
         tr {
             border: 1px solid $primary;
 
-            &:nth-child(even) {
+            &:nth-child(odd) {
                 background-color: $secondary;
             }
 
@@ -180,10 +181,6 @@
             &:last-child {
                 border-bottom-left-radius: 1em;
                 border-bottom-right-radius: 1em;
-            }
-
-            &:hover {
-                background-color: $secondary;
             }
 
             th {
@@ -246,9 +243,14 @@
                 }
 
                 .btn-secondary {
-                    @include button-style($primary, $black, $white, $black);
+                    @include button-style($white, $black, $black, $white);
                     margin: 0.3em;
                     width: 7em;
+                    border: 1px solid $primary;
+
+                    &:hover {
+                        border: 1px solid $black;
+                    }
                 }
             }
         }
