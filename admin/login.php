@@ -59,7 +59,7 @@ if (!is_object($conn)) {
 <html lang="fr">
 
 <head>
-    <?php displayHeadSection('S\'identifier'); ?>
+    <?php displayHeadSection('Identification'); ?>
 </head>
 
 <body>
