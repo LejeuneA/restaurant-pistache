@@ -5,24 +5,24 @@ $msg = null;
 $result = null;
 $execute = false;
 
-// Check if the ID of the starter is passed in the URL
-if (isset($_GET['idStarter']) && !empty($_GET['idStarter'])) {
-    $idStarter = $_GET['idStarter'];
+// Check if the ID of the main course is passed in the URL
+if (isset($_GET['idMainCourse']) && !empty($_GET['idMainCourse'])) {
+    $idMainCourse = $_GET['idMainCourse'];
     // Ensure that the database connection object is valid
     if (!is_object($conn)) {
         $msg = getMessage($conn, 'error');
     } else {
-        // Fetch the starter from the database based on the ID
-        $result = getStarterByIDDB($conn, $idStarter);
+        // Fetch the main course from the database based on the ID
+        $result = getMainCourseByIDDB($conn, $idMainCourse);
         // Check if the result is a valid array and not empty
         if (isset($result) && is_array($result) && !empty($result)) {
             $execute = true;
         } else {
-            $msg = getMessage('Il n\'y a pas du produit à afficher', 'error');
+            $msg = getMessage('There is no product to display.', 'error');
         }
     }
 } else {
-    $msg = getMessage('Il n\'y a pas du produit à afficher', 'error');
+    $msg = getMessage('There is no product to display.', 'error');
 }
 ?>
 
