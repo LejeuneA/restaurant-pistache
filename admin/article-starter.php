@@ -18,11 +18,11 @@ if (isset($_GET['idStarter']) && !empty($_GET['idStarter'])) {
         if (isset($result) && is_array($result) && !empty($result)) {
             $execute = true;
         } else {
-            $msg = getMessage('Il n\'y a pas du produit à afficher', 'error');
+            $msg = getMessage('There is no product to display.', 'error');
         }
     }
 } else {
-    $msg = getMessage('Il n\'y a pas du produit à afficher', 'error');
+    $msg = getMessage('There is no product to display', 'error');
 }
 ?>
 
