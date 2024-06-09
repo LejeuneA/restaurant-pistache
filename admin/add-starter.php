@@ -24,9 +24,8 @@ if (!is_object($conn)) {
         // Gather data from the form
         $addData['image_url'] = '';
         $addData['title'] = isset($_POST['title']) ? $_POST['title'] : '';
-        $addData['writer'] = isset($_POST['writer']) ? $_POST['writer'] : '';
-        $addData['feature'] = isset($_POST['feature']) ? $_POST['feature'] : '';
         $addData['price'] = isset($_POST['price']) ? $_POST['price'] : '';
+        $addData['description'] = isset($_POST['description']) ? $_POST['description'] : '';
         $addData['content'] = isset($_POST['content']) ? $_POST['content'] : '';
         $addData['published_article'] = isset($_POST['published_article']) ? 1 : 0;
         $addData['idCategory'] = isset($_POST['idCategory']) ? $_POST['idCategory'] : 0;
@@ -43,24 +42,24 @@ if (!is_object($conn)) {
         }
 
         if ($_SESSION['user_permission'] == 1) {
-            // Add the livre to the database
-            $addResult = addLivreDB($conn, $addData);
+            // Add the starter to the database
+            $addResult = addStarterDB($conn, $addData);
 
             // Check the result and display appropriate message
             if ($addResult === true) {
 
-                $msg = getMessage('Livre ajouté avec succès.', 'success');
+                $msg = getMessage('Starter successfully added.', 'success');
 
                 // Set session variable to indicate success
-                $_SESSION['livre_added'] = true;
+                $_SESSION['starter_added'] = true;
                 // Redirect to the same page to refresh and clear the form
-                header('Location: add-livre.php');
+                header('Location: add-starter.php');
                 exit();
             } else {
-                $msg = getMessage('Erreur lors de l\'ajout du livre. Veuillez réessayer.', 'error');
+                $msg = getMessage('Error adding starter. Please try again.', 'error');
             }
         } else {
-            $msg = getMessage('Vous n\'avez pas le droit d\'ajouter un livre.', 'error');
+            $msg = getMessage('You are not allowed to add a starter.', 'error');
         }
     }
 
@@ -69,21 +68,20 @@ if (!is_object($conn)) {
 }
 
 // At the beginning of the file, before any output
-// Check if a livre has been successfully added
-if (isset($_SESSION['livre_added']) && $_SESSION['livre_added'] === true) {
+// Check if a starter has been successfully added
+if (isset($_SESSION['starter_added']) && $_SESSION['starter_added'] === true) {
     // Display success message
-    $msg = getMessage('Le livre a été ajouté avec succès.', 'success');
+    $msg = getMessage('The starter has been added successfully.', 'success');
     // Clear the session variable
-    unset($_SESSION['livre_added']);
+    unset($_SESSION['starter_added']);
 }
 
 // Initialize the $addData array with empty values
 $addData = [
     'image_url' => '',
     'title' => '',
-    'writer' => '',
-    'feature' => '',
     'price' => '',
+    'description' => '',
     'content' => '',
     'published_article' => 0,
     'idCategory' => 0
@@ -92,12 +90,12 @@ $addData = [
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <?php
     // Include the head section
-    displayHeadSection('Ajouter un livre');
+    displayHeadSection('Ajouter un starter');
     ?>
 </head>
 
@@ -119,14 +117,14 @@ $addData = [
     ------------------------------------------------------------------>
     <div class="edit-content">
         <div class="edit-title">
-            <h1>Ajouter un livre</h1>
+            <h1>Ajouter un starter</h1>
             <div class="message">
                 <?php if (isset($msg)) echo $msg; ?>
             </div>
         </div>
 
         <div class="edit-form container">
-            <form id="add-livre-form" action="add-livre.php" method="post" enctype="multipart/form-data">
+            <form id="add-starter-form" action="add-starter.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="form" value="add">
 
                 <!-- Form top -->
@@ -136,7 +134,7 @@ $addData = [
                         <!-- Statue of the article -->
                         <div class=" checkbox-ctrl">
                             <label for="published_article" class="published_article">Status du produit <span>(publication)</span></label>
-                            <?php displayFormRadioBtnArticlePublished(isset($livre['active']) ? $livre['active'] : 0, 'ADD'); ?>
+                            <?php displayFormRadioBtnArticlePublished(isset($starter['active']) ? $starter['active'] : 0, 'ADD'); ?>
                         </div>
                         <!-- Category -->
                         <div class="form-ctrl">
@@ -153,16 +151,13 @@ $addData = [
                             <label for="title" class="form-ctrl">Titre</label>
                             <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($addData['title']) ? $addData['title'] : ''; ?>" required>
                         </div>
-                        <!-- Writer -->
+                        
+                        <!-- Description -->
                         <div class="form-ctrl">
-                            <label for="writer" class="form-ctrl">Author</label>
-                            <input type="text" class="form-ctrl" id="writer" name="writer" value="<?php echo isset($addData['writer']) ? $addData['writer'] : ''; ?>">
+                            <label for="description" class="form-ctrl">Caractèriques</label>
+                            <input type="text" class="form-ctrl" id="description" name="description" value="<?php echo isset($addData['description']) ? $addData['description'] : ''; ?>">
                         </div>
-                        <!-- Feature -->
-                        <div class="form-ctrl">
-                            <label for="feature" class="form-ctrl">Caractèriques</label>
-                            <input type="text" class="form-ctrl" id="feature" name="feature" value="<?php echo isset($addData['feature']) ? $addData['feature'] : ''; ?>">
-                        </div>
+
                         <!-- Price -->
                         <div class="form-ctrl">
                             <label for="price" class="form-ctrl">Prix</label>
@@ -181,7 +176,6 @@ $addData = [
                         <div class="form-ctrl">
                             <label for="image_preview" class="form-ctrl">Aperçu de l'image</label>
                             <div>
-                                <!-- <input type="text" class="form-ctrl image_url" id="image_url" name="image_url" value="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" readonly> -->
                                 <img id="image_preview" class="image_preview" src="<?php echo isset($addData['image_url']) ? $addData['image_url'] : ''; ?>">
                             </div>
                         </div>
