@@ -89,26 +89,6 @@ if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
                             Footer end
     ------------------------------------------------------------------>
 
-    <script>
-        // JavaScript functions for handling article actions
-        function modifierArticle(articleId) {
-            // Redirect to the edit page with the specified article ID
-            window.location.href = 'edit.php?id=' + articleId;
-        }
-
-        function afficherArticle(articleId) {
-            // Redirect to the article page with the specified article ID
-            window.location.href = 'article.php?id=' + articleId;
-        }
-
-        function supprimerArticle(articleId) {
-            // Confirm article deletion and redirect to manager.php with the article ID
-            if (confirm('Êtes-vous certain de vouloir supprimer l\'article ci-dessous ?')) {
-                window.location.href = 'manager.php?id=' + articleId;
-            }
-        }
-    </script>
-
     <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
