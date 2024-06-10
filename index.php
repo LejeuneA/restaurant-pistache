@@ -472,6 +472,7 @@
                             </div>
 
                             <p>343 Rue Saint-Gilles, 4000 Liége - Belgique</p>
+                            <!-- <a href="./admin/login.php"><p><i class="fas fa-user"></i> Login</p></a> -->
                         </div>
                     </div>
                     <!-- Follow us column end -->
