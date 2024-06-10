@@ -708,111 +708,6 @@ function getMessage($message, $type = 'success')
     return $html;
 }
 
-/**-----------------------------------------------------------------
-        Generate HTML markup for displaying starters information
-*------------------------------------------------------------------**/
-/**
- * Generate HTML markup for displaying starters information
- * 
- * @param array $starter 
- * @return string 
- */
-function generateStarterHTML($starter)
-{
-    $html = ""; 
-
-    $image_url = htmlspecialchars($starter['image_url'], ENT_QUOTES);
-    $title = htmlspecialchars($starter['title'], ENT_QUOTES);
-    $price = htmlspecialchars($starter['price'], ENT_QUOTES);
-    $description = htmlspecialchars($starter['description'], ENT_QUOTES);
-
-    // Construct the HTML markup
-    $html .= "
-        <div class=\"menu-items\" data-aos=\"fade-up\" data-aos-delay=\"150\">
-            <div class=\"menu-item\">
-                <img class=\"menu-item-image\" src=\"$image_url\" alt=\"$title\">
-                <div class=\"menu-item-info\">
-                    <h3 class=\"menu-item-title\">$title</h3>
-                    <span class=\"menu-item-price\">€$price</span>
-                    <p>$description</p>
-                </div>
-            </div>
-        </div>
-    ";
-
-    return $html;
-}
-
-/**-----------------------------------------------------------------
-    Generate HTML markup for displaying main courses information
-*------------------------------------------------------------------**/
-/**
- * Generate HTML markup for displaying main course information
- * 
- * @param array $mainCourse
- * @return string 
- */
-function generateMainCourseHTML($mainCourse)
-{
-    $html = ""; 
-
-    $image_url = htmlspecialchars($mainCourse['image_url'], ENT_QUOTES);
-    $title = htmlspecialchars($mainCourse['title'], ENT_QUOTES);
-    $price = htmlspecialchars($mainCourse['price'], ENT_QUOTES);
-    $description = htmlspecialchars($mainCourse['description'], ENT_QUOTES);
-
-    // Construct the HTML markup
-    $html .= "
-        <div class=\"menu-items\" data-aos=\"fade-up\" data-aos-delay=\"150\">
-            <div class=\"menu-item\">
-                <img class=\"menu-item-image\" src=\"$image_url\" alt=\"$title\">
-                <div class=\"menu-item-info\">
-                    <h3 class=\"menu-item-title\">$title</h3>
-                    <span class=\"menu-item-price\">€$price</span>
-                    <p>$description</p>
-                </div>
-            </div>
-        </div>
-    ";
-
-    return $html;
-}
-
-/**-----------------------------------------------------------------
-    Generate HTML markup for displaying desserts information
-*------------------------------------------------------------------**/
-/**
- * Generate HTML markup for displaying desserts information
- * 
- * @param array $dessert
- * @return string 
- */
-function generateDessertHTML($dessert)
-{
-    $html = ""; 
-
-    $image_url = htmlspecialchars($dessert['image_url'], ENT_QUOTES);
-    $title = htmlspecialchars($dessert['title'], ENT_QUOTES);
-    $price = htmlspecialchars($dessert['price'], ENT_QUOTES);
-    $description = htmlspecialchars($dessert['description'], ENT_QUOTES);
-
-    // Construct the HTML markup
-    $html .= "
-        <div class=\"menu-items\" data-aos=\"fade-up\" data-aos-delay=\"150\">
-            <div class=\"menu-item\">
-                <img class=\"menu-item-image\" src=\"$image_url\" alt=\"$title\">
-                <div class=\"menu-item-info\">
-                    <h3 class=\"menu-item-title\">$title</h3>
-                    <span class=\"menu-item-price\">€$price</span>
-                    <p>$description</p>
-                </div>
-            </div>
-        </div>
-    ";
-
-    return $html;
-}
-
 
 /**-----------------------------------------------------------------
              Displays the starter received as a parameter
@@ -840,7 +735,6 @@ function displayStarterByID($starter)
     echo '<p>' . $starter['price'] . ' €</p>';
     echo '</div>';
     echo '<div class="product-description">';
-    echo '<h2>Description</h2>';
     echo '<p>' . htmlspecialchars_decode($starter['content']) . '</p>';
     echo '</div>';
     echo '</div>';
@@ -875,7 +769,6 @@ function displayMainCourseByID($mainCourse)
     echo '<p>' . $mainCourse['price'] . ' €</p>';
     echo '</div>';
     echo '<div class="product-description">';
-    echo '<h2>Description</h2>';
     echo '<p>' . htmlspecialchars_decode($mainCourse['content']) . '</p>';
     echo '</div>';
     echo '</div>';
@@ -909,7 +802,6 @@ function displayDessertByID($dessert)
     echo '<p>' . $dessert['price'] . ' €</p>';
     echo '</div>';
     echo '<div class="product-description">';
-    echo '<h2>Description</h2>';
     echo '<p>' . htmlspecialchars_decode($dessert['content']) . '</p>';
     echo '</div>';
     echo '</div>';
