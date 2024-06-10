@@ -117,7 +117,7 @@ if (isset($_SESSION['message'])) {
 
 <body>
     <header>
-        <?php displayNavigation(); ?>
+        <?php displayNavigationAdmin(); ?>
     </header>
 
     <div class="edit-content">
