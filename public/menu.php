@@ -89,12 +89,12 @@ if (!is_object($conn)) {
                                         <?php $delay += 200; ?>
                                     <?php endif; ?>
                                     <div class="menu-item">
-                                        <a class="menu-item-image" href="<?= DOMAIN . '/admin/article-starter.php?idStarter=' . htmlspecialchars($starter['idStarter']) ?>">
+                                        <a class="menu-item-image" href="<?= DOMAIN . '/admin/single-starter.php?idStarter=' . htmlspecialchars($starter['idStarter']) ?>">
                                             <img class="menu-item-image" src="<?= DOMAIN . '/admin/' . htmlspecialchars($starter['image_url']) ?>" alt="<?= htmlspecialchars($starter['title']) ?>">
                                         </a>
 
                                         <div class="menu-item-info">
-                                            <a href="article-starter.php?idStarter=<?= htmlspecialchars($starter['idStarter']) ?>" class="menu-item-title-link">
+                                            <a href="single-starter.php?idStarter=<?= htmlspecialchars($starter['idStarter']) ?>" class="menu-item-title-link">
                                                 <h3 class="menu-item-title"><?= htmlspecialchars($starter['title']) ?></h3>
                                             </a>
                                             <span class="menu-item-price">€<?= number_format($starter['price'], 2) ?></span>
@@ -124,12 +124,12 @@ if (!is_object($conn)) {
                                         <?php $delay += 100; ?>
                                     <?php endif; ?>
                                     <div class="menu-item">
-                                        <a class="menu-item-image" href="<?= DOMAIN . '/admin/article-maincourse.php?idMainCourse=' . htmlspecialchars($mainCourse['idMainCourse']) ?>">
+                                        <a class="menu-item-image" href="<?= DOMAIN . '/admin/single-maincourse.php?idMainCourse=' . htmlspecialchars($mainCourse['idMainCourse']) ?>">
                                             <img class="menu-item-image" src="<?= DOMAIN . '/admin/' . htmlspecialchars($mainCourse['image_url']) ?>" alt="<?= htmlspecialchars($mainCourse['title']) ?>">
                                         </a>
 
                                         <div class="menu-item-info">
-                                            <a href="article-maincourse.php?idMainCourse=<?= htmlspecialchars($mainCourse['idMainCourse']) ?>" class="menu-item-title-link">
+                                            <a href="single-maincourse.php?idMainCourse=<?= htmlspecialchars($mainCourse['idMainCourse']) ?>" class="menu-item-title-link">
                                                 <h3 class="menu-item-title"><?= htmlspecialchars($mainCourse['title']) ?></h3>
                                             </a>
 
@@ -159,12 +159,12 @@ if (!is_object($conn)) {
                                         <?php $delay += 100; ?>
                                     <?php endif; ?>
                                     <div class="menu-item">
-                                        <a class="menu-item-image" href="<?= DOMAIN . '/admin/article-dessert.php?idDessert=' . htmlspecialchars($dessert['idDessert']) ?>">
+                                        <a class="menu-item-image" href="<?= DOMAIN . '/admin/single-dessert.php?idDessert=' . htmlspecialchars($dessert['idDessert']) ?>">
                                             <img class="menu-item-image" src="<?= DOMAIN . '/admin/' . htmlspecialchars($dessert['image_url']) ?>" alt="<?= htmlspecialchars($dessert['title']) ?>">
                                         </a>
 
                                         <div class="menu-item-info">
-                                            <a href="article-dessert.php?idDessert=<?= htmlspecialchars($dessert['idDessert']) ?>" class="menu-item-title-link">
+                                            <a href="single-dessert.php?idDessert=<?= htmlspecialchars($dessert['idDessert']) ?>" class="menu-item-title-link">
                                                 <h3 class="menu-item-title"><?= htmlspecialchars($dessert['title']) ?></h3>
                                             </a>
 
