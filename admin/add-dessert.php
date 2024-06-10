@@ -27,7 +27,7 @@ if (!is_object($conn)) {
         $addData['price'] = isset($_POST['price']) ? $_POST['price'] : '';
         $addData['description'] = isset($_POST['description']) ? $_POST['description'] : '';
         $addData['content'] = isset($_POST['content']) ? $_POST['content'] : '';
-        $addData['published_article'] = isset($_POST['published_article']) ? 1 : 0;
+        $addData['published_'] = isset($_POST['published_']) ? 1 : 0;
         $addData['idCategory'] = isset($_POST['idCategory']) ? $_POST['idCategory'] : 0;
 
         // Handle image upload
@@ -83,7 +83,7 @@ $addData = [
     'price' => '',
     'description' => '',
     'content' => '',
-    'published_article' => 0,
+    'published_' => 0,
     'idCategory' => 0
 ];
 
