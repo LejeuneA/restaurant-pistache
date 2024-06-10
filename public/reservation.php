@@ -1,3 +1,7 @@
+<?php
+require_once('C:\xampp\htdocs\restaurant-pistache\admin\settings.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +15,7 @@
 
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    
+
     <!-- AOS Library CSS -->
     <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
 
@@ -32,97 +36,7 @@
                                 Header
     ------------------------------------------------------------------>
     <header>
-        <div class="header-top">
-            <div class="header-top-container container">
-                <div class="header-top-items">
-                    <div class="header-top-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+32 493 38 77 29</span>
-                    </div>
-                </div>
-                <div class="header-top-items">
-                    <div class="header-top-item">
-                        <i class="fas fa-paper-plane"></i>
-                        <span>contact@pistache.be</span>
-                    </div>
-                </div>
-                <div class="header-top-items">
-                    <div class="header-top-item">
-                        <i class="fas fa-location-dot"></i>
-                        <span>343 Rue Saint Gilles, 4000 Liége</span>
-                    </div>
-                </div>
-                <!-- Header top items end -->
-            </div>
-            <!-- Header top container end -->
-        </div>
-        <!-- Header top end -->
-
-        <!---------------------------------------------------------------
-                                Navigation
-        ---------------------------------------------------------------->
-        <nav class="navbar">
-            <div class="navbar-container container">
-                <!-- Logo -->
-                <a class="navbar-brand" href="../index.php">
-                    Pistache
-                </a>
-                <!-- Logo end -->
-
-                <!-- Right-side content -->
-                <div class="navbar-right">
-                    <!-- Navbar menu -->
-                    <div class="navbar-menu">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="../index.php">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="../index.php#about">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./menu.php">Menu</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./contact.php">Contact</a>
-                            </li>
-                        </ul>
-
-                        <!-- Login button -->
-                        <a href="./reservation.php" class="btn-primary">Book a table</a>
-                        <!-- Login button end -->
-                    </div>
-                    <!-- Navbar menu end -->
-                </div>
-                <!-- Right-side content end -->
-            </div>
-        </nav>
-        <!-- End Nav Menu -->
-
-        <!---------------------------------------------------------------
-                             Offcanvas menu
-        ----------------------------------------------------------------->
-        <div id="mySidenav" class="sidenav">
-
-            <!-- Menu -->
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a class="nav-link" href="./index.php">Home</a>
-            <a class="nav-link" href="./index.php#about">About</a>
-            <a class="nav-link" href="./menu.php">Menu</a>
-            <a class="nav-link" href="./contact.php">Contact</a>
-            <!-- Menu end -->
-
-            <!-- Login button -->
-            <a href="./reservation.php" class="btn-primary">Book a table</a>
-            <!-- Login button end -->
-        </div>
-
-        <!-- Hamburger icon for smaller screens -->
-        <div class="navbar-hamburger">
-            <div id="hamburger" onclick="openNav()"><i class="fas fa-bars"></i></div>
-        </div>
-        <!-- Offcanvas menu end -->
-        <!-- Navigation end-->
+        <?php displayNavigation(); ?>
     </header>
     <!-- Header end -->
     <!-----------------------------------------------------------------
