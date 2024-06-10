@@ -128,7 +128,7 @@ if (isset($_SESSION['message'])) {
 
         function displayStarter(starterId) {
             // Redirect to the starter page with the specified starter ID
-            window.location.href = 'article-starter.php?idStarter=' + starterId;
+            window.location.href = 'single-starter.php?idStarter=' + starterId;
         }
 
         function deleteStarter(starterId) {
