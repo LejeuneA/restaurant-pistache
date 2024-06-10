@@ -126,7 +126,7 @@ if (isset($_SESSION['message'])) {
 
         function displayDessert(dessertId) {
             // Redirect to the dessert page with the specified dessert ID
-            window.location.href = 'article-dessert.php?idDessert=' + dessertId;
+            window.location.href = 'single-dessert.php?idDessert=' + dessertId;
         }
 
         function deleteDessert(dessertId) {
