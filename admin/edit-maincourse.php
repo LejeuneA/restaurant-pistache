@@ -205,7 +205,7 @@ if (isset($_SESSION['message'])) {
                 </div>
 
                 <button type="submit" class="btn-primary">Save</button>
-                <button type="submit" class="btn-primary" formaction="article-mainCourse.php?idMainCourse=<?php echo $mainCourse['idMainCourse']; ?>">Display</button>
+                <button type="submit" class="btn-primary" formaction="single-mainCourse.php?idMainCourse=<?php echo $mainCourse['idMainCourse']; ?>">Display</button>
             </form>
         </div>
     </div>
