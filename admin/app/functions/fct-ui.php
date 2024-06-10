@@ -130,7 +130,7 @@ function displayHeadSection($title = APP_NAME)
  * 
  * @return void 
  */
-function displayNavigation()
+function displayNavigationAdmin()
 {
 
     $navigation = '';
