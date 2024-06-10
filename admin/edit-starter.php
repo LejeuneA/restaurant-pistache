@@ -205,7 +205,7 @@ if (isset($_SESSION['message'])) {
                 </div>
 
                 <button type="submit" class="btn-primary">Save</button>
-                <button type="submit" class="btn-primary" formaction="article-starter.php?idStarter=<?php echo $starter['idStarter']; ?>">Display</button>
+                <button type="submit" class="btn-primary" formaction="single-starter.php?idStarter=<?php echo $starter['idStarter']; ?>">Display</button>
             </form>
         </div>
     </div>
