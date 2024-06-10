@@ -25,3 +25,9 @@ node_modules/
 
 #Ignore any file directory
 file/
+
+#Ignore any .psd files
+.psd
+
+#Ignore any settings.php files
+settings.php
