@@ -126,7 +126,7 @@ if (isset($_SESSION['message'])) {
 
         function displayMainCourse(mainCourseId) {
             // Redirect to the mainCourse page with the specified mainCourse ID
-            window.location.href = 'article-mainCourse.php?idMainCourse=' + mainCourseId;
+            window.location.href = 'single-mainCourse.php?idMainCourse=' + mainCourseId;
         }
 
         function deleteMainCourse(mainCourseId) {
