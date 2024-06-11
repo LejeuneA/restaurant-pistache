@@ -24,10 +24,7 @@ node_modules/
 .DS_Store
 
 #Ignore any file directory
-files/
-
-#Ignore any .psd files
-.psd
+file/
 
 #Ignore any settings.php files
 settings.php
