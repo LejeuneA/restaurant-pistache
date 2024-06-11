@@ -63,13 +63,13 @@ if (!is_object($conn)) {
                 <div class="menu-navbar">
                     <ul class="menu-navbar-items">
                         <li class="menu-navbar-item" id="menu-starter">
-                            <a class="nav-link" href="#">Starter</a>
+                            <a class="nav-link" href="./menu.php">Starter</a>
                         </li>
                         <li class="menu-navbar-item" id="menu-main-course">
-                            <a class="nav-link" href="#">Main Course</a>
+                            <a class="nav-link" href="./menu-maincourse.php">Main Course</a>
                         </li>
                         <li class="menu-navbar-item" id="menu-dessert">
-                            <a class="nav-link" href="#">Dessert</a>
+                            <a class="nav-link" href="./menu-dessert.php">Dessert</a>
                         </li>
                     </ul>
                 </div>
