@@ -49,7 +49,7 @@ if (!is_object($conn)) {
     <main>
         <!-- Hero section -->
         <section class="hero-section hero-starter">
-            <h2>Explore Our Culinary Delights</h2>
+            <h2>Discover Flavorful Starters</h2>
             <div class="hero-container container">
             </div>
         </section>
