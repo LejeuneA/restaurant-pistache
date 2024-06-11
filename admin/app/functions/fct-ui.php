@@ -9,7 +9,7 @@
 /**-----------------------------------------------------------------
     Returns the html code of the radio buttons indicating the 
                 publication status of the article
-*------------------------------------------------------------------**/
+ *------------------------------------------------------------------**/
 /**
  * Returns the html code of the radio buttons 
  * indicating the publication status of the article
@@ -83,7 +83,7 @@ function displayJSSection($tinyMCE = false)
 
 /**-----------------------------------------------------------------
                 Displaying the head section of a page
-*------------------------------------------------------------------**/
+ *------------------------------------------------------------------**/
 /**
  * Displaying the head section of a page
  * 
@@ -98,7 +98,7 @@ function displayHeadSection($title = APP_NAME)
     <meta name="description" content="Restaurant Pistache - Liége">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="'.DOMAIN.'/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="' . DOMAIN . '/css/styles.css">
 
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -123,7 +123,7 @@ function displayHeadSection($title = APP_NAME)
 
 /**-----------------------------------------------------------------
                   Displaying the admin navigation
-*------------------------------------------------------------------**/
+ *------------------------------------------------------------------**/
 
 /**
  * Displaying the admin navigation
@@ -265,7 +265,7 @@ function displayNavigationAdmin()
 
 /**-----------------------------------------------------------------
                      Displaying the navigation
-*------------------------------------------------------------------**/
+ *------------------------------------------------------------------**/
 
 /**
  * Displaying the navigation
@@ -443,7 +443,7 @@ function displayNavigation()
 
 /**-----------------------------------------------------------------
                  Displaying the articles navigation
-*------------------------------------------------------------------**/
+ *------------------------------------------------------------------**/
 
 /**
  * Displaying the navigation
@@ -569,7 +569,7 @@ function displayNavigationArticle()
 
 /**-----------------------------------------------------------------
                      Displaying the footer
-*------------------------------------------------------------------**/
+ *------------------------------------------------------------------**/
 /**
  * Displaying the footer
  * 
@@ -693,7 +693,7 @@ function displayFooter()
 
 /**-----------------------------------------------------------------
                   Returning a message in HTML format
-*------------------------------------------------------------------**/
+ *------------------------------------------------------------------**/
 
 /**
  * Returning a message in HTML format
@@ -711,7 +711,7 @@ function getMessage($message, $type = 'success')
 
 /**-----------------------------------------------------------------
              Displays the starter received as a parameter
-*------------------------------------------------------------------**/
+ *------------------------------------------------------------------**/
 
 /**
  * Displays the starter received as a parameter
@@ -740,12 +740,11 @@ function displayStarterByID($starter)
     echo '</div>';
     echo '</div>';
     echo '</section>';
-
 }
 
 /**-----------------------------------------------------------------
            Displays the main course received as a parameter
-*------------------------------------------------------------------**/
+ *------------------------------------------------------------------**/
 
 /**
  * Displays the stationery received as a parameter
@@ -779,7 +778,7 @@ function displayMainCourseByID($mainCourse)
 
 /**-----------------------------------------------------------------
            Displays the dessert received as a parameter
-*------------------------------------------------------------------**/
+ *------------------------------------------------------------------**/
 /**
  * Displays the dessert received as a parameter
  * 
@@ -812,7 +811,7 @@ function displayDessertByID($dessert)
 
 /**-----------------------------------------------------------------
             Display starters for the manager page
-*------------------------------------------------------------------**/
+ *------------------------------------------------------------------**/
 /**
  * Display starters for the manager page
  * 
@@ -846,7 +845,7 @@ function displayStartersWithButtons($starters)
 
 /**-----------------------------------------------------------------
                 Display main courses for the manager page
-*------------------------------------------------------------------**/
+ *------------------------------------------------------------------**/
 
 /**
  * Display main courses for the manager page
@@ -882,7 +881,7 @@ function displayMainCoursesWithButtons($mainCourses)
 
 /**-----------------------------------------------------------------
                 Display desserts for the manager page
-*------------------------------------------------------------------**/
+ *------------------------------------------------------------------**/
 /**
  * Display desserts for the manager page
  * 
@@ -916,7 +915,7 @@ function displayDessertsWithButtons($desserts)
 
 /**-----------------------------------------------------------------
     Displays the starters for the manager's page in table form
-*------------------------------------------------------------------**/
+ *------------------------------------------------------------------**/
 /**
  * Displays the starters for the manager's page in table form
  * 
@@ -961,7 +960,7 @@ function displayStartersAsTable($starters)
 
 /**-----------------------------------------------------------------
     Displays the main courses for the manager's page in table form
-*------------------------------------------------------------------**/
+ *------------------------------------------------------------------**/
 
 /**
  *  Displays the main courses for the manager's page in table form
@@ -1048,4 +1047,137 @@ function displayDessertsAsTable($desserts)
 
     // End the table
     echo '</table>';
+}
+
+/**-----------------------------------------------------------------
+             Displays the starters for the menu page    
+*------------------------------------------------------------------**/
+
+/**
+ * Displays the starters for the menu page
+ * 
+ * @param array $starters 
+ * @param int $limit 
+ * @return string 
+ */
+function displayStarters($execute, $resultStarters, $limit = 160)
+{
+    if ($execute) {
+        $delay = 0;
+        $html = '';
+        foreach ($resultStarters as $index => $starter) {
+            if ($index % 2 == 0) {
+                $html .= '<div class="menu-row" data-aos="fade-up" data-aos-delay="' . $delay . '">';
+                $delay += 200;
+            }
+            $html .= '<div class="menu-item">
+                        <a class="menu-item-image" href="' . DOMAIN . '/admin/single-starter.php?idStarter=' . htmlspecialchars($starter['idStarter']) . '">
+                            <img class="menu-item-image" src="' . DOMAIN . '/admin/' . htmlspecialchars($starter['image_url']) . '" alt="' . htmlspecialchars($starter['title']) . '">
+                        </a>
+                        <div class="menu-item-info">
+                            <a href="single-starter.php?idStarter=' . htmlspecialchars($starter['idStarter']) . '" class="menu-item-title-link">
+                                <h3 class="menu-item-title">' . htmlspecialchars($starter['title']) . '</h3>
+                            </a>
+                            <span class="menu-item-price">€' . number_format($starter['price'], 2) . '</span>
+                            <p>' . htmlspecialchars($starter['description']) . '</p>
+                        </div>
+                    </div>';
+            if (($index + 1) % 2 == 0) {
+                $html .= '</div>';
+            }
+            if ($index >= $limit) break;
+        }
+        return $html;
+    } else {
+        return '<p>No starter available at the moment.</p>';
+    }
+}
+
+
+/**-----------------------------------------------------------------
+             Displays the main courses for the menu page    
+*------------------------------------------------------------------**/
+
+/**
+ * Displays the main courses for the menu page
+ * 
+ * @param array $maincourses
+ * @param int $limit 
+ * @return string 
+ */
+function displayMainCourses($execute, $resultMainCourses, $limit = 160)
+{
+    if ($execute) {
+        $delay = 0;
+        $html = '';
+        foreach ($resultMainCourses as $index => $maincourses) {
+            if ($index % 2 == 0) {
+                $html .= '<div class="menu-row" data-aos="fade-up" data-aos-delay="' . $delay . '">';
+                $delay += 200;
+            }
+            $html .= '<div class="menu-item">
+                        <a class="menu-item-image" href="' . DOMAIN . '/admin/single-maincourse.php?idMainCourse=' . htmlspecialchars($maincourses['idMainCourse']) . '">
+                            <img class="menu-item-image" src="' . DOMAIN . '/admin/' . htmlspecialchars($maincourses['image_url']) . '" alt="' . htmlspecialchars($maincourses['title']) . '">
+                        </a>
+                        <div class="menu-item-info">
+                            <a href="single-maincourse.php?idMainCourse=' . htmlspecialchars($maincourses['idMainCourse']) . '" class="menu-item-title-link">
+                                <h3 class="menu-item-title">' . htmlspecialchars($maincourses['title']) . '</h3>
+                            </a>
+                            <span class="menu-item-price">€' . number_format($maincourses['price'], 2) . '</span>
+                            <p>' . htmlspecialchars($maincourses['description']) . '</p>
+                        </div>
+                    </div>';
+            if (($index + 1) % 2 == 0) {
+                $html .= '</div>';
+            }
+            if ($index >= $limit) break;
+        }
+        return $html;
+    } else {
+        return '<p>No main course available at the moment.</p>';
+    }
+}
+
+/**-----------------------------------------------------------------
+             Displays the dessers for the menu page    
+*------------------------------------------------------------------**/
+
+/**
+ * Displays the desserts for the menu page
+ * 
+ * @param array $desserts
+ * @param int $limit 
+ * @return string 
+ */
+function displayDesserts($execute, $resultDesserts, $limit = 160)
+{
+    if ($execute) {
+        $delay = 0;
+        $html = '';
+        foreach ($resultDesserts as $index => $dessert) {
+            if ($index % 2 == 0) {
+                $html .= '<div class="menu-row" data-aos="fade-up" data-aos-delay="' . $delay . '">';
+                $delay += 200;
+            }
+            $html .= '<div class="menu-item">
+                        <a class="menu-item-image" href="' . DOMAIN . '/admin/single-dessert.php?idDessert=' . htmlspecialchars($dessert['idDessert']) . '">
+                            <img class="menu-item-image" src="' . DOMAIN . '/admin/' . htmlspecialchars($dessert['image_url']) . '" alt="' . htmlspecialchars($dessert['title']) . '">
+                        </a>
+                        <div class="menu-item-info">
+                            <a href="single-dessert.php?idDessert=' . htmlspecialchars($dessert['idDessert']) . '" class="menu-item-title-link">
+                                <h3 class="menu-item-title">' . htmlspecialchars($dessert['title']) . '</h3>
+                            </a>
+                            <span class="menu-item-price">€' . number_format($dessert['price'], 2) . '</span>
+                            <p>' . htmlspecialchars($dessert['description']) . '</p>
+                        </div>
+                    </div>';
+            if (($index + 1) % 2 == 0) {
+                $html .= '</div>';
+            }
+            if ($index >= $limit) break;
+        }
+        return $html;
+    } else {
+        return '<p>No dessert available at the moment.</p>';
+    }
 }
