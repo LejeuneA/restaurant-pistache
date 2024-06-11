@@ -9,7 +9,6 @@
 main {
     .hero-section {
         @include d-flex(flex, center, center, column, center);
-        background-image: url("../assets/images/menu-bg.jpg");
         width: 100%;
         height: 100vh;
         background-size: cover;
@@ -27,6 +26,18 @@ main {
         .hero-container {
             @include d-flex(flex, center, center, column, center);
         }
+    }
+
+    .hero-starter{
+        background-image: url("../assets/images/menu-bg.jpg");
+    }
+
+    .hero-maincourse{
+        background-image: url("../assets/images/menu-bg-maincourse.jpg");
+    }
+
+    .hero-dessert{
+        background-image: url("../assets/images/menu-bg-dessert.jpg");
     }
 
     .menu-section {
