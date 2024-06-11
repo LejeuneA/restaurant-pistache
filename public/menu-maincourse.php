@@ -48,7 +48,7 @@ if (!is_object($conn)) {
     <!-- Main -->
     <main>
         <!-- Hero section -->
-        <section class="hero-section">
+        <section class="hero-section hero-maincourse">
             <h2>Explore Our Culinary Delights</h2>
             <div class="hero-container container">
             </div>
