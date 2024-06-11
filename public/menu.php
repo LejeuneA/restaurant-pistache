@@ -80,106 +80,20 @@ if (!is_object($conn)) {
 
                     <!-- Starter content-->
                     <div class="menu-content" id="starter-content">
-                        <?php if ($execute) : ?>
-                            <?php
-                            $delay = 0;
-                            foreach ($resultStarters as $index => $starter) : ?>
-                                <?php if ($index % 2 == 0) : ?>
-                                    <div class="menu-row" data-aos="fade-up" data-aos-delay="<?= $delay ?>">
-                                        <?php $delay += 200; ?>
-                                    <?php endif; ?>
-                                    <div class="menu-item">
-                                        <a class="menu-item-image" href="<?= DOMAIN . '/admin/single-starter.php?idStarter=' . htmlspecialchars($starter['idStarter']) ?>">
-                                            <img class="menu-item-image" src="<?= DOMAIN . '/admin/' . htmlspecialchars($starter['image_url']) ?>" alt="<?= htmlspecialchars($starter['title']) ?>">
-                                        </a>
-
-                                        <div class="menu-item-info">
-                                            <a href="single-starter.php?idStarter=<?= htmlspecialchars($starter['idStarter']) ?>" class="menu-item-title-link">
-                                                <h3 class="menu-item-title"><?= htmlspecialchars($starter['title']) ?></h3>
-                                            </a>
-                                            <span class="menu-item-price">€<?= number_format($starter['price'], 2) ?></span>
-                                            <p><?= htmlspecialchars($starter['description']) ?></p>
-                                        </div>
-                                    </div>
-                                    <?php if (($index + 1) % 2 == 0) : ?>
-                                    </div>
-                                <?php endif; ?>
-                                <?php if ($index >= 160) break; ?>
-                            <?php endforeach; ?>
-                        <?php else : ?>
-                            <p>No starters available at the moment.</p>
-                        <?php endif; ?>
+                        <?= displayStarters($execute, $resultStarters) ?>
                     </div>
                     <!-- Starter content end -->
 
 
                     <!-- Main Course content -->
                     <div class="menu-content" id="main-course-content">
-                        <?php if (is_array($resultMainCourses) && !empty($resultMainCourses)) : ?>
-                            <?php
-                            $delay = 0;
-                            foreach ($resultMainCourses as $index => $mainCourse) : ?>
-                                <?php if ($index % 2 == 0) : ?>
-                                    <div class="menu-row" data-aos="fade-up" data-aos-delay="<?= $delay ?>">
-                                        <?php $delay += 100; ?>
-                                    <?php endif; ?>
-                                    <div class="menu-item">
-                                        <a class="menu-item-image" href="<?= DOMAIN . '/admin/single-maincourse.php?idMainCourse=' . htmlspecialchars($mainCourse['idMainCourse']) ?>">
-                                            <img class="menu-item-image" src="<?= DOMAIN . '/admin/' . htmlspecialchars($mainCourse['image_url']) ?>" alt="<?= htmlspecialchars($mainCourse['title']) ?>">
-                                        </a>
-
-                                        <div class="menu-item-info">
-                                            <a href="single-maincourse.php?idMainCourse=<?= htmlspecialchars($mainCourse['idMainCourse']) ?>" class="menu-item-title-link">
-                                                <h3 class="menu-item-title"><?= htmlspecialchars($mainCourse['title']) ?></h3>
-                                            </a>
-
-                                            <span class="menu-item-price">€<?= number_format($mainCourse['price'], 2) ?></span>
-                                            <p><?= htmlspecialchars($mainCourse['description']) ?></p>
-                                        </div>
-                                    </div>
-                                    <?php if (($index + 1) % 2 == 0) : ?>
-                                    </div>
-                                <?php endif; ?>
-                                <?php if ($index >= 160) break; ?>
-                            <?php endforeach; ?>
-                        <?php else : ?>
-                            <p>No main courses available at the moment.</p>
-                        <?php endif; ?>
+                        <?= displayMainCourses($execute, $resultMainCourses) ?>
                     </div>
                     <!-- Main Course content end -->
 
                     <!-- Dessert content -->
                     <div class="menu-content" id="dessert-content">
-                        <?php if (is_array($resultDesserts) && !empty($resultDesserts)) : ?>
-                            <?php
-                            $delay = 0;
-                            foreach ($resultDesserts as $index => $dessert) : ?>
-                                <?php if ($index % 2 == 0) : ?>
-                                    <div class="menu-row" data-aos="fade-up" data-aos-delay="<?= $delay ?>">
-                                        <?php $delay += 100; ?>
-                                    <?php endif; ?>
-                                    <div class="menu-item">
-                                        <a class="menu-item-image" href="<?= DOMAIN . '/admin/single-dessert.php?idDessert=' . htmlspecialchars($dessert['idDessert']) ?>">
-                                            <img class="menu-item-image" src="<?= DOMAIN . '/admin/' . htmlspecialchars($dessert['image_url']) ?>" alt="<?= htmlspecialchars($dessert['title']) ?>">
-                                        </a>
-
-                                        <div class="menu-item-info">
-                                            <a href="single-dessert.php?idDessert=<?= htmlspecialchars($dessert['idDessert']) ?>" class="menu-item-title-link">
-                                                <h3 class="menu-item-title"><?= htmlspecialchars($dessert['title']) ?></h3>
-                                            </a>
-
-                                            <span class="menu-item-price">€<?= number_format($dessert['price'], 2) ?></span>
-                                            <p><?= htmlspecialchars($dessert['description']) ?></p>
-                                        </div>
-                                    </div>
-                                    <?php if (($index + 1) % 2 == 0) : ?>
-                                    </div>
-                                <?php endif; ?>
-                                <?php if ($index >= 160) break; ?>
-                            <?php endforeach; ?>
-                        <?php else : ?>
-                            <p>No desserts available at the moment.</p>
-                        <?php endif; ?>
+                        <?= displayDesserts($execute, $resultDesserts) ?>
                     </div>
                     <!-- Dessert content end -->
 
