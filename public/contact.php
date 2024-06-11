@@ -63,25 +63,25 @@ require_once('C:\xampp\htdocs\restaurant-pistache\admin\settings.php');
                         </div>
                         <!-- Contact-content-title -->
                         <!-- Contact form -->
-                        <form action="#">
+                        <form action="../forms/contact.php" method="post">
                             <div class="contact-form-container">
                                 <div class="contact-form-items">
                                     <div class="contact-form-item">
                                         <div class="form-group">
-                                            <label for="name">Name</label>
-                                            <input type="text" class="form-control" placeholder="Your Name">
+                                            <label for="firstName">Name</label>
+                                            <input type="text" class="form-control" name="firstName" placeholder="Your Name">
                                         </div>
                                     </div>
                                     <div class="contact-form-item">
                                         <div class="form-group">
-                                            <label for="name">Surname</label>
-                                            <input type="text" class="form-control" placeholder="Your Surname">
+                                            <label for="lastName">Surname</label>
+                                            <input type="text" class="form-control" name="lastName" placeholder="Your Surname">
                                         </div>
                                     </div>
                                     <div class="contact-form-item">
                                         <div class="form-group">
                                             <label for="email">Email</label>
-                                            <input type="text" class="form-control" placeholder="Your Email">
+                                            <input type="text" class="form-control" name="email" placeholder="Your Email">
                                         </div>
                                     </div>
                                     <!-- Contact form item end -->
@@ -91,7 +91,7 @@ require_once('C:\xampp\htdocs\restaurant-pistache\admin\settings.php');
                                     <div class="contact-form-item">
                                         <div class="form-group">
                                             <label for="phone">Phone</label>
-                                            <input type="text" class="form-control" placeholder="Phone">
+                                            <input type="text" class="form-control" name="phone" placeholder="Phone">
                                         </div>
                                     </div>
                                     <div class="contact-form-item">
