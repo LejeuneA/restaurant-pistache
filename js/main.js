@@ -90,18 +90,6 @@ counters.forEach(counter => {
 });
 
 
-/* -------------------------------------------------------
-						Aos js
----------------------------------------------------------*/
-document.addEventListener('DOMContentLoaded', function () {
-	AOS.init({
-		duration: 1200,
-		easing: 'ease-in-out',
-		once: true,
-		offset: 100
-	});
-});
-
 
 /* -------------------------------------------------------
 					Menu items display js
@@ -137,11 +125,31 @@ document.addEventListener('DOMContentLoaded', function () {
 Set the active class on the menu item when on menu.php
 ---------------------------------------------------------*/
 document.addEventListener('DOMContentLoaded', function () {
-	if (window.location.pathname.endsWith('menu.php')) {
-		document.getElementById('menu-starter').classList.add('active');
-	}
+    if (window.location.pathname.endsWith('menu-maincourse.php')) {
+        document.getElementById('menu-main-course').classList.add('active');
+        document.getElementById('main-course-content').style.display = 'block';
+		document.getElementById('starter-content').style.display = 'none';
+    } else if (window.location.pathname.endsWith('menu-dessert.php')) {
+        document.getElementById('menu-dessert').classList.add('active');
+        document.getElementById('dessert-content').style.display = 'block';
+		document.getElementById('starter-content').style.display = 'none';
+    } else {
+        document.getElementById('menu-starter').classList.add('active');
+        document.getElementById('starter-content').style.display = 'block';
+    }
 });
 
+/* -------------------------------------------------------
+						Aos js
+---------------------------------------------------------*/
+document.addEventListener('DOMContentLoaded', function () {
+	AOS.init({
+		duration: 1200,
+		easing: 'ease-in-out',
+		once: true,
+		offset: 100
+	});
+});
 
 
 
