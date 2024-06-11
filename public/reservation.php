@@ -47,7 +47,6 @@ require_once('C:\xampp\htdocs\restaurant-pistache\admin\settings.php');
                             Reservation section
         ------------------------------------------------------------------>
         <section class="reservation-section">
-
             <div class="reservation-section-container container">
                 <!--Reservation form container-->
                 <div class="reservation-container container" data-aos="fade-in" data-aos-delay="200">
@@ -61,41 +60,39 @@ require_once('C:\xampp\htdocs\restaurant-pistache\admin\settings.php');
                         </div>
                         <!--Reservation-content-title-->
                         <!--Reservation form-->
-                        <form action="#">
+                        <form action="../forms/reservation.php" method="post">
                             <div class="reservation-form-container">
                                 <div class="reservation-form-items">
                                     <div class="reservation-form-item">
                                         <div class="form-group">
                                             <label for="name">Name</label>
-                                            <input type="text" class="form-control" placeholder="Your Name">
+                                            <input type="text" name="name" class="form-control" placeholder="Your Name" required>
                                         </div>
                                     </div>
                                     <div class="reservation-form-item">
                                         <div class="form-group">
                                             <label for="email">Email</label>
-                                            <input type="text" class="form-control" placeholder="Your Email">
+                                            <input type="email" name="email" class="form-control" placeholder="Your Email" required>
                                         </div>
                                     </div>
                                     <div class="reservation-form-item">
                                         <div class="form-group">
                                             <label for="phone">Phone</label>
-                                            <input type="text" class="form-control" placeholder="Phone">
+                                            <input type="text" name="phone" class="form-control" placeholder="Phone" required>
                                         </div>
                                     </div>
-                                    <!--Reservation form item end-->
                                 </div>
-                                <!--Reservation form items end-->
                                 <div class="reservation-form-items">
                                     <div class="reservation-form-item">
                                         <div class="form-group">
                                             <label for="book_date">Book date</label>
-                                            <input type="text" class="form-control" id="book_date" placeholder="Date">
+                                            <input type="date" name="book_date" class="form-control" id="book_date" placeholder="Date" required>
                                         </div>
                                     </div>
                                     <div class="reservation-form-item">
                                         <div class="form-group">
                                             <label for="book_time">Time</label>
-                                            <select class="form-control" id="book_time">
+                                            <select name="book_time" class="form-control" id="book_time" required>
                                                 <option value="09:00">09:00 AM</option>
                                                 <option value="10:00">10:00 AM</option>
                                                 <option value="11:00">11:00 AM</option>
@@ -115,27 +112,23 @@ require_once('C:\xampp\htdocs\restaurant-pistache\admin\settings.php');
                                     <div class="reservation-form-item">
                                         <div class="form-group">
                                             <label for="person">Person</label>
-                                            <select name="person" id="person" class="form-control">
-                                                <option value="">Person</option>
-                                                <option value="">1</option>
-                                                <option value="">2</option>
-                                                <option value="">3</option>
-                                                <option value="">4+</option>
+                                            <select name="person" id="person" class="form-control" required>
+                                                <option value="">Select Person</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4+</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <!--Reservation form item end-->
                                 </div>
-                                <!--Reservation form items end-->
                             </div>
-                            <!--Reservation form container end-->
                             <!--Button-->
                             <div class="reservation-button">
                                 <div class="form-group">
                                     <input type="submit" value="Make a Reservation" class="btn-secondary">
                                 </div>
                             </div>
-                            <!--Button end-->
                         </form>
                         <!--Reservation form end-->
                     </div>
@@ -151,6 +144,7 @@ require_once('C:\xampp\htdocs\restaurant-pistache\admin\settings.php');
             <!-- Reservation section container end -->
         </section>
         <!--Reservation section end-->
+
     </main>
     <!-- End Main -->
     <!-----------------------------------------------------------------
