@@ -39,6 +39,7 @@
     .welcome {
         text-align: center;
         background-color: inherit;
+        margin-bottom: 1em;
 
         .welcome-text {
             color: $secondary;
@@ -53,6 +54,7 @@
 
     .manager-content {
         @include d-flex(flex, center, center, column, center);
+        padding: 0;
 
         .category-container {
             @include d-flex(flex, center, center, row, center);
@@ -179,6 +181,7 @@
  ----------------------------------------------------------------- */
 .table-starters,
 .table-mainCourses,
-.table-desserts {
+.table-desserts,
+.table-reservations {
     @extend %table-style;
 }
