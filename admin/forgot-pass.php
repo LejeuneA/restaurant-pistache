@@ -24,23 +24,68 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Forgot Password</title>
+    <?php displayHeadSection('Forgot Password'); ?>
 </head>
+
 <body>
-    <h1>Forgot Password</h1>
-    <form method="post" action="">
-        <label for="email">Email Address:</label>
-        <input type="email" name="email" id="email" required>
-        <button type="submit">Submit</button>
-    </form>
-    <?php
-    if (isset($message)) {
-        echo "<p>$message</p>";
-    }
-    ?>
+
+    <!-----------------------------------------------------------------
+							   Header
+	------------------------------------------------------------------>
+    <header>
+        <!-----------------------------------------------------------------
+							   Navigation
+	    ------------------------------------------------------------------>
+        <?php displayNavigationAdmin(); ?>
+        <!-----------------------------------------------------------------
+							Navigation end
+	    ------------------------------------------------------------------>
+    </header>
+    <!-----------------------------------------------------------------
+							   Header end
+	------------------------------------------------------------------>
+    <div class="login-container">
+        <div class="login-title">
+            <h1>Forgot Password</h1>
+        </div>
+        <div class="login-content container">
+            <form class="login-form" method="post" action="">
+                <label for="email" class="form-ctrl">Enter your email dddress</label>
+                <input type="email" class="form-ctrl" name="email" id="email" required>
+                <button type="submit" class="btn-primary">Submit</button>
+            </form>
+            <?php
+            if (isset($message)) {
+                echo "<p>$message</p>";
+            }
+            ?>
+            <div class="background-vector">
+                <img src="../assets/images/background-vector.png" alt="background-vector">
+            </div>
+        </div>
+    </div>
+
+    <!-----------------------------------------------------------------
+                               Footer
+    ------------------------------------------------------------------>
+    <footer>
+        <?php displayFooter(); ?>
+    </footer>
+    <!-----------------------------------------------------------------
+                            Footer end
+    ------------------------------------------------------------------>
+
+    <!-- Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Main Js -->
+    <script src="../js/main.js"></script>
+
 </body>
+
 </html>
