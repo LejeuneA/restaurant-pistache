@@ -18,7 +18,7 @@ $execute = false;
 
 // Check the database connection
 if (!is_object($conn)) {
-    $msg = getMessage($conn, 'error');
+    $msg = getMessage('Database connection error.', 'error');
 } else {
     // Fetch all reservations from the database
     $result = getAllReservationsDB($conn);
@@ -29,37 +29,35 @@ if (!is_object($conn)) {
 
         // Check if reservation ID is provided in the URL for deletion
         if (isset($_GET['idReservation']) && is_numeric($_GET['idReservation'])) {
-
-            $reservationIdToDelete = $_GET['idReservation'];
+            $reservationIdToDelete = intval($_GET['idReservation']);
 
             if ($_SESSION['user_permission'] == 1) {
-
                 // Delete the reservation from the database
                 $deleteResult = deleteReservationDB($conn, $reservationIdToDelete);
 
                 // Check deletion result and display appropriate message
-                if ($deleteResult === true) {
-                    $_SESSION['message'] = getMessage('reservation successfully deleted.', 'success');
-
-                    // Refresh the page to reflect the changes after deletion
-                    header('Location: manager-reservation.php');
-                    exit();
+                if ($deleteResult) {
+                    $_SESSION['message'] = getMessage('Reservation successfully deleted.', 'success');
                 } else {
-                    $_SESSION['message'] = getMessage('Error when deleting reservation.' . $deleteResult, 'error');
+                    $_SESSION['message'] = getMessage('Error when deleting reservation.', 'error');
                 }
             } else {
                 $_SESSION['message'] = getMessage('You are not allowed to delete the reservation.', 'error');
             }
+
+            // Refresh the page to reflect the changes after deletion
+            header('Location: manager-reservation.php');
+            exit();
         }
     } else {
-        $_SESSION['message'] = getMessage('There is no reservation to display at the moment.', 'error');
+        $msg = getMessage('There is no reservation to display at the moment.', 'error');
     }
 }
 
 // Refresh the redirected page (manager-reservation.php), add this code to display the message
 if (isset($_SESSION['message'])) {
     $msg = $_SESSION['message'];
-    unset($_SESSION['message']); 
+    unset($_SESSION['message']);
 }
 ?>
 
@@ -120,7 +118,6 @@ if (isset($_SESSION['message'])) {
     ------------------------------------------------------------------>
 
     <script>
-        // JavaScript functions for handling reservation actions
         function modifyReservation(reservationId) {
             // Redirect to the edit page with the specified reservation ID
             window.location.href = 'edit-reservation.php?idReservation=' + reservationId;
@@ -128,7 +125,7 @@ if (isset($_SESSION['message'])) {
 
         function deleteReservation(reservationId) {
             // Confirm reservation deletion
-            if (confirm('Are you sure you want to delete the reservation below?')) {
+            if (confirm('Are you sure you want to delete the reservation?')) {
                 // Redirect to manager-reservation.php with the reservation ID for deletion
                 window.location.href = 'manager-reservation.php?idReservation=' + reservationId;
             }
