@@ -51,11 +51,13 @@
             .navbar-menu {
                 @include d-flex(flex, center, center, row, center);
                 background-color: transparent;
+                width: auto;
                 height: 3em;
                 z-index: 1000;
 
                 .navbar-nav {
                     @include d-flex(flex, center, center, row, center);
+                    padding: 0;
 
                     .nav-item {
                         margin-right: 2em;
