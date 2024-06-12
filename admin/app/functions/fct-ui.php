@@ -924,12 +924,12 @@ function displayDessertsWithButtons($desserts)
 }
 
 /**-----------------------------------------------------------------
-    Displays the starters for the manager's page in table form
+    Displays the reservations for the manager's page in table form
  *------------------------------------------------------------------**/
 /**
- * Displays the starters for the manager's page in table form
+ * Displays the reservations for the manager's page in table form
  * 
- * @param array $starters
+ * @param array $reservations
  * @return void
  */
 function displayReservationsAsTable($reservations)
@@ -948,6 +948,7 @@ function displayReservationsAsTable($reservations)
     echo '<th>Number of People</th>';
     echo '<th>Created at</th>';
     echo '<th>Status</th>';
+    echo '<th>Actions</th>';
     echo '</tr>';
 
     // Table data
@@ -964,7 +965,6 @@ function displayReservationsAsTable($reservations)
         echo '<td data-cell="statut">' . ($reservation['active'] ? 'Actif' : 'Inactif') . '</td>';
         echo '<td>';
         echo '<button class="btn-secondary" onclick="modifyReservation(' . $reservation['idReservation'] . ')">Modify</button>';
-        echo '<button class="btn-secondary" onclick="displayReservation(' . $reservation['idReservation'] . ')">Display</button>';
         echo '<button class="btn-primary" onclick="deleteReservation(' . $reservation['idReservation'] . ')">Delete</button>';
         echo '</td>';
         echo '</tr>';
