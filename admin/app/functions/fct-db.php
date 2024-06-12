@@ -319,6 +319,43 @@ function getAllDessertsDB($conn, $limit = null, $active = '%')
 
 
 /**-----------------------------------------------------------------
+                    Retrieve a reservation by ID
+*------------------------------------------------------------------**/
+/**
+ * Retrieve a reservation by ID
+ * 
+ * @param object $conn 
+ * @param int $idReservation
+ * @return array $result
+ */
+function getReservationByIDDB($conn, $idReservation)
+{
+    try {
+        // Retrieving data from the reservations table
+        $req = $conn->prepare("SELECT * FROM reservations WHERE idReservation = :idReservation");
+        $req->bindParam(':idReservation', $idReservation, PDO::PARAM_INT);
+        $req->execute();
+
+        // Fetch the result as an associative array
+        $result = $req->fetch(PDO::FETCH_ASSOC);
+
+        // Closing the statement
+        $req = null;
+
+        return $result;
+    } catch (PDOException $e) {
+        if (defined('DEBUG') && DEBUG) {
+            error_log('Error: ' . $e->getMessage());
+        } else {
+            error_log("Error in: getReservationByIDDB() function");
+        }
+        return [];
+    }
+}
+
+
+
+/**-----------------------------------------------------------------
                     Retrieve a starter by ID
 *------------------------------------------------------------------**/
 /**
@@ -641,6 +678,7 @@ function addDessertDB($conn, $datas)
 /**-----------------------------------------------------------------
                 Modifying a reservation in the database
  *------------------------------------------------------------------**/
+
 /**
  * Modifying a reservation in the database
  * 
@@ -651,18 +689,16 @@ function addDessertDB($conn, $datas)
 function updateReservationDB($conn, $data)
 {
     try {
-        // Extracting data from $data array
-        $name = filterInputs($data['name']);
-        $email = filterInputs($data['email']);
-        $phone = filterInputs($data['phone']);
-        $book_date = filterInputs($data['book_date']);
-        $book_time = filterInputs($data['book_time']);
-        $person = filterInputs($data['person']);
+        // Extracting data from $data array and sanitizing inputs
+        $name = htmlspecialchars($data['name']);
+        $email = htmlspecialchars($data['email']);
+        $phone = htmlspecialchars($data['phone']);
+        $book_date = htmlspecialchars($data['book_date']);
+        $book_time = htmlspecialchars($data['book_time']);
+        $person = htmlspecialchars($data['person']);
         $created_at = date('Y-m-d H:i:s'); 
         $active = isset($data['active']) ? $data['active'] : 0; 
-
-        // ID of the reservation to update
-        $idReservation = filterInputs($data['idReservation']);
+        $idReservation = htmlspecialchars($data['idReservation']);
 
         // Update query
         $query = "UPDATE reservations SET name = :name, email = :email, phone = :phone, 
@@ -686,20 +722,20 @@ function updateReservationDB($conn, $data)
         // Execute the update statement
         $stmt->execute();
 
-        // Close the statement and connection
+        // Close the statement
         $stmt = null;
-        $conn = null;
 
-        return true; 
+        return true;
     } catch (PDOException $e) {
         if (defined('DEBUG') && DEBUG) {
             error_log('Error: ' . $e->getMessage());
         } else {
             error_log("Error in: updateReservationDB() function");
         }
-        return false; 
+        return false;
     }
 }
+
 
 
 /**-----------------------------------------------------------------
@@ -879,25 +915,24 @@ function updateDessertDB($conn, $datas)
                     Deleting a reservation from the database
 *------------------------------------------------------------------**/
 /**
- * Deleting a reservation from the database
+ * Deletes a reservation from the database by its ID
  * 
- * @param mixed $conn 
- * @return true 
+ * @param PDO $conn The PDO connection object
+ * @param int $idReservation The ID of the reservation to delete
+ * @return bool True on success, false on failure
  */
 function deleteReservationDB($conn, $idReservation)
 {
     try {
+        // Prepare the DELETE statement
+        $stmt = $conn->prepare("DELETE FROM reservations WHERE idReservation = :idReservation");
+        $stmt->bindParam(':idReservation', $idReservation, PDO::PARAM_INT);
 
-        $idReservation = filterInputs($idReservation);
+        // Execute the statement
+        $result = $stmt->execute();
 
-        $req = $conn->prepare("DELETE FROM reservations WHERE idReservation = :idReservation");
-        $req->bindParam(':idStarter', $idReservation);
-        $req->execute();
-
-        $req = null;
-        $conn = null;
-
-        return true;
+        // Return the result of the deletion
+        return $result;
     } catch (PDOException $e) {
         if (defined('DEBUG') && DEBUG) {
             error_log('Error: ' . $e->getMessage());
@@ -907,6 +942,7 @@ function deleteReservationDB($conn, $idReservation)
         return false;
     }
 }
+
 
 /**-----------------------------------------------------------------
                     Deleting a starter from the database
