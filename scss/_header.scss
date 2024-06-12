@@ -8,145 +8,180 @@
 ---------------------------------------------------------*/
 header,
 .header-article {
-	@include d-flex(flex, start, center, column, center);
+    @include d-flex(flex, start, center, column, center);
     width: 100%;
-    position:absolute;
+    position: absolute;
     top: 0;
     left: 0;
-    z-index: 1000; 
+    z-index: 1000;
     background: rgba(0, 0, 0, 0.3);
 
-	.header-top {
-		@include d-flex(flex, center, center, row, center);
-		background-color: rgba(0, 0, 0, 0.2);
-		width: 100%;
-		z-index: 3;
-		// border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    .header-top {
+        @include d-flex(flex, center, center, row, center);
+        background-color: rgba(0, 0, 0, 0.2);
+        width: 100%;
+        z-index: 3;
 
-		@media (min-width: 320px) and (max-width: 1440px) {
-			display: none;
-		}
+        @media (min-width: 320px) and (max-width: 1440px) {
+            display: none;
+        }
 
-		.header-top-container {
-			@include d-flex(flex, center, center, row, center);
-			width: 100%;
+        .header-top-container {
+            @include d-flex(flex, center, center, row, center);
+            width: 100%;
 
-			.header-top-items {
-				@include d-flex(flex, center, center, row, center);
-				width: 100%;
-				color: $gray;
+            .header-top-items {
+                @include d-flex(flex, center, center, row, center);
+                width: 100%;
+                color: $gray;
 
-				.header-top-item {
-					@include d-flex(flex, start, center, row, center);
-					width: auto;
-					gap: 0.5em;
-				}
-			}
-		}
-	}
+                .header-top-item {
+                    @include d-flex(flex, start, center, row, center);
+                    width: auto;
+                    gap: 0.5em;
+                }
+            }
+        }
+    }
 
-	.navbar{
-		@extend %navbar;
-		background-color: rgba(0, 0, 0, 0.5);
-		
-	}
-	
-	.navbar-admin{
-		@extend %navbar;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-		background-color: $black;
-	}
-	
-	/* -------------------------------------------------------
+    .navbar {
+        @extend %navbar;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .navbar-admin {
+        @extend %navbar;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        background-color: $black;
+    }
+
+    /* -------------------------------------------------------
                       Offcanvas menu
-  	---------------------------------------------------------*/
-	.navbar-hamburger {
-		@include d-flex(none, flex-end, center, column, center);
-		background-color: transparent;
-		color: $primary;
-		cursor: pointer;
-		position: absolute;
-		top: 25%;
-		right: 5%; 
-		z-index: 1500;
-		font-size: 1.3em;
+    ---------------------------------------------------------*/
+    .navbar-hamburger {
+        @include d-flex(none, flex-end, center, column, center);
+        background-color: transparent;
+        color: $primary;
+        cursor: pointer;
+        position: absolute;
+        top: 25%;
+        right: 5%;
+        z-index: 1500;
+        font-size: 1.3em;
 
-		i {
-			@include hover("background-color", $primary, "color", $white);
-		}
+        i {
+            @include hover("background-color", $primary, "color", $white);
+        }
 
-		@media (min-width: 320px) and (max-width: 1440px) {
-			display: flex;
-		}
-	}
+        @media (min-width: 320px) and (max-width: 1440px) {
+            display: flex;
+        }
+    }
 
-	.sidenav {
-		height: 100%;
-		width: 0;
-		position: fixed;
-		z-index: 1;
-		top: 0;
-		left: 0;
-		background-color: $black;
-		overflow-x: hidden;
-		transition: 0.5s;
-		padding-top: 5em;
-		z-index: 1000;
+    .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: $black;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 5em;
+        z-index: 1000;
 
-		.closebtn {
-			position: absolute;
-			top: 0;
-			right: 1em;
-			font-size: 1.5em;
-			color: $primary;
-			@include hover("background-color", $black, "color", $white);
-		}
+        .closebtn {
+            position: absolute;
+            top: 0;
+            right: 1em;
+            font-size: 1.5em;
+            color: $primary;
+            @include hover("background-color", $black, "color", $white);
+        }
 
-		a {
-			padding: 1em;
-			text-decoration: none;
-			font-size: 1em;
-			color: $white;
-			display: block;
+        a {
+            padding: 1em;
+            text-decoration: none;
+            font-size: 1em;
+            color: $white;
+            display: block;
 
-			@include hover("background-color", transparent, "color", $primary);
-		}
+            @include hover("background-color", transparent, "color", $primary);
+        }
 
-		.btn-primary {
-			background-color: $primary;
-			margin: 2em 1em;
-			text-align: center;
-			padding: 0.5em 1em;
-			border-radius: 5px;
-			@include hover("background-color", $black, "color", $primary);
-		}
-	}
+        .btn-primary {
+            background-color: $primary;
+            margin: 2em 1em;
+            text-align: center;
+            padding: 0.5em 1em;
+            border-radius: 5px;
+            @include hover("background-color", $black, "color", $primary);
+        }
+    }
 }
 
 /* -------------------------------------------------------
            Offcanvas styles for smaller screens
 ---------------------------------------------------------*/
 @media (min-width: 320px) and (max-width: 1440px) {
-	#hamburger {
-		display: block;
-	}
+    #hamburger {
+        display: block;
+    }
 
-	.navbar-menu {
-		display: none;
-	}
+    .navbar-menu {
+        display: none;
+    }
 }
 
 /* -------------------------------------------------------
            Offcanvas styles for larger screens
 ---------------------------------------------------------*/
 @media (min-width: 1441px) {
-	#hamburger,
-	.sidenav,
-	.closebtn {
-		display: none;
-	}
+    #hamburger,
+    .sidenav,
+    .closebtn {
+        display: none;
+    }
 }
 
-.header-article{
-	background-color: $black;
+.header-article {
+    background-color: $black;
+}
+
+/* -------------------------------------------------------
+                    Dropdown Menu
+---------------------------------------------------------*/
+.nav-item {
+    position: relative;
+
+    .dropdown-toggle::after {
+        content: " ▼";
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        background-color: $primary-darken;
+        min-width: 10em;
+        box-shadow: 0 0.5em 1em 0 rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        top: 100%;
+        left: 0;
+
+        .dropdown-item {
+            color: $white;
+            padding: 0.8em 1em;
+            text-decoration: none;
+            display: block;
+
+            &:hover {
+                background-color: $primary;
+            }
+        }
+    }
+}
+
+.nav-item:hover .dropdown-menu {
+    display: block;
 }
