@@ -115,6 +115,56 @@ function getUserPasswordByEmail($conn, $email)
 }
 
 
+/**-----------------------------------------------------------------
+            Retrieve all reservations from the reservations table
+*------------------------------------------------------------------**/
+/**
+ * Retrieve all reservations from the reservations table
+ * 
+ * @param object $conn 
+ * @param int $limit (Number of items to retrieve)
+ * @param string $active (0, 1 or %)
+ * @return array|false 
+ */
+function getAllReservationsDB($conn, $limit = null, $active = '%')
+{
+    try {
+        // Preparing SQL queries
+        $sql = "SELECT * FROM reservations WHERE active LIKE :active ORDER BY idReservation DESC";
+
+        // If a limit number is specified, add a LIMIT clause to the request
+        if ($limit !== null) {
+            $sql .= " LIMIT :limit";
+        }
+
+        // Preparing the request
+        $req = $conn->prepare($sql);
+        $req->bindParam(':active', $active);
+
+        // If a limit is specified, bind the parameter to the request
+        if ($limit !== null) {
+            $req->bindParam(':limit', $limit, PDO::PARAM_INT);
+        }
+
+        // Executing the request
+        $req->execute();
+
+        // Retrieving results
+        $resultat = $req->fetchAll(PDO::FETCH_ASSOC);
+
+        // Closing the connection
+        $req = null;
+        $conn = null;
+
+        // Returns results
+        return $resultat;
+    } catch (PDOException $e) {
+
+        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getAllReservationsDB() function";
+        return $st;
+    }
+}
+
 
 /**-----------------------------------------------------------------
             Retrieve all starters from the starters table
@@ -748,7 +798,38 @@ function updateDessertDB($conn, $datas)
     }
 }
 
+/**-----------------------------------------------------------------
+                    Deleting a reservation from the database
+*------------------------------------------------------------------**/
+/**
+ * Deleting a reservation from the database
+ * 
+ * @param mixed $conn 
+ * @return true 
+ */
+function deleteReservationDB($conn, $idReservation)
+{
+    try {
 
+        $idReservation = filterInputs($idReservation);
+
+        $req = $conn->prepare("DELETE FROM reservations WHERE idReservation = :idReservation");
+        $req->bindParam(':idStarter', $idReservation);
+        $req->execute();
+
+        $req = null;
+        $conn = null;
+
+        return true;
+    } catch (PDOException $e) {
+        if (defined('DEBUG') && DEBUG) {
+            error_log('Error: ' . $e->getMessage());
+        } else {
+            error_log("Error in: deleteReservationDB() function");
+        }
+        return false;
+    }
+}
 
 /**-----------------------------------------------------------------
                     Deleting a starter from the database
