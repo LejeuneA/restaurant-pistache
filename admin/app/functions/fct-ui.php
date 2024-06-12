@@ -132,7 +132,6 @@ function displayHeadSection($title = APP_NAME)
  */
 function displayNavigationAdmin()
 {
-
     $navigation = '';
 
     if ($_SESSION['IDENTIFY']) {
@@ -154,16 +153,15 @@ function displayNavigationAdmin()
                                 <a class="nav-link" href="../index.php"><i class="fas fa-home"></i><span> Home</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../admin/manager.php">Catégories</a>
+                                <a class="nav-link" href="../admin/manager.php">Categories</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="../admin/manager-starter.php">Starters</a>
-                            </li>
-                            <li class="nav-item">
-                            <a class="nav-link" href="../admin/manager-maincourse.php">Main courses</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="../admin/manager-dessert.php">Desserts</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" onclick="toggleDropdown(event)">Menu</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="../admin/manager-starter.php">Starters</a>
+                                    <a class="dropdown-item" href="../admin/manager-maincourse.php">Main courses</a>
+                                    <a class="dropdown-item" href="../admin/manager-dessert.php">Desserts</a>
+                                </div>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="../admin/manager.php"><i class="fa-solid fa-square-plus"></i>
@@ -189,10 +187,12 @@ function displayNavigationAdmin()
 
             <!-- Menu -->
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a class="nav-link" href="index.php">Home</a>
-            <a class="nav-link" href="index.php#about">About</a>
-            <a class="nav-link" href="./public/menu.php">Menu</a>
-            <a class="nav-link" href="./public/contact.php">Contact</a>
+            <a class="nav-link" href="../index.php">Home</a>
+            <a class="nav-link" href="../admin/manager.php">Categories</a>
+            <a class="nav-link" href="../admin/manager-starter.php">Starters</a>
+            <a class="nav-link" href="../admin/manager-maincourse.php">Main Courses</a>
+            <a class="nav-link" href="../admin/manager-dessert.php">Desserts</a>
+            <a class="nav-link" href="../public/contact.php">Contact</a>
             <!-- Menu end -->
 
             <!-- Login button -->
@@ -204,7 +204,6 @@ function displayNavigationAdmin()
         <div class="navbar-hamburger">
             <div id="hamburger" onclick="openNav()"><i class="fas fa-bars"></i></div>
         </div>
-
         
         <!------------------------------------------------------------- 
                             Offcanvas menu end
@@ -233,14 +232,13 @@ function displayNavigationAdmin()
                         <li class="nav-item">
                             <a class="nav-link" href="../admin/manager.php">Catégories</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../admin/manager-starter.php">Starters</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="../admin/manager-maincourse.php">Main courses</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../admin/manager-dessert.php">Desserts</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" onclick="toggleDropdown(event)">Menu</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="../admin/manager-starter.php">Starters</a>
+                                <a class="dropdown-item" href="../admin/manager-maincourse.php">Main courses</a>
+                                <a class="dropdown-item" href="../admin/manager-dessert.php">Desserts</a>
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../admin/manager.php"><i class="fa-solid fa-square-plus"></i>
@@ -262,6 +260,7 @@ function displayNavigationAdmin()
 
     echo $navigation;
 }
+
 
 /**-----------------------------------------------------------------
                      Displaying the navigation
