@@ -53,6 +53,17 @@ header,
         @extend %navbar;
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         background-color: $black;
+
+       
+        .navbar-container {
+            .navbar-right { 
+                .navbar-menu {
+                    .--reservation{
+                        margin-right: 1em
+                    }
+                }
+            }
+        }
     }
 
     /* -------------------------------------------------------
@@ -112,11 +123,15 @@ header,
 
         .btn-primary {
             background-color: $primary;
-            margin: 2em 1em;
+            margin:0.5em;
             text-align: center;
             padding: 0.5em 1em;
             border-radius: 5px;
-            @include hover("background-color", $black, "color", $primary);
+            @include button-style(transparent, $white, $primary, $white);
+        }
+
+        .--reservation{
+            margin-top:3em;
         }
     }
 }
