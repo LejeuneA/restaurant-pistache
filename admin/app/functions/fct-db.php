@@ -413,49 +413,63 @@ function getDessertByIDDB($conn, $idDessert)
 }
 
 /**-----------------------------------------------------------------
-                 Adding an item to the database
+                Adding a reservation to the database
 *------------------------------------------------------------------**/
-
 /**
- * Adding an item to the database
+ * Adding a reservation to the database
  * 
- * @param mixed $conn 
- * @return true 
+ * @param PDO $conn Database connection
+ * @param array $data Reservation data
+ * @return bool True on success, false on failure
  */
-function addArticleDB($conn, $datas)
+function addReservationDB($conn, $data)
 {
     try {
-        // Preparing data for insertion into the database
-        $title = filterInputs($datas['title']);
-        $content = nl2br(filterInputs($datas['content']));
+        // Extracting data from $data array
+        $name = filterInputs($data['name']);
+        $email = filterInputs($data['email']);
+        $phone = filterInputs($data['phone']);
+        $book_date = filterInputs($data['book_date']);
+        $book_time = filterInputs($data['book_time']);
+        $person = filterInputs($data['person']);
+        $created_at = date('Y-m-d H:i:s'); 
+        $active = isset($data['active']) ? $data['active'] : 0; 
 
-        // If we receive a value for the publication status of the article
-        if (isset($datas['published_article']) && !empty($datas['published_article']))
-            $active = $datas['published_article'];
-        else
-            $active = 0;
+        // Insert query
+        $query = "INSERT INTO reservations (name, email, phone, book_date, book_time, person, created_at, active) 
+                  VALUES (:name, :email, :phone, :book_date, :book_time, :person, :created_at, :active)";
 
-        // Inserting data in the items table
-        $req = $conn->prepare("INSERT INTO articles (title, content, active) VALUES (:title, :content, :active)");
-        $req->bindParam(':title', $title);
-        $req->bindParam(':content', $content);
-        $req->bindParam(':active', $active);
-        $req->execute();
+        // Prepare the statement
+        $stmt = $conn->prepare($query);
 
-        // Connection closure
-        $req = null;
+        // Bind parameters
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':phone', $phone);
+        $stmt->bindParam(':book_date', $book_date);
+        $stmt->bindParam(':book_time', $book_time);
+        $stmt->bindParam(':person', $person);
+        $stmt->bindParam(':created_at', $created_at);
+        $stmt->bindParam(':active', $active);
+
+        // Execute the insert statement
+        $stmt->execute();
+
+        // Close the statement and connection
+        $stmt = null;
         $conn = null;
 
-        return true;
+        return true; // Return true on success
     } catch (PDOException $e) {
         if (defined('DEBUG') && DEBUG) {
             error_log('Error: ' . $e->getMessage());
         } else {
-            error_log("Error in: addArticleDB() function");
+            error_log("Error in: addReservationDB() function");
         }
-        return false;
+        return false; 
     }
 }
+
 
 
 /**-----------------------------------------------------------------
@@ -621,6 +635,69 @@ function addDessertDB($conn, $datas)
             error_log("Error in: addDessertDB() function");
         }
         return false;
+    }
+}
+
+/**-----------------------------------------------------------------
+                Modifying a reservation in the database
+ *------------------------------------------------------------------**/
+/**
+ * Modifying a reservation in the database
+ * 
+ * @param PDO $conn Database connection
+ * @param array $data Reservation data
+ * @return bool True on success, false on failure
+ */
+function updateReservationDB($conn, $data)
+{
+    try {
+        // Extracting data from $data array
+        $name = filterInputs($data['name']);
+        $email = filterInputs($data['email']);
+        $phone = filterInputs($data['phone']);
+        $book_date = filterInputs($data['book_date']);
+        $book_time = filterInputs($data['book_time']);
+        $person = filterInputs($data['person']);
+        $created_at = date('Y-m-d H:i:s'); 
+        $active = isset($data['active']) ? $data['active'] : 0; 
+
+        // ID of the reservation to update
+        $idReservation = filterInputs($data['idReservation']);
+
+        // Update query
+        $query = "UPDATE reservations SET name = :name, email = :email, phone = :phone, 
+                  book_date = :book_date, book_time = :book_time, person = :person, 
+                  created_at = :created_at, active = :active WHERE idReservation = :idReservation";
+
+        // Prepare the statement
+        $stmt = $conn->prepare($query);
+
+        // Bind parameters
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':phone', $phone);
+        $stmt->bindParam(':book_date', $book_date);
+        $stmt->bindParam(':book_time', $book_time);
+        $stmt->bindParam(':person', $person);
+        $stmt->bindParam(':created_at', $created_at);
+        $stmt->bindParam(':active', $active);
+        $stmt->bindParam(':idReservation', $idReservation);
+
+        // Execute the update statement
+        $stmt->execute();
+
+        // Close the statement and connection
+        $stmt = null;
+        $conn = null;
+
+        return true; 
+    } catch (PDOException $e) {
+        if (defined('DEBUG') && DEBUG) {
+            error_log('Error: ' . $e->getMessage());
+        } else {
+            error_log("Error in: updateReservationDB() function");
+        }
+        return false; 
     }
 }
 
