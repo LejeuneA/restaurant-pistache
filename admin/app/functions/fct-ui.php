@@ -954,18 +954,18 @@ function displayReservationsAsTable($reservations)
     // Table data
     foreach ($reservations as $reservation) {
         echo '<tr>';
-        echo '<td data-cell="id">' . $reservation['idReservation'] . '</td>';
-        echo '<td data-cell="customerName">' . html_entity_decode($reservation['name']) . '</td>';
-        echo '<td data-cell="email">' . html_entity_decode($reservation['email']) . '</td>';
-        echo '<td data-cell="phone">' . html_entity_decode($reservation['phone']) . '</td>';
-        echo '<td data-cell="date">' . html_entity_decode($reservation['book_date']) . '</td>';
-        echo '<td data-cell="time">' . html_entity_decode($reservation['book_time']) . '</td>';
-        echo '<td data-cell="numberOfPeople">' . html_entity_decode($reservation['person']) . '</td>';
-        echo '<td data-cell="createdAt">' . html_entity_decode($reservation['created_at']) . '</td>';
+        echo '<td data-cell="id">' . htmlspecialchars($reservation['idReservation']) . '</td>';
+        echo '<td data-cell="customerName">' . htmlspecialchars($reservation['name']) . '</td>';
+        echo '<td data-cell="email">' . htmlspecialchars($reservation['email']) . '</td>';
+        echo '<td data-cell="phone">' . htmlspecialchars($reservation['phone']) . '</td>';
+        echo '<td data-cell="date">' . htmlspecialchars($reservation['book_date']) . '</td>';
+        echo '<td data-cell="time">' . htmlspecialchars($reservation['book_time']) . '</td>';
+        echo '<td data-cell="numberOfPeople">' . htmlspecialchars($reservation['person']) . '</td>';
+        echo '<td data-cell="createdAt">' . htmlspecialchars($reservation['created_at']) . '</td>';
         echo '<td data-cell="statut">' . ($reservation['active'] ? 'Actif' : 'Inactif') . '</td>';
         echo '<td>';
-        echo '<button class="btn-secondary" onclick="modifyReservation(' . $reservation['idReservation'] . ')">Modify</button>';
-        echo '<button class="btn-primary" onclick="deleteReservation(' . $reservation['idReservation'] . ')">Delete</button>';
+        echo '<button class="btn-secondary" onclick="modifyReservation(' . htmlspecialchars($reservation['idReservation']) . ')">Modify</button>';
+        echo '<button class="btn-primary" onclick="deleteReservation(' . htmlspecialchars($reservation['idReservation']) . ')">Delete</button>';
         echo '</td>';
         echo '</tr>';
     }
@@ -973,6 +973,7 @@ function displayReservationsAsTable($reservations)
     // End the table
     echo '</table>';
 }
+
 
 /**-----------------------------------------------------------------
     Displays the starters for the manager's page in table form
