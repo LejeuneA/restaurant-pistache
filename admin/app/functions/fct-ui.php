@@ -254,7 +254,7 @@ function displayNavigationAdmin()
                         </ul>
 
                         <!-- Reservation button -->
-                        <a href="manager-reservation.php" class="btn-primary"><i class="fa-solid fa-bell-concierge"></i> Reservations</a>
+                        <a href="manager-reservation.php" class="btn-primary --reservation"><i class="fa-solid fa-bell-concierge"></i> Reservations</a>
                         <!-- Reservation button button end -->
 
                         <!-- Login button -->
@@ -462,7 +462,6 @@ function displayNavigation()
  */
 function displayNavigationArticle()
 {
-
     $navigation = '';
 
     if ($_SESSION['IDENTIFY']) {
@@ -489,16 +488,16 @@ function displayNavigationArticle()
                                 <a class="nav-link" href="../index.php#about">About</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../public/menu.php">Menu</a>
+                                <a class="nav-link" href="' . DOMAIN . '/public/menu.php">Menu</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../public/contact.php">Contact</a>
+                                <a class="nav-link" href="' . DOMAIN . '/public/contact.php">Contact</a>
                             </li>
                         </ul>
 
-                        <!-- Login button -->
-                        <a href="../public/reservation.php" class="btn-primary">Book a table</a>
-                        <!-- Login button end -->
+                        <!-- Book a table button -->
+                        <a href="' . DOMAIN . '/public/reservation.php" class="btn-primary">Book a table</a>
+                        <!-- Book a table button end -->
                     </div>
                     <!-- Navbar menu end -->
                 </div>
@@ -516,13 +515,13 @@ function displayNavigationArticle()
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <a class="nav-link" href="../index.php">Home</a>
             <a class="nav-link" href="../index.php#about">About</a>
-            <a class="nav-link" href="../public/menu.php">Menu</a>
-            <a class="nav-link" href="../public/contact.php">Contact</a>
+            <a class="nav-link" href="' . DOMAIN . '/public/menu.php">Menu</a>
+            <a class="nav-link" href="' . DOMAIN . '/public/contact.php">Contact</a>
             <!-- Menu end -->
 
-            <!-- Login button -->
-            <a href="../public/reservation.php" class="btn-primary">Book a table</a>
-            <!-- Login button end -->
+            <!-- Book a table button -->
+            <a href="' . DOMAIN . '/public/reservation.php" class="btn-primary">Book a table</a>
+            <!-- Book a table button end -->
         </div>
 
         <!-- Hamburger icon for smaller screens -->
@@ -555,16 +554,16 @@ function displayNavigationArticle()
                                 <a class="nav-link" href="../index.php#about">About</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../menu.php">Menu</a>
+                                <a class="nav-link" href="' . DOMAIN . '/public/menu.php">Menu</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../contact.php">Contact</a>
+                                <a class="nav-link" href="' . DOMAIN . '/public/contact.php">Contact</a>
                             </li>
                         </ul>
 
-                        <!-- Login button -->
-                        <a href="../reservation.php" class="btn-primary">Book a table</a>
-                        <!-- Login button end -->
+                        <!-- Book a table button -->
+                        <a href="' . DOMAIN . '/public/reservation.php" class="btn-primary">Book a table</a>
+                        <!-- Book a table button end -->
                     </div>
                     <!-- Navbar menu end -->
                 </div>
@@ -576,6 +575,7 @@ function displayNavigationArticle()
 
     echo $navigation;
 }
+
 
 /**-----------------------------------------------------------------
                      Displaying the footer
