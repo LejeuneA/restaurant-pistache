@@ -6,3 +6,31 @@
 /* -------------------------------------------------------
                 Forgot your password page
 ---------------------------------------------------------*/
+
+.login-container {
+    h1{
+        margin-bottom: 1em;
+    }
+
+    .login-content {
+        p {
+            color: $white;
+            margin-top: 2em;
+            font-size: 1.2em;
+            font-weight: 300;
+            font-size: 1em;
+        }
+
+        .login-form{
+
+            label{
+                color: $white;
+                font-weight: 300;
+            }
+
+            input{
+                padding: 0.5em;
+            }
+        }
+    }
+}
