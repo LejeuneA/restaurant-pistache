@@ -98,7 +98,7 @@ if (!is_object($conn)) {
                     <label for="pwd" class="form-ctrl">Password</label>
                     <input type="password" class="form-ctrl" id="pwd" name="pwd" value="" required>
                 </div>
-                <p>Forgot your password?</p>
+                <a href="./forgot-pass.php"><p>Forgot your password?</p></a>
                 <input type="hidden" id="form" name="form" value="login">
                 <button type="submit" class="btn-primary">Login</button>
             </form>
