@@ -20,7 +20,7 @@ if ($conn->connect_error) {
     die('Connection Failed: ' . $conn->connect_error);
 } else {
     // Insert form data into the database
-    $stmt = $conn->prepare("INSERT INTO reservation (name, email, phone, book_date, book_time, person) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO reservations (name, email, phone, book_date, book_time, person) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("sssssi", $name, $email, $phone, $book_date, $book_time, $person);
     $stmt->execute();
 
