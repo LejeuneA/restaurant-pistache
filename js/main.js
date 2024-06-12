@@ -169,3 +169,25 @@ function previewImage(input) {
 		reader.readAsDataURL(file);
 	}
 }
+
+
+/* -------------------------------------------------------
+                Dropdown admin navigator
+---------------------------------------------------------*/
+function toggleDropdown(event) {
+    event.preventDefault();
+    const dropdownMenu = event.target.nextElementSibling;
+    dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+}
+
+window.onclick = function(event) {
+    if (!event.target.matches('.dropdown-toggle')) {
+        var dropdowns = document.getElementsByClassName("dropdown-menu");
+        for (var i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.style.display === 'block') {
+                openDropdown.style.display = 'none';
+            }
+        }
+    }
+}
