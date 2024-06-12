@@ -153,10 +153,10 @@ function displayNavigationAdmin()
                                 <a class="nav-link" href="../index.php"><i class="fas fa-home"></i><span> Home</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../admin/manager.php">Categories</a>
+                                <a class="nav-link" href="../admin/manager.php"><i class="fa-solid fa-layer-group"></i> Categories</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" onclick="toggleDropdown(event)">Menu</a>
+                                <a class="nav-link dropdown-toggle" href="#" onclick="toggleDropdown(event)"><i class="fa-solid fa-list"></i> Menu</a>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="../admin/manager-starter.php">Starters</a>
                                     <a class="dropdown-item" href="../admin/manager-maincourse.php">Main courses</a>
@@ -169,8 +169,12 @@ function displayNavigationAdmin()
                             </li>
                         </ul>
 
+                        <!-- Reservation button -->
+                        <a href="manager-reservation.php" class="btn-primary  --reservation"><i class="fa-solid fa-bell-concierge"></i> Reservations</a>
+                        <!-- Reservation button button end -->
+
                         <!-- Login button -->
-                        <a href="logoff.php" class="btn-primary">Log off</a>
+                        <a href="logoff.php" class="btn-primary"><i class="fa-solid fa-user"></i> Log off</a>
                         <!-- Login button end -->
                     </div>
                     <!-- Navbar menu end -->
@@ -192,12 +196,15 @@ function displayNavigationAdmin()
             <a class="nav-link" href="../admin/manager-starter.php">Starters</a>
             <a class="nav-link" href="../admin/manager-maincourse.php">Main Courses</a>
             <a class="nav-link" href="../admin/manager-dessert.php">Desserts</a>
-            <a class="nav-link" href="../public/contact.php">Contact</a>
             <!-- Menu end -->
 
+            <!-- Reservation button -->
+            <a href="manager-reservation.php" class="btn-primary --reservation"><i class="fa-solid fa-bell-concierge"></i> Reservations</a>
+            <!-- Reservation button button end -->
+
             <!-- Login button -->
-            <a href="./public/reservation.php" class="btn-primary">Book a table</a>
-            <!-- Login button end -->
+            <a href="logoff.php" class="btn-primary"><i class="fa-solid fa-user"></i> Log off</a>
+            <!-- Login button end --> 
         </div>
 
         <!-- Hamburger icon for smaller screens -->
@@ -230,14 +237,14 @@ function displayNavigationAdmin()
                         <a class="nav-link" href="../index.php"><i class="fas fa-home"></i><span> Home</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../admin/manager.php">Catégories</a>
+                            <a class="nav-link" href="../admin/manager.php"><i class="fa-solid fa-layer-group"></i> Categories</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" onclick="toggleDropdown(event)">Menu</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="../admin/manager-starter.php">Starters</a>
-                                <a class="dropdown-item" href="../admin/manager-maincourse.php">Main courses</a>
-                                <a class="dropdown-item" href="../admin/manager-dessert.php">Desserts</a>
+                                <a class="dropdown-item" href="../admin/manager-starter.php"><i class="fa-solid fa-list"></i> Starters</a>
+                                <a class="dropdown-item" href="../admin/manager-maincourse.php"><i class="fa-solid fa-list"></i> Main courses</a>
+                                <a class="dropdown-item" href="../admin/manager-dessert.php"><i class="fa-solid fa-list"></i> Desserts</a>
                             </div>
                         </li>
                         <li class="nav-item">
@@ -246,8 +253,12 @@ function displayNavigationAdmin()
                         </li>
                         </ul>
 
+                        <!-- Reservation button -->
+                        <a href="manager-reservation.php" class="btn-primary"><i class="fa-solid fa-bell-concierge"></i> Reservations</a>
+                        <!-- Reservation button button end -->
+
                         <!-- Login button -->
-                        <a href="logoff.php" class="btn-primary">Log off</a>
+                        <a href="logoff.php" class="btn-primary --reservation"><i class="fa-solid fa-user"></i> Log off</a>
                         <!-- Login button end -->
                     </div>
                     <!-- Navbar menu end -->
@@ -921,6 +932,57 @@ function displayDessertsWithButtons($desserts)
  * @param array $starters
  * @return void
  */
+function displayReservationsAsTable($reservations)
+{
+    // Start the table
+    echo '<table>';
+
+    // Table headers
+    echo '<tr>';
+    echo '<th>ID</th>';
+    echo '<th>Customer Name</th>';
+    echo '<th>Email</th>';
+    echo '<th>Phone</th>';
+    echo '<th>Date</th>';
+    echo '<th>Time</th>';
+    echo '<th>Number of People</th>';
+    echo '<th>Created at</th>';
+    echo '<th>Status</th>';
+    echo '</tr>';
+
+    // Table data
+    foreach ($reservations as $reservation) {
+        echo '<tr>';
+        echo '<td data-cell="id">' . $reservation['idReservation'] . '</td>';
+        echo '<td data-cell="customerName">' . html_entity_decode($reservation['name']) . '</td>';
+        echo '<td data-cell="email">' . html_entity_decode($reservation['email']) . '</td>';
+        echo '<td data-cell="phone">' . html_entity_decode($reservation['phone']) . '</td>';
+        echo '<td data-cell="date">' . html_entity_decode($reservation['book_date']) . '</td>';
+        echo '<td data-cell="time">' . html_entity_decode($reservation['book_time']) . '</td>';
+        echo '<td data-cell="numberOfPeople">' . html_entity_decode($reservation['person']) . '</td>';
+        echo '<td data-cell="createdAt">' . html_entity_decode($reservation['created_at']) . '</td>';
+        echo '<td data-cell="statut">' . ($reservation['active'] ? 'Actif' : 'Inactif') . '</td>';
+        echo '<td>';
+        echo '<button class="btn-secondary" onclick="modifyReservation(' . $reservation['idReservation'] . ')">Modify</button>';
+        echo '<button class="btn-secondary" onclick="displayReservation(' . $reservation['idReservation'] . ')">Display</button>';
+        echo '<button class="btn-primary" onclick="deleteReservation(' . $reservation['idReservation'] . ')">Delete</button>';
+        echo '</td>';
+        echo '</tr>';
+    }
+
+    // End the table
+    echo '</table>';
+}
+
+/**-----------------------------------------------------------------
+    Displays the starters for the manager's page in table form
+ *------------------------------------------------------------------**/
+/**
+ * Displays the starters for the manager's page in table form
+ * 
+ * @param array $starters
+ * @return void
+ */
 function displayStartersAsTable($starters)
 {
     // Start the table
@@ -932,7 +994,7 @@ function displayStartersAsTable($starters)
     echo '<th>Title</th>';
     echo '<th>Price</th>';
     echo '<th>Description</th>';
-    echo '<th>Statut</th>';
+    echo '<th>Statuts</th>';
     echo '<th>Actions</th>';
     echo '</tr>';
 
@@ -943,7 +1005,7 @@ function displayStartersAsTable($starters)
         echo '<td data-cell="title">' . html_entity_decode($starter['title']) . '</td>';
         echo '<td data-cell="price">' . html_entity_decode($starter['price']) . '</td>';
         echo '<td data-cell="description">' . html_entity_decode($starter['description']) . '</td>';
-        echo '<td data-cell="statut">' . ($starter['active'] ? 'Actif' : 'Inactif') . '</td>';
+        echo '<td data-cell="statuts">' . ($starter['active'] ? 'Actif' : 'Inactif') . '</td>';
         echo '<td>';
         echo '<button class="btn-secondary" onclick="modifyStarter(' . $starter['idStarter'] . ')">Modify</button>';
         echo '<button class="btn-secondary" onclick="displayStarter(' . $starter['idStarter'] . ')">Display</button>';
@@ -978,7 +1040,7 @@ function displayMainCoursesAsTable($mainCourses)
     echo '<th>Title</th>';
     echo '<th>Price</th>';
     echo '<th>Description</th>';
-    echo '<th>Statut</th>';
+    echo '<th>Statuts</th>';
     echo '<th>Actions</th>';
     echo '</tr>';
 
@@ -989,7 +1051,7 @@ function displayMainCoursesAsTable($mainCourses)
         echo '<td data-cell="title">' . html_entity_decode($mainCourse['title']) . '</td>';
         echo '<td data-cell="price">' . html_entity_decode($mainCourse['price']) . '</td>';
         echo '<td data-cell="description">' . html_entity_decode($mainCourse['description']) . '</td>';
-        echo '<td data-cell="statut">' . ($mainCourse['active'] ? 'Actif' : 'Inactif') . '</td>';
+        echo '<td data-cell="statuts">' . ($mainCourse['active'] ? 'Actif' : 'Inactif') . '</td>';
         echo '<td>';
         echo '<button class="btn-secondary" onclick="modifyMainCourse(' . $mainCourse['idMainCourse'] . ')">Modify</button>';
         echo '<button class="btn-secondary" onclick="displayMainCourse(' . $mainCourse['idMainCourse'] . ')">Display</button>';
@@ -1024,7 +1086,7 @@ function displayDessertsAsTable($desserts)
     echo '<th>Title</th>';
     echo '<th>Price</th>';
     echo '<th>Description</th>';
-    echo '<th>Statut</th>';
+    echo '<th>Statuts</th>';
     echo '<th>Actions</th>';
     echo '</tr>';
 
@@ -1035,7 +1097,7 @@ function displayDessertsAsTable($desserts)
         echo '<td data-cell="title">' . html_entity_decode($dessert['title']) . '</td>';
         echo '<td data-cell="price">' . html_entity_decode($dessert['price']) . '</td>';
         echo '<td data-cell="description">' . html_entity_decode($dessert['description']) . '</td>';
-        echo '<td data-cell="statut">' . ($dessert['active'] ? 'Actif' : 'Inactif') . '</td>';
+        echo '<td data-cell="statuts">' . ($dessert['active'] ? 'Actif' : 'Inactif') . '</td>';
         echo '<td>';
         echo '<button class="btn-secondary" onclick="modifyDessert(' . $dessert['idDessert'] . ')">Modify</button>';
         echo '<button class="btn-secondary" onclick="displayDessert(' . $dessert['idDessert'] . ')">Display</button>';
