@@ -40,8 +40,7 @@
                 }
 
                 .checkbox-ctrl {
-                    display: flex;
-                    align-items: center;
+                    @include d-flex(flex, start, center, row, start);
                     margin-bottom: 1em;
 
                     label {
@@ -99,15 +98,22 @@
                     }
 
                     #book_date,
-                    #book_time{
+                    #book_time {
                         resize: none;
                     }
-
                 }
 
                 .image_preview {
                     width: 25em;
                     height: 100%;
+                }
+            }
+
+            .--reservation {
+                margin-top: 3.7em;
+
+                .btn-primary {
+                    margin-top: 4.1em;
                 }
             }
         }
@@ -183,6 +189,14 @@
                     .form-ctrl {
                         @include d-flex(flex, center, center, column, center);
                     }
+
+                    .checkbox-ctrl {
+                        @include d-flex(flex, center, center, column, center);
+                    }
+                }
+
+                .--reservation {
+                    margin-top: -3em;
                 }
             }
 
@@ -211,6 +225,14 @@
                     .form-ctrl {
                         @include d-flex(flex, center, center, column, center);
                     }
+
+                    .checkbox-ctrl {
+                        @include d-flex(flex, center, center, column, center);
+                    }
+                }
+
+                .--reservation {
+                    margin-top: -3em;
                 }
             }
 
