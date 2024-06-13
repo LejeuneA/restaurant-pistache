@@ -132,7 +132,7 @@ $addData = [
                     <!-- Form left -->
                     <div class="form-left">
                         <!-- Statue of the article -->
-                        <div class=" checkbox-ctrl">
+                        <div class="checkbox-ctrl">
                             <label for="published_article" class="published_article">Product status <span>(publication)</span></label>
                             <?php displayFormRadioBtnArticlePublished(isset($maincourse['active']) ? $maincourse['active'] : 0, 'ADD'); ?>
                         </div>
