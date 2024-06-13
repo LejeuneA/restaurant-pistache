@@ -116,9 +116,11 @@ $addData = [
                     <div class="form-left">
 
                         <!-- Active -->
-                        <div class="checkbox-ctrl">
-                            <label for="active" class="active">Reservation Status</label>
-                            <input type="checkbox" id="active" name="active" <?php echo (isset($addData['active']) && $addData['active'] == 1) ? 'checked' : ''; ?>>
+                        <div class="checkbox-ctrl checkbox-wrapper-22 add-checkbox"><label for="checkbox">Reservation Status</label>
+                            <label class="switch" for="checkbox">
+                            <input type="checkbox" id="checkbox" name="active" <?php echo (isset($addData['active']) && $addData['active'] == 1) ? 'checked' : ''; ?>>
+                            <span class="slider round"></span> 
+                        </label>
                         </div>
                         
                         <!-- Name -->
