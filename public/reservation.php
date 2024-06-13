@@ -32,25 +32,13 @@ require_once('C:\xampp\htdocs\restaurant-pistache\admin\settings.php');
 </head>
 
 <body>
-    <!-----------------------------------------------------------------
-                                Header
-    ------------------------------------------------------------------>
     <header>
         <?php displayNavigation(); ?>
     </header>
-    <!-- Header end -->
-    <!-----------------------------------------------------------------
-                                Main
-    ------------------------------------------------------------------>
     <main>
-        <!-----------------------------------------------------------------
-                            Reservation section
-        ------------------------------------------------------------------>
         <section class="reservation-section">
             <div class="reservation-section-container container">
-                <!--Reservation form container-->
                 <div class="reservation-container container" data-aos="fade-in" data-aos-delay="200">
-                    <!--Reservation content-->
                     <div class="reservation-content">
                         <div class="reservation-content-title">
                             <div class="reservation-title">
@@ -58,8 +46,14 @@ require_once('C:\xampp\htdocs\restaurant-pistache\admin\settings.php');
                                 <h2 class="title">Make Reservation</h2>
                             </div>
                         </div>
-                        <!--Reservation-content-title-->
-                        <!--Reservation form-->
+                        
+                        <!-- Check for the success message -->
+                        <?php if (isset($_GET['success']) && $_GET['success'] == 1): ?>
+                            <div class="success-message">
+                                Your reservation has been made successfully!
+                            </div>
+                        <?php endif; ?>
+                        
                         <form action="../forms/reservation.php" method="post">
                             <div class="reservation-form-container">
                                 <div class="reservation-form-items">
@@ -123,46 +117,27 @@ require_once('C:\xampp\htdocs\restaurant-pistache\admin\settings.php');
                                     </div>
                                 </div>
                             </div>
-                            <!--Button-->
                             <div class="reservation-button">
                                 <div class="form-group">
                                     <input type="submit" value="Make a Reservation" class="btn-secondary">
                                 </div>
                             </div>
                         </form>
-                        <!--Reservation form end-->
                     </div>
-                    <!--Reservation content end-->
                 </div>
-                <!--Reservation container end-->
-                <!-- Google map -->
                 <div class="map-container container" data-aos="fade-in" data-aos-delay="400">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2518.798010128868!2d5.569091276394098!3d50.63038067949861!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c0f0897b7a8bb7%3A0x401ed56b8e997e0!2sRue%20Saint-Gilles%20343%2C%204000%20Li%C3%A8ge%2C%20Belgium!5e0!3m2!1sen!2s!4v1688150655951!5m2!1sen!2s" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
-                <!-- Google map end -->
             </div>
-            <!-- Reservation section container end -->
         </section>
-        <!--Reservation section end-->
-
     </main>
-    <!-- End Main -->
-    <!-----------------------------------------------------------------
-                               Footer
-    ------------------------------------------------------------------>
     <footer>
-        <!-- Footer upper section -->
         <div class="upper-footer-container">
-            <!-- Upper footer -->
             <div class="upper-footer container">
                 <div class="footer-left">
-                    <!-- Logo column -->
                     <a class="footer-brand" href="../index.php">
                         Pistache
                     </a>
-                    <!-- Logo column end-->
-
-                    <!-- Open hours column -->
                     <div class="footer-open-hours">
                         <h3>Open Hours</h3>
                         <ul>
@@ -175,11 +150,8 @@ require_once('C:\xampp\htdocs\restaurant-pistache\admin\settings.php');
                             <li>Sunday<span>9:00 - 02:00</span></li>
                         </ul>
                     </div>
-                    <!-- Open hours column end -->
                 </div>
-
                 <div class="footer-right">
-                    <!-- Instagram column -->
                     <div class="footer-instagram">
                         <h3>Instagram<h3>
                                 <div class="footer-instagram-container">
@@ -195,52 +167,32 @@ require_once('C:\xampp\htdocs\restaurant-pistache\admin\settings.php');
                                     </div>
                                 </div>
                     </div>
-                    <!-- Instagram column end -->
-
-                    <!-- Follow us column -->
                     <div class="footer-follow-us">
                         <h3>Follow Us</h3>
                         <div class="footer-social-icons">
                             <p>
-                                Stay connected and follow us on social media for the latest updates, special offers, and
-                                a glimpse behind the scenes at Restaurant Pistache.
+                                Stay connected and follow us on social media for the latest updates, special offers, and a glimpse behind the scenes at Restaurant Pistache.
                             </p>
                             <div class="social-icons">
-                                <!-- Facebook -->
                                 <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
                                     <i class="fa-brands fa-facebook"></i>
                                 </a>
-                                <!-- Twitter -->
                                 <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
                                     <i class="fa-brands fa-x-twitter"></i>
                                 </a>
-                                <!-- Instagram -->
                                 <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
                                     <i class="fa-brands fa-instagram"></i>
                                 </a>
                             </div>
-
                             <p>343 Rue Saint-Gilles, 4000 Liége - Belgique</p>
                         </div>
                     </div>
-                    <!-- Follow us column end -->
                 </div>
             </div>
         </div>
-        <!-- Footer upper section end -->
-        <!-----------------------------------------------------------------
-                            Footer bottom section
-        ------------------------------------------------------------------>
         <div class="bottom-footer-container">
-            <!-- Section: Copyright -->
             <div class="bottom-footer container">
-                <!-- Copyright column -->
-                <div>
-                    © 2024 Copyright tous droits réservés
-                </div>
-                <!-- Copyright column end -->
-
-                <!-- Conception and development column -->
+                <div>© 2024 Copyright tous droits réservés</div>
                 <div>
                     Conception et développement par
                     <a href="https://github.com/lejeunea" class="github text-decoration-none">
@@ -248,21 +200,13 @@ require_once('C:\xampp\htdocs\restaurant-pistache\admin\settings.php');
                     </a>
                     <a href="https://github.com/lejeunea" class="text-decoration-none">Açelya Lejeune</a>.
                 </div>
-                <!-- Conception and development column end -->
             </div>
-            <!-- Section: Copyright -->
         </div>
-        <!-- Footer bottom section end -->
     </footer>
-    <!-----------------------------------------------------------------
-                                   Footer end
-        ------------------------------------------------------------------>
 
     <!-- Back to Top -->
     <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
-    <!-----------------------------------------------------------------
-                        JS Libraries
-    ------------------------------------------------------------------>
+
     <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
