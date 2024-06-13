@@ -857,13 +857,13 @@ function displayReservationsAsTable($reservations)
     foreach ($reservations as $reservation) {
         echo '<tr>';
         echo '<td data-cell="id">' . htmlspecialchars($reservation['idReservation']) . '</td>';
-        echo '<td data-cell="customerName">' . htmlspecialchars($reservation['name']) . '</td>';
+        echo '<td data-cell="customer name">' . htmlspecialchars($reservation['name']) . '</td>';
         echo '<td data-cell="email">' . htmlspecialchars($reservation['email']) . '</td>';
         echo '<td data-cell="phone">' . htmlspecialchars($reservation['phone']) . '</td>';
         echo '<td data-cell="date">' . htmlspecialchars($reservation['book_date']) . '</td>';
         echo '<td data-cell="time">' . htmlspecialchars($reservation['book_time']) . '</td>';
-        echo '<td data-cell="numberOfPeople">' . htmlspecialchars($reservation['person']) . '</td>';
-        echo '<td data-cell="createdAt">' . htmlspecialchars($reservation['created_at']) . '</td>';
+        echo '<td data-cell="number of people">' . htmlspecialchars($reservation['person']) . '</td>';
+        echo '<td data-cell="created at">' . htmlspecialchars($reservation['created_at']) . '</td>';
         echo '<td data-cell="statut">' . ($reservation['active'] ? 'Actif' : 'Inactif') . '</td>';
         echo '<td>';
         echo '<button class="btn-secondary" onclick="modifyReservation(' . htmlspecialchars($reservation['idReservation']) . ')">Modify</button>';
@@ -903,8 +903,8 @@ function displayMessagesAsTable($messages)
     // Table data
     foreach ($messages as $message) {
         echo '<tr>';
-        echo '<td data-cell="lastName">' . htmlspecialchars($message['lastname']) . '</td>';
-        echo '<td data-cell="firstName">' . htmlspecialchars($message['firstname']) . '</td>';
+        echo '<td data-cell="last name">' . htmlspecialchars($message['lastname']) . '</td>';
+        echo '<td data-cell="first name">' . htmlspecialchars($message['firstname']) . '</td>';
         echo '<td data-cell="email">' . htmlspecialchars($message['email']) . '</td>';
         echo '<td data-cell="phone">' . htmlspecialchars($message['phone']) . '</td>';
         echo '<td data-cell="message">' . htmlspecialchars($message['message']) . '</td>';
