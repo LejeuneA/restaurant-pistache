@@ -51,37 +51,10 @@
                         margin-right: 0.5em;
                         margin-bottom: 0;
 
-                        span{
+                        span {
                             color: $success;
                             font-weight: 400;
                             font-size: 0.8em;
-                        }
-                    }
-
-                    input[type="checkbox"] {
-                        width: 2em; 
-                        height: 2em;
-                        cursor: pointer;
-                        appearance: none;
-                        // border: 1px solid $light-gray;
-                        background-color: $error;
-                        border-radius: 1em;
-                        position: relative;
-                
-                        &:checked {
-                            background-color: $success; 
-                            border-color: $success; 
-
-                            &::before {
-                                content: " "; 
-                                font-family: "Font Awesome 5 Free"; 
-                                font-weight: 900;
-                                color: $white; 
-                                position: absolute;
-                                top: 50%;
-                                left: 50%;
-                                transform: translate(-50%, -50%);
-                            }
                         }
                     }
 
@@ -101,21 +74,20 @@
             .form-right {
                 width: 100%;
 
-                
                 .form-ctrl {
                     @extend %form-ctrl;
-                    
+
                     div {
                         img {
                             margin-top: 0.5em;
                         }
 
                         .image_url {
-                            color:$darken;
-                            font-size: 1em; 
+                            color: $darken;
+                            font-size: 1em;
                             font-weight: 400;
                             border: 0;
-                            padding: 1em 0; 
+                            padding: 1em 0;
                             margin-bottom: 0;
 
                             &:focus {
@@ -125,8 +97,14 @@
                             }
                         }
                     }
+
+                    #book_date,
+                    #book_time{
+                        resize: none;
+                    }
+
                 }
-                
+
                 .image_preview {
                     width: 25em;
                     height: 100%;
@@ -162,12 +140,12 @@
         }
     }
 
-    .edit-reservation{
+    .edit-reservation {
         @include d-flex(flex, center, center, column, center);
         height: auto;
         width: 100%;
 
-        .btn-primary{
+        .btn-primary {
             margin-top: 2em;
             padding: 0.5em 5em;
         }
@@ -177,7 +155,7 @@
         background-color: $primary;
 
         img {
-            height: auto; 
+            height: auto;
             width: 100%;
             position: absolute;
             bottom: 0;
@@ -190,11 +168,11 @@
     @media (min-width: 320px) and (max-width: 768px) {
         .edit-title {
             h1 {
-                margin-top:5em;
+                margin-top: 5em;
                 margin-bottom: 1em;
             }
         }
-        
+
         .edit-form {
             @include d-flex(flex, center, center, column, center);
 
@@ -218,11 +196,11 @@
     @media (min-width: 769px) and (max-width: 1200px) {
         .edit-title {
             h1 {
-                margin-top:3em;
+                margin-top: 3em;
                 margin-bottom: 1em;
             }
         }
-        
+
         .edit-form {
             @include d-flex(flex, center, center, column, center);
 
