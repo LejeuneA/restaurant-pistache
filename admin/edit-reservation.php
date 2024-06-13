@@ -130,7 +130,7 @@ if (isset($_SESSION['message'])) {
                 <div class="form-top">
                     <!-- Form left -->
                     <div class="form-left">
-                        <!-- Status of the article -->
+                        <!-- Status of the re -->
                         <div class="checkbox-ctrl">
                         <label for="published_article" class="published_article">Reservation status</label>
                         <?php displayFormRadioBtnArticlePublished(isset($reservation['active']) ? $reservation['active'] : 0, 'EDIT'); ?>
@@ -164,7 +164,7 @@ if (isset($_SESSION['message'])) {
                     <!-- Form left end -->
 
                     <!-- Form right -->
-                    <div class="form-right">
+                    <div class="form-right --reservation">
                         <!-- Book Date -->
                         <div class="form-ctrl">
                             <label for="book_date" class="form-ctrl">Booking Date</label>
@@ -183,11 +183,11 @@ if (isset($_SESSION['message'])) {
                             <input type="number" class="form-ctrl" id="person" name="person" value="<?php echo $reservation['person']; ?>">
                         </div>
 
+                    <button type="submit" class="btn-primary">Save</button>
                     </div>
                     <!-- Form right end -->
                 </div>
 
-                <button type="submit" class="btn-primary">Save</button>
             </form>
         </div>
     </div>
