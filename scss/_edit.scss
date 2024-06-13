@@ -145,7 +145,42 @@
     }
 
     // Responsive styles for edit page
-    @media (min-width: 320px) and (max-width: 1332px) {
+    @media (min-width: 320px) and (max-width: 768px) {
+        .edit-title {
+            h1 {
+                margin-top:5em;
+                margin-bottom: 1em;
+            }
+        }
+        
+        .edit-form {
+            @include d-flex(flex, center, center, column, center);
+
+            .form-top {
+                @include d-flex(flex, center, start, column, center);
+
+                .form-left {
+                    .form-ctrl {
+                        @include d-flex(flex, center, center, column, center);
+                    }
+                }
+            }
+
+            .form-bottom {
+                margin-top: 1em;
+            }
+        }
+    }
+
+    // Responsive styles for edit page
+    @media (min-width: 769px) and (max-width: 1200px) {
+        .edit-title {
+            h1 {
+                margin-top:3em;
+                margin-bottom: 1em;
+            }
+        }
+        
         .edit-form {
             @include d-flex(flex, center, center, column, center);
 
