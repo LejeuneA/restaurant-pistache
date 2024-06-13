@@ -367,15 +367,15 @@
         tr {
             th {
                 font-size: 1em;
-                padding: 0.5em;
+                padding: 1em;
                 line-height: 1.2em;
 
                 &:nth-child(1) {
-                    width: 5%;
+                    width: 10%;
                 }
 
                 &:nth-child(2) {
-                    width: 15%;
+                    width: 10%;
                 }
 
                 &:nth-child(3) {
@@ -400,9 +400,10 @@
                 line-height: 1.3em;
 
                 &:nth-child(1) {
+                    text-transform: uppercase;
                     font-weight: 600;
                 }
-
+                
                 &:nth-child(4) {
                     font-size: 1em;
                 }
