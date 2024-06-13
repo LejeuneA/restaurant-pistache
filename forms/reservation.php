@@ -1,6 +1,6 @@
 <?php
 
-const DOMAIN = 'http://localhost/restaurant-pistache';
+const DOMAIN = 'http://localhost/restaurant-pistache/';
 
 $name = isset($_POST['name']) ? $_POST['name'] : null;
 $email = isset($_POST['email']) ? $_POST['email'] : null;
@@ -24,26 +24,11 @@ if ($conn->connect_error) {
     $stmt->bind_param("sssssi", $name, $email, $phone, $book_date, $book_time, $person);
     $stmt->execute();
 
-    // Send email notification
-    // $to = "acelyalejeune@gmail.com"; 
-    // $subject = "New Reservation";
-    // $body = "You have received a new reservation:\n\n";
-    // $body .= "Name: $name\n";
-    // $body .= "Email: $email\n";
-    // $body .= "Phone: $phone\n";
-    // $body .= "Date: $book_date\n";
-    // $body .= "Time: $book_time\n";
-    // $body .= "Number of People: $person\n";
-
-    // // Send email using mail() function
-    // mail($to, $subject, $body);
-
-    echo "Reservation made successfully...";
-
-    // Redirect back to index.html after 1 second
-    header("refresh:1;url=" . DOMAIN);
-
+    // Close the statement and connection before redirecting
     $stmt->close();
     $conn->close();
-}
 
+    // Redirect back to the index page with a success message
+    header("Location: " . DOMAIN . "public/reservation.php?success=1");
+    exit();
+}
