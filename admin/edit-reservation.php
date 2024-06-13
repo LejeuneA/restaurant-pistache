@@ -77,9 +77,11 @@ if (isset($_SESSION['message'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <?php displayHeadSection('Editing a reservation'); ?>
 </head>
+
 <body>
     <header>
         <?php displayNavigationAdmin(); ?>
@@ -94,58 +96,67 @@ if (isset($_SESSION['message'])) {
         </div>
 
         <div class="edit-form container">
-            <form action="edit-reservation.php?idReservation=<?php echo $reservation['idReservation']; ?>" method="post">
+            <form class="edit-reservation" action="edit-reservation.php?idReservation=<?php echo $reservation['idReservation']; ?>" method="post">
                 <input type="hidden" name="idReservation" value="<?php echo $reservation['idReservation']; ?>">
                 <input type="hidden" name="update_form" value="1">
 
                 <!-- Form top -->
                 <div class="form-top">
-                    <!-- Name -->
-                    <div class="form-ctrl">
-                        <label for="name" class="form-ctrl">Name</label>
-                        <input type="text" class="form-ctrl" id="name" name="name" value="<?php echo isset($reservation['name']) ? $reservation['name'] : ''; ?>" required>
-                    </div>
 
-                    <!-- Email -->
-                    <div class="form-ctrl">
-                        <label for="email" class="form-ctrl">Email</label>
-                        <input type="email" class="form-ctrl" id="email" name="email" value="<?php echo isset($reservation['email']) ? $reservation['email'] : ''; ?>" required>
-                    </div>
+                    <!-- Form left -->
+                    <div class="form-left">
 
-                    <!-- Phone -->
-                    <div class="form-ctrl">
-                        <label for="phone" class="form-ctrl">Phone</label>
-                        <input type="tel" class="form-ctrl" id="phone" name="phone" value="<?php echo isset($reservation['phone']) ? $reservation['phone'] : ''; ?>" required>
-                    </div>
+                        <!-- Active -->
+                        <div class="checkbox-ctrl">
+                            <label for="published_article" class="published_article">Status of the reservation</label>
+                            <?php displayFormRadioBtnArticlePublished(isset($reservation['active']) ? $reservation['active'] : 0, 'EDIT'); ?>
+                        </div>
 
-                    <!-- Book Date -->
-                    <div class="form-ctrl">
-                        <label for="book_date" class="form-ctrl">Book Date</label>
-                        <input type="date" class="form-ctrl" id="book_date" name="book_date" value="<?php echo isset($reservation['book_date']) ? $reservation['book_date'] : ''; ?>" required>
-                    </div>
+                        <!-- Name -->
+                        <div class="form-ctrl">
+                            <label for="name" class="form-ctrl">Name</label>
+                            <input type="text" class="form-ctrl" id="name" name="name" value="<?php echo isset($reservation['name']) ? $reservation['name'] : ''; ?>" required>
+                        </div>
 
-                    <!-- Book Time -->
-                    <div class="form-ctrl">
-                        <label for="book_time" class="form-ctrl">Book Time</label>
-                        <input type="time" class="form-ctrl" id="book_time" name="book_time" value="<?php echo isset($reservation['book_time']) ? $reservation['book_time'] : ''; ?>" required>
-                    </div>
+                        <!-- Email -->
+                        <div class="form-ctrl">
+                            <label for="email" class="form-ctrl">Email</label>
+                            <input type="email" class="form-ctrl" id="email" name="email" value="<?php echo isset($reservation['email']) ? $reservation['email'] : ''; ?>" required>
+                        </div>
 
-                    <!-- Person -->
-                    <div class="form-ctrl">
-                        <label for="person" class="form-ctrl">Person</label>
-                        <input type="number" class="form-ctrl" id="person" name="person" value="<?php echo isset($reservation['person']) ? $reservation['person'] : ''; ?>" required>
+                        <!-- Phone -->
+                        <div class="form-ctrl">
+                            <label for="phone" class="form-ctrl">Phone</label>
+                            <input type="tel" class="form-ctrl" id="phone" name="phone" value="<?php echo isset($reservation['phone']) ? $reservation['phone'] : ''; ?>" required>
+                        </div>
                     </div>
+                    <!-- Form left end -->
 
-                    <!-- Active -->
-                    <div class="checkbox-ctrl">
-                        <label for="active" class="active">Active</label>
-                        <input type="checkbox" id="active" name="active" value="1" <?php echo isset($reservation['active']) && $reservation['active'] ? 'checked' : ''; ?>>
+                    <!-- Form right -->
+                    <div class="form-right">
+                        <!-- Book Date -->
+                        <div class="form-ctrl">
+                            <label for="book_date" class="form-ctrl">Book Date</label>
+                            <input type="date" class="form-ctrl" id="book_date" name="book_date" value="<?php echo isset($reservation['book_date']) ? $reservation['book_date'] : ''; ?>" required>
+                        </div>
+
+                        <!-- Book Time -->
+                        <div class="form-ctrl">
+                            <label for="book_time" class="form-ctrl">Book Time</label>
+                            <input type="time" class="form-ctrl" id="book_time" name="book_time" value="<?php echo isset($reservation['book_time']) ? $reservation['book_time'] : ''; ?>" required>
+                        </div>
+
+                        <!-- Person -->
+                        <div class="form-ctrl">
+                            <label for="person" class="form-ctrl">Person</label>
+                            <input type="number" class="form-ctrl" id="person" name="person" value="<?php echo isset($reservation['person']) ? $reservation['person'] : ''; ?>" required>
+                        </div>
+
+                        <button type="submit" class="btn-primary">Save</button>
+
                     </div>
-                </div>
+                    <!-- Form right end -->
 
-                <!-- Form bottom -->
-                <div class="form-bottom">
-                    <button type="submit" class="btn-primary">Save</button>
                 </div>
             </form>
         </div>
@@ -160,4 +171,5 @@ if (isset($_SESSION['message'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="../js/main.js"></script>
 </body>
+
 </html>
