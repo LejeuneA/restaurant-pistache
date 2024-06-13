@@ -188,6 +188,13 @@
 
 .table-reservations {
     padding: 0;
+
+    a{
+        margin-top: 2em;
+
+        @include button-style($black, $white, $white, $primary);
+    }
+
     table {
         tr {
             th {
