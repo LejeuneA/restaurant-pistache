@@ -40,17 +40,42 @@
                 }
 
                 .checkbox-ctrl {
+                    display: flex;
+                    align-items: center;
                     margin-bottom: 1em;
 
                     label {
                         color: $black;
                         font-weight: 400;
                         font-size: 1.5em;
+                        margin-right: 0.5em;
+                        margin-bottom: 0;
+                    }
 
-                        span {
-                            text-align: start;
-                            color: $primary;
-                            font-size: 0.7em;
+                    input[type="checkbox"] {
+                        width: 2em; 
+                        height: 2em;
+                        cursor: pointer;
+                        appearance: none;
+                        // border: 1px solid $light-gray;
+                        background-color: $error;
+                        border-radius: 1em;
+                        position: relative;
+                
+                        &:checked {
+                            background-color: $success; 
+                            border-color: $success; 
+
+                            &::before {
+                                content: " "; 
+                                font-family: "Font Awesome 5 Free"; 
+                                font-weight: 900;
+                                color: $white; 
+                                position: absolute;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                            }
                         }
                     }
 
