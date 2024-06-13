@@ -144,7 +144,7 @@ $addData = [
                     <!-- Form left end -->
 
                     <!-- Form right -->
-                    <div class="form-right">
+                    <div class="form-right --reservation">
 
                         <!-- Book Date -->
                         <div class="form-ctrl">
