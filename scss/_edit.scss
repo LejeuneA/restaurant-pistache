@@ -50,6 +50,12 @@
                         font-size: 1.5em;
                         margin-right: 0.5em;
                         margin-bottom: 0;
+
+                        span{
+                            color: $success;
+                            font-weight: 400;
+                            font-size: 0.8em;
+                        }
                     }
 
                     input[type="checkbox"] {
