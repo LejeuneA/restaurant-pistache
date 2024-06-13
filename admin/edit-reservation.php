@@ -132,9 +132,8 @@ if (isset($_SESSION['message'])) {
                     <div class="form-left">
                         <!-- Status of the article -->
                         <div class="checkbox-ctrl">
-                            <label for="published_article" class="published_article">Reservation Status</label>
-                            <input type="checkbox" id="published_article" name="published_article" value="1" <?php echo ($reservation['active'] == 1) ? 'checked' : ''; ?>>
-                            <label for="published_article">Active</label>
+                        <label for="published_article" class="published_article">Reservation status<span>(active)</span></label>
+                        <?php displayFormRadioBtnArticlePublished(isset($reservation['active']) ? $reservation['active'] : 0, 'EDIT'); ?>
                         </div>
 
                         <!-- Name -->
