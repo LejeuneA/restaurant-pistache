@@ -42,7 +42,7 @@ if (!is_object($conn)) {
                     $_SESSION['message'] = getMessage('Message successfully deleted.', 'success');
 
                     // Refresh the page to reflect the changes after deletion
-                    header('Location: manager-message.php');
+                    header('Location: manager-messages.php');
                     exit();
                 } else {
                     $_SESSION['message'] = getMessage('Error when deleting message.' . $deleteResult, 'error');
@@ -56,10 +56,10 @@ if (!is_object($conn)) {
     }
 }
 
-// Refresh the redirected page (manager-message.php), add this code to display the message
+// Refresh the redirected page (manager-messages.php), add this code to display the message
 if (isset($_SESSION['message'])) {
     $msg = $_SESSION['message'];
-    unset($_SESSION['message']); // Clear the message after displaying it
+    unset($_SESSION['message']); 
 }
 ?>
 
@@ -71,7 +71,7 @@ if (isset($_SESSION['message'])) {
 <head>
     <?php
     // Include the head section
-    displayHeadSection('Managing messages');
+    displayHeadSection('My messages');
     displayJSSection();
     ?>
 </head>
@@ -94,7 +94,7 @@ if (isset($_SESSION['message'])) {
 							   Header end
 	------------------------------------------------------------------>
     <div class="table-messages container">
-        <h1 class="title">Managing messages</h1>
+        <h1 class="title">My messages</h1>
         <div id="message">
             <?= isset($msg) ? $msg : ''; ?>
         </div>
