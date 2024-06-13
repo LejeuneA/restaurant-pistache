@@ -93,7 +93,7 @@ if (isset($_SESSION['message'])) {
 	------------------------------------------------------------------>
     <div class="table-reservations container">
         <h1 class="title">Managing reservations</h1>
-        <a href="../admin/add-reservation.php"><i class="fa-solid fa-square-plus"></i> Add Reservation</a>
+        <a class="btn-primary" href="../admin/add-reservation.php"><i class="fa-solid fa-square-plus"></i> Add Reservation</a>
         <div id="message">
             <?= isset($msg) ? $msg : ''; ?>
         </div>
