@@ -131,11 +131,22 @@
         }
     }
 
+    .edit-reservation{
+        @include d-flex(flex, center, center, column, center);
+        height: auto;
+        width: 100%;
+
+        .btn-primary{
+            margin-top: 2.2em;
+            padding: 0.5em 5em;
+        }
+    }
+
     .login-vector {
         background-color: $primary;
 
         img {
-            height: auto;
+            height: auto; 
             width: 100%;
             position: absolute;
             bottom: 0;
@@ -217,7 +228,7 @@
         }
 
         .slider {
-            background-color: #ccc;
+            background-color: $light-gray;
             bottom: 0;
             cursor: pointer;
             left: 0;
@@ -227,7 +238,7 @@
             transition: 0.4s;
 
             &::before {
-                background-color: #fff;
+                background-color: $white;
                 bottom: 4px;
                 content: "";
                 height: 26px;
@@ -239,7 +250,7 @@
         }
 
         input:checked + .slider {
-            background-color: #66bb6a;
+            background-color: $success;
 
             &::before {
                 transform: translateX(26px);
