@@ -192,14 +192,18 @@
     width: 100%;
     padding: 0;
 
-    h1{
+    h1 {
         @extend %h1-admin;
     }
 
-    a{
-        margin: 2em 0;
-
+    a {
         @include button-style($black, $white, $white, $primary);
+        margin: 2em 0;
+        border: 1px solid $black;
+
+        &:hover {
+            border: 1px solid $primary;
+        }
     }
 
     table {
@@ -260,11 +264,18 @@
                 }
 
                 .btn-primary {
+                    @include button-style($black, $white, $white, $primary);
                     margin: 0.3em;
                     width: 7em;
+                    border: 1px solid $black;
+
+                    &:hover {
+                        border: 1px solid $primary;
+                    }
                 }
 
                 .btn-secondary {
+                    @include button-style($white, $primary, $black, $white);
                     margin: 0.3em;
                     width: 7em;
                     border: 1px solid $primary;
@@ -342,6 +353,24 @@
                         border-bottom-left-radius: 1em;
                         border-bottom-right-radius: 1em;
                     }
+
+                    .btn-primary {
+                        @include button-style($black, $primary, $primary, $black);
+                        border: 1px solid $primary;
+
+                        &:hover {
+                            border: 1px solid $primary;
+                        }
+                    }
+
+                    .btn-secondary {
+                        @include button-style($black, $primary, $primary, $black);
+                        border: 1px solid $primary;
+
+                        &:hover {
+                            border: 1px solid $primary;
+                        }
+                    }
                 }
             }
         }
@@ -352,20 +381,43 @@
             margin-bottom: 0;
             margin-top: 3em;
         }
+
+        table {
+            tr {
+                td {
+                    .btn-primary {
+                        @include button-style($black, $primary, $primary, $black);
+                        border: 1px solid $primary;
+
+                        &:hover {
+                            border: 1px solid $primary;
+                        }
+                    }
+
+                    .btn-secondary {
+                        @include button-style($black, $primary, $primary, $black);
+                        border: 1px solid $primary;
+
+                        &:hover {
+                            border: 1px solid $primary;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
-
 
 .table-messages {
     @include d-flex(flex, center, center, column, center);
     width: 100%;
     padding: 0;
 
-    h1{
+    h1 {
         @extend %h1-admin;
     }
 
-    a{
+    a {
         margin: 2em 0;
 
         @include button-style($black, $white, $white, $primary);
@@ -411,14 +463,20 @@
                     text-transform: uppercase;
                     font-weight: 600;
                 }
-                
+
                 &:nth-child(4) {
                     font-size: 1em;
                 }
 
                 .btn-primary {
+                    @include button-style($black, $white, $white, $primary);
                     margin: 0.3em;
                     width: 7em;
+                    border: 1px solid $black;
+
+                    &:hover {
+                        border: 1px solid $primary;
+                    }
                 }
 
                 .btn-secondary {
@@ -441,8 +499,8 @@
             margin-top: 5em;
         }
 
-        #message{
-            margin:0;
+        #message {
+            margin: 0;
         }
 
         table {
@@ -503,6 +561,15 @@
                         border-bottom-left-radius: 1em;
                         border-bottom-right-radius: 1em;
                     }
+
+                    .btn-primary {
+                        @include button-style($black, $white, $primary, $black);
+                        border: 1px solid $primary;
+    
+                        &:hover {
+                            border: 1px solid $primary;
+                        }
+                    }
                 }
             }
         }
@@ -514,8 +581,23 @@
             margin-top: 3em;
         }
 
-        #message{
-            margin:0;
+        #message {
+            margin: 0;
+        }
+
+        table{
+            tr{
+                td{
+                    .btn-primary {
+                        @include button-style($black, $white, $primary, $black);
+                        border: 1px solid $primary;
+    
+                        &:hover {
+                            border: 1px solid $primary;
+                        }
+                    }
+                }
+            }
         }
     }
 }
