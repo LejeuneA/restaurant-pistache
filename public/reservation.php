@@ -49,7 +49,7 @@ require_once('C:\xampp\htdocs\restaurant-pistache\admin\settings.php');
                         
                         <!-- Check for the success message -->
                         <?php if (isset($_GET['success']) && $_GET['success'] == 1): ?>
-                            <div class="success-message">
+                            <div class="msg-success">
                                 Your reservation has been made successfully!
                             </div>
                         <?php endif; ?>
