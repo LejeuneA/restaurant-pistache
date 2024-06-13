@@ -63,7 +63,7 @@ require_once('C:\xampp\htdocs\restaurant-pistache\admin\settings.php');
                         <!-- Contact-content-title -->
 
                         <?php if (isset($_GET['success'])): ?>
-                        <div class="success-message">
+                        <div class="msg-success">
                             <p>Message sent!</p>
                         </div>
                         <?php endif; ?>
