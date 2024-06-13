@@ -892,8 +892,8 @@ function displayMessagesAsTable($messages)
 
     // Table headers
     echo '<tr>';
-    echo '<th>First Name</th>';
     echo '<th>Last Name</th>';
+    echo '<th>First Name</th>';
     echo '<th>Email</th>';
     echo '<th>Phone</th>';
     echo '<th>Message</th>';
@@ -903,8 +903,8 @@ function displayMessagesAsTable($messages)
     // Table data
     foreach ($messages as $message) {
         echo '<tr>';
-        echo '<td data-cell="firstName">' . htmlspecialchars($message['firstname']) . '</td>';
         echo '<td data-cell="lastName">' . htmlspecialchars($message['lastname']) . '</td>';
+        echo '<td data-cell="firstName">' . htmlspecialchars($message['firstname']) . '</td>';
         echo '<td data-cell="email">' . htmlspecialchars($message['email']) . '</td>';
         echo '<td data-cell="phone">' . htmlspecialchars($message['phone']) . '</td>';
         echo '<td data-cell="message">' . htmlspecialchars($message['message']) . '</td>';
