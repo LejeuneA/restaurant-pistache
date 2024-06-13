@@ -107,19 +107,26 @@ $addData = [
         </div>
 
         <div class="edit-form container">
-            <form id="add-reservation-form" action="add-reservation.php" method="post" enctype="multipart/form-data">
+            <form class="edit-reservation" id="add-reservation-form" action="add-reservation.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="form" value="add">
 
                 <!-- Form top -->
                 <div class="form-top">
                     <!-- Form left -->
                     <div class="form-left">
+
+                        <!-- Active -->
+                        <div class="checkbox-ctrl">
+                            <label for="active" class="active">Reservation Status <span>(active)</span></label>
+                            <input type="checkbox" id="active" name="active" <?php echo (isset($addData['active']) && $addData['active'] == 1) ? 'checked' : ''; ?>>
+                        </div>
+
                         <!-- Name -->
                         <div class="form-ctrl">
                             <label for="name" class="form-ctrl">Name</label>
                             <input type="text" class="form-ctrl" id="name" name="name" value="<?php echo isset($addData['name']) ? $addData['name'] : ''; ?>" required>
                         </div>
-                        
+
                         <!-- Email -->
                         <div class="form-ctrl">
                             <label for="email" class="form-ctrl">Email</label>
@@ -131,6 +138,11 @@ $addData = [
                             <label for="phone" class="form-ctrl">Phone</label>
                             <input type="text" class="form-ctrl" id="phone" name="phone" value="<?php echo isset($addData['phone']) ? $addData['phone'] : ''; ?>" required>
                         </div>
+                    </div>
+                    <!-- Form left end -->
+
+                    <!-- Form right -->
+                    <div class="form-right">
 
                         <!-- Book Date -->
                         <div class="form-ctrl">
@@ -150,22 +162,15 @@ $addData = [
                             <input type="number" class="form-ctrl" id="person" name="person" value="<?php echo isset($addData['person']) ? $addData['person'] : ''; ?>" required>
                         </div>
 
-                        <!-- Active -->
-                        <div class="checkbox-ctrl">
-                            <label for="active" class="active">Reservation Status <span>(active)</span></label>
-                            <input type="checkbox" id="active" name="active" <?php echo (isset($addData['active']) && $addData['active'] == 1) ? 'checked' : ''; ?>>
-                        </div>
+                        <button type="submit" class="btn-primary"><i class="fa-solid fa-square-plus"></i> Add</button>
                     </div>
+                    <!-- Form right end -->
                 </div>
-
-                <!-- Form bottom -->
-                <div class="form-bottom">
-                    <button type="submit" class="btn-primary"><i class="fa-solid fa-square-plus"></i> Add</button>
-                </div>
+                <!-- Form top end -->
             </form>
         </div>
     </div>
-   
+
     <!-----------------------------------------------------------------
                                Footer
     ------------------------------------------------------------------>
@@ -175,7 +180,7 @@ $addData = [
     <!-----------------------------------------------------------------
                             Footer end
     ------------------------------------------------------------------>
-    
+
     <?php
     displayJSSection(false);
     ?>
@@ -183,8 +188,8 @@ $addData = [
     <!-- Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-   <!-- Main Js -->
-   <script src="../js/main.js"></script>
+    <!-- Main Js -->
+    <script src="../js/main.js"></script>
 
 </body>
 
