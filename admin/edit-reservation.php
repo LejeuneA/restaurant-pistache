@@ -136,6 +136,12 @@ if (isset($_SESSION['message'])) {
                         <?php displayFormRadioBtnArticlePublished(isset($reservation['active']) ? $reservation['active'] : 0, 'EDIT'); ?>
                         </div>
 
+                         <!-- Created At -->
+                         <div class="form-ctrl">
+                            <label for="created_at" class="form-ctrl">Created At</label>
+                            <input type="text" class="form-ctrl" id="created_at" name="created_at" value="<?php echo $reservation['created_at']; ?>" readonly>
+                        </div>
+
                         <!-- Name -->
                         <div class="form-ctrl">
                             <label for="name" class="form-ctrl">Name</label>
@@ -177,11 +183,6 @@ if (isset($_SESSION['message'])) {
                             <input type="number" class="form-ctrl" id="person" name="person" value="<?php echo $reservation['person']; ?>">
                         </div>
 
-                        <!-- Created At -->
-                        <div class="form-ctrl">
-                            <label for="created_at" class="form-ctrl">Created At</label>
-                            <input type="text" class="form-ctrl" id="created_at" name="created_at" value="<?php echo $reservation['created_at']; ?>" readonly>
-                        </div>
                     </div>
                     <!-- Form right end -->
                 </div>
