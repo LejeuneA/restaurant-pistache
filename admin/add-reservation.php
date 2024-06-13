@@ -117,7 +117,7 @@ $addData = [
 
                         <!-- Active -->
                         <div class="checkbox-ctrl">
-                            <label for="active" class="active">Reservation Status <span>(active)</span></label>
+                            <label for="active" class="active">Reservation Status</label>
                             <input type="checkbox" id="active" name="active" <?php echo (isset($addData['active']) && $addData['active'] == 1) ? 'checked' : ''; ?>>
                         </div>
                         
