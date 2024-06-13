@@ -120,7 +120,7 @@ $addData = [
                             <label for="active" class="active">Reservation Status <span>(active)</span></label>
                             <input type="checkbox" id="active" name="active" <?php echo (isset($addData['active']) && $addData['active'] == 1) ? 'checked' : ''; ?>>
                         </div>
-
+                        
                         <!-- Name -->
                         <div class="form-ctrl">
                             <label for="name" class="form-ctrl">Name</label>
@@ -162,11 +162,11 @@ $addData = [
                             <input type="number" class="form-ctrl" id="person" name="person" value="<?php echo isset($addData['person']) ? $addData['person'] : ''; ?>" required>
                         </div>
 
-                        <button type="submit" class="btn-primary"><i class="fa-solid fa-square-plus"></i> Add</button>
                     </div>
                     <!-- Form right end -->
                 </div>
                 <!-- Form top end -->
+                <button type="submit" class="btn-primary"><i class="fa-solid fa-square-plus"></i> Add</button>
             </form>
         </div>
     </div>
