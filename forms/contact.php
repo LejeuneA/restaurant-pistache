@@ -38,7 +38,7 @@ if ($conn->connect_error) {
     echo "Message sent...";
 
     // Redirect back to index.html after 1 second
-    header("refresh:2;url=" . DOMAIN);
+    header("refresh:1;url=" . DOMAIN);
 
     $stmt->close();
     $conn->close();
