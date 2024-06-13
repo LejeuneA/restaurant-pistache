@@ -12,6 +12,7 @@
     font-size: 3em;
     text-align: center;
     margin-top: 3em;
+    text-transform: capitalize;
 
     @media (min-width: 320px) and (max-width: 768px) {
         font-size: 2em;
@@ -191,7 +192,8 @@
 
             th {
                 font-size: 1.2em;
-                font-weight: 300;
+                text-transform: uppercase;
+                font-weight: 600;
                 padding: 0.5em 1em;
                 color: $white;
                 background-color: $black;
