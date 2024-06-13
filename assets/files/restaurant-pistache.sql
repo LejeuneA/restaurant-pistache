@@ -47,14 +47,14 @@ DROP TABLE IF EXISTS `contact`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `contact` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `idContact` int NOT NULL AUTO_INCREMENT,
   `firstname` varchar(45) NOT NULL,
   `lastname` varchar(45) NOT NULL,
   `email` varchar(150) NOT NULL,
   `phone` varchar(150) DEFAULT NULL,
   `message` varchar(500) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+  PRIMARY KEY (`idContact`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,7 +63,7 @@ CREATE TABLE `contact` (
 
 LOCK TABLES `contact` WRITE;
 /*!40000 ALTER TABLE `contact` DISABLE KEYS */;
-INSERT INTO `contact` VALUES (1,'Açelya','LEJEUNE','acelyalejeune@gmail.com','0493387729','svdsdsd');
+INSERT INTO `contact` VALUES (1,'Açelya','LEJEUNE','acelyalejeune@gmail.com','0493387729','svdsdsd'),(2,'John','Doe','john.doe@example.com','555-1234','Looking forward to visiting your restaurant next week!'),(3,'Jane','Smith','jane.smith@example.com','555-5678','I would like to book a table for four on Saturday.'),(4,'Emily','Jones','emily.jones@example.com','555-8765','What are your opening hours on weekends?'),(5,'Michael','Brown','michael.brown@example.com','555-4321','Do you offer vegetarian options on your menu?'),(6,'Jessica','Williams','jessica.williams@example.com','555-3456','Can I host a private event at your restaurant?'),(7,'David','Taylor','david.taylor@example.com','555-6543','Is there a dress code for dining at your place?'),(8,'Sarah','Johnson','sarah.johnson@example.com','555-7890','Can I see the menu before making a reservation?'),(9,'Chris','Lee','chris.lee@example.com','555-0987','What safety measures are in place due to COVID-19?'),(10,'Amanda','Miller','amanda.miller@example.com','555-2345','Do you have any special offers for new customers?'),(11,'James','Davis','james.davis@example.com','555-6789','Are you hiring any staff at the moment?'),(12,'Olivia','Martinez','olivia.martinez@example.com','555-1239','Can you accommodate gluten-free diets?'),(13,'Daniel','Garcia','daniel.garcia@example.com','555-9876','What is your policy on bringing pets to the restaurant?'),(14,'Sophia','Anderson','sophia.anderson@example.com','555-5432','Is there a parking facility available nearby?'),(15,'Matthew','Hernandez','matthew.hernandez@example.com','555-6547','Do you provide any loyalty programs for frequent diners?'),(16,'Emma','Rodriguez','emma.rodriguez@example.com','555-7654','Can I pre-order food before arriving at the restaurant?'),(17,'Joshua','Martinez','joshua.martinez@example.com','555-0981','Is there an outdoor seating area available?'),(18,'Ava','Lopez','ava.lopez@example.com','555-1324','What are your most popular dishes?'),(19,'Benjamin','Gonzalez','benjamin.gonzalez@example.com','555-5643','Do you offer any discounts for large groups?'),(20,'Isabella','Wilson','isabella.wilson@example.com','555-8760','Can I get a gift card for your restaurant?'),(21,'Mason','Martinez','mason.martinez@example.com','555-3412','Do you have live music on weekends?'),(22,'Açelya','LEJEUNE','acelyalejeune@gmail.com','0493387729','test');
 /*!40000 ALTER TABLE `contact` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -145,7 +145,7 @@ CREATE TABLE `reservations` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `active` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`idReservation`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -154,7 +154,7 @@ CREATE TABLE `reservations` (
 
 LOCK TABLES `reservations` WRITE;
 /*!40000 ALTER TABLE `reservations` DISABLE KEYS */;
-INSERT INTO `reservations` VALUES (13,'John Doe','john@example.com','1234567890','2024-06-12','18:00:00',4,'2024-06-12 10:57:31',1),(14,'Jane Smith','jane@example.com','9876543210','2024-06-13','19:00:00',2,'2024-06-12 10:57:31',1),(15,'Michael Brown','michael@example.com','5556667777','2024-06-14','20:00:00',3,'2024-06-12 10:57:31',0),(16,'Emily Johnson','emily@example.com','4443332222','2024-06-15','21:00:00',5,'2024-06-12 10:57:31',1),(17,'Alex Turner','alex@example.com','9998887777','2024-06-16','22:00:00',2,'2024-06-12 10:57:31',1),(18,'Sophia Garcia','sophia@example.com','1112223333','2024-06-17','18:30:00',3,'2024-06-12 10:57:31',0),(19,'William Wilson','william@example.com','4445556666','2024-06-18','19:30:00',4,'2024-06-12 10:57:31',1),(20,'Olivia Brown','olivia@example.com','7778889999','2024-06-19','20:30:00',2,'2024-06-12 10:57:31',1),(21,'James Martinez','james@example.com','2223334444','2024-06-20','21:30:00',3,'2024-06-12 10:57:31',0),(22,'Amelia Johnson','amelia@example.com','5554443333','2024-06-21','22:30:00',5,'2024-06-12 10:57:31',1),(23,'Michael Harris','michael@example.com','9991112222','2024-06-22','18:45:00',2,'2024-06-12 10:57:31',1),(24,'Emma Wilson','emma@example.com','6665554444','2024-06-23','19:45:00',3,'2024-06-12 10:57:31',0),(25,'Ethan Thomas','ethan@example.com','1112223333','2024-06-24','20:45:00',4,'2024-06-12 10:57:31',1),(26,'Isabella Anderson','isabella@example.com','3334445555','2024-06-25','21:45:00',2,'2024-06-12 10:57:31',1),(27,'Ava Jackson','ava@example.com','8889990000','2024-06-26','22:45:00',3,'2024-06-12 10:57:31',0),(28,'Noah White','noah@example.com','4445556666','2024-06-27','18:15:00',5,'2024-06-12 10:57:31',1),(29,'Sophia Brown','sophia@example.com','5556667777','2024-06-28','19:15:00',2,'2024-06-12 10:57:31',1),(30,'Benjamin Lee','benjamin@example.com','1112223333','2024-06-29','20:15:00',3,'2024-06-12 10:57:31',0),(31,'Mia Taylor','mia@example.com','4445556666','2024-06-30','21:15:00',4,'2024-06-12 10:57:31',1),(32,'Alexander Johnson','alexander@example.com','1112223333','2024-07-01','22:15:00',2,'2024-06-12 10:57:31',1);
+INSERT INTO `reservations` VALUES (13,'John Doe','john@example.com','1234567890','2024-06-12','18:00:00',4,'2024-06-12 10:57:31',1),(14,'Jane Smith','jane@example.com','9876543210','2024-06-13','19:00:00',2,'2024-06-12 10:57:31',1),(15,'Michael Brown','michael@example.com','5556667777','2024-06-14','20:00:00',3,'2024-06-12 10:57:31',0),(16,'Emily Johnson','emily@example.com','4443332222','2024-06-15','21:00:00',5,'2024-06-12 10:57:31',1),(17,'Alex Turner','alex@example.com','9998887777','2024-06-16','22:00:00',2,'2024-06-12 10:57:31',1),(18,'Sophia Garcia','sophia@example.com','1112223333','2024-06-17','18:30:00',3,'2024-06-12 10:57:31',0),(19,'William Wilson','william@example.com','4445556666','2024-06-18','19:30:00',4,'2024-06-12 10:57:31',1),(20,'Olivia Brown','olivia@example.com','7778889999','2024-06-19','20:30:00',2,'2024-06-12 10:57:31',1),(21,'James Martinez','james@example.com','2223334444','2024-06-20','21:30:00',3,'2024-06-12 10:57:31',0),(22,'Amelia Johnson','amelia@example.com','5554443333','2024-06-21','22:30:00',5,'2024-06-12 10:57:31',1),(23,'Michael Harris','michael@example.com','9991112222','2024-06-22','18:45:00',2,'2024-06-12 10:57:31',1),(24,'Emma Wilson','emma@example.com','6665554444','2024-06-23','19:45:00',3,'2024-06-12 10:57:31',0),(25,'Ethan Thomas','ethan@example.com','1112223333','2024-06-24','20:45:00',4,'2024-06-12 10:57:31',1),(26,'Isabella Anderson','isabella@example.com','3334445555','2024-06-25','21:45:00',2,'2024-06-12 10:57:31',1),(27,'Ava Jackson','ava@example.com','8889990000','2024-06-26','22:45:00',3,'2024-06-12 10:57:31',0),(28,'Noah White','noah@example.com','4445556666','2024-06-27','18:15:00',5,'2024-06-12 10:57:31',1),(29,'Sophia Brown','sophia@example.com','5556667777','2024-06-28','19:15:00',2,'2024-06-12 10:57:31',1),(30,'Benjamin Lee','benjamin@example.com','1112223333','2024-06-29','20:15:00',3,'2024-06-12 10:57:31',0),(31,'Mia Taylor','mia@example.com','4445556666','2024-06-30','21:15:00',4,'2024-06-12 10:57:31',1),(32,'Alexander Johnson','alexander@example.com','1112223333','2024-07-01','22:15:00',2,'2024-06-12 10:57:31',1),(36,'Acelya Lejeune','acelya@example.com','1436343333','2024-07-27','22:15:00',2,'2024-06-12 13:08:31',1),(37,'ACELYA LEJEUNE','acelyalejeune@gmail.com','0493387729','2024-06-27','17:54:00',1,'2024-06-13 11:50:48',1);
 /*!40000 ALTER TABLE `reservations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -223,4 +223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-12 13:05:41
+-- Dump completed on 2024-06-13 14:23:42
