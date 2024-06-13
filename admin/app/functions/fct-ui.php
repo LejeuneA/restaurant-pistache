@@ -167,6 +167,10 @@ function displayNavigationAdmin()
                                 <a class="nav-link" href="../admin/manager.php"><i class="fa-solid fa-square-plus"></i>
                                 <span> Add</span></a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../admin/manager-messages.php"><i class="fa-solid fa-envelope"></i>
+                                <span> My messages</span></a>
+                            </li>
                         </ul>
 
                         <!-- Reservation button -->
@@ -196,6 +200,8 @@ function displayNavigationAdmin()
             <a class="nav-link" href="../admin/manager-starter.php">Starters</a>
             <a class="nav-link" href="../admin/manager-maincourse.php">Main Courses</a>
             <a class="nav-link" href="../admin/manager-dessert.php">Desserts</a>
+            <a class="nav-link" href="../admin/manager.php"><i class="fa-solid fa-square-plus"></i> Add</a>
+             <a class="nav-link" href="../admin/manager-messages.php"><i class="fa-solid fa-envelope"></i> My messages</a>
             <!-- Menu end -->
 
             <!-- Reservation button -->
@@ -820,110 +826,6 @@ function displayDessertByID($dessert)
 
 
 /**-----------------------------------------------------------------
-            Display starters for the manager page
- *------------------------------------------------------------------**/
-/**
- * Display starters for the manager page
- * 
- * @param array $starters
- * @return void
- */
-
-function displayStartersWithButtons($starters)
-{
-    foreach ($starters as $starter) {
-        // Display Article Content
-        echo '<div class="article">';
-
-        // Display circle based on article status
-        $circleClass = ($starter['active']) ? 'circle-published' : 'circle-not-published';
-        echo '<div class="circle ' . $circleClass . '"></div>';
-
-        echo '<h3>' . htmlspecialchars_decode($starter['title']) . '</h3>';
-        echo '</div>';
-
-        // Display buttons
-        echo '<div class="buttons">';
-        echo '<button class="btn-primary" onclick="modifyStarter(' . $starter['idStarter'] . ')">Modify</button>';
-        echo '<button class="btn-primary" onclick="displayStarter(' . $starter['idStarter'] . ')">Display</button>';
-        echo '<button class="btn-secondary" onclick="deleteStarter(' . $starter['idStarter'] . ')">Delete</button>';
-        echo '</div>';
-
-        echo '<hr>';
-    }
-}
-
-/**-----------------------------------------------------------------
-                Display main courses for the manager page
- *------------------------------------------------------------------**/
-
-/**
- * Display main courses for the manager page
- * 
- * @param array $mainCourses
- * @return void
- */
-
-function displayMainCoursesWithButtons($mainCourses)
-{
-    foreach ($mainCourses as $mainCourse) {
-        // Display Article Content
-        echo '<div class="article">';
-
-        // Display circle based on article status
-        $circleClass = ($mainCourse['active']) ? 'circle-published' : 'circle-not-published';
-        echo '<div class="circle ' . $circleClass . '"></div>';
-
-        echo '<h3>' . htmlspecialchars_decode($mainCourse['title']) . '</h3>';
-        echo '</div>';
-
-        // Display buttons
-        echo '<div class="buttons">';
-        echo '<button class="btn-primary" onclick="modifyMainCourse(' . $mainCourse['idMainCourse'] . ')">Modify</button>';
-        echo '<button class="btn-primary" onclick="displayMainCourse(' . $mainCourse['idMainCourse'] . ')">Display</button>';
-        echo '<button class="btn-secondary" onclick="deleteMainCourse(' . $mainCourse['idMainCourse'] . ')">Delete</button>';
-        echo '</div>';
-
-        echo '<hr>';
-    }
-}
-
-
-/**-----------------------------------------------------------------
-                Display desserts for the manager page
- *------------------------------------------------------------------**/
-/**
- * Display desserts for the manager page
- * 
- * @param array $desserts
- * @return void
- */
-
-function displayDessertsWithButtons($desserts)
-{
-    foreach ($desserts as $dessert) {
-        // Display Article Content
-        echo '<div class="article">';
-
-        // Display circle based on article status
-        $circleClass = ($dessert['active']) ? 'circle-published' : 'circle-not-published';
-        echo '<div class="circle ' . $circleClass . '"></div>';
-
-        echo '<h3>' . htmlspecialchars_decode($dessert['title']) . '</h3>';
-        echo '</div>';
-
-        // Display buttons
-        echo '<div class="buttons">';
-        echo '<button class="btn-primary" onclick="modifyDessert(' . $dessert['isDessert'] . ')">Modify</button>';
-        echo '<button class="btn-primary" onclick="displayDessert(' . $dessert['isDessert'] . ')">Display</button>';
-        echo '<button class="btn-secondary" onclick="deleteDessert(' . $dessert['isDessert'] . ')">Delete</button>';
-        echo '</div>';
-
-        echo '<hr>';
-    }
-}
-
-/**-----------------------------------------------------------------
     Displays the reservations for the manager's page in table form
  *------------------------------------------------------------------**/
 /**
@@ -966,6 +868,48 @@ function displayReservationsAsTable($reservations)
         echo '<td>';
         echo '<button class="btn-secondary" onclick="modifyReservation(' . htmlspecialchars($reservation['idReservation']) . ')">Modify</button>';
         echo '<button class="btn-primary" onclick="deleteReservation(' . htmlspecialchars($reservation['idReservation']) . ')">Delete</button>';
+        echo '</td>';
+        echo '</tr>';
+    }
+
+    // End the table
+    echo '</table>';
+}
+
+/**-----------------------------------------------------------------
+    Displays the messages for the manager's page in table form
+ *------------------------------------------------------------------**/
+/**
+ * Displays the messages for the manager's page in table form
+ * 
+ * @param array $messages
+ * @return void
+ */
+function displayMessagesAsTable($messages)
+{
+    // Start the table
+    echo '<table>';
+
+    // Table headers
+    echo '<tr>';
+    echo '<th>First Name</th>';
+    echo '<th>Last Name</th>';
+    echo '<th>Email</th>';
+    echo '<th>Phone</th>';
+    echo '<th>Message</th>';
+    echo '<th>Actions</th>';
+    echo '</tr>';
+
+    // Table data
+    foreach ($messages as $message) {
+        echo '<tr>';
+        echo '<td data-cell="firstName">' . htmlspecialchars($message['firstname']) . '</td>';
+        echo '<td data-cell="lastName">' . htmlspecialchars($message['lastname']) . '</td>';
+        echo '<td data-cell="email">' . htmlspecialchars($message['email']) . '</td>';
+        echo '<td data-cell="phone">' . htmlspecialchars($message['phone']) . '</td>';
+        echo '<td data-cell="message">' . htmlspecialchars($message['message']) . '</td>';
+        echo '<td>';
+        echo '<button class="btn-primary" onclick="deleteMessage(' . htmlspecialchars($message['idContact']) . ')">Delete</button>';
         echo '</td>';
         echo '</tr>';
     }
