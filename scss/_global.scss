@@ -113,9 +113,18 @@ textarea {
 #message,
 .msg-success,
 .msg-error {
-	margin: 2em 0;
+	margin: 1em 0;
 	font-size: 1.2em;
 	font-weight: 400;
+	
+	@media (min-width: 320px) and (max-width: 768px) {
+		margin: 0;
+		font-size: 1em;
+	}
+
+	@media (min-width: 769px) and (max-width: 1200px) {
+		font-size: 1.1em;
+	}
 }
 
 @forward "global";
