@@ -1081,7 +1081,7 @@ function displayStarters($execute, $resultStarters, $limit = 160)
                             <img class="menu-item-image" src="' . DOMAIN . '/admin/' . htmlspecialchars($starter['image_url']) . '" alt="' . htmlspecialchars($starter['title']) . '">
                         </a>
                         <div class="menu-item-info">
-                            <a href="single-starter.php?idStarter=' . htmlspecialchars($starter['idStarter']) . '" class="menu-item-title-link">
+                            <a href="' . DOMAIN . '/admin/single-starter.php?idStarter=' . htmlspecialchars($starter['idStarter']) . '" class="menu-item-title-link">
                                 <h3 class="menu-item-title">' . htmlspecialchars($starter['title']) . '</h3>
                             </a>
                             <span class="menu-item-price">€' . number_format($starter['price'], 2) . '</span>
@@ -1126,7 +1126,7 @@ function displayMainCourses($execute, $resultMainCourses, $limit = 160)
                             <img class="menu-item-image" src="' . DOMAIN . '/admin/' . htmlspecialchars($maincourses['image_url']) . '" alt="' . htmlspecialchars($maincourses['title']) . '">
                         </a>
                         <div class="menu-item-info">
-                            <a href="single-maincourse.php?idMainCourse=' . htmlspecialchars($maincourses['idMainCourse']) . '" class="menu-item-title-link">
+                            <a href="' . DOMAIN . '/admin/single-maincourse.php?idMainCourse=' . htmlspecialchars($maincourses['idMainCourse']) . '" class="menu-item-title-link">
                                 <h3 class="menu-item-title">' . htmlspecialchars($maincourses['title']) . '</h3>
                             </a>
                             <span class="menu-item-price">€' . number_format($maincourses['price'], 2) . '</span>
@@ -1170,7 +1170,7 @@ function displayDesserts($execute, $resultDesserts, $limit = 160)
                             <img class="menu-item-image" src="' . DOMAIN . '/admin/' . htmlspecialchars($dessert['image_url']) . '" alt="' . htmlspecialchars($dessert['title']) . '">
                         </a>
                         <div class="menu-item-info">
-                            <a href="single-dessert.php?idDessert=' . htmlspecialchars($dessert['idDessert']) . '" class="menu-item-title-link">
+                            <a href="' . DOMAIN . '/admin/single-dessert.php?idDessert=' . htmlspecialchars($dessert['idDessert']) . '" class="menu-item-title-link">
                                 <h3 class="menu-item-title">' . htmlspecialchars($dessert['title']) . '</h3>
                             </a>
                             <span class="menu-item-price">€' . number_format($dessert['price'], 2) . '</span>
