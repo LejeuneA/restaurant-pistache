@@ -864,7 +864,7 @@ function displayReservationsAsTable($reservations)
         echo '<td data-cell="time">' . htmlspecialchars($reservation['book_time']) . '</td>';
         echo '<td data-cell="number of people">' . htmlspecialchars($reservation['person']) . '</td>';
         echo '<td data-cell="created at">' . htmlspecialchars($reservation['created_at']) . '</td>';
-        echo '<td data-cell="statut">' . ($reservation['active'] ? 'Actif' : 'Inactif') . '</td>';
+        echo '<td data-cell="statut">' . ($reservation['active'] ? 'Active' : 'Inactive') . '</td>';
         echo '<td>';
         echo '<button class="btn-secondary" onclick="modifyReservation(' . htmlspecialchars($reservation['idReservation']) . ')">Modify</button>';
         echo '<button class="btn-primary" onclick="deleteReservation(' . htmlspecialchars($reservation['idReservation']) . ')">Delete</button>';
@@ -950,7 +950,7 @@ function displayStartersAsTable($starters)
         echo '<td data-cell="title">' . html_entity_decode($starter['title']) . '</td>';
         echo '<td data-cell="price">' . html_entity_decode($starter['price']) . '</td>';
         echo '<td data-cell="description">' . html_entity_decode($starter['description']) . '</td>';
-        echo '<td data-cell="statuts">' . ($starter['active'] ? 'Actif' : 'Inactif') . '</td>';
+        echo '<td data-cell="statuts">' . ($starter['active'] ? 'Active' : 'Inactive') . '</td>';
         echo '<td>';
         echo '<button class="btn-secondary" onclick="modifyStarter(' . $starter['idStarter'] . ')">Modify</button>';
         echo '<button class="btn-secondary" onclick="displayStarter(' . $starter['idStarter'] . ')">Display</button>';
@@ -996,7 +996,7 @@ function displayMainCoursesAsTable($mainCourses)
         echo '<td data-cell="title">' . html_entity_decode($mainCourse['title']) . '</td>';
         echo '<td data-cell="price">' . html_entity_decode($mainCourse['price']) . '</td>';
         echo '<td data-cell="description">' . html_entity_decode($mainCourse['description']) . '</td>';
-        echo '<td data-cell="statuts">' . ($mainCourse['active'] ? 'Actif' : 'Inactif') . '</td>';
+        echo '<td data-cell="statuts">' . ($mainCourse['active'] ? 'Active' : 'Inactive') . '</td>';
         echo '<td>';
         echo '<button class="btn-secondary" onclick="modifyMainCourse(' . $mainCourse['idMainCourse'] . ')">Modify</button>';
         echo '<button class="btn-secondary" onclick="displayMainCourse(' . $mainCourse['idMainCourse'] . ')">Display</button>';
@@ -1042,7 +1042,7 @@ function displayDessertsAsTable($desserts)
         echo '<td data-cell="title">' . html_entity_decode($dessert['title']) . '</td>';
         echo '<td data-cell="price">' . html_entity_decode($dessert['price']) . '</td>';
         echo '<td data-cell="description">' . html_entity_decode($dessert['description']) . '</td>';
-        echo '<td data-cell="statuts">' . ($dessert['active'] ? 'Actif' : 'Inactif') . '</td>';
+        echo '<td data-cell="statuts">' . ($dessert['active'] ? 'Active' : 'Inactive') . '</td>';
         echo '<td>';
         echo '<button class="btn-secondary" onclick="modifyDessert(' . $dessert['idDessert'] . ')">Modify</button>';
         echo '<button class="btn-secondary" onclick="displayDessert(' . $dessert['idDessert'] . ')">Display</button>';
