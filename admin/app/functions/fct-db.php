@@ -281,7 +281,7 @@ function getAllMainCoursesDB($conn, $limit = null, $active = '%')
 {
     try {
         // Preparing the SQL query
-        $sql = "SELECT * FROM mainCourses WHERE active LIKE :active ORDER BY idMainCourse DESC";
+        $sql = "SELECT * FROM maincourses WHERE active LIKE :active ORDER BY idMainCourse DESC";
 
         // If a limit is specified, add a LIMIT clause to the query
         if ($limit !== null) {
@@ -449,7 +449,7 @@ function getMainCourseByIDDB($conn, $idMainCourse)
 {
     try {
         // Retrieving data from our items table
-        $req = $conn->prepare("SELECT * FROM mainCourses WHERE idMainCourse = :idMainCourse");
+        $req = $conn->prepare("SELECT * FROM maincourses WHERE idMainCourse = :idMainCourse");
         $req->bindParam(':idMainCourse', $idMainCourse);
         $req->execute();
 
@@ -646,7 +646,7 @@ function addMainCourseDB($conn, $datas)
         }
 
         // Inserting data in the main courses table
-        $req = $conn->prepare("INSERT INTO mainCourses (image_url, title, description, price, content, active, idCategory) VALUES (:image_url, :title, :description, :price, :content, :active, :idCategory)");
+        $req = $conn->prepare("INSERT INTO maincourses (image_url, title, description, price, content, active, idCategory) VALUES (:image_url, :title, :description, :price, :content, :active, :idCategory)");
         $req->bindParam(':image_url', $image_url);
         $req->bindParam(':title', $title);
         $req->bindParam(':price', $price);
@@ -877,7 +877,7 @@ function updateMainCourseDB($conn, $datas)
         $active = isset($datas['published_article']) ? $datas['published_article'] : 0;
 
         // Prepare and execute the update query
-        $stmt = $conn->prepare("UPDATE mainCourses SET image_url = :image_url, title = :title, description = :description, price = :price, content = :content, active = :active, idCategory = :idCategory WHERE idMainCourse = :idMainCourse");
+        $stmt = $conn->prepare("UPDATE maincourses SET image_url = :image_url, title = :title, description = :description, price = :price, content = :content, active = :active, idCategory = :idCategory WHERE idMainCourse = :idMainCourse");
         $stmt->bindParam(':image_url', $image_url);
         $stmt->bindParam(':title', $title);
         $stmt->bindParam(':price', $price);
@@ -1076,7 +1076,7 @@ function deleteMainCourseDB($conn, $idMainCourse)
         $idMainCourse = filterInputs($idMainCourse);
 
        
-        $req = $conn->prepare("DELETE FROM mainCourses WHERE idMainCourse = :idMainCourse");
+        $req = $conn->prepare("DELETE FROM maincourses WHERE idMainCourse = :idMainCourse");
         $req->bindParam(':idMainCourse', $idMainCourse, PDO::PARAM_INT);
         $req->execute();
 
