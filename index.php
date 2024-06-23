@@ -88,9 +88,14 @@
                             </li>
                         </ul>
 
+                        <!-- Reservation button -->
+                        <a href="./public/reservation.php" class="btn-primary --reservation">Book a table</a>
+                        <!-- Reservation button end -->
+
                         <!-- Login button -->
-                        <a href="./public/reservation.php" class="btn-primary">Book a table</a>
+                        <a href="./admin/login.php" class="btn-primary">Login</a>
                         <!-- Login button end -->
+
                     </div>
                     <!-- Navbar menu end -->
                 </div>
@@ -112,8 +117,12 @@
             <a class="nav-link" href="./public/contact.php">Contact</a>
             <!-- Menu end -->
 
+            <!-- Reservation button -->
+            <a href="./public/reservation.php" class="btn-primary --reservation">Book a table</a>
+            <!-- Reservation button end -->
+
             <!-- Login button -->
-            <a href="./public/reservation.php" class="btn-primary">Book a table</a>
+            <a href="./admin/login.php" class="btn-primary">Login</a>
             <!-- Login button end -->
         </div>
 
