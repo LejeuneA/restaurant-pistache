@@ -28,3 +28,8 @@ file/
 
 #Ignore any settings.php files
 settings.php
+
+# Ignore any .psd, .eps and .ai files
+.psd
+.eps
+.ai
