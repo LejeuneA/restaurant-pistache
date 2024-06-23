@@ -229,7 +229,7 @@ function displayNavigationAdmin()
         <nav class="navbar-admin">
             <div class="navbar-container container">
                 <!-- Logo -->
-                <a class="navbar-brand" href="login.php">
+                <a class="navbar-brand" href="../index.php">
                     Pistache
                 </a>
                 <!-- Logo end -->
@@ -348,8 +348,12 @@ function displayNavigation()
                         </li>
                     </ul>
 
+                    <!-- Reservation button -->
+                    <a href="./reservation.php" class="btn-primary --reservation">Book a table</a>
+                    <!-- Reservation button end -->
+
                     <!-- Login button -->
-                    <a href="./reservation.php" class="btn-primary">Book a table</a>
+                    <a href="../admin/login.php" class="btn-primary">Login</a>
                     <!-- Login button end -->
                 </div>
                 <!-- Navbar menu end -->
@@ -378,8 +382,12 @@ function displayNavigation()
             <a class="nav-link" href="./contact.php">Contact</a>
             <!-- Menu end -->
 
+            <!-- Reservation button -->
+            <a href="./reservation.php" class="btn-primary --reservation">Book a table</a>
+            <!-- Reservation button end -->
+
             <!-- Login button -->
-            <a href="./reservation.php" class="btn-primary">Book a table</a>
+            <a href="../admin/login.php" class="btn-primary">Login</a>
             <!-- Login button end -->
         </div>
         ';
@@ -456,6 +464,7 @@ function displayNavigationArticle()
                         <!-- Book a table button -->
                         <a href="' . DOMAIN . '/public/reservation.php" class="btn-primary">Book a table</a>
                         <!-- Book a table button end -->
+                        
                     </div>
                     <!-- Navbar menu end -->
                 </div>
