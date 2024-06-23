@@ -293,78 +293,83 @@ function displayNavigation()
 
     $navigation = '';
 
+    $navigation .= '
+    <div class="header-top">
+        <div class="header-top-container container">
+            <div class="header-top-items">
+                <div class="header-top-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+32 493 38 77 29</span>
+                </div>
+            </div>
+            <div class="header-top-items">
+                <div class="header-top-item">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>contact@pistache.be</span>
+                </div>
+            </div>
+            <div class="header-top-items">
+                <div class="header-top-item">
+                    <i class="fas fa-location-dot"></i>
+                    <span>343 Rue Saint Gilles, 4000 Liége</span>
+                </div>
+            </div>
+            <!-- Header top items end -->
+        </div>
+        <!-- Header top container end -->
+    </div>
+    <!-- Header top end -->
+
+    <!-- Navigation-->
+    <nav class="navbar">
+        <div class="navbar-container container">
+            <!-- Logo -->
+            <a class="navbar-brand" href="../index.php">
+                Pistache
+            </a>
+            <!-- Logo end -->
+
+            <!-- Right-side content -->
+            <div class="navbar-right">
+                <!-- Navbar menu -->
+                <div class="navbar-menu">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.php#about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./menu.php">Menu</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./contact.php">Contact</a>
+                        </li>
+                    </ul>
+
+                    <!-- Login button -->
+                    <a href="./reservation.php" class="btn-primary">Book a table</a>
+                    <!-- Login button end -->
+                </div>
+                <!-- Navbar menu end -->
+            </div>
+            <!-- Right-side content end -->
+        </div>
+
+        <!-- Hamburger icon for smaller screens -->
+        <div class="navbar-hamburger">
+            <div id="hamburger" onclick="openNav()"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+    ';
+
     if ($_SESSION['IDENTIFY']) {
         $navigation .= '
-        <div class="header-top">
-            <div class="header-top-container container">
-                <div class="header-top-items">
-                    <div class="header-top-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+32 493 38 77 29</span>
-                    </div>
-                </div>
-                <div class="header-top-items">
-                    <div class="header-top-item">
-                        <i class="fas fa-paper-plane"></i>
-                        <span>contact@pistache.be</span>
-                    </div>
-                </div>
-                <div class="header-top-items">
-                    <div class="header-top-item">
-                        <i class="fas fa-location-dot"></i>
-                        <span>343 Rue Saint Gilles, 4000 Liége</span>
-                    </div>
-                </div>
-                <!-- Header top items end -->
-            </div>
-            <!-- Header top container end -->
-        </div>
-        <!-- Header top end -->
-
-        <!-- Navigation-->
-        <nav class="navbar">
-            <div class="navbar-container container">
-                <!-- Logo -->
-                <a class="navbar-brand" href="../index.php">
-                    Pistache
-                </a>
-                <!-- Logo end -->
-
-                <!-- Right-side content -->
-                <div class="navbar-right">
-                    <!-- Navbar menu -->
-                    <div class="navbar-menu">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="../index.php">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="../index.php#about">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./menu.php">Menu</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./contact.php">Contact</a>
-                            </li>
-                        </ul>
-
-                        <!-- Login button -->
-                        <a href="./reservation.php" class="btn-primary">Book a table</a>
-                        <!-- Login button end -->
-                    </div>
-                    <!-- Navbar menu end -->
-                </div>
-                <!-- Right-side content end -->
-            </div>
-        </nav>
-        <!-- End Nav Menu -->
-
         <!---------------------------------------------------------------
-                             Offcanvas menu
+                         Offcanvas menu
         ----------------------------------------------------------------->
         <div id="mySidenav" class="sidenav">
-
             <!-- Menu -->
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <a class="nav-link" href="../index.php">Home</a>
@@ -377,84 +382,31 @@ function displayNavigation()
             <a href="./reservation.php" class="btn-primary">Book a table</a>
             <!-- Login button end -->
         </div>
-
-        <!-- Hamburger icon for smaller screens -->
-        <div class="navbar-hamburger">
-            <div id="hamburger" onclick="openNav()"><i class="fas fa-bars"></i></div>
-        </div>
-
         ';
     } else {
         $navigation .= '
+        <!---------------------------------------------------------------
+                         Offcanvas menu
+        ----------------------------------------------------------------->
+        <div id="mySidenav" class="sidenav">
+            <!-- Menu -->
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a class="nav-link" href="../index.php">Home</a>
+            <a class="nav-link" href="../index.php#about">About</a>
+            <a class="nav-link" href="./menu.php">Menu</a>
+            <a class="nav-link" href="./contact.php">Contact</a>
+            <!-- Menu end -->
 
-        <div class="header-top">
-            <div class="header-top-container container">
-                <div class="header-top-items">
-                    <div class="header-top-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+32 493 38 77 29</span>
-                    </div>
-                </div>
-                <div class="header-top-items">
-                    <div class="header-top-item">
-                        <i class="fas fa-paper-plane"></i>
-                        <span>contact@pistache.be</span>
-                    </div>
-                </div>
-                <div class="header-top-items">
-                    <div class="header-top-item">
-                        <i class="fas fa-location-dot"></i>
-                        <span>343 Rue Saint Gilles, 4000 Liége</span>
-                    </div>
-                </div>
-                <!-- Header top items end -->
-            </div>
-            <!-- Header top container end -->
+            <!-- Login button -->
+            <a href="./reservation.php" class="btn-primary">Book a table</a>
+            <!-- Login button end -->
         </div>
-        <!-- Header top end -->
-
-        <!-- Navigation-->
-        <nav class="navbar">
-            <div class="navbar-container container">
-                <!-- Logo -->
-                <a class="navbar-brand" href="login.php">
-                    Pistache
-                </a>
-                <!-- Logo end -->
-
-                <!-- Right-side content -->
-                <div class="navbar-right">
-                    <!-- Navbar menu -->
-                    <div class="navbar-menu">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="../index.php">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="../index.php#about">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./menu.php">Menu</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./contact.php">Contact</a>
-                            </li>
-                        </ul>
-
-                        <!-- Login button -->
-                        <a href="./reservation.php" class="btn-primary">Book a table</a>
-                        <!-- Login button end -->
-                    </div>
-                    <!-- Navbar menu end -->
-                </div>
-                <!-- Right-side content end -->
-            </div>
-        </nav>
         ';
     }
 
     echo $navigation;
 }
+
 
 
 /**-----------------------------------------------------------------
@@ -510,32 +462,7 @@ function displayNavigationArticle()
                 <!-- Right-side content end -->
             </div>
         </nav>
-        <!-- End Nav Menu -->
-
-        <!---------------------------------------------------------------
-                             Offcanvas menu
-        ----------------------------------------------------------------->
-        <div id="mySidenav" class="sidenav">
-
-            <!-- Menu -->
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a class="nav-link" href="../index.php">Home</a>
-            <a class="nav-link" href="../index.php#about">About</a>
-            <a class="nav-link" href="' . DOMAIN . '/public/menu.php">Menu</a>
-            <a class="nav-link" href="' . DOMAIN . '/public/contact.php">Contact</a>
-            <!-- Menu end -->
-
-            <!-- Book a table button -->
-            <a href="' . DOMAIN . '/public/reservation.php" class="btn-primary">Book a table</a>
-            <!-- Book a table button end -->
-        </div>
-
-        <!-- Hamburger icon for smaller screens -->
-        <div class="navbar-hamburger">
-            <div id="hamburger" onclick="openNav()"><i class="fas fa-bars"></i></div>
-        </div>
-
-        ';
+        <!-- End Nav Menu -->';
     } else {
         $navigation .= '
 
@@ -543,7 +470,7 @@ function displayNavigationArticle()
         <nav class="navbar">
             <div class="navbar-container container">
                 <!-- Logo -->
-                <a class="navbar-brand" href="login.php">
+                <a class="navbar-brand" href="../index.php">
                     Pistache
                 </a>
                 <!-- Logo end -->
@@ -575,12 +502,38 @@ function displayNavigationArticle()
                 </div>
                 <!-- Right-side content end -->
             </div>
-        </nav>
-        ';
+        </nav>';
     }
+
+    // Hamburger icon for smaller screens
+    $navigation .= '
+    <!-- Hamburger icon for smaller screens -->
+    <div class="navbar-hamburger">
+        <div id="hamburger" onclick="openNav()"><i class="fas fa-bars"></i></div>
+    </div>';
+
+    // Off-canvas menu
+    $navigation .= '
+    <!---------------------------------------------------------------
+                         Offcanvas menu
+    ----------------------------------------------------------------->
+    <div id="mySidenav" class="sidenav">
+        <!-- Menu -->
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a class="nav-link" href="../index.php">Home</a>
+        <a class="nav-link" href="../index.php#about">About</a>
+        <a class="nav-link" href="' . DOMAIN . '/public/menu.php">Menu</a>
+        <a class="nav-link" href="' . DOMAIN . '/public/contact.php">Contact</a>
+        <!-- Menu end -->
+
+        <!-- Book a table button -->
+        <a href="' . DOMAIN . '/public/reservation.php" class="btn-primary">Book a table</a>
+        <!-- Book a table button end -->
+    </div>';
 
     echo $navigation;
 }
+
 
 
 /**-----------------------------------------------------------------
