@@ -30,6 +30,6 @@ file/
 settings.php
 
 # Ignore any .psd, .eps and .ai files
-.psd
-.eps
-.ai
+*.psd
+*.eps
+*.ai
