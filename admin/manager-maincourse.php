@@ -121,19 +121,19 @@ if (isset($_SESSION['message'])) {
         // JavaScript functions for handling mainCourse actions
         function modifyMainCourse(mainCourseId) {
             // Redirect to the edit page with the specified mainCourse ID
-            window.location.href = 'edit-mainCourse.php?idMainCourse=' + mainCourseId;
+            window.location.href = 'edit-maincourse.php?idMainCourse=' + mainCourseId;
         }
 
         function displayMainCourse(mainCourseId) {
             // Redirect to the mainCourse page with the specified mainCourse ID
-            window.location.href = 'single-mainCourse.php?idMainCourse=' + mainCourseId;
+            window.location.href = 'single-maincourse.php?idMainCourse=' + mainCourseId;
         }
 
         function deleteMainCourse(mainCourseId) {
             // Confirm mainCourse deletion
             if (confirm('Are you sure you want to delete the main course below?')) {
-                // Redirect to manager-mainCourse.php with the mainCourse ID for deletion
-                window.location.href = 'manager-mainCourse.php?idMainCourse=' + mainCourseId;
+                // Redirect to manager-maincourse.php with the mainCourse ID for deletion
+                window.location.href = 'manager-maincourse.php?idMainCourse=' + mainCourseId;
             }
         }
     </script>

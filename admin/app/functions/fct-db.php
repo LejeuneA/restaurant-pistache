@@ -17,7 +17,7 @@
  * @param string $userPwd
  * @param string $dbName
  * 
- * @return object $conn
+ * @return PDO|string Database connection or a safe error message
  */
 function connectDB($serverName, $userName, $userPwd, $dbName)
 {
@@ -30,8 +30,11 @@ function connectDB($serverName, $userName, $userPwd, $dbName)
 
         return $conn;
     } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error : Database connexion";
-        return $e;
+        if (defined('DEBUG') && DEBUG) {
+            error_log('Database connection failed: ' . $e->getMessage());
+        }
+
+        return 'Database connection unavailable. Please check the server configuration.';
     }
 }
 
@@ -1192,5 +1195,3 @@ function getCategoryNamesFromDB($conn)
 
     return $categories;
 }
-
-

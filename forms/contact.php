@@ -1,6 +1,6 @@
 <?php
 
-const DOMAIN = 'http://localhost/restaurant-pistache/';
+require_once __DIR__ . '/../admin/conf/conf-db.php';
 
 $firstName = isset($_POST['firstName']) ? $_POST['firstName'] : null;
 $lastName = isset($_POST['lastName']) ? $_POST['lastName'] : null;
@@ -14,9 +14,10 @@ if (!$firstName || !$lastName || !$email || !$phone || !$message) {
 }
 
 // Database connection
-$conn = new mysqli('localhost', 'root', '@NtLYa130580', 'restaurant-pistache');
+mysqli_report(MYSQLI_REPORT_OFF);
+$conn = new mysqli(SERVER_NAME, USER_NAME, USER_PWD, DB_NAME);
 if ($conn->connect_error) {
-    die('Connection Failed: ' . $conn->connect_error);
+    die('The contact form is temporarily unavailable. Please try again later.');
 } else {
     // Insert form data into the database
     $stmt = $conn->prepare("INSERT INTO contact (firstName, lastName, email, phone, message) VALUES (?, ?, ?, ?, ?)");
@@ -28,7 +29,6 @@ if ($conn->connect_error) {
     $conn->close();
 
     // Redirect back to contact.php with a success message
-    header("Location: " . DOMAIN . "public/contact.php?success=1");
+    header('Location: ../public/contact.php?success=1');
     exit();
 }
-

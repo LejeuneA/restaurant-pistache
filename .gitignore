@@ -26,9 +26,6 @@ node_modules/
 #Ignore any file directory
 file/
 
-#Ignore any settings.php files
-settings.php
-
 # Ignore any .psd, .eps and .ai files
 *.psd
 *.eps

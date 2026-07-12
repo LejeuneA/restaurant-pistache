@@ -1,6 +1,6 @@
 <?php
 
-const DOMAIN = 'http://localhost/restaurant-pistache/';
+require_once __DIR__ . '/../admin/conf/conf-db.php';
 
 $name = isset($_POST['name']) ? $_POST['name'] : null;
 $email = isset($_POST['email']) ? $_POST['email'] : null;
@@ -15,9 +15,10 @@ if (!$name || !$email || !$book_date || !$book_time || !$person) {
 }
 
 // Database connection
-$conn = new mysqli('localhost', 'root', '@NtLYa130580', 'restaurant-pistache');
+mysqli_report(MYSQLI_REPORT_OFF);
+$conn = new mysqli(SERVER_NAME, USER_NAME, USER_PWD, DB_NAME);
 if ($conn->connect_error) {
-    die('Connection Failed: ' . $conn->connect_error);
+    die('The reservation form is temporarily unavailable. Please try again later.');
 } else {
     // Insert form data into the database
     $stmt = $conn->prepare("INSERT INTO reservations (name, email, phone, book_date, book_time, person) VALUES (?, ?, ?, ?, ?, ?)");
@@ -29,6 +30,6 @@ if ($conn->connect_error) {
     $conn->close();
 
     // Redirect back to the index page with a success message
-    header("Location: " . DOMAIN . "public/reservation.php?success=1");
+    header('Location: ../public/reservation.php?success=1');
     exit();
 }

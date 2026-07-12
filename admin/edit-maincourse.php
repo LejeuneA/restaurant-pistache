@@ -57,7 +57,7 @@ if (!is_object($conn)) {
                             $_POST['image_url'] = $target_file;
                         } else {
                             $_SESSION['message'] = getMessage('Error recording the image. Please try again.', 'error');
-                            header('Location: edit-mainCourse.php?idMainCourse=' . $idMainCourse);
+                            header('Location: edit-maincourse.php?idMainCourse=' . $idMainCourse);
                             exit();
                         }
                     }
@@ -129,7 +129,7 @@ if (isset($_SESSION['message'])) {
         </div>
 
         <div class="edit-form container">
-            <form action="edit-mainCourse.php?idMainCourse=<?php echo $mainCourse['idMainCourse']; ?>" method="post" enctype="multipart/form-data">
+            <form action="edit-maincourse.php?idMainCourse=<?php echo $mainCourse['idMainCourse']; ?>" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="idMainCourse" value="<?php echo $mainCourse['idMainCourse']; ?>">
                 <input type="hidden" name="update_form" value="1">
 
@@ -205,7 +205,7 @@ if (isset($_SESSION['message'])) {
                 </div>
 
                 <button type="submit" class="btn-primary">Save</button>
-                <button type="submit" class="btn-primary" formaction="single-mainCourse.php?idMainCourse=<?php echo $mainCourse['idMainCourse']; ?>">Display</button>
+                <button type="submit" class="btn-primary" formaction="single-maincourse.php?idMainCourse=<?php echo $mainCourse['idMainCourse']; ?>">Display</button>
             </form>
         </div>
     </div>

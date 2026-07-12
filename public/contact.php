@@ -1,5 +1,5 @@
 <?php
-require_once('C:\xampp\htdocs\restaurant-pistache\admin\settings.php');
+require_once __DIR__ . '/../admin/settings.php';
 ?>
 
 <!DOCTYPE html>
