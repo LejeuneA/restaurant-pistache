@@ -344,10 +344,6 @@ $maximumReservationDate = $today->modify('+1 year')->format('Y-m-d');
                         <form action="<?= escapeHtml(appUrl('forms/reservation.php')) ?>" method="post">
                             <input type="hidden" name="csrf_token" value="<?= escapeHtml($_SESSION['public_reservation_csrf']) ?>">
                             <input type="hidden" name="return_to" value="home">
-                            <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
-                                <label for="reservation_website">Website</label>
-                                <input type="text" id="reservation_website" name="website" tabindex="-1" autocomplete="off">
-                            </div>
                             <div class="reservation-form-container">
                                 <div class="reservation-form-items">
                                     <div class="reservation-form-item">

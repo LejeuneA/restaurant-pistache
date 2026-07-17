@@ -46,10 +46,6 @@ if (
     );
 }
 
-if (trim((string) ($_POST['website'] ?? '')) !== '') {
-    publicContactRedirect('Your message has been sent successfully.', 'success');
-}
-
 $lastSubmission = (int) ($_SESSION['last_public_contact_submission'] ?? 0);
 if ($lastSubmission > 0 && (time() - $lastSubmission) < 10) {
     publicContactRedirect(

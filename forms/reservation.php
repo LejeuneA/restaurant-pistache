@@ -59,14 +59,6 @@ if (
     );
 }
 
-if (trim((string) ($_POST['website'] ?? '')) !== '') {
-    publicReservationRedirect(
-        'Your reservation request has been received.',
-        'success',
-        $returnTo
-    );
-}
-
 $lastSubmission = (int) ($_SESSION['last_public_reservation_submission'] ?? 0);
 if ($lastSubmission > 0 && (time() - $lastSubmission) < 10) {
     publicReservationRedirect(

@@ -84,10 +84,6 @@ if (is_array($contactFlash)) {
                         <!-- Contact form -->
                         <form action="<?= escapeHtml(appUrl('forms/contact.php')) ?>" method="post">
                             <input type="hidden" name="csrf_token" value="<?= escapeHtml($_SESSION['public_contact_csrf']) ?>">
-                            <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
-                                <label for="contact_website">Website</label>
-                                <input type="text" id="contact_website" name="website" tabindex="-1" autocomplete="off">
-                            </div>
                             <div class="contact-form-container">
                                 <div class="contact-form-items">
                                     <div class="contact-form-item">
