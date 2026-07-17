@@ -31,7 +31,7 @@ function redirectToLogin(
     string $message,
     string $type = 'error',
     string $email = ''
-): never {
+) {
     $_SESSION['login_flash'] = getMessage($message, $type);
     $_SESSION['login_email'] = $email;
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -161,83 +161,86 @@ unset(
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <?php displayHeadSection('Login'); ?>
 </head>
-
 <body>
-    <header>
-        <?php displayNavigationAdmin(); ?>
-    </header>
+<header>
+    <?php displayNavigationAdmin(); ?>
+</header>
 
-    <main class="login-container">
-        <div class="login-title">
-            <h1>Login</h1>
-            <p>Login and manage your page</p>
-            <div class="message"><?= $msg ?></div>
-        </div>
+<main class="login-container">
+    <div class="login-title">
+        <h1>Login</h1>
+        <p>Login and manage your page</p>
+        <div class="message"><?= $msg ?></div>
+    </div>
 
-        <div class="login-content container">
-            <form
-                class="login-form"
-                action="<?= escapeHtml(appUrl('admin/login.php')) ?>"
-                method="post">
-                <div class="form-ctrl">
-                    <label for="login" class="form-ctrl">E-mail</label>
-                    <input
-                        type="email"
-                        class="form-ctrl"
-                        id="login"
-                        name="login"
-                        value="<?= escapeHtml($emailValue) ?>"
-                        maxlength="150"
-                        autocomplete="email"
-                        required>
-                </div>
-
-                <div class="form-ctrl">
-                    <label for="pwd" class="form-ctrl">Password</label>
-                    <input
-                        type="password"
-                        class="form-ctrl"
-                        id="pwd"
-                        name="pwd"
-                        maxlength="255"
-                        autocomplete="current-password"
-                        required>
-                </div>
-
-                <a href="<?= escapeHtml(appUrl('admin/forgot-pass.php')) ?>">
-                    <p>Forgot your password?</p>
-                </a>
-
+    <div class="login-content container">
+        <form
+            class="login-form"
+            action="<?= escapeHtml(appUrl('admin/login.php')) ?>"
+            method="post"
+        >
+            <div class="form-ctrl">
+                <label for="login" class="form-ctrl">E-mail</label>
                 <input
-                    type="hidden"
-                    name="csrf_token"
-                    value="<?= escapeHtml($_SESSION['csrf_token']) ?>">
-
-                <button type="submit" class="btn-primary">Login</button>
-            </form>
-
-            <div class="background-vector">
-                <img
-                    src="<?= escapeHtml(appUrl('assets/images/background-vector.png')) ?>"
-                    alt="">
+                    type="email"
+                    class="form-ctrl"
+                    id="login"
+                    name="login"
+                    value="<?= escapeHtml($emailValue) ?>"
+                    maxlength="150"
+                    autocomplete="email"
+                    required
+                >
             </div>
+
+            <div class="form-ctrl">
+                <label for="pwd" class="form-ctrl">Password</label>
+                <input
+                    type="password"
+                    class="form-ctrl"
+                    id="pwd"
+                    name="pwd"
+                    maxlength="255"
+                    autocomplete="current-password"
+                    required
+                >
+            </div>
+
+            <a href="<?= escapeHtml(appUrl('admin/forgot-pass.php')) ?>">
+                <p>Forgot your password?</p>
+            </a>
+
+            <input
+                type="hidden"
+                name="csrf_token"
+                value="<?= escapeHtml($_SESSION['csrf_token']) ?>"
+            >
+
+            <button type="submit" class="btn-primary">Login</button>
+        </form>
+
+        <div class="background-vector">
+            <img
+                src="<?= escapeHtml(appUrl('assets/images/background-vector.png')) ?>"
+                alt=""
+            >
         </div>
-    </main>
+    </div>
+</main>
 
-    <footer>
-        <?php displayFooter(); ?>
-    </footer>
+<footer>
+    <?php displayFooter(); ?>
+</footer>
 
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
-        integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"></script>
-    <script src="<?= escapeHtml(appUrl('js/main.js')) ?>"></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
+    integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+></script>
+<script src="<?= escapeHtml(appUrl('js/main.js')) ?>"></script>
 </body>
-
 </html>

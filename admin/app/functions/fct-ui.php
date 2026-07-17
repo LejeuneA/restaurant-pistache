@@ -101,7 +101,7 @@ function displayNavigationAdmin(): void
         echo '<a href="' . $reservations . '" class="btn-primary --reservation">Reservations</a>';
         echo '<a href="' . $logout . '" class="btn-primary">Log off</a>';
         echo '</div>';
-        echo '<div class="navbar-hamburger"><button id="hamburger" type="button" onclick="openNav()" aria-label="Open menu"><i class="fas fa-bars"></i></button></div>';
+        echo '<div class="navbar-hamburger"><div id="hamburger" onclick="openNav()"><i class="fas fa-bars"></i></div></div>';
     }
 }
 
@@ -130,7 +130,7 @@ function displayNavigation(): void
     echo '<a href="' . $reservation . '" class="btn-primary --reservation">Book a table</a>';
     echo '<a href="' . $login . '" class="btn-primary">Login</a>';
     echo '</div></div></div>';
-    echo '<div class="navbar-hamburger"><button id="hamburger" type="button" onclick="openNav()" aria-label="Open menu"><i class="fas fa-bars"></i></button></div>';
+    echo '<div class="navbar-hamburger"><div id="hamburger" onclick="openNav()"><i class="fas fa-bars"></i></div></div>';
     echo '</nav>';
 
     echo '<div id="mySidenav" class="sidenav">';
