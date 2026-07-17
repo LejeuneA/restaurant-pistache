@@ -1,149 +1,223 @@
 <?php
-require_once('settings.php');
 
-// Start the session at the beginning of your script if it's not already started
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+declare(strict_types=1);
 
-// Check if user is not identified, redirect to login page
-if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
-    header('Location: login.php');
+require_once __DIR__ . '/settings.php';
+require_once __DIR__ . '/app/functions/fct-admin-crud.php';
+
+requireLogin();
+
+$config = rpAdminDishConfig('maincourse');
+$message = rpAdminPullFlash();
+$dishes = [];
+
+if (
+    $_SERVER['REQUEST_METHOD'] === 'POST'
+    && ($_POST['action'] ?? '') === 'delete-dish'
+) {
+    if (!rpAdminCsrfIsValid()) {
+        rpAdminSetFlash(
+            'Your session has expired. Please try again.',
+            'error'
+        );
+    } else {
+        $dishId = filter_input(
+            INPUT_POST,
+            $config['id_key'],
+            FILTER_VALIDATE_INT,
+            [
+                'options' => [
+                    'min_range' => 1,
+                ],
+            ]
+        );
+
+        if ($dishId === false || $dishId === null) {
+            rpAdminSetFlash(
+                'The selected main course is invalid.',
+                'error'
+            );
+        } elseif (!isAdmin()) {
+            rpAdminSetFlash(
+                'Demo account: deleting main courses is disabled.',
+                'error'
+            );
+        } elseif (!$conn instanceof PDO) {
+            rpAdminSetFlash(
+                'The database connection is unavailable.',
+                'error'
+            );
+        } elseif (
+            rpAdminDeleteDish(
+                $conn,
+                $config,
+                (int) $dishId
+            )
+        ) {
+            rpAdminSetFlash(
+                'Main course successfully deleted.',
+                'success'
+            );
+        } else {
+            rpAdminSetFlash(
+                'The main course could not be deleted.',
+                'error'
+            );
+        }
+    }
+
+    header(
+        'Location: '
+        . appUrl('admin/' . $config['manager_page'])
+    );
     exit();
 }
 
-$msg = null;
-$result = null;
-$execute = false;
-
-// Check the database connection
-if (!is_object($conn)) {
-    $msg = getMessage($conn, 'error');
+if (!$conn instanceof PDO) {
+    if ($message === null) {
+        $message = getMessage(
+            'The database connection is unavailable.',
+            'error'
+        );
+    }
 } else {
-    // Fetch all main courses from the database
-    $result = getAllMainCoursesDB($conn);
+    $dishes = rpAdminFetchDishes($conn, $config);
 
-    // Check if main courses exist
-    if (is_array($result) && !empty($result)) {
-        $execute = true;
-
-        // Check if main course ID is provided in the URL for deletion
-        if (isset($_GET['idMainCourse']) && is_numeric($_GET['idMainCourse'])) {
-
-            $mainCourseIdToDelete = $_GET['idMainCourse'];
-
-            if ($_SESSION['user_permission'] == 1) {
-
-                // Delete the main course from the database
-                $deleteResult = deleteMainCourseDB($conn, $mainCourseIdToDelete);
-
-                // Check deletion result and display appropriate message
-                if ($deleteResult === true) {
-                    $_SESSION['message'] = getMessage('Main course successfully deleted.', 'success');
-
-                    // Refresh the page to reflect the changes after deletion
-                    header('Location: manager-maincourse.php');
-                    exit();
-                } else {
-                    $_SESSION['message'] = getMessage('Error when deleting starter.' . $deleteResult, 'error');
-                }
-            } else {
-                $_SESSION['message'] = getMessage('You are not allowed to delete the main course.', 'error');
-            }
-        }
-    } else {
-        $_SESSION['message'] = getMessage('There is no main course to display at the moment.', 'error');
+    if (empty($dishes) && $message === null) {
+        $message = getMessage(
+            'There are no main courses to display at the moment.',
+            'info'
+        );
     }
 }
 
-// Refresh the redirected page (manager-maincourse.php), add this code to display the message
-if (isset($_SESSION['message'])) {
-    $msg = $_SESSION['message'];
-    unset($_SESSION['message']); 
-}
-?>
+$tableFunction = (string) $config['display_table_function'];
+$idKey = (string) $config['id_key'];
+$jsName = (string) $config['js_name'];
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <?php
-    // Include the head section
     displayHeadSection('Managing main courses');
-    displayJSSection();
     ?>
 </head>
 
 <body>
 
-    <!-----------------------------------------------------------------
-							   Header
-	------------------------------------------------------------------>
     <header>
-        <!-----------------------------------------------------------------
-							   Navigation
-	    ------------------------------------------------------------------>
         <?php displayNavigationAdmin(); ?>
-        <!-----------------------------------------------------------------
-							Navigation end
-	    ------------------------------------------------------------------>
     </header>
-    <!-----------------------------------------------------------------
-							   Header end
-	------------------------------------------------------------------>
-    <div class="table-mainCourses container">
+
+    <main class="table-mainCourses container">
+
         <h1 class="title">Managing main courses</h1>
+
+        <?php if (isGuest()): ?>
+            <div class="message">
+                <?= getMessage(
+                    'Demo account: you can browse the full interface, but adding, editing and deleting are disabled.',
+                    'info'
+                ) ?>
+            </div>
+        <?php endif; ?>
+
         <div id="message">
-            <?= isset($msg) ? $msg : ''; ?>
+            <?= $message ?? '' ?>
         </div>
 
-        <div id="content">
-            <?php
-            // If mainCourses exist, display them in a table
-            if ($execute) {
-                displayMainCoursesAsTable($result);
-            }
-            ?>
+        <div id="content" class="container">
+            <?php if (!empty($dishes)): ?>
+                <?php $tableFunction($dishes); ?>
+            <?php endif; ?>
         </div>
-    </div>
-    
-    <!-----------------------------------------------------------------
-                               Footer
-    ------------------------------------------------------------------>
+
+        <form
+            id="delete-dish-form"
+            action="<?= escapeHtml(
+                appUrl(
+                    'admin/'
+                    . $config['manager_page']
+                )
+            ) ?>"
+            method="post"
+            hidden
+        >
+            <input
+                type="hidden"
+                name="action"
+                value="delete-dish"
+            >
+
+            <input
+                type="hidden"
+                name="<?= escapeHtml($idKey) ?>"
+                id="delete-dish-id"
+                value=""
+            >
+
+            <input
+                type="hidden"
+                name="csrf_token"
+                value="<?= escapeHtml(
+                    $_SESSION['csrf_token']
+                ) ?>"
+            >
+        </form>
+
+    </main>
+
     <footer>
         <?php displayFooter(); ?>
     </footer>
-    <!-----------------------------------------------------------------
-                                   Footer end
-    ------------------------------------------------------------------>
 
     <script>
-        // JavaScript functions for handling mainCourse actions
-        function modifyMainCourse(mainCourseId) {
-            // Redirect to the edit page with the specified mainCourse ID
-            window.location.href = 'edit-maincourse.php?idMainCourse=' + mainCourseId;
+        function modifyMainCourse(dishId) {
+            window.location.href =
+                '<?= escapeHtml($config['edit_page']) ?>?'
+                + '<?= escapeHtml($idKey) ?>='
+                + encodeURIComponent(dishId);
         }
 
-        function displayMainCourse(mainCourseId) {
-            // Redirect to the mainCourse page with the specified mainCourse ID
-            window.location.href = 'single-maincourse.php?idMainCourse=' + mainCourseId;
+        function displayMainCourse(dishId) {
+            window.location.href =
+                '<?= escapeHtml($config['single_page']) ?>?'
+                + '<?= escapeHtml($idKey) ?>='
+                + encodeURIComponent(dishId);
         }
 
-        function deleteMainCourse(mainCourseId) {
-            // Confirm mainCourse deletion
-            if (confirm('Are you sure you want to delete the main course below?')) {
-                // Redirect to manager-maincourse.php with the mainCourse ID for deletion
-                window.location.href = 'manager-maincourse.php?idMainCourse=' + mainCourseId;
+        function deleteMainCourse(dishId) {
+            const confirmed = window.confirm(
+                'Are you sure you want to delete this main course?'
+            );
+
+            if (!confirmed) {
+                return;
             }
+
+            document.getElementById(
+                'delete-dish-id'
+            ).value = dishId;
+
+            document.getElementById(
+                'delete-dish-form'
+            ).submit();
         }
     </script>
 
-    <!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
+        integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    ></script>
 
-   <!-- Main Js -->
-   <script src="../js/main.js"></script>
-   
+    <script src="<?= escapeHtml(
+        appUrl('js/main.js')
+    ) ?>"></script>
+
 </body>
 
 </html>

@@ -22,18 +22,24 @@
 function connectDB($serverName, $userName, $userPwd, $dbName)
 {
     try {
-        // Creating a database connection
-        $conn = new PDO("mysql:host=$serverName;dbname=$dbName;charset=utf8", $userName, $userPwd);
+        $dsn = sprintf(
+            'mysql:host=%s;dbname=%s;charset=utf8mb4',
+            $serverName,
+            $dbName
+        );
 
-        // Set PDO error mode to Exception
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        return $conn;
-    } catch (PDOException $e) {
-        if (defined('DEBUG') && DEBUG) {
-            error_log('Database connection failed: ' . $e->getMessage());
-        }
-
+        return new PDO(
+            $dsn,
+            $userName,
+            $userPwd,
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES => false,
+            ]
+        );
+    } catch (PDOException $exception) {
+        error_log('Database connection failed: ' . $exception->getMessage());
         return 'Database connection unavailable. Please check the server configuration.';
     }
 }
@@ -52,35 +58,72 @@ function connectDB($serverName, $userName, $userPwd, $dbName)
  */
 function userIdentificationDB($conn, $datas)
 {
+    if (!$conn instanceof PDO) {
+        return false;
+    }
+
+    $login = trim((string) ($datas['login'] ?? ''));
+    $password = (string) ($datas['pwd'] ?? '');
+
+    if (!filter_var($login, FILTER_VALIDATE_EMAIL) || $password === '') {
+        return false;
+    }
+
     try {
-        $user = null;
+        $statement = $conn->prepare(
+            'SELECT idUser, email, passwd, permission '
+            . 'FROM users WHERE email = :email LIMIT 1'
+        );
+        $statement->execute(['email' => $login]);
+        $user = $statement->fetch(PDO::FETCH_ASSOC);
 
-        // Preparing data for insertion into the database
-        $login = filterInputs($datas['login']);
-        $pwd = filterInputs($datas['pwd']);
-
-        // Selecting data in the users table
-        $req = $conn->prepare("SELECT * FROM users WHERE email = :login AND passwd = :pwd");
-        $req->bindParam(':login', $login);
-        $req->bindParam(':pwd', $pwd);
-        $req->execute();
-
-        // Generates a result if a match is found
-        $user = $req->fetch(PDO::FETCH_ASSOC);
-
-        // Closing the connection
-        $req = null;
-        $conn = null;
-
-        if ((isset($user['email']) && $user['email'] === $login) && (isset($user['passwd']) && $user['passwd'] === $pwd)) {
-            // Delete password from $user object
-            $user['passwd'] = null;
-            return $user;
-        } else
+        if (!is_array($user)) {
             return false;
-    } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : userIdentificationDB() function";
-        return $st;
+        }
+
+        $storedPassword = (string) ($user['passwd'] ?? '');
+        $passwordInfo = password_get_info($storedPassword);
+        $isPasswordValid = false;
+
+        if (($passwordInfo['algo'] ?? null) !== null) {
+            $isPasswordValid = password_verify($password, $storedPassword);
+        } else {
+            // One-time migration path for the legacy plaintext database.
+            $isPasswordValid = hash_equals($storedPassword, $password);
+
+            if ($isPasswordValid) {
+                $newHash = password_hash($password, PASSWORD_DEFAULT);
+                $update = $conn->prepare(
+                    'UPDATE users SET passwd = :passwd WHERE idUser = :idUser'
+                );
+                $update->execute([
+                    'passwd' => $newHash,
+                    'idUser' => (int) $user['idUser'],
+                ]);
+                $storedPassword = $newHash;
+            }
+        }
+
+        if (!$isPasswordValid) {
+            return false;
+        }
+
+        if (password_needs_rehash($storedPassword, PASSWORD_DEFAULT)) {
+            $newHash = password_hash($password, PASSWORD_DEFAULT);
+            $update = $conn->prepare(
+                'UPDATE users SET passwd = :passwd WHERE idUser = :idUser'
+            );
+            $update->execute([
+                'passwd' => $newHash,
+                'idUser' => (int) $user['idUser'],
+            ]);
+        }
+
+        unset($user['passwd']);
+        return $user;
+    } catch (PDOException $exception) {
+        error_log('User identification failed: ' . $exception->getMessage());
+        return false;
     }
 }
 
@@ -96,25 +139,8 @@ function userIdentificationDB($conn, $datas)
  */
 function getUserPasswordByEmail($conn, $email)
 {
-    try {
-        // Sanitize email input
-        $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-
-        // Prepare SQL query
-        $stmt = $conn->prepare("SELECT passwd FROM users WHERE email = :email");
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-
-        // Fetch the result
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        // Return the password if found, otherwise return false
-        return $user ? $user['passwd'] : false;
-
-    } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : getUserPasswordByEmail() function";
-        return $st;
-    }
+    // Passwords and password hashes must never be displayed or returned.
+    return false;
 }
 
 
@@ -157,7 +183,6 @@ function getAllReservationsDB($conn, $limit = null, $active = '%')
 
         // Closing the connection
         $req = null;
-        $conn = null;
 
         // Returns results
         return $resultat;
@@ -206,7 +231,6 @@ function getAllMessagesDB($conn, $limit = null)
 
         // Closing the connection
         $req = null;
-        $conn = null;
 
         // Returns results
         return $resultat;
@@ -257,7 +281,6 @@ function getAllStartersDB($conn, $limit = null, $active = '%')
 
         // Closing the connection
         $req = null;
-        $conn = null;
 
         // Returns results
         return $resultat;
@@ -308,7 +331,6 @@ function getAllMainCoursesDB($conn, $limit = null, $active = '%')
 
         // Fermeture de la connexion
         $req = null;
-        $conn = null;
 
         // Returns results
         return $resultat;
@@ -359,7 +381,6 @@ function getAllDessertsDB($conn, $limit = null, $active = '%')
 
         // Closing the connection
         $req = null;
-        $conn = null;
 
         // Returns results
         return $resultat;
@@ -429,7 +450,6 @@ function getStarterByIDDB($conn, $idStarter)
 
         // Closing the connection
         $req = null;
-        $conn = null;
 
         return $resultat;
     } catch (PDOException $e) {
@@ -461,7 +481,6 @@ function getMainCourseByIDDB($conn, $idMainCourse)
 
         // Closing the connection
         $req = null;
-        $conn = null;
 
         return $resultat;
     } catch (PDOException $e) {
@@ -492,7 +511,6 @@ function getDessertByIDDB($conn, $idDessert)
 
         // Closing the connection
         $req = null;
-        $conn = null;
 
         return $resultat;
     } catch (PDOException $e) {
@@ -546,7 +564,6 @@ function addReservationDB($conn, $data)
 
         // Close the statement and connection
         $stmt = null;
-        $conn = null;
 
         return true; // Return true on success
     } catch (PDOException $e) {
@@ -604,7 +621,6 @@ function addStarterDB($conn, $datas)
 
         // Connection closure
         $req = null;
-        $conn = null;
 
         return true;
     } catch (PDOException $e) {
@@ -661,7 +677,6 @@ function addMainCourseDB($conn, $datas)
 
         // Connection closure
         $req = null;
-        $conn = null;
 
         return true;
     } catch (PDOException $e) {
@@ -836,7 +851,6 @@ function updateStarterDB($conn, $datas)
 
         // Closing the connection
         $req = null;
-        $conn = null;
 
         return true;
     } catch (PDOException $e) {
@@ -950,7 +964,6 @@ function updateDessertDB($conn, $datas)
 
         // Fermeture connexion
         $req = null;
-        $conn = null;
 
         return true;
     } catch (PDOException $e) {
@@ -1049,7 +1062,6 @@ function deleteStarterDB($conn, $idStarter)
         $req->execute();
 
         $req = null;
-        $conn = null;
 
         return true;
     } catch (PDOException $e) {
@@ -1084,7 +1096,6 @@ function deleteMainCourseDB($conn, $idMainCourse)
         $req->execute();
 
         $req = null;
-        $conn = null;
 
         return true;
     } catch (PDOException $e) {
@@ -1119,7 +1130,6 @@ function deleteDessertDB($conn, $idDessert)
         $req->execute();
 
         $req = null;
-        $conn = null;
 
         return true;
     } catch (PDOException $e) {

@@ -1,218 +1,428 @@
 <?php
 
-require_once('settings.php');
+declare(strict_types=1);
 
-// Check if user is not identified, redirect to login page
-if (!$_SESSION['IDENTIFY']) {
-    header('Location: login.php');
-    exit();
-}
+require_once __DIR__ . '/settings.php';
+require_once __DIR__ . '/app/functions/fct-admin-crud.php';
 
-$msg = null;
+requireLogin();
+
+$config = rpAdminDishConfig('starter');
+$message = rpAdminPullFlash();
 $tinyMCE = true;
-$execute = false;
+$categories = [];
 
-// Check the database connection
-if (!is_object($conn)) {
-    $msg = getMessage($conn, 'error');
-} else {
-    // Check if the form is submitted and it's an add operation
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['form']) && $_POST['form'] === 'add') {
-        // Initialize empty array for storing form data
-        $addData = [];
-
-        // Gather data from the form
-        $addData['image_url'] = '';
-        $addData['title'] = isset($_POST['title']) ? $_POST['title'] : '';
-        $addData['price'] = isset($_POST['price']) ? $_POST['price'] : '';
-        $addData['description'] = isset($_POST['description']) ? $_POST['description'] : '';
-        $addData['content'] = isset($_POST['content']) ? $_POST['content'] : '';
-        $addData['published_article'] = isset($_POST['published_article']) ? 1 : 0;
-        $addData['idCategory'] = isset($_POST['idCategory']) ? $_POST['idCategory'] : 0;
-
-        // Handle image upload
-        if (isset($_FILES['image_upload']) && $_FILES['image_upload']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = 'uploads/';
-            $uploadFile = $uploadDir . basename($_FILES['image_upload']['name']);
-
-            // Move uploaded file to designated directory
-            if (move_uploaded_file($_FILES['image_upload']['tmp_name'], $uploadFile)) {
-                $addData['image_url'] = $uploadFile;
-            }
-        }
-
-        if ($_SESSION['user_permission'] == 1) {
-            // Add the starter to the database
-            $addResult = addStarterDB($conn, $addData);
-
-            // Check the result and display appropriate message
-            if ($addResult === true) {
-
-                $msg = getMessage('Starter successfully added.', 'success');
-
-                // Set session variable to indicate success
-                $_SESSION['starter_added'] = true;
-                // Redirect to the same page to refresh and clear the form
-                header('Location: add-starter.php');
-                exit();
-            } else {
-                $msg = getMessage('Error adding starter. Please try again.', 'error');
-            }
-        } else {
-            $msg = getMessage('You are not allowed to add a starter.', 'error');
-        }
-    }
-
-    // Fetch categories for the form dropdown
-    $categories = getAllCategoriesDB($conn);
-}
-
-// At the beginning of the file, before any output
-// Check if a starter has been successfully added
-if (isset($_SESSION['starter_added']) && $_SESSION['starter_added'] === true) {
-    // Display success message
-    $msg = getMessage('The starter has been added successfully.', 'success');
-    // Clear the session variable
-    unset($_SESSION['starter_added']);
-}
-
-// Initialize the $addData array with empty values
-$addData = [
+$formData = [
     'image_url' => '',
     'title' => '',
     'price' => '',
     'description' => '',
     'content' => '',
     'published_article' => 0,
-    'idCategory' => 0
+    'idCategory' => (int) $config['category_id'],
 ];
 
-?>
+if ($conn instanceof PDO) {
+    $categories = rpAdminFetchCategories($conn);
+} elseif ($message === null) {
+    $message = getMessage(
+        'The database connection is unavailable.',
+        'error'
+    );
+}
 
+if (
+    $_SERVER['REQUEST_METHOD'] === 'POST'
+    && ($_POST['form'] ?? '') === 'add'
+) {
+    [$formData, $validationError] =
+        rpAdminValidateDishInput(
+            $_POST,
+            $config
+        );
+
+    if (!rpAdminCsrfIsValid()) {
+        $message = getMessage(
+            'Your session has expired. Please try again.',
+            'error'
+        );
+    } elseif (!isAdmin()) {
+        $message = getMessage(
+            'Demo account: adding starters is disabled.',
+            'error'
+        );
+    } elseif (!$conn instanceof PDO) {
+        $message = getMessage(
+            'The database connection is unavailable.',
+            'error'
+        );
+    } elseif ($validationError !== null) {
+        $message = getMessage(
+            $validationError,
+            'error'
+        );
+    } else {
+        $upload = rpAdminHandleImageUpload(
+            'image_upload',
+            (string) $config['prefix']
+        );
+
+        if ($upload['error'] !== null) {
+            $message = getMessage(
+                (string) $upload['error'],
+                'error'
+            );
+        } else {
+            $formData['image_url'] =
+                (string) $upload['relative_path'];
+
+            if (
+                rpAdminInsertDish(
+                    $conn,
+                    $config,
+                    $formData
+                )
+            ) {
+                rpAdminSetFlash(
+                    'Starter successfully added.',
+                    'success'
+                );
+
+                $_SESSION['csrf_token'] =
+                    bin2hex(random_bytes(32));
+
+                header(
+                    'Location: '
+                    . appUrl(
+                        'admin/'
+                        . $config['add_page']
+                    )
+                );
+                exit();
+            }
+
+            if (
+                is_string($upload['absolute_path'])
+                && is_file($upload['absolute_path'])
+            ) {
+                @unlink($upload['absolute_path']);
+            }
+
+            $message = getMessage(
+                'The starter could not be added.',
+                'error'
+            );
+        }
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <?php
-    // Include the head section
-    displayHeadSection('Add a starter');
-    ?>
+    <?php displayHeadSection('Add a starter'); ?>
 </head>
 
 <body>
-    <!-----------------------------------------------------------------
-                               Header
-    ------------------------------------------------------------------>
+
     <header>
-        <!-----------------------------------------------------------------
-                               Navigation
-        ------------------------------------------------------------------>
         <?php displayNavigationAdmin(); ?>
-        <!-----------------------------------------------------------------
-                            Navigation end
-        ------------------------------------------------------------------>
     </header>
-    <!-----------------------------------------------------------------
-                               Header end
-    ------------------------------------------------------------------>
-    <div class="edit-content">
+
+    <main class="edit-content">
+
         <div class="edit-title">
             <h1>Add a starter</h1>
+
+            <?php if (isGuest()): ?>
+                <div class="message">
+                    <?= getMessage(
+                        'Demo account: you can fill in this form, but the starter will not be added.',
+                        'info'
+                    ) ?>
+                </div>
+            <?php endif; ?>
+
             <div class="message">
-                <?php if (isset($msg)) echo $msg; ?>
+                <?= $message ?? '' ?>
             </div>
         </div>
 
         <div class="edit-form container">
-            <form id="add-starter-form" action="add-starter.php" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="form" value="add">
 
-                <!-- Form top -->
+            <form
+                id="add-starter-form"
+                action="<?= escapeHtml(
+                    appUrl(
+                        'admin/'
+                        . $config['add_page']
+                    )
+                ) ?>"
+                method="post"
+                enctype="multipart/form-data"
+            >
+                <input
+                    type="hidden"
+                    name="form"
+                    value="add"
+                >
+
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="<?= escapeHtml(
+                        $_SESSION['csrf_token']
+                    ) ?>"
+                >
+
                 <div class="form-top">
-                    <!-- Form left -->
+
                     <div class="form-left">
-                        <!-- Statue of the article -->
-                        <div class=" checkbox-ctrl">
-                            <label for="published_article" class="published_article">Product status <span>(publication)</span></label>
-                            <?php displayFormRadioBtnArticlePublished(isset($starter['active']) ? $starter['active'] : 0, 'ADD'); ?>
+
+                        <div class="checkbox-ctrl">
+                            <label
+                                for="published_article"
+                                class="published_article"
+                            >
+                                Product status
+                                <span>(publication)</span>
+                            </label>
+
+                            <div class="checkbox-wrapper-22">
+                                <label
+                                    class="switch"
+                                    for="published_article"
+                                >
+                                    <input
+                                        type="checkbox"
+                                        id="published_article"
+                                        name="published_article"
+                                        value="1"
+                                        <?= (
+                                            (int) $formData[
+                                                'published_article'
+                                            ] === 1
+                                        )
+                                            ? 'checked'
+                                            : '' ?>
+                                    >
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
                         </div>
-                        <!-- Category -->
+
                         <div class="form-ctrl">
-                            <label for="idCategory" class="form-ctrl">Category</label>
-                            <select id="idCategory" name="idCategory" class="form-ctrl" required>
-                                <option value="">Select a category</option>
-                                <?php foreach ($categories as $category) : ?>
-                                    <option value="<?php echo $category['idCategory']; ?>"><?php echo $category['nameOfCategory']; ?></option>
+                            <label
+                                for="idCategory"
+                                class="form-ctrl"
+                            >
+                                Category
+                            </label>
+
+                            <select
+                                id="idCategory"
+                                name="idCategory"
+                                class="form-ctrl"
+                                required
+                            >
+                                <option value="">
+                                    Select a category
+                                </option>
+
+                                <?php foreach (
+                                    $categories
+                                    as $category
+                                ): ?>
+                                    <?php
+                                    $categoryId = (int) (
+                                        $category[
+                                            'idCategory'
+                                        ] ?? 0
+                                    );
+                                    ?>
+
+                                    <option
+                                        value="<?= $categoryId ?>"
+                                        <?= (
+                                            $categoryId
+                                            === (int) $formData[
+                                                'idCategory'
+                                            ]
+                                        )
+                                            ? 'selected'
+                                            : '' ?>
+                                    >
+                                        <?= escapeHtml(
+                                            rpAdminDecodeText(
+                                                $category[
+                                                    'nameOfCategory'
+                                                ] ?? ''
+                                            )
+                                        ) ?>
+                                    </option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                        <!-- Title -->
+
                         <div class="form-ctrl">
-                            <label for="title" class="form-ctrl">Title</label>
-                            <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($addData['title']) ? $addData['title'] : ''; ?>" required>
-                        </div>
-                        
-                        <!-- Description -->
-                        <div class="form-ctrl">
-                            <label for="description" class="form-ctrl">Description</label>
-                            <input type="text" class="form-ctrl" id="description" name="description" value="<?php echo isset($addData['description']) ? $addData['description'] : ''; ?>">
+                            <label
+                                for="title"
+                                class="form-ctrl"
+                            >
+                                Title
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-ctrl"
+                                id="title"
+                                name="title"
+                                value="<?= escapeHtml(
+                                    $formData['title']
+                                ) ?>"
+                                maxlength="150"
+                                required
+                            >
                         </div>
 
-                        <!-- Price -->
                         <div class="form-ctrl">
-                            <label for="price" class="form-ctrl">Price</label>
-                            <input type="text" class="form-ctrl" id="price" name="price" value="<?php echo isset($addData['price']) ? $addData['price'] : ''; ?>">
+                            <label
+                                for="description"
+                                class="form-ctrl"
+                            >
+                                Description
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-ctrl"
+                                id="description"
+                                name="description"
+                                value="<?= escapeHtml(
+                                    $formData['description']
+                                ) ?>"
+                                maxlength="250"
+                            >
                         </div>
+
+                        <div class="form-ctrl">
+                            <label
+                                for="price"
+                                class="form-ctrl"
+                            >
+                                Price
+                            </label>
+
+                            <input
+                                type="text"
+                                inputmode="decimal"
+                                class="form-ctrl"
+                                id="price"
+                                name="price"
+                                value="<?= escapeHtml(
+                                    $formData['price']
+                                ) ?>"
+                                placeholder="12.00"
+                                maxlength="7"
+                                required
+                            >
+                        </div>
+
                     </div>
 
-                    <!-- Form right -->
                     <div class="form-right">
-                        <!-- File upload field -->
+
                         <div class="form-ctrl">
-                            <label for="image_upload" class="form-ctrl">Upload image</label>
-                            <input type="file" class="form-ctrl" id="image_upload" name="image_upload" onchange="previewImage(this)">
+                            <label
+                                for="image_upload"
+                                class="form-ctrl"
+                            >
+                                Upload image
+                            </label>
+
+                            <input
+                                type="file"
+                                class="form-ctrl"
+                                id="image_upload"
+                                name="image_upload"
+                                accept="image/jpeg,image/png,image/webp,image/gif"
+                                onchange="previewImage(this)"
+                            >
                         </div>
-                        <!-- Preview of the image -->
+
                         <div class="form-ctrl">
-                            <label for="image_preview" class="form-ctrl">Image preview</label>
+                            <label
+                                for="image_preview"
+                                class="form-ctrl"
+                            >
+                                Image preview
+                            </label>
+
                             <div>
-                                <img id="image_preview" class="image_preview" src="<?php echo isset($addData['image_url']) ? $addData['image_url'] : ''; ?>">
+                                <img
+                                    id="image_preview"
+                                    class="image_preview"
+                                    src=""
+                                    alt=""
+                                >
                             </div>
                         </div>
+
+                    </div>
+
+                </div>
+
+                <div class="form-bottom">
+                    <div class="form-ctrl">
+                        <label
+                            for="content"
+                            class="form-ctrl"
+                        >
+                            Content
+                        </label>
+
+                        <textarea
+                            class="content"
+                            id="content"
+                            name="content"
+                            rows="5"
+                        ><?= escapeHtml(
+                            $formData['content']
+                        ) ?></textarea>
                     </div>
                 </div>
 
-                <!-- Form bottom -->
-                <div class="form-bottom">
-                    <div class="form-ctrl">
-                        <label for="content" class="form-ctrl">Content</label>
-                        <textarea class="content" id="content" name="content" rows="5"><?php echo isset($addData['content']) ? $addData['content'] : ''; ?></textarea>
-                    </div>
-                </div>
-                <button type="submit" class="btn-primary"><i class="fa-solid fa-square-plus"></i> Add</button>
+                <button
+                    type="submit"
+                    class="btn-primary"
+                >
+                    <i class="fa-solid fa-square-plus"></i>
+                    Add
+                </button>
+
             </form>
+
         </div>
-    </div>
-   
-    <!-----------------------------------------------------------------
-                               Footer
-    ------------------------------------------------------------------>
+
+    </main>
+
     <footer>
         <?php displayFooter(); ?>
     </footer>
-    <!-----------------------------------------------------------------
-                            Footer end
-    ------------------------------------------------------------------>
-    
-    <?php
-    displayJSSection($tinyMCE);
-    ?>
 
-    <!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <?php displayJSSection($tinyMCE); ?>
 
-   <!-- Main Js -->
-   <script src="../js/main.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
+        integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    ></script>
+
+    <script src="<?= escapeHtml(
+        appUrl('js/main.js')
+    ) ?>"></script>
 
 </body>
 

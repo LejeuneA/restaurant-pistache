@@ -1,32 +1,40 @@
-# Ignore node_modules directory
-node_modules/
+# Local database configuration
+/admin/conf/conf-db.local.php
 
-# Ignore any local development environment files
+# Environment and secrets
 .env
+.env.*
+!.env.example
 
-# Ignore any build or compiled files
-/build/
-/dist/
+# Dependencies
+/node_modules/
 
-# Ignore any logs or temporary files
+# Database exports
+*.sql
+*.sql.gz
+*.dump
+
+# Temporary security tools
+/generate-password-hash.php
+/reset-admin-password.php
+/db-check.php
+
+# Logs
 *.log
-*.tmp
+/php_errors.log
 
-# Ignore any IDE or editor-specific files
-.vscode/
-.idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-
-# Ignore any .DS_Store files
+# Editors and operating systems
+/.vscode/
+/.idea/
 .DS_Store
+Thumbs.db
 
-#Ignore any file directory
-file/
+# Temporary files
+*.tmp
+*.bak
+*.swp
 
-# Ignore any .psd, .eps and .ai files
+# Design source files
 *.psd
 *.eps
 *.ai

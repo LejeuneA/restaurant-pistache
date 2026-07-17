@@ -1,229 +1,554 @@
 <?php
-require_once('settings.php');
 
-// Start the session at the beginning of your script if it's not already started
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+declare(strict_types=1);
 
-// Check if user is not identified, redirect to login page
-if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
-    header('Location: login.php');
-    exit;
-}
+require_once __DIR__ . '/settings.php';
+require_once __DIR__ . '/app/functions/fct-admin-crud.php';
 
-$msg = null;
+requireLogin();
+
+$config = rpAdminDishConfig('starter');
+$message = rpAdminPullFlash();
 $tinyMCE = true;
-$starter = null;
+$categories = [];
 
-// Check the database connection
-if (!is_object($conn)) {
-    $_SESSION['message'] = getMessage($conn, 'error');
-    header('Location: manager-starter.php');
-    exit;
-} else {
-    // Check if starter ID is provided in the URL
-    if (isset($_GET['idStarter'])) {
-        // Get the starter ID from the URL
-        $idStarter = $_GET['idStarter'];
+$dishId = filter_input(
+    INPUT_GET,
+    $config['id_key'],
+    FILTER_VALIDATE_INT,
+    [
+        'options' => [
+            'min_range' => 1,
+        ],
+    ]
+);
 
-        // Retrieve starter details from the database
-        $starter = getStarterByIDDB($conn, $idStarter);
+if ($dishId === false || $dishId === null) {
+    rpAdminSetFlash(
+        'The selected starter is invalid.',
+        'error'
+    );
 
-        // Fetch category names from the database
-        $categories = getCategoryNamesFromDB($conn);
+    header(
+        'Location: '
+        . appUrl(
+            'admin/'
+            . $config['manager_page']
+        )
+    );
+    exit();
+}
 
-        // Check if the form is submitted and the form type
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Check if the user has permission to edit the starter
-            if ($_SESSION['user_permission'] == 2) {
-                $msg = getMessage('You are not allowed to modify a starter.', 'error');
-            } else {
-                // Check if the form was submitted for update
-                if (isset($_POST['update_form'])) {
-                    // Check if file is uploaded
-                    if (isset($_FILES['image_upload']) && $_FILES['image_upload']['error'] === UPLOAD_ERR_OK) {
-                        $target_dir = "uploads/";
-                        $target_file = $target_dir . basename($_FILES["image_upload"]["name"]);
+if (!$conn instanceof PDO) {
+    rpAdminSetFlash(
+        'The database connection is unavailable.',
+        'error'
+    );
 
-                        // Check if the directory exists, if not, create it
-                        if (!file_exists($target_dir)) {
-                            mkdir($target_dir, 0777, true);
-                        }
+    header(
+        'Location: '
+        . appUrl(
+            'admin/'
+            . $config['manager_page']
+        )
+    );
+    exit();
+}
 
-                        // Move the uploaded file to the target directory
-                        if (move_uploaded_file($_FILES["image_upload"]["tmp_name"], $target_file)) {
-                            // File upload successful, set the image URL
-                            $_POST['image_url'] = $target_file;
-                        } else {
-                            $_SESSION['message'] = getMessage('Error recording the image. Please try again.', 'error');
-                            header('Location: edit-starter.php?idStarter=' . $idStarter);
-                            exit();
-                        }
-                    }
+$dish = rpAdminFetchDish(
+    $conn,
+    $config,
+    (int) $dishId
+);
 
-                    // Update the starter in the database
-                    $updateData = [
-                        'idStarter' => $idStarter,
-                        'image_url' => $_POST['image_url'] ?? '',
-                        'title' => $_POST['title'] ?? '',
-                        'price' => $_POST['price'] ?? '',
-                        'description' => $_POST['description'] ?? '',
-                        'content' => $_POST['content'],
-                        'published_article' => isset($_POST['published_article']) ? 1 : 0,
-                        'idCategory' => $_POST['idCategory']
-                    ];
+if ($dish === null) {
+    rpAdminSetFlash(
+        'The requested starter was not found.',
+        'error'
+    );
 
-                    // Perform the update operation in the database
-                    $updateResult = updateStarterDB($conn, $updateData);
+    header(
+        'Location: '
+        . appUrl(
+            'admin/'
+            . $config['manager_page']
+        )
+    );
+    exit();
+}
 
-                    // Check the result of the update operation
-                    if ($updateResult === true) {
-                        $_SESSION['message'] = getMessage('The changes have been saved on the page.', 'success');
-                    } else {
-                        $_SESSION['message'] = getMessage('Error modifying the product. Please try again.', 'error');
-                    }
+$categories = rpAdminFetchCategories($conn);
 
-                    // Redirect to the same page to prevent form resubmission
-                    header('Location: edit-starter.php?idStarter=' . $idStarter);
-                    exit();
-                }
-            }
-        }
+$formData = [
+    'image_url' => (string) (
+        $dish['image_url'] ?? ''
+    ),
+    'title' => rpAdminDecodeText(
+        $dish['title'] ?? ''
+    ),
+    'price' => (string) (
+        $dish['price'] ?? ''
+    ),
+    'description' => rpAdminDecodeText(
+        $dish['description'] ?? ''
+    ),
+    'content' => rpAdminDecodeText(
+        $dish['content'] ?? ''
+    ),
+    'published_article' => (int) (
+        $dish['active'] ?? 0
+    ),
+    'idCategory' => (int) (
+        $dish['idCategory']
+        ?? $config['category_id']
+    ),
+];
+
+if (
+    $_SERVER['REQUEST_METHOD'] === 'POST'
+    && ($_POST['update_form'] ?? '') === '1'
+) {
+    [$submittedData, $validationError] =
+        rpAdminValidateDishInput(
+            $_POST,
+            $config
+        );
+
+    $submittedData['image_url'] =
+        $formData['image_url'];
+
+    $formData = array_merge(
+        $formData,
+        $submittedData
+    );
+
+    if (!rpAdminCsrfIsValid()) {
+        $message = getMessage(
+            'Your session has expired. Please try again.',
+            'error'
+        );
+    } elseif (!isAdmin()) {
+        $message = getMessage(
+            'Demo account: editing starters is disabled.',
+            'error'
+        );
+    } elseif ($validationError !== null) {
+        $message = getMessage(
+            $validationError,
+            'error'
+        );
     } else {
-        // If starter ID is not provided, redirect to manager.php
-        header('Location: manager.php');
-        exit;
+        $upload = rpAdminHandleImageUpload(
+            'image_upload',
+            (string) $config['prefix']
+        );
+
+        if ($upload['error'] !== null) {
+            $message = getMessage(
+                (string) $upload['error'],
+                'error'
+            );
+        } else {
+            $oldImagePath =
+                (string) $dish['image_url'];
+
+            if ($upload['relative_path'] !== '') {
+                $formData['image_url'] =
+                    (string) $upload[
+                        'relative_path'
+                    ];
+            }
+
+            $updated = rpAdminUpdateDish(
+                $conn,
+                $config,
+                (int) $dishId,
+                $formData
+            );
+
+            if ($updated) {
+                if (
+                    $upload['relative_path'] !== ''
+                    && $oldImagePath
+                        !== $formData['image_url']
+                ) {
+                    rpAdminRemoveManagedImage(
+                        $oldImagePath
+                    );
+                }
+
+                rpAdminSetFlash(
+                    'The starter has been updated.',
+                    'success'
+                );
+
+                $_SESSION['csrf_token'] =
+                    bin2hex(random_bytes(32));
+
+                header(
+                    'Location: '
+                    . appUrl(
+                        'admin/'
+                        . $config['edit_page']
+                    )
+                    . '?'
+                    . rawurlencode(
+                        (string) $config['id_key']
+                    )
+                    . '='
+                    . (int) $dishId
+                );
+                exit();
+            }
+
+            if (
+                is_string($upload['absolute_path'])
+                && is_file(
+                    $upload['absolute_path']
+                )
+            ) {
+                @unlink(
+                    $upload['absolute_path']
+                );
+            }
+
+            $message = getMessage(
+                'The starter could not be updated.',
+                'error'
+            );
+        }
     }
 }
 
-// Retrieve the message from the session and unset it
-if (isset($_SESSION['message'])) {
-    $msg = $_SESSION['message'];
-    unset($_SESSION['message']);
-}
-?>
+$imagePreviewUrl = safeRestaurantImageUrl(
+    $formData['image_url']
+);
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <?php
-    // Include the head section
-    displayHeadSection('Editing a starter');
-    displayJSSection($tinyMCE);
-    ?>
+    <?php displayHeadSection('Editing a starter'); ?>
 </head>
 
 <body>
+
     <header>
         <?php displayNavigationAdmin(); ?>
     </header>
 
-    <div class="edit-content">
+    <main class="edit-content">
+
         <div class="edit-title">
             <h1>Editing a starter</h1>
+
+            <?php if (isGuest()): ?>
+                <div class="message">
+                    <?= getMessage(
+                        'Demo account: you can view and fill in this form, but changes will not be saved.',
+                        'info'
+                    ) ?>
+                </div>
+            <?php endif; ?>
+
             <div class="message">
-                <?php if (isset($msg)) echo $msg; ?>
+                <?= $message ?? '' ?>
             </div>
         </div>
 
         <div class="edit-form container">
-            <form action="edit-starter.php?idStarter=<?php echo $starter['idStarter']; ?>" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="idStarter" value="<?php echo $starter['idStarter']; ?>">
-                <input type="hidden" name="update_form" value="1">
 
-                <!-- Form top -->
+            <form
+                action="<?= escapeHtml(
+                    appUrl(
+                        'admin/'
+                        . $config['edit_page']
+                    )
+                    . '?'
+                    . $config['id_key']
+                    . '='
+                    . (int) $dishId
+                ) ?>"
+                method="post"
+                enctype="multipart/form-data"
+            >
+                <input
+                    type="hidden"
+                    name="update_form"
+                    value="1"
+                >
+
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="<?= escapeHtml(
+                        $_SESSION['csrf_token']
+                    ) ?>"
+                >
+
                 <div class="form-top">
 
-                    <!-- Form left -->
                     <div class="form-left">
 
-                        <!-- Statue of the article -->
                         <div class="checkbox-ctrl">
-                            <label for="published_article" class="published_article">Status of the product <span>(publication)</span></label>
-                            <?php displayFormRadioBtnArticlePublished(isset($starter['active']) ? $starter['active'] : 0, 'EDIT'); ?>
+                            <label
+                                for="published_article"
+                                class="published_article"
+                            >
+                                Product status
+                                <span>(publication)</span>
+                            </label>
+
+                            <?php
+                            displayFormRadioBtnArticlePublished(
+                                $formData[
+                                    'published_article'
+                                ],
+                                'EDIT'
+                            );
+                            ?>
                         </div>
 
-                        <!-- Category -->
                         <div class="form-ctrl">
-                            <label for="idCategory" class="form-ctrl">Category</label>
-                            <select id="idCategory" name="idCategory" class="form-ctrl" required>
-                                <option value="">Select a category</option>
-                                <?php foreach ($categories as $category) : ?>
-                                    <option value="<?php echo $category['idCategory']; ?>" <?php echo ($category['idCategory'] == $starter['idCategory']) ? 'selected' : ''; ?>><?php echo $category['nameOfCategory']; ?></option>
+                            <label
+                                for="idCategory"
+                                class="form-ctrl"
+                            >
+                                Category
+                            </label>
+
+                            <select
+                                id="idCategory"
+                                name="idCategory"
+                                class="form-ctrl"
+                                required
+                            >
+                                <option value="">
+                                    Select a category
+                                </option>
+
+                                <?php foreach (
+                                    $categories
+                                    as $category
+                                ): ?>
+                                    <?php
+                                    $categoryId = (int) (
+                                        $category[
+                                            'idCategory'
+                                        ] ?? 0
+                                    );
+                                    ?>
+
+                                    <option
+                                        value="<?= $categoryId ?>"
+                                        <?= (
+                                            $categoryId
+                                            === (int) $formData[
+                                                'idCategory'
+                                            ]
+                                        )
+                                            ? 'selected'
+                                            : '' ?>
+                                    >
+                                        <?= escapeHtml(
+                                            rpAdminDecodeText(
+                                                $category[
+                                                    'nameOfCategory'
+                                                ] ?? ''
+                                            )
+                                        ) ?>
+                                    </option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
 
-                        <!-- Title -->
                         <div class="form-ctrl">
-                            <label for="title" class="form-ctrl">Title</label>
-                            <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($starter['title']) ? $starter['title'] : ''; ?>" required>
+                            <label
+                                for="title"
+                                class="form-ctrl"
+                            >
+                                Title
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-ctrl"
+                                id="title"
+                                name="title"
+                                value="<?= escapeHtml(
+                                    $formData['title']
+                                ) ?>"
+                                maxlength="150"
+                                required
+                            >
                         </div>
 
-                        <!-- Price -->
                         <div class="form-ctrl">
-                            <label for="price" class="form-ctrl">Price</label>
-                            <input type="text" class="form-ctrl" id="price" name="price" value="<?php echo isset($starter['price']) ? $starter['price'] : ''; ?>">
+                            <label
+                                for="description"
+                                class="form-ctrl"
+                            >
+                                Description
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-ctrl"
+                                id="description"
+                                name="description"
+                                value="<?= escapeHtml(
+                                    $formData['description']
+                                ) ?>"
+                                maxlength="250"
+                            >
                         </div>
 
-                        <!-- Description -->
                         <div class="form-ctrl">
-                            <label for="description" class="form-ctrl">Description</label>
-                            <input type="text" class="form-ctrl" id="description" name="description" value="<?php echo isset($starter['description']) ? $starter['description'] : ''; ?>">
+                            <label
+                                for="price"
+                                class="form-ctrl"
+                            >
+                                Price
+                            </label>
+
+                            <input
+                                type="text"
+                                inputmode="decimal"
+                                class="form-ctrl"
+                                id="price"
+                                name="price"
+                                value="<?= escapeHtml(
+                                    $formData['price']
+                                ) ?>"
+                                maxlength="7"
+                                required
+                            >
                         </div>
 
                     </div>
 
-                    <!-- Form right -->
                     <div class="form-right">
 
-                        <!-- File upload field -->
                         <div class="form-ctrl">
-                            <label for="image_upload" class="form-ctrl">Upload image</label>
-                            <input type="file" class="form-ctrl" id="image_upload" name="image_upload" onchange="previewImage(this)">
+                            <label
+                                for="image_upload"
+                                class="form-ctrl"
+                            >
+                                Upload a new image
+                            </label>
+
+                            <input
+                                type="file"
+                                class="form-ctrl"
+                                id="image_upload"
+                                name="image_upload"
+                                accept="image/jpeg,image/png,image/webp,image/gif"
+                                onchange="previewImage(this)"
+                            >
                         </div>
 
-                        <!-- Preview of the image -->
                         <div class="form-ctrl">
-                            <label for="image_preview" class="form-ctrl">Image preview</label>
+                            <label
+                                for="image_preview"
+                                class="form-ctrl"
+                            >
+                                Image preview
+                            </label>
+
                             <div>
-                                <input type="text" class="form-ctrl image_url" id="image_url" name="image_url" value="<?php echo isset($starter['image_url']) ? $starter['image_url'] : ''; ?>" readonly>
-                                <img id="image_preview" class="image_preview" src="<?php echo isset($starter['image_url']) ? $starter['image_url'] : ''; ?>" alt="Image preview">
+                                <input
+                                    type="text"
+                                    class="form-ctrl image_url"
+                                    id="image_url"
+                                    value="<?= escapeHtml(
+                                        $formData['image_url']
+                                    ) ?>"
+                                    readonly
+                                >
+
+                                <img
+                                    id="image_preview"
+                                    class="image_preview"
+                                    src="<?= escapeHtml(
+                                        $imagePreviewUrl
+                                    ) ?>"
+                                    alt="<?= escapeHtml(
+                                        $formData['title']
+                                    ) ?>"
+                                >
                             </div>
                         </div>
+
                     </div>
+
                 </div>
 
-                <!-- Form bottom -->
                 <div class="form-bottom">
                     <div class="form-ctrl">
-                        <label for="content" class="form-ctrl">Content</label>
-                        <textarea class="content" id="content" name="content" rows="5"><?php echo isset($starter['content']) ? $starter['content'] : ''; ?></textarea>
+                        <label
+                            for="content"
+                            class="form-ctrl"
+                        >
+                            Content
+                        </label>
+
+                        <textarea
+                            class="content"
+                            id="content"
+                            name="content"
+                            rows="5"
+                        ><?= escapeHtml(
+                            $formData['content']
+                        ) ?></textarea>
                     </div>
                 </div>
 
-                <button type="submit" class="btn-primary">Save</button>
-                <button type="submit" class="btn-primary" formaction="single-starter.php?idStarter=<?php echo $starter['idStarter']; ?>">Display</button>
+                <button
+                    type="submit"
+                    class="btn-primary"
+                >
+                    Save
+                </button>
+
+                <a
+                    class="btn-primary"
+                    href="<?= escapeHtml(
+                        appUrl(
+                            'admin/'
+                            . $config['single_page']
+                        )
+                        . '?'
+                        . $config['id_key']
+                        . '='
+                        . (int) $dishId
+                    ) ?>"
+                >
+                    Display
+                </a>
+
             </form>
+
         </div>
-    </div>
 
-    <?php
-    displayJSSection($tinyMCE);
-    ?>
+    </main>
 
-    <!-- Footer -->
     <footer>
         <?php displayFooter(); ?>
     </footer>
 
-    <!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <?php displayJSSection($tinyMCE); ?>
 
-    <!-- Main JS -->
-    <script src="../js/main.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
+        integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    ></script>
+
+    <script src="<?= escapeHtml(
+        appUrl('js/main.js')
+    ) ?>"></script>
 
 </body>
 

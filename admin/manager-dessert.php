@@ -1,149 +1,223 @@
 <?php
-require_once('settings.php');
 
-// Start the session at the beginning of your script if it's not already started
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+declare(strict_types=1);
 
-// Check if user is not identified, redirect to login page
-if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
-    header('Location: login.php');
+require_once __DIR__ . '/settings.php';
+require_once __DIR__ . '/app/functions/fct-admin-crud.php';
+
+requireLogin();
+
+$config = rpAdminDishConfig('dessert');
+$message = rpAdminPullFlash();
+$dishes = [];
+
+if (
+    $_SERVER['REQUEST_METHOD'] === 'POST'
+    && ($_POST['action'] ?? '') === 'delete-dish'
+) {
+    if (!rpAdminCsrfIsValid()) {
+        rpAdminSetFlash(
+            'Your session has expired. Please try again.',
+            'error'
+        );
+    } else {
+        $dishId = filter_input(
+            INPUT_POST,
+            $config['id_key'],
+            FILTER_VALIDATE_INT,
+            [
+                'options' => [
+                    'min_range' => 1,
+                ],
+            ]
+        );
+
+        if ($dishId === false || $dishId === null) {
+            rpAdminSetFlash(
+                'The selected dessert is invalid.',
+                'error'
+            );
+        } elseif (!isAdmin()) {
+            rpAdminSetFlash(
+                'Demo account: deleting desserts is disabled.',
+                'error'
+            );
+        } elseif (!$conn instanceof PDO) {
+            rpAdminSetFlash(
+                'The database connection is unavailable.',
+                'error'
+            );
+        } elseif (
+            rpAdminDeleteDish(
+                $conn,
+                $config,
+                (int) $dishId
+            )
+        ) {
+            rpAdminSetFlash(
+                'Dessert successfully deleted.',
+                'success'
+            );
+        } else {
+            rpAdminSetFlash(
+                'The dessert could not be deleted.',
+                'error'
+            );
+        }
+    }
+
+    header(
+        'Location: '
+        . appUrl('admin/' . $config['manager_page'])
+    );
     exit();
 }
 
-$msg = null;
-$result = null;
-$execute = false;
-
-// Check the database connection
-if (!is_object($conn)) {
-    $msg = getMessage($conn, 'error');
+if (!$conn instanceof PDO) {
+    if ($message === null) {
+        $message = getMessage(
+            'The database connection is unavailable.',
+            'error'
+        );
+    }
 } else {
-    // Fetch all dessert from the database
-    $result = getAllDessertsDB($conn);
+    $dishes = rpAdminFetchDishes($conn, $config);
 
-    // Check if dessertx exist
-    if (is_array($result) && !empty($result)) {
-        $execute = true;
-
-        // Check if dessert ID is provided in the URL for deletion
-        if (isset($_GET['idDessert']) && is_numeric($_GET['idDessert'])) {
-
-            $dessertIdToDelete = $_GET['idDessert'];
-
-            if ($_SESSION['user_permission'] == 1) {
-
-                // Delete the dessert from the database
-                $deleteResult = deleteDessertDB($conn, $dessertIdToDelete);
-
-                // Check deletion result and display appropriate message
-                if ($deleteResult === true) {
-                    $_SESSION['message'] = getMessage('Dessert successfully deleted', 'success');
-
-                    // Refresh the page to reflect the changes after deletion
-                    header('Location: manager-dessert.php');
-                    exit();
-                } else {
-                    $_SESSION['message'] = getMessage('Error when deleting starter.' . $deleteResult, 'error');
-                }
-            } else {
-                $_SESSION['message'] = getMessage('You are not allowed to delete the main course.', 'error');
-            }
-        }
-    } else {
-        $_SESSION['message'] = getMessage('There is no dessert to display at the moment.', 'error');
+    if (empty($dishes) && $message === null) {
+        $message = getMessage(
+            'There are no desserts to display at the moment.',
+            'info'
+        );
     }
 }
 
-// On the redirected page (manager-dessert.php), add this code to display the message
-if (isset($_SESSION['message'])) {
-    $msg = $_SESSION['message'];
-    unset($_SESSION['message']); 
-}
-?>
+$tableFunction = (string) $config['display_table_function'];
+$idKey = (string) $config['id_key'];
+$jsName = (string) $config['js_name'];
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <?php
-    // Include the head section
     displayHeadSection('Managing desserts');
-    displayJSSection();
     ?>
 </head>
 
 <body>
 
-    <!-----------------------------------------------------------------
-							   Header
-	------------------------------------------------------------------>
     <header>
-        <!-----------------------------------------------------------------
-							   Navigation
-	    ------------------------------------------------------------------>
         <?php displayNavigationAdmin(); ?>
-        <!-----------------------------------------------------------------
-							Navigation end
-	    ------------------------------------------------------------------>
     </header>
-    <!-----------------------------------------------------------------
-							   Header end
-	------------------------------------------------------------------>
-    <div class="table-desserts container">
-        <h1 class="title">Managing desserts</h2>
+
+    <main class="table-desserts container">
+
+        <h1 class="title">Managing desserts</h1>
+
+        <?php if (isGuest()): ?>
+            <div class="message">
+                <?= getMessage(
+                    'Demo account: you can browse the full interface, but adding, editing and deleting are disabled.',
+                    'info'
+                ) ?>
+            </div>
+        <?php endif; ?>
+
         <div id="message">
-            <?= isset($msg) ? $msg : ''; ?>
+            <?= $message ?? '' ?>
         </div>
 
-        <div id="content">
-            <?php
-            // If dessertx exist, display them in a table
-            if ($execute) {
-                displayDessertsasTable($result);
-            }
-            ?>
+        <div id="content" class="container">
+            <?php if (!empty($dishes)): ?>
+                <?php $tableFunction($dishes); ?>
+            <?php endif; ?>
         </div>
-    </div>
-    
-    <!-----------------------------------------------------------------
-                               Footer
-    ------------------------------------------------------------------>
+
+        <form
+            id="delete-dish-form"
+            action="<?= escapeHtml(
+                appUrl(
+                    'admin/'
+                    . $config['manager_page']
+                )
+            ) ?>"
+            method="post"
+            hidden
+        >
+            <input
+                type="hidden"
+                name="action"
+                value="delete-dish"
+            >
+
+            <input
+                type="hidden"
+                name="<?= escapeHtml($idKey) ?>"
+                id="delete-dish-id"
+                value=""
+            >
+
+            <input
+                type="hidden"
+                name="csrf_token"
+                value="<?= escapeHtml(
+                    $_SESSION['csrf_token']
+                ) ?>"
+            >
+        </form>
+
+    </main>
+
     <footer>
         <?php displayFooter(); ?>
     </footer>
-    <!-----------------------------------------------------------------
-                            Footer end
-    ------------------------------------------------------------------>
 
     <script>
-        // JavaScript functions for handling dessert actions
-        function modifyDessert(dessertId) {
-            // Redirect to the edit page with the specified dessert ID
-            window.location.href = 'edit-dessert.php?idDessert=' + dessertId;
+        function modifyDessert(dishId) {
+            window.location.href =
+                '<?= escapeHtml($config['edit_page']) ?>?'
+                + '<?= escapeHtml($idKey) ?>='
+                + encodeURIComponent(dishId);
         }
 
-        function displayDessert(dessertId) {
-            // Redirect to the dessert page with the specified dessert ID
-            window.location.href = 'single-dessert.php?idDessert=' + dessertId;
+        function displayDessert(dishId) {
+            window.location.href =
+                '<?= escapeHtml($config['single_page']) ?>?'
+                + '<?= escapeHtml($idKey) ?>='
+                + encodeURIComponent(dishId);
         }
 
-        function deleteDessert(dessertId) {
-            // Confirm dessert deletion
-            if (confirm('Are you sure you want to delete the dessert below?')) {
-                // Redirect to manager-dessert.php with the dessert ID for deletion
-                window.location.href = 'manager-dessert.php?idDessert=' + dessertId;
+        function deleteDessert(dishId) {
+            const confirmed = window.confirm(
+                'Are you sure you want to delete this dessert?'
+            );
+
+            if (!confirmed) {
+                return;
             }
+
+            document.getElementById(
+                'delete-dish-id'
+            ).value = dishId;
+
+            document.getElementById(
+                'delete-dish-form'
+            ).submit();
         }
     </script>
 
-    <!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
+        integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    ></script>
 
-   <!-- Main Js -->
-   <script src="../js/main.js"></script>
-   
+    <script src="<?= escapeHtml(
+        appUrl('js/main.js')
+    ) ?>"></script>
+
 </body>
 
 </html>

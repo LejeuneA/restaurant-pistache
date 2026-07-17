@@ -1,99 +1,61 @@
 <?php
 
-require_once('settings.php');
+require_once __DIR__ . '/settings.php';
 
-// Check if user is not identified, redirect to login page
-if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
-    header('Location: login.php');
-    exit();
+requireLogin();
+
+$msg = null;
+if (isset($_GET['readonly']) && isGuest()) {
+    $msg = getMessage(
+        'Demo account: you can explore every management screen, but adding, editing and deleting data is disabled.',
+        'info'
+    );
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <?php
-    // Include the head section
-    displayHeadSection('Products management');
-    displayJSSection();
-    ?>
+    <?php displayHeadSection('Products management'); ?>
+    <?php displayJSSection(); ?>
 </head>
-
 <body>
-
-    <!-----------------------------------------------------------------
-							   Header
-	------------------------------------------------------------------>
-    <header class="manager-header">
-        <!-----------------------------------------------------------------
-							   Navigation
-	    ------------------------------------------------------------------>
-        <?php displayNavigationAdmin(); ?>
-        <!-----------------------------------------------------------------
-							Navigation end
-	    ------------------------------------------------------------------>
-    </header>
-    <!-----------------------------------------------------------------
-							   Header end
-	------------------------------------------------------------------>
-    <div class="manager-container">
-        <?php echo '<div class="welcome"><div class="welcome-text"> Welcome <span>' . $_SESSION['user_email'] . '</span></div></div>'; ?>
-        <div class="manager-content container">
-            <h1 class="title">Manage your products</h1>
-            <div class="category-container">
-                <!-- Starters -->
-                <div class="category-card-container">
-                    <img src="../assets/images/starter-vector.png" alt="Starters">
-                    <div class="category-card">
-                        <a class="btn-primary" href="./manager-starter.php">Manage starters</a>
-                        <a class="btn-primary" href="./add-starter.php">Add a starter</a>
-                    </div>
-                </div>
-
-                <!-- MAin courses -->
-                <div class="category-card-container">
-                <img src="../assets/images/maincourse-vector.png" alt="Main courses">
-                    <div class="category-card">
-                        <a class="btn-primary" href="./manager-maincourse.php">Manage main courses</a>
-                        <a class="btn-primary" href="./add-maincourse.php">Add a main course</a>
-                    </div>
-                </div>
-
-                <!-- Desserts -->
-                <div class="category-card-container">
-                <img src="../assets/images/dessert-vector.png" alt="Desserts">
-                    <div class="category-card"> 
-                        <a class="btn-primary" href="./manager-dessert.php">Manage desserts</a>
-                        <a class="btn-primary" href="./add-dessert.php">Add a dessert</a>
-                    </div>
-                </div>
-
-                <!-- Vector -->
-                <div class="background-vector">
-                    <img src="../assets/images/background-vector.png" alt="background-vector">
+<header class="manager-header"><?php displayNavigationAdmin(); ?></header>
+<main class="manager-container">
+    <div class="welcome"><div class="welcome-text">Welcome <span><?= escapeHtml($_SESSION['user_email']) ?></span></div></div>
+    <div class="manager-content container">
+        <h1 class="title">Manage your products</h1>
+        <?php if (isGuest()): ?>
+            <div class="message"><?= getMessage('Demo account: the interface is fully visible, but all database changes are disabled.', 'info') ?></div>
+        <?php endif; ?>
+        <?php if ($msg !== null): ?><div class="message"><?= $msg ?></div><?php endif; ?>
+        <div class="category-container">
+            <div class="category-card-container">
+                <img src="<?= escapeHtml(appUrl('assets/images/starter-vector.png')) ?>" alt="Starters">
+                <div class="category-card">
+                    <a class="btn-primary" href="<?= escapeHtml(appUrl('admin/manager-starter.php')) ?>">Manage starters</a>
+                    <a class="btn-primary" href="<?= escapeHtml(appUrl('admin/add-starter.php')) ?>">Add a starter</a>
                 </div>
             </div>
-
+            <div class="category-card-container">
+                <img src="<?= escapeHtml(appUrl('assets/images/maincourse-vector.png')) ?>" alt="Main courses">
+                <div class="category-card">
+                    <a class="btn-primary" href="<?= escapeHtml(appUrl('admin/manager-maincourse.php')) ?>">Manage main courses</a>
+                    <a class="btn-primary" href="<?= escapeHtml(appUrl('admin/add-maincourse.php')) ?>">Add a main course</a>
+                </div>
+            </div>
+            <div class="category-card-container">
+                <img src="<?= escapeHtml(appUrl('assets/images/dessert-vector.png')) ?>" alt="Desserts">
+                <div class="category-card">
+                    <a class="btn-primary" href="<?= escapeHtml(appUrl('admin/manager-dessert.php')) ?>">Manage desserts</a>
+                    <a class="btn-primary" href="<?= escapeHtml(appUrl('admin/add-dessert.php')) ?>">Add a dessert</a>
+                </div>
+            </div>
+            <div class="background-vector"><img src="<?= escapeHtml(appUrl('assets/images/background-vector.png')) ?>" alt=""></div>
         </div>
     </div>
-    </div>
-
-    <!-----------------------------------------------------------------
-                               Footer
-    ------------------------------------------------------------------>
-    <footer>
-        <?php displayFooter(); ?>
-    </footer>
-    <!-----------------------------------------------------------------
-                            Footer end
-    ------------------------------------------------------------------>
-
-    <!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <!-- Include functions.js -->
-    <script src="../js/main.js"></script>
+</main>
+<footer><?php displayFooter(); ?></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="<?= escapeHtml(appUrl('js/main.js')) ?>"></script>
 </body>
-
 </html>

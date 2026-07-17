@@ -1,143 +1,231 @@
 <?php
-require_once('settings.php');
 
-// Start the session at the beginning of your script if it's not already started
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+declare(strict_types=1);
 
-// Check if user is not identified, redirect to login page
-if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
-    header('Location: login.php');
+require_once __DIR__ . '/settings.php';
+require_once __DIR__ . '/app/functions/fct-admin-crud.php';
+
+requireLogin();
+
+$message = rpAdminPullFlash();
+$reservations = [];
+
+if (
+    $_SERVER['REQUEST_METHOD'] === 'POST'
+    && ($_POST['action'] ?? '') === 'delete-reservation'
+) {
+    if (!rpAdminCsrfIsValid()) {
+        rpAdminSetFlash(
+            'Your session has expired. Please try again.',
+            'error'
+        );
+    } else {
+        $reservationId = filter_input(
+            INPUT_POST,
+            'idReservation',
+            FILTER_VALIDATE_INT,
+            [
+                'options' => [
+                    'min_range' => 1,
+                ],
+            ]
+        );
+
+        if (
+            $reservationId === false
+            || $reservationId === null
+        ) {
+            rpAdminSetFlash(
+                'The selected reservation is invalid.',
+                'error'
+            );
+        } elseif (!isAdmin()) {
+            rpAdminSetFlash(
+                'Demo account: deleting reservations is disabled.',
+                'error'
+            );
+        } elseif (!$conn instanceof PDO) {
+            rpAdminSetFlash(
+                'The database connection is unavailable.',
+                'error'
+            );
+        } elseif (
+            rpAdminDeleteReservation(
+                $conn,
+                (int) $reservationId
+            )
+        ) {
+            rpAdminSetFlash(
+                'Reservation successfully deleted.',
+                'success'
+            );
+        } else {
+            rpAdminSetFlash(
+                'The reservation could not be deleted.',
+                'error'
+            );
+        }
+    }
+
+    header(
+        'Location: '
+        . appUrl(
+            'admin/manager-reservation.php'
+        )
+    );
     exit();
 }
 
-$msg = null;
-$result = null;
-$execute = false;
-
-// Check the database connection
-if (!is_object($conn)) {
-    $msg = getMessage('Database connection error.', 'error');
+if (isGuest()) {
+    if ($message === null) {
+        $message = getMessage(
+            'Demo account: reservation details are hidden to protect customer privacy.',
+            'info'
+        );
+    }
+} elseif (!$conn instanceof PDO) {
+    if ($message === null) {
+        $message = getMessage(
+            'The database connection is unavailable.',
+            'error'
+        );
+    }
 } else {
-    // Fetch all reservations from the database
-    $result = getAllReservationsDB($conn);
+    $reservations =
+        rpAdminFetchReservations($conn);
 
-    // Check if reservations exist
-    if (is_array($result) && !empty($result)) {
-        $execute = true;
-
-        // Check if reservation ID is provided in the URL for deletion
-        if (isset($_GET['idReservation']) && is_numeric($_GET['idReservation'])) {
-            $reservationIdToDelete = intval($_GET['idReservation']);
-
-            if ($_SESSION['user_permission'] == 1) {
-                // Delete the reservation from the database
-                $deleteResult = deleteReservationDB($conn, $reservationIdToDelete);
-
-                // Check deletion result and display appropriate message
-                if ($deleteResult) {
-                    $_SESSION['message'] = getMessage('Reservation successfully deleted.', 'success');
-                } else {
-                    $_SESSION['message'] = getMessage('Error when deleting reservation.', 'error');
-                }
-            } else {
-                $_SESSION['message'] = getMessage('You are not allowed to delete the reservation.', 'error');
-            }
-
-            // Refresh the page to reflect the changes after deletion
-            header('Location: manager-reservation.php');
-            exit();
-        }
-    } else {
-        $msg = getMessage('There is no reservation to display at the moment.', 'error');
+    if (
+        empty($reservations)
+        && $message === null
+    ) {
+        $message = getMessage(
+            'There are no reservations to display at the moment.',
+            'info'
+        );
     }
 }
 
-// Refresh the redirected page (manager-reservation.php), add this code to display the message
-if (isset($_SESSION['message'])) {
-    $msg = $_SESSION['message'];
-    unset($_SESSION['message']);
-}
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <?php
-    // Include the head section
     displayHeadSection('Managing reservations');
-    displayJSSection();
     ?>
 </head>
 
 <body>
 
-    <!-----------------------------------------------------------------
-							   Header
-	------------------------------------------------------------------>
     <header>
-        <!-----------------------------------------------------------------
-							   Navigation
-	    ------------------------------------------------------------------>
         <?php displayNavigationAdmin(); ?>
-        <!-----------------------------------------------------------------
-							Navigation end
-	    ------------------------------------------------------------------>
     </header>
-    <!-----------------------------------------------------------------
-							   Header end
-	------------------------------------------------------------------>
-    <div class="table-reservations container">
+
+    <main class="table-reservations container">
+
         <h1 class="title">Managing reservations</h1>
-        <a class="btn-primary" href="../admin/add-reservation.php"><i class="fa-solid fa-square-plus"></i> Add Reservation</a>
+
+        <a
+            class="btn-primary"
+            href="<?= escapeHtml(
+                appUrl(
+                    'admin/add-reservation.php'
+                )
+            ) ?>"
+        >
+            <i class="fa-solid fa-square-plus"></i>
+            Add Reservation
+        </a>
+
         <div id="message">
-            <?= isset($msg) ? $msg : ''; ?>
+            <?= $message ?? '' ?>
         </div>
 
         <div id="content" class="container">
-            <?php
-            // If reservations exist, display them in a table
-            if ($execute) {
-                displayReservationsAsTable($result);
-            }
-            ?>
+            <?php if (!empty($reservations)): ?>
+                <?php
+                displayReservationsAsTable(
+                    $reservations
+                );
+                ?>
+            <?php endif; ?>
         </div>
-    </div>
 
-    <!-----------------------------------------------------------------
-                               Footer
-    ------------------------------------------------------------------>
+        <form
+            id="delete-reservation-form"
+            action="<?= escapeHtml(
+                appUrl(
+                    'admin/manager-reservation.php'
+                )
+            ) ?>"
+            method="post"
+            hidden
+        >
+            <input
+                type="hidden"
+                name="action"
+                value="delete-reservation"
+            >
+
+            <input
+                type="hidden"
+                name="idReservation"
+                id="delete-reservation-id"
+                value=""
+            >
+
+            <input
+                type="hidden"
+                name="csrf_token"
+                value="<?= escapeHtml(
+                    $_SESSION['csrf_token']
+                ) ?>"
+            >
+        </form>
+
+    </main>
+
     <footer>
         <?php displayFooter(); ?>
     </footer>
-    <!-----------------------------------------------------------------
-                                   Footer end
-    ------------------------------------------------------------------>
 
     <script>
         function modifyReservation(reservationId) {
-            // Redirect to the edit page with the specified reservation ID
-            window.location.href = 'edit-reservation.php?idReservation=' + reservationId;
+            window.location.href =
+                'edit-reservation.php?idReservation='
+                + encodeURIComponent(reservationId);
         }
 
         function deleteReservation(reservationId) {
-            // Confirm reservation deletion
-            if (confirm('Are you sure you want to delete the reservation?')) {
-                // Redirect to manager-reservation.php with the reservation ID for deletion
-                window.location.href = 'manager-reservation.php?idReservation=' + reservationId;
+            const confirmed = window.confirm(
+                'Are you sure you want to delete this reservation?'
+            );
+
+            if (!confirmed) {
+                return;
             }
+
+            document.getElementById(
+                'delete-reservation-id'
+            ).value = reservationId;
+
+            document.getElementById(
+                'delete-reservation-form'
+            ).submit();
         }
     </script>
 
-    <!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
+        integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    ></script>
 
-    <!-- Main Js -->
-    <script src="../js/main.js"></script>
+    <script src="<?= escapeHtml(
+        appUrl('js/main.js')
+    ) ?>"></script>
+
 </body>
 
 </html>
