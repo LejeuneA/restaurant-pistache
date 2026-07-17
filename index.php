@@ -1,3 +1,27 @@
+<?php
+
+require_once __DIR__ . '/admin/settings.php';
+
+if (empty($_SESSION['public_reservation_csrf'])) {
+    $_SESSION['public_reservation_csrf'] = bin2hex(random_bytes(32));
+}
+
+$reservationFlash = $_SESSION['public_form_flash']['reservation'] ?? null;
+unset($_SESSION['public_form_flash']['reservation']);
+
+$reservationMessage = null;
+if (is_array($reservationFlash)) {
+    $reservationMessage = getMessage(
+        (string) ($reservationFlash['message'] ?? ''),
+        (string) ($reservationFlash['type'] ?? 'info')
+    );
+}
+
+$brusselsTimezone = new DateTimeZone('Europe/Brussels');
+$today = new DateTimeImmutable('today', $brusselsTimezone);
+$minimumReservationDate = $today->format('Y-m-d');
+$maximumReservationDate = $today->modify('+1 year')->format('Y-m-d');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -299,7 +323,7 @@
         <!-----------------------------------------------------------------
                             Reservation section
         ------------------------------------------------------------------>
-        <section class="reservation-section">
+        <section class="reservation-section" id="reservation">
 
             <div class="reservation-section-container container">
                 <!--Reservation form container-->
@@ -313,26 +337,35 @@
                             </div>
                         </div>
                         <!--Reservation-content-title-->
+                        <?php if ($reservationMessage !== null): ?>
+                            <div class="message"><?= $reservationMessage ?></div>
+                        <?php endif; ?>
                         <!--Reservation form-->
-                        <form action="./forms/reservation.php" method="post">
+                        <form action="<?= escapeHtml(appUrl('forms/reservation.php')) ?>" method="post">
+                            <input type="hidden" name="csrf_token" value="<?= escapeHtml($_SESSION['public_reservation_csrf']) ?>">
+                            <input type="hidden" name="return_to" value="home">
+                            <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
+                                <label for="reservation_website">Website</label>
+                                <input type="text" id="reservation_website" name="website" tabindex="-1" autocomplete="off">
+                            </div>
                             <div class="reservation-form-container">
                                 <div class="reservation-form-items">
                                     <div class="reservation-form-item">
                                         <div class="form-group">
                                             <label for="name">Name</label>
-                                            <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                                            <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" maxlength="255" autocomplete="name" required>
                                         </div>
                                     </div>
                                     <div class="reservation-form-item">
                                         <div class="form-group">
                                             <label for="email">Email</label>
-                                            <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                                            <input type="email" id="email" name="email" class="form-control" placeholder="Your Email" maxlength="255" autocomplete="email" required>
                                         </div>
                                     </div>
                                     <div class="reservation-form-item">
                                         <div class="form-group">
                                             <label for="phone">Phone</label>
-                                            <input type="text" name="phone" class="form-control" placeholder="Phone" required>
+                                            <input type="tel" id="phone" name="phone" class="form-control" placeholder="Phone" maxlength="20" autocomplete="tel" required>
                                         </div>
                                     </div>
                                 </div>
@@ -340,7 +373,7 @@
                                     <div class="reservation-form-item">
                                         <div class="form-group">
                                             <label for="book_date">Book date</label>
-                                            <input type="date" name="book_date" class="form-control" id="book_date" placeholder="Date" required>
+                                            <input type="date" name="book_date" class="form-control" id="book_date" min="<?= escapeHtml($minimumReservationDate) ?>" max="<?= escapeHtml($maximumReservationDate) ?>" required>
                                         </div>
                                     </div>
                                     <div class="reservation-form-item">

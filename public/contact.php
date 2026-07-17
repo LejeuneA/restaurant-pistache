@@ -1,5 +1,21 @@
 <?php
+
 require_once __DIR__ . '/../admin/settings.php';
+
+if (empty($_SESSION['public_contact_csrf'])) {
+    $_SESSION['public_contact_csrf'] = bin2hex(random_bytes(32));
+}
+
+$contactFlash = $_SESSION['public_form_flash']['contact'] ?? null;
+unset($_SESSION['public_form_flash']['contact']);
+
+$contactMessage = null;
+if (is_array($contactFlash)) {
+    $contactMessage = getMessage(
+        (string) ($contactFlash['message'] ?? ''),
+        (string) ($contactFlash['type'] ?? 'info')
+    );
+}
 ?>
 
 <!DOCTYPE html>
@@ -61,33 +77,35 @@ require_once __DIR__ . '/../admin/settings.php';
                             </div>
                         </div>
                         <!-- Contact-content-title -->
-
-                        <?php if (isset($_GET['success'])): ?>
-                        <div class="msg-success">
-                            <p>Message sent!</p>
-                        </div>
+                        <?php if ($contactMessage !== null): ?>
+                            <div class="message"><?= $contactMessage ?></div>
                         <?php endif; ?>
 
                         <!-- Contact form -->
-                        <form action="../forms/contact.php" method="post">
+                        <form action="<?= escapeHtml(appUrl('forms/contact.php')) ?>" method="post">
+                            <input type="hidden" name="csrf_token" value="<?= escapeHtml($_SESSION['public_contact_csrf']) ?>">
+                            <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
+                                <label for="contact_website">Website</label>
+                                <input type="text" id="contact_website" name="website" tabindex="-1" autocomplete="off">
+                            </div>
                             <div class="contact-form-container">
                                 <div class="contact-form-items">
                                     <div class="contact-form-item">
                                         <div class="form-group">
                                             <label for="firstName">Name</label>
-                                            <input type="text" class="form-control" name="firstName" placeholder="Your Name">
+                                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Your Name" maxlength="45" autocomplete="given-name" required>
                                         </div>
                                     </div>
                                     <div class="contact-form-item">
                                         <div class="form-group">
                                             <label for="lastName">Surname</label>
-                                            <input type="text" class="form-control" name="lastName" placeholder="Your Surname">
+                                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Your Surname" maxlength="45" autocomplete="family-name" required>
                                         </div>
                                     </div>
                                     <div class="contact-form-item">
                                         <div class="form-group">
                                             <label for="email">Email</label>
-                                            <input type="text" class="form-control" name="email" placeholder="Your Email">
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="Your Email" maxlength="150" autocomplete="email" required>
                                         </div>
                                     </div>
                                     <!-- Contact form item end -->
@@ -97,13 +115,13 @@ require_once __DIR__ . '/../admin/settings.php';
                                     <div class="contact-form-item">
                                         <div class="form-group">
                                             <label for="phone">Phone</label>
-                                            <input type="text" class="form-control" name="phone" placeholder="Phone">
+                                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone" maxlength="30" autocomplete="tel" required>
                                         </div>
                                     </div>
                                     <div class="contact-form-item">
                                         <div class="form-group">
                                             <label for="message">Message</label>
-                                            <textarea type="text" id="form-message" name="message" placeholder="Your message"></textarea>
+                                            <textarea id="form-message" name="message" placeholder="Your message" minlength="10" maxlength="500" required></textarea>
                                         </div>
                                     </div>
                                     <!-- Contact form item end -->
